@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <title>邓天澍 & 邹涛｜婚礼邀请</title>
+
+  <meta
+    name="description"
+    content="诚邀您出席邓天澍与邹涛的结婚典礼｜2026年10月25日｜吉安宾馆·礼堂"
+  />
+
+  <meta property="og:title" content="邓天澍 & 邹涛｜婚礼邀请" />
+  <meta
+    property="og:description"
+    content="2026年10月25日 · 吉安宾馆·礼堂"
+  />
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+
+  <!-- 音乐 -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="./assets/music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- 右上角音乐按钮 -->
+  <button id="musicButton" class="music-button" aria-label="音乐">
+    ♫
+  </button>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+
+    <div class="hero-image"></div>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+      <p class="eyebrow">WEDDING INVITATION</p>
+
+      <p class="invite-line">
+        诚邀您出席
+      </p>
+
+      <h1>
+        <span>邓天澍</span>
+        <i>&</i>
+        <span>邹涛</span>
+      </h1>
+
+      <p class="latin-name">
+        TIANSHU&nbsp;&nbsp;&amp;&nbsp;&nbsp;TAO
+      </p>
+
+      <div class="hero-date">
+        <span>2026</span>
+        <b>·</b>
+        <span>10</span>
+        <b>·</b>
+        <span>25</span>
+      </div>
+
+      <p class="hero-week">
+        SUNDAY · 丙午年九月十六
+      </p>
+
+      <!-- 宾客名字 -->
+      <p id="guestGreeting" class="guest-greeting"></p>
+
+      <button id="openInvitation" class="open-button">
+        <span>开启请柬</span>
+        <small>OPEN INVITATION</small>
+      </button>
+
+    </div>
+
+    <div class="scroll-hint">
+      <span></span>
+      SCROLL
+    </div>
+
+  </section>
+
+
+  <!-- ==================== MAIN ==================== -->
+
+  <main id="invitation" class="invitation">
+
+    <!-- 日期 -->
+    <section class="section date-section reveal">
+
+      <p class="section-label">OUR DAY</p>
+
+      <h2>
+        The day<br />
+        we say <em>yes.</em>
+      </h2>
+
+      <div class="big-date">
+        <span>25</span>
+        <div>
+          <strong>OCTOBER</strong>
+          <small>2026 · SUNDAY</small>
+        </div>
+      </div>
+
+      <p class="chinese-date">
+        二〇二六年十月二十五日<br />
+        丙午年九月十六
+      </p>
+
+      <div id="countdown" class="countdown">
+        <div>
+          <strong id="days">--</strong>
+          <span>DAYS</span>
+        </div>
+
+        <div>
+          <strong id="hours">--</strong>
+          <span>HOURS</span>
+        </div>
+
+        <div>
+          <strong id="minutes">--</strong>
+          <span>MINUTES</span>
+        </div>
+
+        <div>
+          <strong id="seconds">--</strong>
+          <span>SECONDS</span>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- 照片 -->
+    <section class="section photo-section reveal">
+
+      <p class="section-label">MOMENTS</p>
+
+      <div class="photo-frame large-photo">
+        <div class="photo-placeholder">
+          <span>YOUR PHOTO</span>
+        </div>
+      </div>
+
+      <div class="photo-caption">
+        <p>Two people.</p>
+        <p>One story.</p>
+      </div>
+
+      <div class="photo-grid">
+
+        <div class="photo-frame">
+          <div class="photo-placeholder">
+            <span>PHOTO 02</span>
+          </div>
+        </div>
+
+        <div class="photo-frame offset">
+          <div class="photo-placeholder">
+            <span>PHOTO 03</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- 故事 -->
+    <section class="section story-section reveal">
+
+      <p class="section-label">OUR STORY</p>
+
+      <h2>
+        From this moment,<br />
+        <em>together.</em>
+      </h2>
+
+      <p class="story-text">
+        从相遇，到决定携手走过往后的岁月。
+        我们想把人生中重要的一天，
+        与珍贵的你共同分享。
+      </p>
+
+    </section>
+
+
+    <!-- 婚礼 -->
+    <section class="section wedding-section reveal">
+
+      <p class="section-label">THE WEDDING</p>
+
+      <h2>Wedding Day</h2>
+
+      <div class="schedule">
+
+        <div class="schedule-item">
+          <time>11:00</time>
+          <div>
+            <strong>迎宾</strong>
+            <span>WELCOME</span>
+          </div>
+        </div>
+
+        <div class="schedule-item highlight">
+          <time>12:08</time>
+          <div>
+            <strong>婚礼仪式</strong>
+            <span>CEREMONY</span>
+          </div>
+        </div>
+
+        <div class="schedule-item">
+          <time>12:18</time>
+          <div>
+            <strong>喜宴</strong>
+            <span>RECEPTION</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- 地址 -->
+    <section class="section location-section reveal">
+
+      <p class="section-label">LOCATION</p>
+
+      <h2>
+        吉安宾馆<br />
+        <em>· 礼堂</em>
+      </h2>
+
+      <p class="address">
+        中国 · 江西 · 吉安<br />
+        吉安市吉州区沿江路99号
+      </p>
+
+      <a
+        class="map-button"
+        href="https://surl.amap.com/1qtd9gB5ti"
+        target="_blank"
+        rel="noopener"
+      >
+        打开高德地图
+      </a>
+
+    </section>
+
+
+    <!-- RSVP -->
+    <section class="section rsvp-section reveal">
+
+      <p class="section-label">RSVP</p>
+
+      <h2>
+        Will you<br />
+        <em>join us?</em>
+      </h2>
+
+      <p class="rsvp-intro">
+        我们期待与你在吉安相见。
+      </p>
+
+      <form id="rsvpForm">
+
+        <label>
+          姓名
+          <input
+            id="rsvpName"
+            type="text"
+            placeholder="请输入您的姓名"
+            required
+          />
+        </label>
+
+        <label>
+          是否出席
+          <select id="rsvpAttendance">
+            <option value="yes">很期待，婚礼见</option>
+            <option value="no">很遗憾，无法出席</option>
+          </select>
+        </label>
+
+        <label>
+          人数
+          <select id="rsvpPeople">
+            <option value="1">1 人</option>
+            <option value="2">2 人</option>
+            <option value="3">3 人</option>
+            <option value="4">4 人</option>
+            <option value="5">5 人</option>
+          </select>
+        </label>
+
+        <label>
+          留言
+          <textarea
+            id="rsvpMessage"
+            placeholder="想对我们说的话……"
+          ></textarea>
+        </label>
+
+        <button type="submit" class="submit-button">
+          确认回复
+        </button>
+
+      </form>
+
+      <p id="rsvpResult" class="rsvp-result"></p>
+
+    </section>
+
+
+    <!-- 结尾 -->
+    <section class="final-section reveal">
+
+      <p class="final-small">
+        THANK YOU FOR BEING PART OF OUR STORY
+      </p>
+
+      <h2>
+        TIANSHU<br />
+        <span>&amp;</span><br />
+        TAO
+      </h2>
+
+      <p class="final-date">
+        2026 · 10 · 25
+      </p>
+
+      <p class="final-message">
+        See you in Ji'an.
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <script src="./app.js"></script>
+
+</body>
+</html>
