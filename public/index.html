@@ -4,223 +4,261 @@
   <meta charset="UTF-8" />
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
   />
 
-  <title>TIANSHU & TAO — Wedding Invitation</title>
+  <title>TIANSHU & TAO · Wedding</title>
 
   <meta
     name="description"
-    content="邓天澍 & 邹涛 · 2026年10月25日 · 吉安宾馆·礼堂"
+    content="邓天澍 & 邹涛 · 2026年10月25日 · 吉安"
   />
 
-  <meta property="og:title" content="TIANSHU & TAO — Wedding Invitation" />
+  <meta property="og:title" content="TIANSHU & TAO · Wedding" />
   <meta
     property="og:description"
     content="诚邀您出席邓天澍 & 邹涛的结婚典礼"
   />
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
 
-  <!-- 背景音乐 -->
+  <!-- =========================
+       背景音乐
+  ========================== -->
   <audio id="bgMusic" preload="auto" loop>
-    <source src="Shortcut To Heaven.mp3" type="audio/mpeg" />
+    <source src="./Shortcut To Heaven.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- 音乐控制 -->
+  <!-- 音乐按钮 -->
   <button
     class="music-button"
     id="musicButton"
     type="button"
     aria-label="播放或暂停音乐"
   >
-    <span class="music-icon">
-      <span></span>
-      <span></span>
-      <span></span>
-    </span>
+    <span class="music-icon">♪</span>
   </button>
 
+
+  <!-- =========================
+       首屏
+  ========================== -->
   <main>
 
-    <!-- =====================================================
-         HERO
-    ====================================================== -->
-    <section class="hero">
+    <section class="hero" id="hero">
 
-      <div class="hero-wash hero-wash-one"></div>
-      <div class="hero-wash hero-wash-two"></div>
+      <div class="hero-paper">
 
-      <div class="hero-inner">
-
-        <p class="eyebrow">A WEDDING INVITATION</p>
-
-        <div class="guest-introduction">
-          <p class="for-you">FOR YOU</p>
-
-          <h1 id="guestName" class="guest-name">诚邀您出席</h1>
-
-          <p class="guest-line">诚邀您出席</p>
+        <div class="hero-topline">
+          <span>TIANSHU & TAO</span>
+          <span>WEDDING INVITATION</span>
         </div>
 
-        <div class="hero-rule"></div>
 
-        <div class="couple">
-          <p class="couple-small">THE WEDDING OF</p>
+        <!-- 宾客名字：重中之重 -->
+        <div class="guest-area">
 
-          <div class="couple-names">
-            <span>TIANSHU</span>
-            <i>&</i>
-            <span>TAO</span>
+          <div class="guest-eyebrow">
+            FOR YOU
           </div>
 
-          <p class="couple-chinese">
-            邓天澍 <span>·</span> 邹涛
-          </p>
+          <div
+            class="guest-name"
+            id="guestName"
+          >
+            您
+          </div>
+
+          <div class="guest-invitation">
+            诚邀您出席
+          </div>
+
         </div>
+
+
+        <div class="hero-couple">
+
+          <div class="couple-latin">
+            TIANSHU
+            <span>&amp;</span>
+            TAO
+          </div>
+
+          <div class="couple-chinese">
+            邓天澍 <span>&amp;</span> 邹涛
+          </div>
+
+        </div>
+
 
         <div class="hero-date">
 
-          <div class="date-number">25</div>
+          <div class="date-main">
+            25
+            <span>OCTOBER</span>
+            2026
+          </div>
 
-          <div class="date-month">OCTOBER</div>
+          <div class="date-divider"></div>
 
-          <div class="date-year">2026</div>
-
-          <div class="date-bottom">
+          <div class="date-sub">
             <span>丙午年九月十六</span>
-            <span class="date-divider">·</span>
-            <span>星期日</span>
+            <span>SUNDAY · 星期日</span>
           </div>
 
         </div>
 
-        <button id="openInvitation" class="open-invitation" type="button">
+
+        <button
+          class="open-invitation"
+          id="openInvitation"
+          type="button"
+        >
           <span>开启请柬</span>
-          <small>OPEN INVITATION</small>
+          <span class="open-arrow">↓</span>
         </button>
 
-      </div>
-
-      <div class="hero-bottom-mark">
-        <span></span>
-        <small>SCROLL</small>
-        <span></span>
       </div>
 
     </section>
 
 
-    <!-- =====================================================
+
+    <!-- =========================
          OUR DAY
-    ====================================================== -->
+    ========================== -->
     <section class="section our-day" id="ourDay">
 
-      <div class="section-intro">
-        <p class="section-number">01</p>
-        <p class="section-kicker">OUR DAY</p>
-
-        <h2>
-          A day to remember,
-          <em>a lifetime to cherish.</em>
-        </h2>
-
-        <div class="soft-rule"></div>
+      <div class="section-heading">
+        <span class="section-kicker">01 · OUR DAY</span>
+        <h2>我们的婚礼</h2>
+        <p>
+          October 25, 2026
+        </p>
       </div>
 
-      <div class="calendar">
 
-        <div class="calendar-top">
-          <span>OCTOBER</span>
-          <span>2026</span>
+      <div class="day-layout">
+
+        <div class="calendar-card">
+
+          <div class="calendar-month">
+            OCTOBER
+            <span>2026</span>
+          </div>
+
+          <div class="calendar-week">
+            <span>S</span>
+            <span>M</span>
+            <span>T</span>
+            <span>W</span>
+            <span>T</span>
+            <span>F</span>
+            <span>S</span>
+          </div>
+
+          <div class="calendar-grid">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+            <span>9</span>
+            <span>10</span>
+
+            <span>11</span>
+            <span>12</span>
+            <span>13</span>
+            <span>14</span>
+            <span>15</span>
+            <span>16</span>
+            <span>17</span>
+
+            <span>18</span>
+            <span>19</span>
+            <span>20</span>
+            <span>21</span>
+            <span>22</span>
+            <span>23</span>
+            <span>24</span>
+
+            <span class="selected-day">25</span>
+
+            <span>26</span>
+            <span>27</span>
+            <span>28</span>
+            <span>29</span>
+            <span>30</span>
+            <span>31</span>
+
+          </div>
+
         </div>
 
-        <div class="calendar-grid calendar-week">
-          <span>MON</span>
-          <span>TUE</span>
-          <span>WED</span>
-          <span>THU</span>
-          <span>FRI</span>
-          <span>SAT</span>
-          <span>SUN</span>
-        </div>
 
-        <div class="calendar-grid calendar-days">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span>1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>4</span>
+        <div class="day-copy">
 
-          <span>5</span>
-          <span>6</span>
-          <span>7</span>
-          <span>8</span>
-          <span>9</span>
-          <span>10</span>
-          <span>11</span>
+          <p class="large-copy">
+            A day to remember,<br />
+            a beginning to keep.
+          </p>
 
-          <span>12</span>
-          <span>13</span>
-          <span>14</span>
-          <span>15</span>
-          <span>16</span>
-          <span>17</span>
-          <span>18</span>
+          <div class="thin-rule"></div>
 
-          <span>19</span>
-          <span>20</span>
-          <span>21</span>
-          <span>22</span>
-          <span>23</span>
-          <span>24</span>
+          <p class="date-chinese">
+            二〇二六年十月二十五日<br />
+            丙午年九月十六
+          </p>
 
-          <span class="calendar-selected">25</span>
-
-          <span>26</span>
-          <span>27</span>
-          <span>28</span>
-          <span>29</span>
-          <span>30</span>
-          <span>31</span>
         </div>
 
       </div>
 
+
+      <!-- 倒计时 -->
       <div class="countdown-wrap">
 
-        <p class="countdown-label">COUNTING DOWN TO OUR DAY</p>
+        <div class="countdown-label">
+          COUNTING DOWN TO OUR DAY
+        </div>
 
-        <div class="countdown" id="countdown">
+        <div class="countdown">
 
           <div>
-            <strong id="days">--</strong>
+            <strong id="countDays">--</strong>
             <span>DAYS</span>
           </div>
 
-          <i>:</i>
+          <div class="countdown-dot">:</div>
 
           <div>
-            <strong id="hours">--</strong>
+            <strong id="countHours">--</strong>
             <span>HOURS</span>
           </div>
 
-          <i>:</i>
+          <div class="countdown-dot">:</div>
 
           <div>
-            <strong id="minutes">--</strong>
+            <strong id="countMinutes">--</strong>
             <span>MINUTES</span>
           </div>
 
-          <i>:</i>
+          <div class="countdown-dot">:</div>
 
           <div>
-            <strong id="seconds">--</strong>
+            <strong id="countSeconds">--</strong>
             <span>SECONDS</span>
           </div>
 
@@ -231,44 +269,360 @@
     </section>
 
 
-    <!-- =====================================================
-         MOMENTS
-    ====================================================== -->
-    <section class="section moments">
 
-      <div class="section-intro narrow">
+    <!-- =========================
+         PHOTO
+    ========================== -->
+    <section class="section moments" id="moments">
 
-        <p class="section-number">02</p>
-        <p class="section-kicker">MOMENTS</p>
+      <div class="section-heading left-heading">
+
+        <span class="section-kicker">
+          02 · MOMENTS
+        </span>
 
         <h2>
-          Little moments,
-          <em>becoming our story.</em>
+          Some moments,<br />
+          we keep forever.
         </h2>
 
       </div>
 
-      <div class="photo-editorial">
 
-        <div class="photo-placeholder photo-large">
-          <span>OUR MOMENTS</span>
-          <small>PHOTO COMING SOON</small>
+      <!--
+        照片由 app.js 根据 weddingConfig.photos 自动生成。
+        现在没有照片，所以这里不会出现乱七八糟的假图。
+      -->
+      <div
+        class="photo-gallery"
+        id="photoGallery"
+      ></div>
+
+    </section>
+
+
+
+    <!-- =========================
+         STORY
+    ========================== -->
+    <section class="section story" id="story">
+
+      <div class="story-inner">
+
+        <div class="section-heading">
+
+          <span class="section-kicker">
+            03 · OUR STORY
+          </span>
+
+          <h2>
+            Two lives,<br />
+            one story.
+          </h2>
+
         </div>
 
-        <div class="photo-row">
 
-          <div class="photo-placeholder photo-small">
-            <span>01</span>
-          </div>
+        <div class="story-copy">
 
-          <div class="photo-caption">
-            <p>TOGETHER</p>
-            <span>
-              The days we have shared,
-              and all the days still waiting for us.
-            </span>
+          <p>
+            From the first hello to this day,
+            every ordinary moment has slowly
+            become part of something extraordinary.
+          </p>
+
+          <p>
+            And now, we would love to have
+            you there when the next chapter begins.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         THE WEDDING
+    ========================== -->
+    <section class="section wedding" id="wedding">
+
+      <div class="section-heading">
+
+        <span class="section-kicker">
+          04 · THE WEDDING
+        </span>
+
+        <h2>
+          The day we say<br />
+          “I do.”
+        </h2>
+
+      </div>
+
+
+      <div class="schedule" id="weddingSchedule">
+        <!-- app.js 自动生成 -->
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         LOCATION
+    ========================== -->
+    <section class="section location" id="location">
+
+      <div class="section-heading">
+
+        <span class="section-kicker">
+          05 · LOCATION
+        </span>
+
+        <h2>
+          Meet us there.
+        </h2>
+
+        <p class="venue-name">
+          吉安宾馆·礼堂
+        </p>
+
+        <p class="venue-address">
+          中国·江西·吉安<br />
+          吉州区沿江路99号
+        </p>
+
+      </div>
+
+
+      <a
+        class="location-map"
+        id="mapImageLink"
+        href="#"
+        target="_blank"
+        rel="noopener"
+      >
+        <img
+          src="./location-map.jpg"
+          alt="吉安宾馆·礼堂地图"
+        />
+
+        <span class="map-overlay">
+          OPEN MAP ↗
+        </span>
+      </a>
+
+
+      <a
+        class="navigation-button"
+        id="navigationButton"
+        href="#"
+        target="_blank"
+        rel="noopener"
+      >
+        <span>打开高德地图导航</span>
+        <span>↗</span>
+      </a>
+
+    </section>
+
+
+
+    <!-- =========================
+         RSVP
+    ========================== -->
+    <section class="section rsvp" id="rsvp">
+
+      <div class="section-heading">
+
+        <span class="section-kicker">
+          06 · RSVP
+        </span>
+
+        <h2>
+          Will you join us?
+        </h2>
+
+        <p>
+          Please let us know if you will be celebrating with us.
+        </p>
+
+      </div>
+
+
+      <form
+        class="rsvp-form"
+        id="rsvpForm"
+      >
+
+        <div class="form-field">
+
+          <label for="rsvpName">
+            NAME
+          </label>
+
+          <input
+            id="rsvpName"
+            name="name"
+            type="text"
+            autocomplete="name"
+            placeholder="请输入您的姓名"
+            required
+          />
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>
+            ATTENDING
+          </label>
+
+          <div class="choice-group">
+
+            <label class="choice">
+
+              <input
+                type="radio"
+                name="attending"
+                value="yes"
+                checked
+              />
+
+              <span>
+                我会出席
+              </span>
+
+            </label>
+
+
+            <label class="choice">
+
+              <input
+                type="radio"
+                name="attending"
+                value="no"
+              />
+
+              <span>
+                很遗憾无法出席
+              </span>
+
+            </label>
+
           </div>
 
         </div>
 
-        <div class="photo-row reverse">
+
+        <div class="form-field">
+
+          <label for="rsvpGuests">
+            GUESTS
+          </label>
+
+          <select
+            id="rsvpGuests"
+            name="guests"
+          >
+            <option value="1">1 人</option>
+            <option value="2">2 人</option>
+            <option value="3">3 人</option>
+            <option value="4">4 人</option>
+            <option value="5">5 人及以上</option>
+          </select>
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="rsvpMessage">
+            MESSAGE
+          </label>
+
+          <textarea
+            id="rsvpMessage"
+            name="message"
+            rows="4"
+            placeholder="想对我们说的话"
+          ></textarea>
+
+        </div>
+
+
+        <button
+          class="submit-button"
+          type="submit"
+        >
+          <span>提交回复</span>
+          <span>→</span>
+        </button>
+
+        <p
+          class="form-result"
+          id="rsvpResult"
+        ></p>
+
+      </form>
+
+    </section>
+
+
+
+    <!-- =========================
+         FINAL
+    ========================== -->
+    <section class="final-section">
+
+      <div class="final-monogram">
+        T
+        <span>&amp;</span>
+        T
+      </div>
+
+      <p class="final-small">
+        WITH LOVE
+      </p>
+
+      <h2>
+        TIANSHU<br />
+        <span>&amp;</span><br />
+        TAO
+      </h2>
+
+      <p class="final-date">
+        25 · 10 · 2026
+      </p>
+
+      <p class="final-thank">
+        Thank you for being part of our story.
+      </p>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- =========================
+       隐藏管理入口
+       宾客页面不会显示
+  ========================== -->
+  <a
+    href="./admin.html"
+    class="admin-hidden-link"
+    aria-hidden="true"
+  >
+    admin
+  </a>
+
+
+  <script src="./app.js"></script>
+
+</body>
+</html>
