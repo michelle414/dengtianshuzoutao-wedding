@@ -1,66 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500&display=swap');
-
-
 /* =========================================================
-   基础
-========================================================= */
-
-:root {
-  --ivory: #fbf8ef;
-  --paper: #f5f0df;
-
-  --sky: #cfe3df;
-  --water: #a8cbc7;
-
-  --sage: #b9c9ad;
-  --leaf: #91a98f;
-
-  --blush: #e8c8c0;
-  --lavender: #d8d0dc;
-
-  --sunlight: #efe2ad;
-  --gold: #b9a36c;
-
-  --ink: #465751;
-  --soft-ink: #78847c;
-
-  --white: #fffdf7;
-}
-
+   全局
+   ========================================================= */
 
 * {
   box-sizing: border-box;
 }
 
-
 html {
   scroll-behavior: smooth;
 }
 
-
 body {
   margin: 0;
-
-  background: var(--ivory);
-  color: var(--ink);
+  padding: 0;
 
   font-family:
+    "Times New Roman",
     "Noto Serif SC",
     "Songti SC",
-    "STSong",
     serif;
 
-  -webkit-font-smoothing: antialiased;
-}
+  color: #405044;
 
+  background:
+    linear-gradient(
+      180deg,
+      #f8f4e9 0%,
+      #f4efe1 100%
+    );
+
+  overflow-x: hidden;
+}
 
 button,
 input,
-select,
 textarea {
   font: inherit;
 }
 
+button {
+  cursor: pointer;
+}
 
 a {
   color: inherit;
@@ -68,55 +48,50 @@ a {
 }
 
 
-
 /* =========================================================
-   音乐按钮
-========================================================= */
+   背景音乐按钮
+   ========================================================= */
 
-.music-button {
+.music-toggle {
   position: fixed;
 
-  top: 20px;
-  right: 20px;
+  top: 18px;
+  right: 18px;
 
-  z-index: 100;
+  z-index: 1000;
 
   width: 42px;
   height: 42px;
 
-  border: 1px solid rgba(255,255,255,.75);
   border-radius: 50%;
 
-  background: rgba(255,253,247,.62);
+  border: 1px solid rgba(255,255,255,0.75);
 
-  color: #61756c;
-
-  font-family: Georgia, serif;
-  font-size: 18px;
-
-  cursor: pointer;
+  background: rgba(255,255,255,0.45);
 
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 
-  box-shadow:
-    0 8px 30px rgba(75,95,87,.12);
+  color: #53665a;
+
+  font-size: 20px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
 
   transition:
-    transform .3s ease,
-    background .3s ease;
+    transform 0.3s ease,
+    background 0.3s ease;
 }
 
-
-.music-button:hover {
+.music-toggle:hover {
   transform: scale(1.06);
 }
 
-
-.music-button.playing {
-  animation: musicRotate 3s linear infinite;
+.music-toggle.playing {
+  animation: musicRotate 4s linear infinite;
 }
-
 
 @keyframes musicRotate {
 
@@ -131,1444 +106,1489 @@ a {
 }
 
 
-
 /* =========================================================
-   首页 HERO
-========================================================= */
+   第一页
+   ========================================================= */
 
 .hero {
+
   position: relative;
 
   min-height: 100svh;
 
+  width: 100%;
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
   overflow: hidden;
 
   background:
+
     radial-gradient(
-      circle at 50% 20%,
-      rgba(255,255,255,.95),
-      rgba(248,244,226,.55) 40%,
-      rgba(205,226,220,.48) 100%
-    );
-}
+      circle at 20% 20%,
+      rgba(255,255,255,0.95),
+      transparent 35%
+    ),
 
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(238,221,180,0.55),
+      transparent 35%
+    ),
 
-.hero-image {
-  position: absolute;
-  inset: 0;
-
-  background-image: url("./assets/hero.jpg");
-  background-size: cover;
-  background-position: center;
-
-  filter:
-    saturate(.78)
-    contrast(.88)
-    brightness(1.12);
-
-  transform: scale(1.02);
-}
-
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-
-  background:
     linear-gradient(
-      180deg,
-      rgba(255,253,247,.35),
-      rgba(255,253,247,.18) 35%,
-      rgba(255,253,247,.42) 100%
+      135deg,
+      #dce8d8 0%,
+      #f5efdc 45%,
+      #e8d9b6 100%
     );
-}
 
-
-.hero-content {
-  position: relative;
-  z-index: 3;
-
-  width: min(90%, 760px);
-
-  margin: 0 auto;
-
-  padding:
-    7vh 0
-    5vh;
-
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-  text-align: center;
-}
-
-
-
-/* =========================================================
-   首页顶部
-========================================================= */
-
-.hero-kicker {
-  margin-bottom: 1.8rem;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: .78rem;
-
-  letter-spacing: .42em;
-
-  color: rgba(65,82,75,.72);
-
-  font-weight: 500;
-}
-
-
-
-/* =========================================================
-   宾客姓名
-   —— 首页第一视觉重点
-========================================================= */
-
-.guest-card {
-  position: relative;
-
-  width: min(88vw, 430px);
-
-  padding:
-    1.45rem
-    2rem
-    1.55rem;
-
-  margin-bottom: 2.3rem;
-
-  background:
-    rgba(255,253,247,.88);
-
-  border:
-    1px solid rgba(255,255,255,.96);
-
-  box-shadow:
-    0 20px 60px rgba(74,95,86,.15),
-    0 3px 12px rgba(74,95,86,.06);
-
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 
 
 /*
-   内框
+  模拟明媚的莫奈油画光感
 */
 
-.guest-card::before {
+.hero::before {
+
   content: "";
 
   position: absolute;
 
-  inset: 8px;
-
-  border:
-    1px solid rgba(145,165,141,.28);
-
-  pointer-events: none;
-}
-
-
-
-/* FOR YOU */
-
-.guest-label {
-  position: relative;
-
-  margin-bottom: .55rem;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: .72rem;
-
-  letter-spacing: .46em;
-
-  color: #91a38f;
-
-  font-weight: 500;
-}
-
-
-
-/* 真正的宾客姓名 */
-
-.guest-name {
-  position: relative;
-
-  font-family:
-    "Noto Serif SC",
-    "Songti SC",
-    "STSong",
-    serif;
-
-  font-size:
-    clamp(2.15rem, 9vw, 3.45rem);
-
-  line-height: 1.2;
-
-  letter-spacing: .16em;
-
-  color: #354740;
-
-  font-weight: 500;
-
-  text-shadow:
-    0 2px 16px rgba(255,255,255,.8);
-
-  overflow-wrap: anywhere;
-}
-
-
-
-/* 小横线 */
-
-.guest-line {
-  width: 54px;
-  height: 1px;
-
-  margin:
-    .9rem auto
-    .8rem;
+  inset: -10%;
 
   background:
-    rgba(185,163,108,.7);
+
+    radial-gradient(
+      ellipse at 25% 70%,
+      rgba(170,195,175,0.35),
+      transparent 38%
+    ),
+
+    radial-gradient(
+      ellipse at 80% 55%,
+      rgba(216,185,131,0.32),
+      transparent 35%
+    ),
+
+    radial-gradient(
+      ellipse at 55% 10%,
+      rgba(255,255,255,0.8),
+      transparent 32%
+    );
+
+  filter: blur(22px);
+
+  transform: rotate(-3deg);
+
 }
 
 
-
-/* 诚邀您出席 */
-
-.guest-invite {
-  position: relative;
-
-  font-size: .95rem;
-
-  letter-spacing: .3em;
-
-  color: rgba(67,83,78,.8);
-}
-
-
-
-/* =========================================================
-   新人
-   —— 第二视觉层级
-========================================================= */
-
-.couple-block {
-  position: relative;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  margin-bottom: 1.8rem;
-
-  padding-top: 1.35rem;
-}
-
-
-.couple-block::before {
-  content: "";
+.hero-overlay {
 
   position: absolute;
 
-  top: 0;
-
-  width: 62px;
-  height: 1px;
-
-  background:
-    rgba(185,163,108,.62);
-}
-
-
-.couple-name {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: .18em;
-
-  font-family:
-    "Noto Serif SC",
-    "Songti SC",
-    "STSong",
-    serif;
-
-  font-size:
-    clamp(1.95rem, 7vw, 3.45rem);
-
-  line-height: 1.15;
-
-  letter-spacing: .08em;
-
-  color: #465951;
-
-  font-weight: 400;
-
-  text-shadow:
-    0 2px 16px rgba(255,255,255,.7);
-}
-
-
-.ampersand {
-  color: var(--gold);
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: .82em;
-
-  font-style: italic;
-}
-
-
-.couple-latin {
-  margin-top: .6rem;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: .82rem;
-
-  letter-spacing: .46em;
-
-  color: rgba(66,82,75,.68);
-}
-
-
-
-/* =========================================================
-   首页日期
-========================================================= */
-
-.hero-date {
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-
-  margin-bottom: 2.1rem;
-}
-
-
-.date-main {
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size:
-    clamp(1.15rem, 4vw, 1.55rem);
-
-  letter-spacing: .24em;
-
-  color: #5a6e66;
-}
-
-
-.date-sub {
-  margin-top: .3rem;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: .68rem;
-
-  letter-spacing: .2em;
-
-  color: rgba(72,87,80,.64);
-}
-
-
-
-/* =========================================================
-   开启请柬
-========================================================= */
-
-.open-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  min-width: 205px;
-
-  padding:
-    .9rem
-    2.2rem
-    .95rem;
-
-  border:
-    1px solid rgba(126,151,140,.62);
-
-  border-radius: 999px;
-
-  background:
-    rgba(255,253,247,.72);
-
-  color: #53675e;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 10px 34px rgba(72,93,84,.1);
-
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
-  transition:
-    transform .3s ease,
-    background .3s ease,
-    box-shadow .3s ease;
-}
-
-
-.open-button span {
-  font-size: .92rem;
-
-  letter-spacing: .25em;
-}
-
-
-.open-button small {
-  margin-top: .28rem;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: .64rem;
-
-  letter-spacing: .3em;
-
-  opacity: .65;
-}
-
-
-.open-button:hover {
-  transform: translateY(-2px);
-
-  background:
-    rgba(255,253,247,.92);
-
-  box-shadow:
-    0 14px 40px rgba(72,93,84,.15);
-}
-
-
-
-/* =========================================================
-   滚动提示
-========================================================= */
-
-.scroll-hint {
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-
-  margin-top: 2rem;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: .6rem;
-
-  letter-spacing: .3em;
-
-  color: rgba(70,85,78,.56);
-}
-
-
-.scroll-hint span {
-  width: 1px;
-  height: 34px;
-
-  margin-bottom: .6rem;
-
-  background:
-    rgba(115,137,125,.5);
-}
-
-
-
-/* =========================================================
-   正文
-========================================================= */
-
-.invitation {
-  overflow: hidden;
+  inset: 0;
 
   background:
     linear-gradient(
       180deg,
-      var(--ivory),
-      #f8f3e5 50%,
-      #f4f0e5
+      rgba(255,255,255,0.18),
+      rgba(255,255,255,0.05)
     );
+
 }
 
 
-.section {
+.hero-inner {
+
   position: relative;
 
-  width: min(88%, 760px);
+  z-index: 2;
 
-  margin: 0 auto;
+  width: min(
+    90%,
+    560px
+  );
+
+  min-height: 100svh;
 
   padding:
-    110px 0;
+    48px
+    22px
+    36px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
 }
 
 
-.section-label {
-  margin: 0 0 1.4rem;
+/* =========================================================
+   宾客姓名
+   —— 首页最重要的视觉元素
+   ========================================================= */
+
+.guest-card {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin-bottom: 34px;
+
+  padding: 20px 30px 22px;
+
+  min-width: 240px;
+
+  background:
+    rgba(255,255,255,0.42);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.78);
+
+  box-shadow:
+    0 12px 40px
+    rgba(82,96,75,0.08);
+
+  backdrop-filter:
+    blur(12px);
+
+}
+
+
+.guest-label {
+
+  margin-bottom: 8px;
 
   font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
+    Arial,
+    sans-serif;
 
-  font-size: .72rem;
+  font-size: 10px;
 
-  letter-spacing: .42em;
+  letter-spacing: 0.38em;
 
-  color: #92a391;
+  color: #708171;
+
 }
 
 
-.section h2 {
-  margin: 0;
+.guest-name {
 
   font-family:
-    "Cormorant Garamond",
-    "Noto Serif SC",
-    Georgia,
+    "Songti SC",
+    "STSong",
     serif;
 
-  font-size:
-    clamp(2.4rem, 8vw, 4.3rem);
+  font-size: clamp(
+    34px,
+    9vw,
+    50px
+  );
 
-  line-height: 1.05;
+  line-height: 1.2;
 
-  font-weight: 400;
+  font-weight: 500;
 
-  color: #4b5c55;
+  letter-spacing: 0.14em;
+
+  color: #34483b;
+
 }
 
 
-.section h2 em {
-  color: #9a8c69;
+.guest-line {
+
+  width: 52px;
+
+  height: 1px;
+
+  margin:
+    13px
+    0
+    11px;
+
+  background:
+    #9b8b69;
+
+}
+
+
+.guest-invite {
+
+  font-size: 15px;
+
+  letter-spacing: 0.18em;
+
+  color: #59675c;
+
+}
+
+
+/* =========================================================
+   首页英文
+   ========================================================= */
+
+.hero-kicker {
+
+  margin-bottom: 15px;
+
+  font-family:
+    Arial,
+    sans-serif;
+
+  font-size: 10px;
+
+  letter-spacing: 0.38em;
+
+  color: #66756a;
+
+}
+
+
+/* =========================================================
+   新郎新娘
+   ========================================================= */
+
+.couple-block {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+}
+
+
+.couple-name {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 14px;
+
+}
+
+
+.name-cn {
+
+  font-size: clamp(
+    31px,
+    8vw,
+    44px
+  );
+
+  letter-spacing: 0.1em;
+
+  color: #3c4e42;
+
+}
+
+
+.ampersand {
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size: 26px;
 
   font-style: italic;
+
+  color: #8b7b5d;
+
 }
 
+
+.couple-latin {
+
+  margin-top: 9px;
+
+  font-family:
+    Arial,
+    sans-serif;
+
+  font-size: 10px;
+
+  letter-spacing: 0.34em;
+
+  color: #768277;
+
+}
 
 
 /* =========================================================
    日期
-========================================================= */
+   ========================================================= */
 
-.date-section {
-  text-align: center;
+.hero-date {
+
+  margin-top: 29px;
+
 }
 
 
-.date-section .section-label {
-  text-align: center;
-}
-
-
-.big-date {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 1.2rem;
-
-  margin-top: 3rem;
-}
-
-
-.big-date > span {
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size:
-    clamp(6rem, 25vw, 10rem);
-
-  line-height: .75;
-
-  color: #78958d;
-
-  font-weight: 300;
-}
-
-
-.big-date > div {
-  display: flex;
-  flex-direction: column;
-
-  align-items: flex-start;
-}
-
-
-.big-date strong {
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: 1.15rem;
-
-  letter-spacing: .18em;
-
-  font-weight: 500;
-}
-
-
-.big-date small {
-  margin-top: .3rem;
+.date-main {
 
   font-family:
-    "Cormorant Garamond",
-    Georgia,
+    "Times New Roman",
     serif;
 
-  font-size: .7rem;
+  font-size: 24px;
 
-  letter-spacing: .18em;
+  letter-spacing: 0.16em;
 
-  color: #87948d;
+  color: #536358;
+
 }
 
 
-.chinese-date {
-  margin-top: 2rem;
+.date-sub {
 
-  line-height: 2;
+  margin-top: 7px;
 
-  color: #7a847e;
+  font-family:
+    Arial,
+    sans-serif;
 
-  font-size: .9rem;
+  font-size: 9px;
+
+  letter-spacing: 0.18em;
+
+  color: #788278;
+
 }
-
 
 
 /* =========================================================
-   倒计时
-========================================================= */
+   开启请柬
+   ========================================================= */
 
-.countdown {
-  display: grid;
+.open-btn {
 
-  grid-template-columns:
-    repeat(4, 1fr);
+  margin-top: 34px;
 
-  gap: 1px;
+  padding:
+    14px
+    24px
+    12px;
 
-  max-width: 580px;
+  border: 0;
 
-  margin: 3rem auto 0;
+  background:
+    rgba(255,255,255,0.42);
 
-  border-top:
-    1px solid rgba(130,150,139,.25);
+  color: #4d6053;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 4px;
 
   border-bottom:
-    1px solid rgba(130,150,139,.25);
+    1px solid
+    rgba(88,105,91,0.4);
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
 }
 
 
-.countdown > div {
-  padding: 1.2rem .4rem;
+.open-btn:hover {
+
+  transform:
+    translateY(-3px);
+
+  background:
+    rgba(255,255,255,0.65);
+
 }
 
 
-.countdown strong {
-  display: block;
+.open-btn span {
+
+  font-size: 15px;
+
+  letter-spacing: 0.18em;
+
+}
+
+
+.open-btn small {
 
   font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
+    Arial,
+    sans-serif;
 
-  font-size: 2rem;
+  font-size: 8px;
+
+  letter-spacing: 0.24em;
+
+}
+
+
+.open-btn b {
+
+  margin-top: 5px;
+
+  font-size: 18px;
 
   font-weight: 400;
 
-  color: #637b71;
+  animation:
+    arrowDown 1.7s ease-in-out infinite;
 }
 
 
-.countdown span {
-  display: block;
+@keyframes arrowDown {
 
-  margin-top: .25rem;
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(5px);
+  }
+
+}
+
+
+/* =========================================================
+   第二页开始
+   ========================================================= */
+
+.details-section {
+
+  min-height: 100svh;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding:
+    70px
+    22px;
+
+  background:
+
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(211,226,207,0.75),
+      transparent 34%
+    ),
+
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(231,213,177,0.65),
+      transparent 36%
+    ),
+
+    #f7f3e8;
+
+}
+
+
+.section-inner {
+
+  width: min(
+    100%,
+    620px
+  );
+
+  margin: 0 auto;
+
+}
+
+
+.section-eyebrow {
+
+  margin-bottom: 13px;
 
   font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
+    Arial,
+    sans-serif;
 
-  font-size: .6rem;
+  font-size: 9px;
 
-  letter-spacing: .2em;
+  letter-spacing: 0.4em;
 
-  color: #99a39d;
+  color: #879487;
+
 }
 
+
+section h2 {
+
+  margin:
+    0
+    0
+    20px;
+
+  font-size: 34px;
+
+  font-weight: 400;
+
+  letter-spacing: 0.12em;
+
+  color: #405044;
+
+}
+
+
+.section-intro {
+
+  margin:
+    0
+    0
+    34px;
+
+  line-height: 2;
+
+  font-size: 14px;
+
+  letter-spacing: 0.08em;
+
+  color: #68766b;
+
+}
+
+
+/* =========================================================
+   日期卡
+   ========================================================= */
+
+.date-card {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 25px;
+
+  padding:
+    25px;
+
+  margin-bottom: 28px;
+
+  background:
+    rgba(255,255,255,0.5);
+
+  border:
+    1px solid
+    rgba(125,139,120,0.16);
+
+}
+
+
+.date-number {
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size: 72px;
+
+  line-height: 0.9;
+
+  font-weight: 300;
+
+  color: #6e806f;
+
+}
+
+
+.date-info {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+}
+
+
+.date-info strong {
+
+  font-family:
+    Arial,
+    sans-serif;
+
+  font-size: 14px;
+
+  letter-spacing: 0.18em;
+
+}
+
+
+.date-info span {
+
+  font-family:
+    Arial,
+    sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: 0.12em;
+
+  color: #7d877f;
+
+}
+
+
+/* =========================================================
+   地点
+   ========================================================= */
+
+.location-card {
+
+  padding:
+    28px;
+
+  background:
+    rgba(255,255,255,0.55);
+
+  border:
+    1px solid
+    rgba(125,139,120,0.16);
+
+}
+
+
+.location-eyebrow {
+
+  font-family:
+    Arial,
+    sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: 0.35em;
+
+  color: #89958a;
+
+}
+
+
+.location-card h3 {
+
+  margin:
+    12px
+    0
+    12px;
+
+  font-size: 25px;
+
+  font-weight: 400;
+
+  letter-spacing: 0.08em;
+
+}
+
+
+.location-card p {
+
+  margin:
+    0
+    0
+    22px;
+
+  line-height: 1.9;
+
+  font-size: 13px;
+
+  color: #68766b;
+
+}
+
+
+.map-button {
+
+  display: inline-block;
+
+  padding:
+    10px
+    18px;
+
+  border:
+    1px solid
+    #9ba696;
+
+  font-size: 11px;
+
+  letter-spacing: 0.12em;
+
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+
+.map-button:hover {
+
+  background:
+    #637265;
+
+  color:
+    white;
+
+}
+
+
+/* =========================================================
+   婚礼流程
+   ========================================================= */
+
+.wedding-section {
+
+  min-height: 100svh;
+
+  padding:
+    90px
+    22px;
+
+  display: flex;
+
+  align-items: center;
+
+  background:
+    #edf1e8;
+
+}
+
+
+.schedule {
+
+  display: flex;
+
+  flex-direction: column;
+
+}
+
+
+.schedule-item {
+
+  display: grid;
+
+  grid-template-columns:
+    80px
+    1fr;
+
+  gap: 20px;
+
+  padding:
+    24px
+    0;
+
+  border-bottom:
+    1px solid
+    rgba(86,103,91,0.15);
+
+}
+
+
+.schedule-time {
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size: 25px;
+
+  color: #708071;
+
+}
+
+
+.schedule-content {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+
+}
+
+
+.schedule-content strong {
+
+  font-size: 18px;
+
+  font-weight: 400;
+
+}
+
+
+.schedule-content span {
+
+  font-family:
+    Arial,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: 0.2em;
+
+  color: #8b948c;
+
+}
+
+
+.schedule-content p {
+
+  margin:
+    6px
+    0
+    0;
+
+  font-size: 12px;
+
+  color: #727d74;
+
+}
+
+
+/* =========================================================
+   故事
+   ========================================================= */
+
+.story-section {
+
+  min-height: 70svh;
+
+  padding:
+    90px
+    22px;
+
+  display: flex;
+
+  align-items: center;
+
+  background:
+    #f7f3e8;
+
+}
+
+
+.story-text {
+
+  max-width: 480px;
+
+  line-height: 2.4;
+
+  font-size: 16px;
+
+  letter-spacing: 0.08em;
+
+  color: #667368;
+
+}
+
+
+.story-text p {
+
+  margin:
+    0
+    0
+    25px;
+
+}
 
 
 /* =========================================================
    照片
-========================================================= */
+   ========================================================= */
 
 .photo-section {
-  padding-top: 70px;
+
+  padding:
+    90px
+    22px;
+
+  background:
+    #e7eee3;
+
+}
+
+
+.photo-gallery {
+
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap: 12px;
+
 }
 
 
 .photo-frame {
-  position: relative;
+
+  min-height: 230px;
 
   overflow: hidden;
 
   background:
     linear-gradient(
       135deg,
-      #e5e1cf,
-      #d7e5de,
-      #efe0d6
+      #d8e2d3,
+      #eee4ca
     );
 
-  box-shadow:
-    0 18px 50px rgba(74,92,84,.1);
 }
 
 
-.large-photo {
-  width: 100%;
-  aspect-ratio: 4 / 5;
+.photo-main {
+
+  grid-column:
+    1 / -1;
+
+  min-height: 390px;
+
 }
 
 
 .photo-placeholder {
+
   width: 100%;
   height: 100%;
 
+  min-height: inherit;
+
   display: flex;
 
+  flex-direction: column;
+
   align-items: center;
+
   justify-content: center;
 
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
+  gap: 8px;
 
-  font-size: .7rem;
+  color: rgba(71,86,75,0.65);
 
-  letter-spacing: .35em;
-
-  color: rgba(73,91,82,.52);
 }
 
 
-.photo-caption {
-  margin:
-    1.5rem
-    0
-    3rem;
-
-  text-align: center;
+.photo-placeholder span {
 
   font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
+    Arial,
+    sans-serif;
 
-  font-size: 1.5rem;
+  font-size: 11px;
 
-  line-height: .8;
+  letter-spacing: 0.3em;
 
-  color: #687971;
 }
 
 
-.photo-caption p {
-  margin: .7rem 0;
+.photo-placeholder small {
+
+  font-size: 11px;
+
 }
 
 
-.photo-grid {
+/* =========================================================
+   倒计时
+   ========================================================= */
+
+.countdown-section {
+
+  padding:
+    90px
+    22px;
+
+  background:
+    #f5f0df;
+
+}
+
+
+.countdown {
+
   display: grid;
 
   grid-template-columns:
-    1fr 1fr;
+    repeat(4, 1fr);
 
-  gap: 1rem;
+  gap: 8px;
 
-  align-items: start;
 }
 
 
-.photo-grid .photo-frame {
-  aspect-ratio: 3 / 4;
-}
+.countdown-item {
 
-
-.photo-grid .offset {
-  margin-top: 4rem;
-}
-
-
-
-/* =========================================================
-   故事
-========================================================= */
-
-.story-section {
-  max-width: 650px;
-
-  text-align: left;
-}
-
-
-.story-text {
-  max-width: 520px;
-
-  margin-top: 2.5rem;
-
-  font-size: 1rem;
-
-  line-height: 2.2;
-
-  color: #747f78;
-}
-
-
-
-/* =========================================================
-   婚礼流程
-========================================================= */
-
-.wedding-section {
   text-align: center;
+
+  padding:
+    20px
+    4px;
+
+  background:
+    rgba(255,255,255,0.42);
+
 }
 
 
-.schedule {
-  max-width: 600px;
+.countdown-item strong {
 
-  margin: 3.5rem auto 0;
+  display: block;
 
-  border-top:
-    1px solid rgba(130,150,139,.25);
-}
-
-
-.schedule-item {
-  display: grid;
-
-  grid-template-columns: 100px 1fr;
-
-  align-items: center;
-
-  gap: 1.2rem;
-
-  padding: 1.5rem 0;
-
-  text-align: left;
-
-  border-bottom:
-    1px solid rgba(130,150,139,.2);
-}
-
-
-.schedule-item time {
   font-family:
-    "Cormorant Garamond",
-    Georgia,
+    "Times New Roman",
     serif;
 
-  font-size: 2rem;
-
-  color: #718a80;
-}
-
-
-.schedule-item > div {
-  display: flex;
-  flex-direction: column;
-}
-
-
-.schedule-item strong {
-  font-size: 1rem;
+  font-size: 32px;
 
   font-weight: 400;
 
-  color: #53635c;
+  color: #617362;
+
 }
 
 
-.schedule-item span {
-  margin-top: .25rem;
+.countdown-item span {
+
+  display: block;
+
+  margin-top: 7px;
 
   font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
+    Arial,
+    sans-serif;
 
-  font-size: .65rem;
+  font-size: 7px;
 
-  letter-spacing: .2em;
+  letter-spacing: 0.14em;
 
-  color: #9aa49e;
+  color: #899189;
+
 }
-
-
-.schedule-item.highlight {
-  padding-left: 1rem;
-  padding-right: 1rem;
-
-  background:
-    rgba(235,226,183,.28);
-}
-
-
-
-/* =========================================================
-   地址
-========================================================= */
-
-.location-section {
-  text-align: center;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(205,226,220,.18),
-      rgba(255,253,247,0)
-    );
-}
-
-
-.address {
-  margin:
-    2rem 0
-    2rem;
-
-  line-height: 2;
-
-  color: #748079;
-
-  font-size: .95rem;
-}
-
-
-.map-button {
-  display: inline-flex;
-
-  align-items: center;
-  justify-content: center;
-
-  padding:
-    .9rem
-    2rem;
-
-  border:
-    1px solid rgba(126,151,140,.55);
-
-  border-radius: 999px;
-
-  color: #61766c;
-
-  background:
-    rgba(255,253,247,.65);
-
-  font-size: .85rem;
-
-  transition:
-    background .3s ease,
-    transform .3s ease;
-}
-
-
-.map-button:hover {
-  background:
-    rgba(255,253,247,.95);
-
-  transform: translateY(-2px);
-}
-
 
 
 /* =========================================================
    RSVP
-========================================================= */
+   ========================================================= */
 
 .rsvp-section {
-  max-width: 620px;
-}
 
-
-.rsvp-intro {
-  margin:
-    2rem 0
-    2.5rem;
-
-  color: #78837c;
-
-  line-height: 1.9;
-}
-
-
-#rsvpForm {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 1.35rem;
-}
-
-
-#rsvpForm label {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: .55rem;
-
-  font-size: .8rem;
-
-  color: #69766f;
-}
-
-
-#rsvpForm input,
-#rsvpForm select,
-#rsvpForm textarea {
-  width: 100%;
+  min-height: 80svh;
 
   padding:
-    .9rem
-    1rem;
+    90px
+    22px;
+
+  background:
+    #edf1e8;
+
+}
+
+
+.rsvp-form {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 24px;
+
+}
+
+
+.form-group {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+}
+
+
+.form-group > label {
+
+  font-size: 12px;
+
+  letter-spacing: 0.12em;
+
+  color: #617064;
+
+}
+
+
+input,
+textarea {
+
+  width: 100%;
 
   border:
-    1px solid rgba(132,151,141,.32);
+    0;
 
-  border-radius: 2px;
+  border-bottom:
+    1px solid
+    #aab4aa;
+
+  padding:
+    11px
+    4px;
+
+  background:
+    transparent;
 
   outline: none;
 
-  background:
-    rgba(255,253,247,.68);
+  color: #405044;
 
-  color: #52615a;
-
-  transition:
-    border-color .25s ease,
-    background .25s ease;
 }
 
 
-#rsvpForm input:focus,
-#rsvpForm select:focus,
-#rsvpForm textarea:focus {
-  border-color:
-    rgba(126,151,140,.7);
-
-  background:
-    rgba(255,255,255,.9);
-}
-
-
-#rsvpForm textarea {
-  min-height: 120px;
+textarea {
 
   resize: vertical;
+
 }
 
 
-.submit-button {
-  margin-top: .5rem;
+.rsvp-options {
 
-  padding: 1rem;
+  display: flex;
 
-  border: none;
+  gap: 15px;
 
-  border-radius: 999px;
+}
+
+
+.rsvp-options label {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  font-size: 12px;
+
+}
+
+
+.rsvp-options input {
+
+  width: auto;
+
+}
+
+
+.rsvp-submit {
+
+  margin-top: 5px;
+
+  padding:
+    14px;
+
+  border:
+    1px solid
+    #839184;
 
   background:
-    #718a80;
+    transparent;
 
-  color: white;
+  color: #526256;
 
-  cursor: pointer;
+  letter-spacing: 0.18em;
 
-  letter-spacing: .2em;
-
-  transition:
-    transform .3s ease,
-    opacity .3s ease;
 }
 
 
-.submit-button:hover {
-  transform: translateY(-2px);
+.rsvp-success {
 
-  opacity: .9;
-}
+  margin-top: 5px;
 
-
-.rsvp-result {
-  min-height: 1.5rem;
-
-  margin-top: 1.5rem;
+  padding:
+    15px;
 
   text-align: center;
 
-  color: #718a80;
+  font-size: 13px;
 
-  line-height: 1.7;
 }
 
 
-
 /* =========================================================
-   结尾
-========================================================= */
+   最后一页
+   ========================================================= */
 
 .final-section {
-  min-height: 80vh;
+
+  min-height: 100svh;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding:
+    50px
+    22px;
+
+  text-align: center;
+
+  background:
+
+    radial-gradient(
+      circle at 30% 30%,
+      rgba(255,255,255,0.8),
+      transparent 35%
+    ),
+
+    linear-gradient(
+      135deg,
+      #dce8d8,
+      #f4ecd6
+    );
+
+}
+
+
+.final-inner {
 
   display: flex;
 
   flex-direction: column;
 
   align-items: center;
-  justify-content: center;
 
-  text-align: center;
-
-  padding:
-    100px 20px;
-
-  background:
-    radial-gradient(
-      circle at 50% 35%,
-      rgba(231,220,173,.55),
-      rgba(205,226,220,.45) 45%,
-      rgba(250,247,238,1) 80%
-    );
 }
 
 
-.final-small {
-  max-width: 300px;
+.final-title {
 
-  margin-bottom: 2.5rem;
+  margin-bottom: 20px;
 
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: .65rem;
-
-  line-height: 1.8;
-
-  letter-spacing: .25em;
-
-  color: #87948d;
-}
-
-
-.final-section h2 {
-  margin: 0;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size:
-    clamp(3.5rem, 15vw, 7rem);
-
-  line-height: .72;
-
-  letter-spacing: .06em;
+  font-size: 48px;
 
   font-weight: 300;
 
-  color: #657a71;
 }
 
 
-.final-section h2 span {
-  color: var(--gold);
+.final-inner p {
 
-  font-size: .55em;
+  font-size: 13px;
 
-  font-style: italic;
+  letter-spacing: 0.12em;
+
+  color: #6c786e;
+
+}
+
+
+.final-names {
+
+  margin-top: 35px;
+
+  font-size: 22px;
+
+  letter-spacing: 0.15em;
+
 }
 
 
 .final-date {
-  margin-top: 3rem;
+
+  margin-top: 10px;
 
   font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
+    Arial,
+    sans-serif;
 
-  font-size: 1rem;
+  font-size: 9px;
 
-  letter-spacing: .3em;
+  letter-spacing: 0.3em;
 
-  color: #71847c;
+  color: #7d877e;
+
 }
-
-
-.final-message {
-  margin-top: 1rem;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: 1.2rem;
-
-  font-style: italic;
-
-  color: #89948e;
-}
-
 
 
 /* =========================================================
-   滑动出现
-========================================================= */
+   滚动动画
+   ========================================================= */
 
 .reveal {
+
   opacity: 0;
 
   transform:
-    translateY(35px);
+    translateY(24px);
 
   transition:
-    opacity .9s ease,
-    transform .9s ease;
+    opacity 0.9s ease,
+    transform 0.9s ease;
+
 }
 
 
 .reveal.visible {
+
   opacity: 1;
 
   transform:
     translateY(0);
+
 }
 
 
-
 /* =========================================================
-   手机
-========================================================= */
+   手机适配
+   ========================================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
 
-  .music-button {
-    top: 14px;
-    right: 14px;
-
-    width: 38px;
-    height: 38px;
-  }
-
-
-  .hero-content {
-    width: 88%;
+  .hero-inner {
 
     padding:
-      6vh 0
-      4vh;
-  }
+      35px
+      18px
+      28px;
 
-
-  .hero-kicker {
-    font-size: .65rem;
-
-    letter-spacing: .3em;
-
-    margin-bottom: 1.4rem;
   }
 
 
   .guest-card {
-    width: 88vw;
+
+    margin-bottom: 27px;
 
     padding:
-      1.25rem
-      1.4rem
-      1.35rem;
+      17px
+      24px
+      20px;
 
-    margin-bottom: 1.8rem;
   }
 
 
   .guest-name {
-    font-size:
-      clamp(2rem, 10vw, 2.7rem);
 
-    letter-spacing: .12em;
-  }
+    font-size: 38px;
 
-
-  .guest-invite {
-    font-size: .82rem;
-
-    letter-spacing: .22em;
   }
 
 
   .couple-name {
-    font-size:
-      clamp(1.8rem, 8vw, 2.6rem);
 
-    letter-spacing: .05em;
+    gap: 9px;
+
   }
 
 
-  .couple-latin {
-    font-size: .68rem;
+  .name-cn {
 
-    letter-spacing: .3em;
+    font-size: 30px;
+
   }
 
 
   .date-main {
-    font-size: 1.05rem;
 
-    letter-spacing: .18em;
+    font-size: 21px;
+
   }
 
 
-  .date-sub {
-    font-size: .6rem;
+  section h2 {
 
-    letter-spacing: .12em;
+    font-size: 30px;
+
   }
 
 
-  .open-button {
-    min-width: 180px;
+  .date-number {
 
-    padding:
-      .8rem
-      1.7rem
-      .85rem;
+    font-size: 60px;
+
   }
 
 
-  .scroll-hint {
-    margin-top: 1.3rem;
+  .date-card {
+
+    gap: 18px;
+
+    padding: 20px;
+
   }
 
 
-  .section {
-    width: 88%;
+  .location-card {
 
-    padding:
-      80px 0;
-  }
+    padding: 22px;
 
-
-  .section h2 {
-    font-size:
-      clamp(2.2rem, 10vw, 3.2rem);
-  }
-
-
-  .big-date {
-    margin-top: 2.5rem;
-
-    gap: .8rem;
-  }
-
-
-  .big-date > span {
-    font-size: 6rem;
-  }
-
-
-  .countdown strong {
-    font-size: 1.5rem;
-  }
-
-
-  .countdown span {
-    font-size: .5rem;
-  }
-
-
-  .photo-grid {
-    gap: .7rem;
-  }
-
-
-  .photo-grid .offset {
-    margin-top: 2.5rem;
   }
 
 
   .schedule-item {
-    grid-template-columns: 78px 1fr;
 
-    gap: .8rem;
+    grid-template-columns:
+      68px
+      1fr;
+
+    gap: 14px;
+
   }
 
 
-  .schedule-item time {
-    font-size: 1.6rem;
+  .schedule-time {
+
+    font-size: 22px;
+
   }
 
 
-  .schedule-item.highlight {
-    padding-left: .7rem;
-    padding-right: .7rem;
+  .countdown-item strong {
+
+    font-size: 25px;
+
+  }
+
+
+  .final-title {
+
+    font-size: 42px;
+
   }
 
 }
