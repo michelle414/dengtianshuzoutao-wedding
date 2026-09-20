@@ -1,542 +1,237 @@
-/* =====================================================
-   邓天澍 & 邹涛 · Wedding Invitation
-   app.js
-===================================================== */
-
 document.addEventListener("DOMContentLoaded", () => {
+  /* =========================
+     1. 获取宾客姓名
+     ========================= */
 
+  const params = new URLSearchParams(window.location.search);
+  const guestName = params.get("guest");
 
-  /* =====================================================
-     1. 宾客姓名
-     
-     示例：
-     ?guest=邹小明
+  const guestCard = document.getElementById("guestCard");
+  const guestNameElement = document.getElementById("guestName");
 
-     页面显示：
-     邹小明
-     诚邀您出席
-  ===================================================== */
-
-  const params =
-    new URLSearchParams(window.location.search);
-
-  const guestName =
-    params.get("guest");
-
-
-  const guestCard =
-    document.getElementById("guestCard");
-
-  const guestNameElement =
-    document.getElementById("guestName");
-
-
-  if (
-    guestName &&
-    guestName.trim() &&
-    guestNameElement
-  ) {
-
-    const cleanGuestName =
-      guestName.trim();
-
-    guestNameElement.textContent =
-      cleanGuestName;
-
+  if (guestName && guestNameElement) {
+    guestNameElement.textContent = guestName;
   } else if (guestCard) {
-
-    /*
-     * 没有宾客姓名时，
-     * 隐藏整个宾客区域。
-     */
-
-    guestCard.style.display =
-      "none";
-
+    guestCard.style.display = "none";
   }
 
 
+  /* =========================
+     2. 开启请柬按钮
+     ========================= */
 
-  /* =====================================================
-     2. 开启请柬
-  ===================================================== */
+  const openButton = document.querySelector(
+    ".open-invitation, #openInvitation, .open-btn"
+  );
 
-  const openInvitation =
-    document.getElementById("openInvitation");
+  const detailsSection =
+    document.getElementById("details") ||
+    document.querySelector(".details-section") ||
+    document.querySelector(".wedding-section") ||
+    document.querySelector("main section:nth-of-type(2)");
 
-  const invitation =
-    document.getElementById("invitation");
+  if (openButton) {
+    openButton.addEventListener("click", () => {
 
-  const bgMusic =
-    document.getElementById("bgMusic");
+      // 播放音乐
+      startMusic();
 
-  const musicButton =
-    document.getElementById("musicButton");
-
-
-  let musicPlaying = false;
-
-
-  if (
-    openInvitation &&
-    invitation
-  ) {
-
-    openInvitation.addEventListener(
-      "click",
-      async () => {
-
-        /*
-         * 用户主动点击，
-         * 手机浏览器通常允许此时播放音乐。
-         */
-
-        if (bgMusic) {
-
-          try {
-
-            await bgMusic.play();
-
-            musicPlaying = true;
-
-            if (musicButton) {
-
-              musicButton.classList.add(
-                "playing"
-              );
-
-            }
-
-          } catch (error) {
-
-            console.log(
-              "音乐暂时无法自动播放。"
-            );
-
-          }
-
-        }
-
-
-        /*
-         * 滑动进入正式请柬
-         */
-
-        invitation.scrollIntoView({
+      // 页面向下滚动
+      if (detailsSection) {
+        detailsSection.scrollIntoView({
           behavior: "smooth",
           block: "start"
         });
-
+      } else {
+        window.scrollTo({
+          top: window.innerHeight,
+          behavior: "smooth"
+        });
       }
-    );
-
+    });
   }
 
 
+  /* =========================
+     3. 背景音乐
+     ========================= */
 
-  /* =====================================================
-     3. 音乐播放 / 暂停
-  ===================================================== */
+  const music = document.getElementById("bgMusic");
+  const musicButton =
+    document.getElementById("musicToggle") ||
+    document.querySelector(".music-toggle");
 
-  if (
-    musicButton &&
-    bgMusic
-  ) {
+  let musicStarted = false;
 
-    musicButton.addEventListener(
-      "click",
-      async () => {
+  function startMusic() {
+    if (!music) return;
 
-        if (!musicPlaying) {
+    music.volume = 0.45;
 
-          try {
+    music.play()
+      .then(() => {
+        musicStarted = true;
 
-            await bgMusic.play();
-
-          } catch (error) {
-
-            console.log(
-              "音乐播放失败。"
-            );
-
-          }
-
-        } else {
-
-          bgMusic.pause();
-
+        if (musicButton) {
+          musicButton.classList.add("playing");
+          musicButton.textContent = "♫";
         }
+      })
+      .catch(() => {
+        // 手机浏览器禁止播放时，不报错
+      });
+  }
 
+  function toggleMusic() {
+    if (!music) return;
+
+    if (music.paused) {
+      startMusic();
+    } else {
+      music.pause();
+
+      if (musicButton) {
+        musicButton.classList.remove("playing");
+        musicButton.textContent = "♫";
       }
-    );
+    }
+  }
 
+  if (musicButton) {
+    musicButton.addEventListener("click", toggleMusic);
+  }
 
-    /*
-     * 音乐真正开始播放
-     */
-
-    bgMusic.addEventListener(
-      "play",
-      () => {
-
-        musicPlaying = true;
-
-        musicButton.classList.add(
-          "playing"
-        );
-
+  if (music) {
+    music.addEventListener("play", () => {
+      if (musicButton) {
+        musicButton.classList.add("playing");
+        musicButton.textContent = "♫";
       }
-    );
+    });
 
-
-    /*
-     * 音乐暂停
-     */
-
-    bgMusic.addEventListener(
-      "pause",
-      () => {
-
-        musicPlaying = false;
-
-        musicButton.classList.remove(
-          "playing"
-        );
-
+    music.addEventListener("pause", () => {
+      if (musicButton) {
+        musicButton.classList.remove("playing");
+        musicButton.textContent = "♫";
       }
-    );
-
+    });
   }
 
 
-
-  /* =====================================================
+  /* =========================
      4. 婚礼倒计时
-     
-     2026年10月25日 12:08
-     中国时间 UTC+8
-  ===================================================== */
+     ========================= */
 
-  const weddingDate =
-    new Date(
-      "2026-10-25T12:08:00+08:00"
-    ).getTime();
+  const weddingDate = new Date("2026-10-25T12:08:00+08:00");
 
-
-  const daysElement =
-    document.getElementById("days");
-
-  const hoursElement =
-    document.getElementById("hours");
-
-  const minutesElement =
-    document.getElementById("minutes");
-
-  const secondsElement =
-    document.getElementById("seconds");
-
+  const daysElement = document.getElementById("days");
+  const hoursElement = document.getElementById("hours");
+  const minutesElement = document.getElementById("minutes");
+  const secondsElement = document.getElementById("seconds");
 
   function updateCountdown() {
+    const now = new Date();
+    const difference = weddingDate - now;
 
-    const now =
-      Date.now();
-
-    const distance =
-      weddingDate - now;
-
-
-    /*
-     * 婚礼已经开始
-     */
-
-    if (distance <= 0) {
-
-      if (daysElement)
-        daysElement.textContent = "00";
-
-      if (hoursElement)
-        hoursElement.textContent = "00";
-
-      if (minutesElement)
-        minutesElement.textContent = "00";
-
-      if (secondsElement)
-        secondsElement.textContent = "00";
-
+    if (difference <= 0) {
+      if (daysElement) daysElement.textContent = "0";
+      if (hoursElement) hoursElement.textContent = "0";
+      if (minutesElement) minutesElement.textContent = "0";
+      if (secondsElement) secondsElement.textContent = "0";
       return;
-
     }
 
+    const days = Math.floor(
+      difference / (1000 * 60 * 60 * 24)
+    );
 
-    const days =
-      Math.floor(
-        distance /
-        (1000 * 60 * 60 * 24)
-      );
+    const hours = Math.floor(
+      (difference / (1000 * 60 * 60)) % 24
+    );
 
+    const minutes = Math.floor(
+      (difference / (1000 * 60)) % 60
+    );
 
-    const hours =
-      Math.floor(
-        (
-          distance %
-          (1000 * 60 * 60 * 24)
-        ) /
-        (1000 * 60 * 60)
-      );
+    const seconds = Math.floor(
+      (difference / 1000) % 60
+    );
 
-
-    const minutes =
-      Math.floor(
-        (
-          distance %
-          (1000 * 60 * 60)
-        ) /
-        (1000 * 60)
-      );
-
-
-    const seconds =
-      Math.floor(
-        (
-          distance %
-          (1000 * 60)
-        ) /
-        1000
-      );
-
-
-    if (daysElement) {
-
-      daysElement.textContent =
-        String(days).padStart(2, "0");
-
-    }
-
-
-    if (hoursElement) {
-
-      hoursElement.textContent =
-        String(hours).padStart(2, "0");
-
-    }
-
-
-    if (minutesElement) {
-
-      minutesElement.textContent =
-        String(minutes).padStart(2, "0");
-
-    }
-
-
-    if (secondsElement) {
-
-      secondsElement.textContent =
-        String(seconds).padStart(2, "0");
-
-    }
-
+    if (daysElement) daysElement.textContent = days;
+    if (hoursElement) hoursElement.textContent = String(hours).padStart(2, "0");
+    if (minutesElement) minutesElement.textContent = String(minutes).padStart(2, "0");
+    if (secondsElement) secondsElement.textContent = String(seconds).padStart(2, "0");
   }
-
 
   updateCountdown();
+  setInterval(updateCountdown, 1000);
 
-  setInterval(
-    updateCountdown,
-    1000
+
+  /* =========================
+     5. 页面滚动出现动画
+     ========================= */
+
+  const revealElements = document.querySelectorAll(
+    ".reveal, .story-section, .wedding-section, .photo-section, .rsvp-section"
   );
 
-
-
-  /* =====================================================
-     5. 滑动出现动画
-  ===================================================== */
-
-  const revealElements =
-    document.querySelectorAll(
-      ".reveal"
-    );
-
-
-  if (
-    "IntersectionObserver"
-    in window
-  ) {
-
-    const revealObserver =
-      new IntersectionObserver(
-        (entries) => {
-
-          entries.forEach(
-            (entry) => {
-
-              if (
-                entry.isIntersecting
-              ) {
-
-                entry.target.classList.add(
-                  "visible"
-                );
-
-                revealObserver.unobserve(
-                  entry.target
-                );
-
-              }
-
-            }
-          );
-
-        },
-        {
-          threshold: 0.15
-        }
-      );
-
-
-    revealElements.forEach(
-      (element) => {
-
-        revealObserver.observe(
-          element
-        );
-
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12
       }
     );
 
+    revealElements.forEach((element) => {
+      observer.observe(element);
+    });
   } else {
-
-    /*
-     * 老浏览器兼容
-     */
-
-    revealElements.forEach(
-      (element) => {
-
-        element.classList.add(
-          "visible"
-        );
-
-      }
-    );
-
+    revealElements.forEach((element) => {
+      element.classList.add("visible");
+    });
   }
 
 
-
-  /* =====================================================
+  /* =========================
      6. RSVP
-     
-     目前先做前端确认。
-     后面再接真正数据库。
-  ===================================================== */
+     ========================= */
 
-  const rsvpForm =
-    document.getElementById(
-      "rsvpForm"
-    );
-
-  const rsvpResult =
-    document.getElementById(
-      "rsvpResult"
-    );
-
+  const rsvpForm = document.getElementById("rsvpForm");
 
   if (rsvpForm) {
+    rsvpForm.addEventListener("submit", (event) => {
+      event.preventDefault();
 
-    rsvpForm.addEventListener(
-      "submit",
-      (event) => {
+      const formData = new FormData(rsvpForm);
 
-        event.preventDefault();
+      const data = {
+        guest: guestName || "",
+        name: formData.get("name") || "",
+        attendance: formData.get("attendance") || "",
+        guests: formData.get("guests") || "",
+        message: formData.get("message") || ""
+      };
 
+      console.log("RSVP:", data);
 
-        const name =
-          document
-            .getElementById("rsvpName")
-            .value
-            .trim();
+      const successMessage =
+        document.getElementById("rsvpSuccess");
 
-
-        const attendance =
-          document
-            .getElementById(
-              "rsvpAttendance"
-            )
-            .value;
-
-
-        const people =
-          document
-            .getElementById(
-              "rsvpPeople"
-            )
-            .value;
-
-
-        const message =
-          document
-            .getElementById(
-              "rsvpMessage"
-            )
-            .value
-            .trim();
-
-
-        if (!name) {
-
-          rsvpResult.textContent =
-            "请填写您的姓名。";
-
-          return;
-
-        }
-
-
-        if (
-          attendance === "yes"
-        ) {
-
-          rsvpResult.textContent =
-            `谢谢 ${name}！我们会在婚礼当天等你，一共 ${people} 人。`;
-
-        } else {
-
-          rsvpResult.textContent =
-            `谢谢 ${name} 的祝福，我们会一直记得。`;
-
-        }
-
-
-        console.log(
-          "RSVP:",
-          {
-            name,
-            attendance,
-            people,
-            message
-          }
-        );
-
+      if (successMessage) {
+        successMessage.textContent =
+          "谢谢您的回复，我们婚礼见 ♡";
+        successMessage.style.display = "block";
       }
-    );
 
+      rsvpForm.reset();
+    });
   }
-
-
-
-  /* =====================================================
-     7. 防止浏览器记住上一次滚动位置
-  ===================================================== */
-
-  if (
-    "scrollRestoration"
-    in history
-  ) {
-
-    history.scrollRestoration =
-      "manual";
-
-  }
-
 });
