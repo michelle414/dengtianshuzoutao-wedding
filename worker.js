@@ -3,9 +3,38 @@ export default {
     const url = new URL(request.url);
 
     // =========================
-    // API：宾客列表
+    // 管理后台密码验证
     // =========================
-    if (url.pathname === "/api/guests" && request.method === "GET") {
+    if (url.pathname.startsWith("/api/admin/")) {
+      const auth = request.headers.get("Authorization");
+
+      if (!auth || !auth.startsWith("Bearer ")) {
+        return Response.json(
+          {
+            success: false,
+            error: "未授权"
+          },
+          { status: 401 }
+        );
+      }
+
+      const password = auth.slice(7);
+
+      if (password !== env.ADMIN_PASSWORD) {
+        return Response.json(
+          {
+            success: false,
+            error: "密码错误"
+          },
+          { status: 401 }
+        );
+      }
+    }
+
+    // =========================
+    // 获取宾客列表
+    // =========================
+    if (url.pathname === "/api/admin/guests" && request.method === "GET") {
       try {
         const result = await env.DB
           .prepare(`
@@ -31,12 +60,11 @@ export default {
     }
 
     // =========================
-    // API：新增宾客
+    // 添加宾客
     // =========================
-    if (url.pathname === "/api/guests" && request.method === "POST") {
+    if (url.pathname === "/api/admin/guests" && request.method === "POST") {
       try {
         const body = await request.json();
-
         const name = String(body.name || "").trim();
 
         if (!name) {
@@ -50,6 +78,7 @@ export default {
         }
 
         const origin = url.origin;
+
         const link =
           `${origin}/?guest=${encodeURIComponent(name)}`;
 
@@ -94,10 +123,10 @@ export default {
     }
 
     // =========================
-    // API：修改发送状态
+    // 修改发送状态
     // =========================
     if (
-      url.pathname.startsWith("/api/guests/") &&
+      url.pathname.startsWith("/api/admin/guests/") &&
       request.method === "PATCH"
     ) {
       try {
@@ -130,10 +159,10 @@ export default {
     }
 
     // =========================
-    // API：删除宾客
+    // 删除宾客
     // =========================
     if (
-      url.pathname.startsWith("/api/guests/") &&
+      url.pathname.startsWith("/api/admin/guests/") &&
       request.method === "DELETE"
     ) {
       try {
@@ -162,7 +191,7 @@ export default {
     }
 
     // =========================
-    // 其他请求 → 正常婚礼网站
+    // 普通网站页面
     // =========================
     return env.ASSETS.fetch(request);
   }
