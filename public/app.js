@@ -21,8 +21,6 @@ const weddingConfig = {
 
   music: "Shortcut To Heaven.mp3",
 
-  photos: [],
-
   schedule: [
     {
       time: "11:00",
@@ -43,383 +41,419 @@ const weddingConfig = {
 };
 
 
-/* =========================
+/* =========================================================
    DOM
-========================= */
+========================================================= */
 
-const bgMusic = document.getElementById("bgMusic");
-const musicToggle = document.getElementById("musicToggle");
-const openInvitation = document.getElementById("openInvitation");
+const bgMusic =
+  document.getElementById("bgMusic");
 
-const guestNameElement = document.getElementById("guestName");
+const musicToggle =
+  document.getElementById("musicToggle");
 
-const mapButton = document.getElementById("mapButton");
-const mapImageLink = document.getElementById("mapImageLink");
+const openInvitation =
+  document.getElementById("openInvitation");
 
-const scheduleElement = document.getElementById("schedule");
+const guestCard =
+  document.getElementById("guestCard");
+
+const guestNameElement =
+  document.getElementById("guestName");
+
+const mapButton =
+  document.getElementById("mapButton");
+
+const mapImageLink =
+  document.getElementById("mapImageLink");
+
+const scheduleElement =
+  document.getElementById("weddingSchedule");
 
 
-/* =========================
-   Guest Name
-   ========================= */
+/* =========================================================
+   GUEST NAME
+========================================================= */
 
-function getGuestName() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("guest") || "";
-}
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
 
-const guestName = getGuestName();
+const guestName =
+  (params.get("guest") || "").trim();
 
-if (guestNameElement) {
-  if (guestName) {
-    guestNameElement.textContent = guestName;
-  } else {
-    guestNameElement.textContent = "亲爱的朋友";
+
+if (guestName) {
+
+  if (guestNameElement) {
+    guestNameElement.textContent =
+      guestName;
   }
+
+} else {
+
+  if (guestNameElement) {
+    guestNameElement.textContent =
+      "亲爱的朋友";
+  }
+
 }
 
 
-/* =========================
-   Couple Names
-========================= */
-
-const groomElements = document.querySelectorAll("[data-groom]");
-groomElements.forEach((element) => {
-  element.textContent = weddingConfig.groom;
-});
-
-const brideElements = document.querySelectorAll("[data-bride]");
-brideElements.forEach((element) => {
-  element.textContent = weddingConfig.bride;
-});
-
-const groomLatinElements = document.querySelectorAll("[data-groom-latin]");
-groomLatinElements.forEach((element) => {
-  element.textContent = weddingConfig.groomLatin;
-});
-
-const brideLatinElements = document.querySelectorAll("[data-bride-latin]");
-brideLatinElements.forEach((element) => {
-  element.textContent = weddingConfig.brideLatin;
-});
-
-
-/* =========================
-   Hero Date
-   第一页：
-   丙午年九月十六 · 星期日
-========================= */
-
-const heroDateSub = document.querySelector(".hero-date-sub");
-
-if (heroDateSub) {
-  heroDateSub.innerHTML = `
-    <span class="hero-date-lunar">${weddingConfig.lunarDate}</span>
-    <span class="hero-date-divider">·</span>
-    <span class="hero-date-week-cn">星期日</span>
-  `;
-}
-
-
-/* =========================
-   Date Information
-========================= */
-
-const venueElements = document.querySelectorAll("[data-venue]");
-venueElements.forEach((element) => {
-  element.textContent = weddingConfig.venue;
-});
-
-const addressElements = document.querySelectorAll("[data-address]");
-addressElements.forEach((element) => {
-  element.textContent = weddingConfig.address;
-});
-
-
-/* =========================
-   Map
-========================= */
+/* =========================================================
+   MAP
+========================================================= */
 
 if (mapButton) {
-  mapButton.href = weddingConfig.mapUrl;
+  mapButton.href =
+    weddingConfig.mapUrl;
 }
 
 if (mapImageLink) {
-  mapImageLink.href = weddingConfig.mapUrl;
+  mapImageLink.href =
+    weddingConfig.mapUrl;
 }
 
 
-/* =========================
-   Music
-========================= */
-
-let musicStarted = false;
-let fadeFrame = null;
+/* =========================================================
+   MUSIC
+========================================================= */
 
 if (bgMusic) {
-  const source = bgMusic.querySelector("source");
+
+  const source =
+    bgMusic.querySelector("source");
 
   if (source) {
-    source.src = weddingConfig.music;
+    source.src =
+      weddingConfig.music;
+
     bgMusic.load();
   }
 
-  bgMusic.volume = 0.08;
+  bgMusic.volume = 0.06;
 }
 
 
-/* 音乐淡入 */
+let musicFadeFrame = null;
 
-function fadeMusicIn() {
+
+function startMusic() {
+
   if (!bgMusic) return;
 
-  if (fadeFrame) {
-    cancelAnimationFrame(fadeFrame);
+  if (musicFadeFrame) {
+    cancelAnimationFrame(
+      musicFadeFrame
+    );
   }
 
-  const startVolume = 0.08;
-  const targetVolume = 0.25;
-  const duration = 2500;
 
-  const startTime = performance.now();
-
-  function animate(currentTime) {
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-
-    const easedProgress =
-      1 - Math.pow(1 - progress, 3);
-
-    bgMusic.volume =
-      startVolume +
-      (targetVolume - startVolume) * easedProgress;
-
-    if (progress < 1) {
-      fadeFrame = requestAnimationFrame(animate);
-    }
-  }
-
-  bgMusic.volume = startVolume;
-  fadeFrame = requestAnimationFrame(animate);
-}
+  bgMusic.volume = 0.06;
 
 
-/* 开始播放 */
+  bgMusic
+    .play()
+    .then(() => {
 
-async function startMusic() {
-  if (!bgMusic) return;
-
-  try {
-    bgMusic.volume = 0.08;
-
-    await bgMusic.play();
-
-    musicStarted = true;
-
-    fadeMusicIn();
-
-    if (musicToggle) {
-      musicToggle.classList.add("is-playing");
-    }
-  } catch (error) {
-    console.log("Music playback was blocked:", error);
-  }
-}
-
-
-/* 音乐按钮 */
-
-if (musicToggle && bgMusic) {
-  musicToggle.addEventListener("click", async () => {
-
-    if (bgMusic.paused) {
-      try {
-        await bgMusic.play();
-
-        musicStarted = true;
-
-        fadeMusicIn();
-
-        musicToggle.classList.add("is-playing");
-      } catch (error) {
-        console.log("Music playback failed:", error);
+      if (musicToggle) {
+        musicToggle.classList.add(
+          "playing"
+        );
       }
 
-    } else {
-      bgMusic.pause();
-      musicToggle.classList.remove("is-playing");
-    }
 
-  });
+      const start =
+        performance.now();
+
+      const duration =
+        2600;
+
+      function fade(current) {
+
+        const progress =
+          Math.min(
+            (current - start) /
+              duration,
+            1
+          );
+
+        const eased =
+          1 -
+          Math.pow(
+            1 - progress,
+            3
+          );
+
+        bgMusic.volume =
+          0.06 +
+          (0.22 - 0.06) *
+            eased;
+
+
+        if (progress < 1) {
+
+          musicFadeFrame =
+            requestAnimationFrame(
+              fade
+            );
+
+        }
+
+      }
+
+      musicFadeFrame =
+        requestAnimationFrame(
+          fade
+        );
+
+    })
+    .catch(() => {});
+
 }
 
 
-/* =========================
-   Open Invitation
-========================= */
+if (musicToggle) {
+
+  musicToggle.addEventListener(
+    "click",
+    () => {
+
+      if (!bgMusic) return;
+
+
+      if (bgMusic.paused) {
+
+        startMusic();
+
+      } else {
+
+        bgMusic.pause();
+
+        musicToggle.classList.remove(
+          "playing"
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   OPEN INVITATION
+========================================================= */
 
 if (openInvitation) {
-  openInvitation.addEventListener("click", async () => {
 
-    await startMusic();
+  openInvitation.addEventListener(
+    "click",
+    () => {
 
-    const target = document.getElementById("our-day");
+      startMusic();
 
-    if (target) {
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+
+      const target =
+        document.getElementById(
+          "ourDay"
+        );
+
+
+      if (target) {
+
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+      }
+
     }
-  });
+  );
+
 }
 
 
-/* =========================
-   Calendar
-========================= */
+/* =========================================================
+   CALENDAR
+========================================================= */
 
-function renderCalendar() {
+function createCalendar() {
 
-  const calendar = document.getElementById("calendar");
+  const calendar =
+    document.getElementById(
+      "calendarGrid"
+    );
 
   if (!calendar) return;
 
-  const year = weddingConfig.year;
-  const month = weddingConfig.month;
 
-  const firstDay = new Date(year, month - 1, 1).getDay();
+  calendar.innerHTML = "";
+
+
+  const year =
+    weddingConfig.year;
+
+  const monthIndex =
+    weddingConfig.month - 1;
+
+
+  const firstDay =
+    new Date(
+      year,
+      monthIndex,
+      1
+    ).getDay();
+
 
   const daysInMonth =
-    new Date(year, month, 0).getDate();
+    new Date(
+      year,
+      monthIndex + 1,
+      0
+    ).getDate();
 
-  const weekdays = [
-    "SUN",
-    "MON",
-    "TUE",
-    "WED",
-    "THU",
-    "FRI",
-    "SAT"
-  ];
 
-  let html = "";
+  const mondayIndex =
+    firstDay === 0
+      ? 6
+      : firstDay - 1;
 
-  weekdays.forEach((day) => {
-    html += `
-      <div class="calendar-weekday">
-        ${day}
-      </div>
-    `;
-  });
 
-  for (let i = 0; i < firstDay; i++) {
-    html += `
-      <div class="calendar-empty"></div>
-    `;
+  for (
+    let i = 0;
+    i < mondayIndex;
+    i++
+  ) {
+
+    const empty =
+      document.createElement(
+        "div"
+      );
+
+    empty.className =
+      "calendar-day empty";
+
+    calendar.appendChild(
+      empty
+    );
+
   }
 
-  for (let day = 1; day <= daysInMonth; day++) {
 
-    const isWeddingDay =
-      day === weddingConfig.day;
+  for (
+    let day = 1;
+    day <= daysInMonth;
+    day++
+  ) {
 
-    html += `
-      <div class="calendar-day ${isWeddingDay ? "is-wedding-day" : ""}">
-        ${day}
-      </div>
-    `;
+    const element =
+      document.createElement(
+        "div"
+      );
+
+
+    element.className =
+      "calendar-day";
+
+
+    if (
+      day === weddingConfig.day
+    ) {
+
+      element.classList.add(
+        "wedding-day"
+      );
+
+    }
+
+
+    element.textContent =
+      day;
+
+
+    calendar.appendChild(
+      element
+    );
+
   }
 
-  calendar.innerHTML = html;
 }
 
-renderCalendar();
+
+createCalendar();
 
 
-/* =========================
-   Countdown
-========================= */
+/* =========================================================
+   COUNTDOWN
+========================================================= */
+
+const countdown =
+  document.getElementById(
+    "countdownDays"
+  );
+
 
 function updateCountdown() {
 
-  const countdown = document.getElementById("countdown");
-
   if (!countdown) return;
 
-  const target =
-    new Date(weddingConfig.weddingDateTime).getTime();
 
-  const now = Date.now();
+  const now =
+    Date.now();
 
-  let difference = target - now;
 
-  if (difference < 0) {
-    difference = 0;
+  const wedding =
+    new Date(
+      weddingConfig.weddingDateTime
+    ).getTime();
+
+
+  const difference =
+    wedding - now;
+
+
+  if (difference <= 0) {
+
+    countdown.textContent = "0";
+
+    return;
+
   }
 
-  const totalSeconds =
-    Math.floor(difference / 1000);
 
   const days =
-    Math.floor(totalSeconds / 86400);
-
-  const hours =
     Math.floor(
-      (totalSeconds % 86400) / 3600
+      difference /
+      (
+        1000 *
+        60 *
+        60 *
+        24
+      )
     );
 
-  const minutes =
-    Math.floor(
-      (totalSeconds % 3600) / 60
-    );
 
-  const seconds =
-    totalSeconds % 60;
+  countdown.textContent =
+    days;
 
-  const formatNumber = (number) =>
-    String(number).padStart(2, "0");
-
-  const daysElement =
-    document.getElementById("countdownDays");
-
-  const hoursElement =
-    document.getElementById("countdownHours");
-
-  const minutesElement =
-    document.getElementById("countdownMinutes");
-
-  const secondsElement =
-    document.getElementById("countdownSeconds");
-
-  if (daysElement) {
-    daysElement.textContent = days;
-  }
-
-  if (hoursElement) {
-    hoursElement.textContent =
-      formatNumber(hours);
-  }
-
-  if (minutesElement) {
-    minutesElement.textContent =
-      formatNumber(minutes);
-  }
-
-  if (secondsElement) {
-    secondsElement.textContent =
-      formatNumber(seconds);
-  }
 }
+
 
 updateCountdown();
 
-setInterval(updateCountdown, 1000);
+
+setInterval(
+  updateCountdown,
+  1000
+);
 
 
-/* =========================
-   Wedding Schedule
-========================= */
+/* =========================================================
+   WEDDING SCHEDULE
+========================================================= */
 
 if (scheduleElement) {
 
@@ -434,148 +468,277 @@ if (scheduleElement) {
               ${item.time}
             </div>
 
-            <div class="schedule-info">
+            <div class="schedule-dot"></div>
 
-              <div class="schedule-title">
+            <div class="schedule-content">
+
+              <strong>
                 ${item.title}
-              </div>
+              </strong>
 
-              <div class="schedule-en">
+              <span>
                 ${item.english}
-              </div>
+              </span>
 
             </div>
 
           </div>
         `;
+
       })
       .join("");
+
 }
 
 
-/* =========================
+/* =========================================================
    RSVP
-========================= */
+========================================================= */
 
 const rsvpForm =
-  document.getElementById("rsvpForm");
+  document.getElementById(
+    "rsvpForm"
+  );
+
+const attendingFields =
+  document.getElementById(
+    "attendingFields"
+  );
+
+const stayDate =
+  document.getElementById(
+    "stayDate"
+  );
+
+const rsvpSuccess =
+  document.getElementById(
+    "rsvpSuccess"
+  );
+
+
+let attendance = "";
+let accommodation = "";
+
+
+/* 出席 */
+
+document
+  .querySelectorAll(
+    ".attendance-option"
+  )
+  .forEach((button) => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        document
+          .querySelectorAll(
+            ".attendance-option"
+          )
+          .forEach((item) => {
+
+            item.classList.remove(
+              "selected"
+            );
+
+          });
+
+
+        button.classList.add(
+          "selected"
+        );
+
+
+        attendance =
+          button.dataset.attendance;
+
+
+        if (rsvpForm) {
+          rsvpForm.classList.add(
+            "active"
+          );
+        }
+
+
+        if (attendingFields) {
+
+          if (
+            attendance === "yes"
+          ) {
+
+            attendingFields.style.display =
+              "block";
+
+          } else {
+
+            attendingFields.style.display =
+              "none";
+
+          }
+
+        }
+
+      }
+    );
+
+  });
+
+
+/* 住宿 */
+
+document
+  .querySelectorAll(
+    ".stay-options button"
+  )
+  .forEach((button) => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        document
+          .querySelectorAll(
+            ".stay-options button"
+          )
+          .forEach((item) => {
+
+            item.classList.remove(
+              "selected"
+            );
+
+          });
+
+
+        button.classList.add(
+          "selected"
+        );
+
+
+        accommodation =
+          button.dataset.stay;
+
+
+        if (stayDate) {
+
+          stayDate.style.display =
+            accommodation === "yes"
+              ? "block"
+              : "none";
+
+        }
+
+      }
+    );
+
+  });
+
+
+/* 提交 */
 
 if (rsvpForm) {
 
-  const savedRSVP =
-    localStorage.getItem("weddingRSVP");
+  rsvpForm.addEventListener(
+    "submit",
+    (event) => {
 
-  if (savedRSVP) {
+      event.preventDefault();
 
-    try {
 
-      const data =
-        JSON.parse(savedRSVP);
+      const formData =
+        new FormData(
+          rsvpForm
+        );
 
-      const nameInput =
-        document.getElementById("rsvpName");
 
-      const attendanceInput =
-        document.getElementById("rsvpAttendance");
+      const data = {
 
-      const peopleInput =
-        document.getElementById("rsvpPeople");
+        guest:
+          guestName,
 
-      const lodgingInput =
-        document.getElementById("rsvpLodging");
+        name:
+          formData.get("name") || "",
 
-      if (nameInput && data.name) {
-        nameInput.value = data.name;
+        attendance,
+
+        people:
+          formData.get("people") || "",
+
+        accommodation,
+
+        date:
+          formData.get("date") || "",
+
+        message:
+          formData.get("message") || "",
+
+        submittedAt:
+          new Date().toISOString()
+
+      };
+
+
+      localStorage.setItem(
+        "weddingRSVP",
+        JSON.stringify(data)
+      );
+
+
+      if (rsvpSuccess) {
+
+        rsvpSuccess.textContent =
+          "谢谢你，我们已经收到你的回复。";
+
+        rsvpSuccess.classList.add(
+          "show"
+        );
+
       }
 
-      if (attendanceInput && data.attendance) {
-        attendanceInput.value =
-          data.attendance;
-      }
-
-      if (peopleInput && data.people) {
-        peopleInput.value =
-          data.people;
-      }
-
-      if (lodgingInput && data.lodging) {
-        lodgingInput.value =
-          data.lodging;
-      }
-
-    } catch (error) {
-      console.log("RSVP data error:", error);
     }
-  }
+  );
 
-
-  rsvpForm.addEventListener("submit", (event) => {
-
-    event.preventDefault();
-
-    const name =
-      document.getElementById("rsvpName")?.value || "";
-
-    const attendance =
-      document.getElementById("rsvpAttendance")?.value || "";
-
-    const people =
-      document.getElementById("rsvpPeople")?.value || "";
-
-    const lodging =
-      document.getElementById("rsvpLodging")?.value || "";
-
-
-    const data = {
-      guest: guestName,
-      name,
-      attendance,
-      people,
-      lodging,
-      submittedAt: new Date().toISOString()
-    };
-
-
-    localStorage.setItem(
-      "weddingRSVP",
-      JSON.stringify(data)
-    );
-
-
-    const successMessage =
-      document.getElementById("rsvpSuccess");
-
-    if (successMessage) {
-      successMessage.classList.add("show");
-    }
-
-  });
 }
 
 
-/* =========================
-   Reveal Animation
-========================= */
+/* =========================================================
+   FADE REVEAL
+========================================================= */
 
 const revealElements =
-  document.querySelectorAll(".reveal");
+  document.querySelectorAll(
+    ".reveal"
+  );
 
-if ("IntersectionObserver" in window) {
+
+if (
+  "IntersectionObserver"
+  in window
+) {
 
   const observer =
     new IntersectionObserver(
       (entries) => {
 
-        entries.forEach((entry) => {
+        entries.forEach(
+          (entry) => {
 
-          if (entry.isIntersecting) {
+            if (
+              entry.isIntersecting
+            ) {
 
-            entry.target.classList.add("is-visible");
+              entry.target.classList.add(
+                "is-visible"
+              );
 
-            observer.unobserve(entry.target);
+              observer.unobserve(
+                entry.target
+              );
+
+            }
+
           }
-
-        });
+        );
 
       },
       {
@@ -583,14 +746,27 @@ if ("IntersectionObserver" in window) {
       }
     );
 
-  revealElements.forEach((element) => {
-    observer.observe(element);
-  });
+
+  revealElements.forEach(
+    (element) => {
+
+      observer.observe(
+        element
+      );
+
+    }
+  );
 
 } else {
 
-  revealElements.forEach((element) => {
-    element.classList.add("is-visible");
-  });
+  revealElements.forEach(
+    (element) => {
+
+      element.classList.add(
+        "is-visible"
+      );
+
+    }
+  );
 
 }
