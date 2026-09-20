@@ -1,14 +1,8 @@
-/* =========================================================
-   邓天澍 & 邹涛 · Wedding Invitation
-   Font:
+/* =====================================================
+   FONT
    English → FZVDLGTMCJW-L.TTF
    Chinese → FZZiLSJW-B.TTF
-   ========================================================= */
-
-
-/* =========================
-   01. Fonts
-   ========================= */
+===================================================== */
 
 @font-face {
   font-family: "WeddingEnglish";
@@ -27,51 +21,75 @@
 }
 
 
-/* =========================
-   02. Reset
-   ========================= */
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+:root {
+  --paper: #eee9dc;
+  --paper-light: #f5f1e7;
+  --ink: #3e4941;
+  --muted: #788078;
+  --sage: #82978a;
+  --blue: #91aab0;
+  --lavender: #aaa7bb;
+  --line: rgba(62, 73, 65, 0.18);
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html {
   scroll-behavior: smooth;
-  background: #f7f4ed;
 }
 
 body {
-  min-width: 320px;
-  background:
-    linear-gradient(
-      180deg,
-      #fbfaf5 0%,
-      #f7f4ed 45%,
-      #faf8f1 100%
-    );
-  color: #3f403b;
-  overflow-x: hidden;
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
 
   /* 中文默认字体 */
-  font-family: "WeddingChinese", serif;
+  font-family:
+    "WeddingChinese",
+    "Songti SC",
+    "STSong",
+    serif;
 
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.14;
+  z-index: 50;
+
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.22) 0,
+      rgba(255,255,255,0.22) 1px,
+      transparent 1px,
+      transparent 4px
+    );
 }
 
 button,
 input,
-textarea,
-select {
+textarea {
   font: inherit;
 }
 
 button {
-  border: 0;
-  background: none;
-  cursor: pointer;
+  color: inherit;
 }
 
 img {
@@ -79,620 +97,536 @@ img {
   max-width: 100%;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
 
-
-/* =========================
-   03. Global English font
-   ========================= */
-
-.eyebrow,
-.couple-en,
-.calendar-top,
-.calendar-week,
-.countdown-unit,
-.photo-hint,
-.schedule-content span,
-.final-inner .with-love,
-.moments-title,
-.moments-subtitle,
-.section-heading .english,
-.music-label,
-.open-en,
-.location-label,
-.reply-label {
-  font-family: "WeddingEnglish", serif;
-  font-weight: 400;
-}
-
-
-/* =========================
-   04. Global Chinese font
-   ========================= */
-
-.guest-name,
-.hero-subtitle,
-.couple-name,
-.hero-date,
-.section-heading h2,
-.moments-quote small,
-.schedule-content strong,
-.location-info h3,
-.location-info p,
-.reply-card,
-.final-inner h2,
-.final-inner strong {
-  font-family: "WeddingChinese", serif;
-}
-
-
-/* =========================
-   05. Page
-   ========================= */
-
-.page {
-  width: 100%;
-  overflow: hidden;
-}
+/* =====================================================
+   COMMON
+===================================================== */
 
 .section {
-  position: relative;
-  width: 100%;
+  width: min(100%, 920px);
+  margin: 0 auto;
+  padding: 100px 22px;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 12px;
+
+  /* 英文 */
+  font-family: "WeddingEnglish", serif;
+
+  font-size: 10px;
+  letter-spacing: 0.3em;
+
+  color: var(--sage);
+}
+
+.section-heading h2 {
+  margin: 0;
+
+  /* 中文 */
+  font-family: "WeddingChinese", serif;
+
+  font-size: clamp(28px, 6vw, 42px);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.section-english {
+  margin: 14px auto 0;
+  max-width: 500px;
+
+  /* 英文 */
+  font-family: "WeddingEnglish", serif;
+
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.9;
+  letter-spacing: 0.04em;
 }
 
 
-/* =========================
-   06. Music button
-   ========================= */
+/* =====================================================
+   MUSIC
+===================================================== */
 
 .music-control {
   position: fixed;
   top: 18px;
   right: 18px;
-  z-index: 1000;
+  z-index: 100;
 
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 1px solid rgba(70, 70, 62, 0.22);
+  border: 1px solid rgba(62, 73, 65, 0.35);
   border-radius: 50%;
 
-  background: rgba(250, 248, 241, 0.82);
-  backdrop-filter: blur(10px);
+  background: rgba(245, 241, 231, 0.82);
 
-  color: #55564f;
+  cursor: pointer;
 
-  box-shadow:
-    0 6px 20px rgba(50, 50, 40, 0.08);
+  /* 英文/符号 */
+  font-family: "WeddingEnglish", serif;
 
-  transition:
-    transform 0.3s ease,
-    background 0.3s ease;
-}
-
-.music-control:hover {
-  transform: scale(1.05);
-}
-
-.music-control.playing {
-  animation: musicRotate 4s linear infinite;
-}
-
-@keyframes musicRotate {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.music-control svg {
-  width: 17px;
-  height: 17px;
+  font-size: 18px;
 }
 
 
-/* =========================
-   07. HERO
-   ========================= */
+/* =====================================================
+   HERO
+===================================================== */
 
-.hero {
+.section-full {
   min-height: 100svh;
+
+  width: 100%;
 
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
-  padding:
-    80px 24px
-    70px;
-
+.hero {
   position: relative;
 
   background:
     radial-gradient(
-      circle at 50% 25%,
-      rgba(255, 255, 255, 0.96),
-      rgba(249, 246, 237, 0.88) 48%,
-      rgba(241, 235, 220, 0.75) 100%
-    );
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 22px;
-
-  border: 1px solid rgba(102, 99, 88, 0.17);
-
-  pointer-events: none;
+      circle at 30% 30%,
+      rgba(170, 167, 187, 0.18),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 70% 65%,
+      rgba(145, 170, 176, 0.16),
+      transparent 32%
+    ),
+    var(--paper);
 }
 
 .hero-inner {
-  position: relative;
-  z-index: 2;
-
-  width: min(100%, 620px);
+  width: 100%;
+  padding: 70px 24px;
 
   text-align: center;
-
-  padding: 50px 20px;
 }
 
-
-/* little top English */
-
-.eyebrow {
-  margin-bottom: 28px;
-
-  font-size: 11px;
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
-
-  color: #7b796e;
-}
-
-
-/* guest name */
-
-.guest-name {
-  display: inline-block;
-
-  margin-bottom: 25px;
-  padding: 9px 22px 10px;
-
-  border-top: 1px solid rgba(85, 83, 74, 0.25);
-  border-bottom: 1px solid rgba(85, 83, 74, 0.25);
-
-  font-size: clamp(18px, 5vw, 25px);
-  letter-spacing: 0.16em;
-
-  color: #3e403b;
-}
-
-
-/* 诚邀您出席 */
-
-.hero-subtitle {
-  margin-bottom: 24px;
-
-  font-size: 15px;
-  letter-spacing: 0.28em;
-
-  color: #77766d;
-}
-
-
-/* couple name */
-
-.couple-name {
-  font-size: clamp(36px, 10vw, 62px);
-  line-height: 1.2;
-
-  letter-spacing: 0.08em;
-
-  color: #3d3e39;
-}
-
-
-/* TIANSHU & TAO */
-
-.couple-en {
-  margin-top: 14px;
-
-  font-size: 12px;
-  letter-spacing: 0.42em;
-
-  color: #77766d;
-}
-
-
-/* date */
-
-.hero-date {
-  margin-top: 36px;
-
-  font-size: 14px;
-  letter-spacing: 0.16em;
-
-  color: #68675f;
-}
-
-
-/* opening */
-
-.open-invitation {
-  margin-top: 48px;
-
-  position: relative;
-
+.guest-name-wrap {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
 
-  gap: 7px;
+  min-width: 135px;
 
-  color: #4f5049;
+  padding: 11px 22px 12px;
 
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
-.open-invitation:hover {
-  transform: translateY(-2px);
+.guest-label {
+  margin-bottom: 7px;
+
+  /* 英文 */
+  font-family: "WeddingEnglish", serif;
+
+  font-size: 9px;
+  letter-spacing: 0.35em;
+
+  color: var(--muted);
 }
 
-.open-invitation::after {
-  content: "";
+.guest-name {
+  /* 中文 */
+  font-family: "WeddingChinese", serif;
 
-  width: 60px;
-  height: 1px;
-
-  background: rgba(75, 75, 68, 0.4);
-
-  transition: width 0.3s ease;
+  font-size: clamp(30px, 7vw, 42px);
+  line-height: 1.2;
+  letter-spacing: 0.08em;
 }
 
-.open-invitation:hover::after {
-  width: 82px;
+.hero-subtitle {
+  margin: 28px 0 25px;
+
+  /* 中文 */
+  font-family: "WeddingChinese", serif;
+
+  font-size: 17px;
+  letter-spacing: 0.18em;
 }
 
-.open-invitation .open-cn {
+.couple-name {
+  margin: 0;
+
+  /* 中文 */
+  font-family: "WeddingChinese", serif;
+
+  font-size: clamp(34px, 8vw, 52px);
+  font-weight: 400;
+
+  letter-spacing: 0.1em;
+}
+
+.couple-name span {
+  padding: 0 8px;
+
+  color: var(--sage);
+
+  /* 英文符号 */
+  font-family: "WeddingEnglish", serif;
+
+  font-size: 0.65em;
+}
+
+.couple-en {
+  margin: 12px 0 27px;
+
+  /* 英文 */
+  font-family: "WeddingEnglish", serif;
+
+  font-size: clamp(17px, 4vw, 22px);
+  letter-spacing: 0.25em;
+}
+
+.couple-en span {
+  padding: 0 5px;
+  color: var(--sage);
+}
+
+.hero-date {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  /* 中文 */
   font-family: "WeddingChinese", serif;
 
   font-size: 14px;
-  letter-spacing: 0.2em;
+  line-height: 1.6;
 }
 
-.open-invitation .open-en {
-  font-size: 9px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-
-  color: #89877d;
-}
-
-
-/* =========================
-   08. Section common
-   ========================= */
-
-.section-inner {
-  width: min(100%, 980px);
-
-  margin: 0 auto;
-
-  padding:
-    95px 24px
-    105px;
-}
-
-.section-heading {
-  text-align: center;
-
-  margin-bottom: 55px;
-}
-
-.section-heading .english {
-  display: block;
-
-  margin-bottom: 10px;
-
-  font-size: 10px;
-  letter-spacing: 0.38em;
-  text-transform: uppercase;
-
-  color: #858379;
-}
-
-.section-heading h2 {
-  font-size: clamp(25px, 6vw, 36px);
-
+.hero-date strong {
+  font-size: 16px;
   font-weight: 400;
+  letter-spacing: 0.08em;
+}
 
-  letter-spacing: 0.16em;
+.hero-date span {
+  color: var(--muted);
+}
 
-  color: #42433d;
+.open-button {
+  margin-top: 40px;
+
+  padding: 11px 30px;
+
+  border: 1px solid rgba(62, 73, 65, 0.45);
+  background: transparent;
+
+  /* 中文 */
+  font-family: "WeddingChinese", serif;
+
+  letter-spacing: 0.14em;
+  font-size: 13px;
+
+  cursor: pointer;
 }
 
 
-/* =========================
-   09. OUR DAY
-   ========================= */
+/* =====================================================
+   CALENDAR
+===================================================== */
 
-.our-day {
-  background:
-    linear-gradient(
-      180deg,
-      #f8f5ec 0%,
-      #f5f1e6 100%
-    );
-}
-
-.calendar-wrap {
-  max-width: 520px;
+.calendar-card {
+  max-width: 500px;
   margin: 0 auto;
+
+  padding: 28px 20px;
+
+  background: rgba(255,255,255,0.22);
+
+  border: 1px solid var(--line);
 }
 
 .calendar-top {
-  text-align: center;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
 
-  margin-bottom: 22px;
+  padding-bottom: 18px;
 
-  font-size: 17px;
-  letter-spacing: 0.3em;
+  border-bottom: 1px solid var(--line);
 
-  color: #66655d;
+  /* 英文 */
+  font-family: "WeddingEnglish", serif;
 }
 
-.calendar {
-  width: 100%;
+.calendar-top span {
+  font-size: 12px;
+  letter-spacing: 0.25em;
+}
+
+.calendar-top strong {
+  font-size: 18px;
+  font-weight: 400;
 }
 
 .calendar-week,
 .calendar-grid {
   display: grid;
+  grid-template-columns: repeat(7, 1fr);
 
-  grid-template-columns:
-    repeat(7, 1fr);
+  text-align: center;
 }
 
 .calendar-week {
-  margin-bottom: 12px;
+  padding: 18px 0 12px;
 
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-align: center;
+  /* 英文 */
+  font-family: "WeddingEnglish", serif;
 
-  color: #969389;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+
+  color: var(--muted);
 }
 
 .calendar-grid {
-  row-gap: 15px;
+  row-gap: 13px;
+
+  /* 数字使用英文数字字体 */
+  font-family: "WeddingEnglish", serif;
+
+  font-size: 13px;
 }
 
-.calendar-day {
+.calendar-special {
   position: relative;
 
-  min-height: 42px;
+  width: 28px;
+  height: 28px;
+
+  margin: -7px auto 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  font-family: "WeddingEnglish", serif;
-  font-size: 13px;
-
-  color: #5f6059;
-}
-
-.calendar-day.wedding-day {
-  font-weight: 400;
-}
-
-.calendar-day.wedding-day::before {
-  content: "";
-
-  position: absolute;
-
-  width: 36px;
-  height: 36px;
-
-  border: 1px solid rgba(93, 91, 81, 0.55);
-
+  border: 1px solid var(--sage);
   border-radius: 50%;
-
-  top: 50%;
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-}
-
-.calendar-day.wedding-day::after {
-  content: "";
-
-  position: absolute;
-
-  width: 5px;
-  height: 5px;
-
-  border-radius: 50%;
-
-  background: #68675e;
-
-  bottom: -1px;
-  left: 50%;
-
-  transform: translateX(-50%);
 }
 
 
-/* Countdown */
+/* =====================================================
+   COUNTDOWN
+===================================================== */
 
-.countdown {
-  margin-top: 58px;
-
-  display: flex;
-  justify-content: center;
-
-  gap: clamp(18px, 7vw, 42px);
-}
-
-.countdown-item {
-  min-width: 52px;
-
+.countdown-block {
+  margin-top: 65px;
   text-align: center;
 }
 
-.countdown-number {
+.countdown-block > div {
+  margin: 12px 0;
+
+  /* 中文 */
+  font-family: "WeddingChinese", serif;
+
+  font-size: 14px;
+  color: var(--muted);
+}
+
+#countdownNumber {
   display: block;
 
+  /* 英文数字 */
   font-family: "WeddingEnglish", serif;
 
-  font-size: clamp(25px, 7vw, 40px);
+  font-size: clamp(54px, 14vw, 90px);
+  font-weight: 300;
   line-height: 1;
 
-  color: #4c4d47;
+  color: var(--sage);
 }
 
 .countdown-unit {
   display: block;
 
-  margin-top: 9px;
+  margin-top: 10px;
 
-  font-size: 8px;
-  letter-spacing: 0.2em;
+  /* 英文 */
+  font-family: "WeddingEnglish", serif;
 
-  color: #959288;
+  font-size: 9px;
+  letter-spacing: 0.35em;
 }
 
 
-/* =========================
-   10. MOMENTS
-   ========================= */
+/* =====================================================
+   MOMENTS
+===================================================== */
 
-.moments {
-  background:
-    linear-gradient(
-      180deg,
-      #faf8f2 0%,
-      #f4f0e5 100%
-    );
-}
-
-.moments-intro {
-  max-width: 620px;
-
-  margin: 0 auto 45px;
-
-  text-align: center;
-}
-
-.moments-title {
-  font-size: 12px;
-
-  letter-spacing: 0.38em;
-
-  color: #74736a;
-}
-
-.moments-subtitle {
-  margin-top: 15px;
-
-  font-size: 10px;
-  letter-spacing: 0.2em;
-
-  color: #96938a;
-}
-
-
-/* large photo */
-
-.gallery-main {
+.moments-section {
   width: 100%;
-  max-width: 820px;
+  max-width: 1100px;
+
+  padding-left: 0;
+  padding-right: 0;
+
+  overflow: hidden;
+}
+
+.moments-heading {
+  padding: 0 22px;
+}
+
+.moments-heading h2 {
+  /* 英文 */
+  font-family: "WeddingEnglish", serif;
+
+  font-style: italic;
+  letter-spacing: 0.05em;
+}
+
+
+/* 大图 */
+
+.main-photo-frame {
+  position: relative;
+
+  width: min(88vw, 760px);
 
   margin: 0 auto;
 
+  aspect-ratio: 4 / 5;
+
   overflow: hidden;
-
-  background: #e9e5db;
-}
-
-.gallery-main img {
-  width: 100%;
-  height: auto;
-
-  aspect-ratio: 4 / 5;
-
-  object-fit: cover;
-
-  transition:
-    opacity 0.45s ease,
-    transform 0.8s ease;
-}
-
-
-/* photo placeholder */
-
-.gallery-placeholder {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   background:
     linear-gradient(
-      145deg,
-      #eeeae0,
-      #e5dfd2
+      135deg,
+      rgba(145,170,176,0.22),
+      rgba(170,167,187,0.18)
     );
+
+  border: 1px solid rgba(62,73,65,0.15);
+}
+
+.main-photo-frame img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.photo-placeholder {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   text-align: center;
 
-  color: #99958a;
+  background:
+    radial-gradient(
+      circle at 40% 35%,
+      rgba(255,255,255,0.55),
+      transparent 35%
+    ),
+    rgba(238,233,220,0.5);
 }
 
-.gallery-placeholder span {
+.photo-placeholder span {
+  /* 英文 */
   font-family: "WeddingEnglish", serif;
 
-  font-size: 10px;
-  letter-spacing: 0.28em;
+  font-size: 24px;
+  letter-spacing: 0.25em;
+}
+
+.photo-placeholder small {
+  margin-top: 12px;
+
+  /* 英文 */
+  font-family: "WeddingEnglish", serif;
+
+  font-size: 9px;
+  letter-spacing: 0.35em;
+
+  color: var(--muted);
 }
 
 
-/* thumbnails */
+/* 文字 */
 
-.gallery-nav {
+.moments-quote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 45px auto 38px;
+
+  text-align: center;
+}
+
+.quote-line {
+  width: 35px;
+  height: 1px;
+
+  background: var(--sage);
+
+  opacity: 0.6;
+}
+
+.moments-quote p {
+  margin: 18px 20px 10px;
+
+  /* 这里是英文句子，所以使用英文字体 */
+  font-family: "WeddingEnglish", serif;
+
+  font-size: clamp(18px, 4vw, 24px);
+  line-height: 1.7;
+
+  font-style: italic;
+}
+
+.moments-quote small {
+  /* 中文 */
+  font-family: "WeddingChinese", serif;
+
+  color: var(--muted);
+
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+
+/* 缩略图 */
+
+.photo-slider-wrap {
   position: relative;
-
-  margin-top: 18px;
+  width: 100%;
 }
 
 .photo-scroll {
   display: flex;
-
   gap: 13px;
 
   overflow-x: auto;
+  overflow-y: hidden;
+
+  padding: 0 7vw 15px;
 
   scroll-snap-type: x mandatory;
-
-  padding:
-    0 2px
-    12px;
+  scroll-behavior: smooth;
 
   scrollbar-width: none;
 
@@ -704,161 +638,113 @@ a {
 }
 
 .photo-thumb {
-  flex:
-    0 0
-    clamp(150px, 58vw, 270px);
+  flex: 0 0 58vw;
 
   aspect-ratio: 4 / 5;
 
-  overflow: hidden;
+  object-fit: cover;
 
-  scroll-snap-align: start;
+  scroll-snap-align: center;
 
-  border: 1px solid rgba(76, 74, 65, 0.12);
+  border: 1px solid rgba(62,73,65,0.12);
 
-  background: #e9e5db;
+  cursor: pointer;
 
-  opacity: 0.82;
+  opacity: 0.72;
 
   transition:
     opacity 0.3s ease,
     transform 0.3s ease;
 }
 
-.photo-thumb:hover {
-  opacity: 1;
-}
-
 .photo-thumb.active {
   opacity: 1;
+
+  transform: translateY(-3px);
 }
 
-.photo-thumb img {
-  width: 100%;
-  height: 100%;
+.photo-arrow {
+  position: absolute;
 
-  object-fit: cover;
-}
+  top: 50%;
+  z-index: 5;
 
-
-/* gallery arrows */
-
-.gallery-arrows {
-  display: flex;
-  justify-content: center;
-
-  gap: 12px;
-
-  margin-top: 14px;
-}
-
-.gallery-arrow {
   width: 38px;
   height: 38px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 1px solid rgba(75, 74, 66, 0.22);
-
+  border: 1px solid rgba(62,73,65,0.3);
   border-radius: 50%;
 
-  color: #66655d;
+  background: rgba(245,241,231,0.8);
 
-  transition:
-    background 0.25s ease,
-    transform 0.25s ease;
+  transform: translateY(-50%);
+
+  cursor: pointer;
+
+  /* 英文符号 */
+  font-family: "WeddingEnglish", serif;
+
+  font-size: 24px;
+  line-height: 1;
 }
 
-.gallery-arrow:hover {
-  transform: translateY(-1px);
-  background: rgba(100, 98, 88, 0.06);
+.photo-arrow-left {
+  left: 12px;
 }
 
-
-/* quote */
-
-.moments-quote {
-  max-width: 580px;
-
-  margin: 58px auto 0;
-
-  text-align: center;
-}
-
-.moments-quote p {
-  font-family: "WeddingEnglish", "WeddingChinese", serif;
-
-  font-size: clamp(17px, 4.5vw, 23px);
-
-  line-height: 1.8;
-
-  letter-spacing: 0.04em;
-
-  color: #585850;
-}
-
-.moments-quote small {
-  display: block;
-
-  margin-top: 18px;
-
-  font-size: 12px;
-  line-height: 2;
-
-  letter-spacing: 0.1em;
-
-  color: #88857a;
+.photo-arrow-right {
+  right: 12px;
 }
 
 .photo-hint {
-  margin-top: 32px;
+  margin-top: 12px;
 
   text-align: center;
 
+  /* 英文 */
+  font-family: "WeddingEnglish", serif;
+
   font-size: 8px;
+  letter-spacing: 0.3em;
 
-  letter-spacing: 0.35em;
-
-  color: #a09d93;
+  color: var(--muted);
 }
 
 
-/* =========================
-   11. SCHEDULE
-   ========================= */
+/* =====================================================
+   婚礼流程
+===================================================== */
+
+.schedule-section {
+  text-align: center;
+}
 
 .schedule {
-  background:
-    linear-gradient(
-      180deg,
-      #f5f1e6,
-      #faf8f1
-    );
-}
-
-.schedule-list {
   position: relative;
 
-  max-width: 720px;
+  width: min(100%, 560px);
 
   margin: 0 auto;
+
+  padding: 10px 0;
 }
 
-.schedule-list::before {
+
+/* 正中央竖线 */
+
+.schedule::before {
   content: "";
 
   position: absolute;
 
-  top: 10px;
-  bottom: 10px;
+  top: 0;
+  bottom: 0;
 
   left: 50%;
 
   width: 1px;
 
-  background: rgba(80, 78, 69, 0.2);
+  background: var(--line);
 
   transform: translateX(-50%);
 }
@@ -875,24 +761,31 @@ a {
 
   align-items: center;
 
-  min-height: 100px;
-
-  margin-bottom: 24px;
+  min-height: 110px;
 }
 
+
+/* 左边时间 */
+
 .schedule-time {
-  padding-right: 22px;
+  justify-self: end;
 
-  text-align: right;
+  padding-right: 25px;
 
+  /* 英文数字 */
   font-family: "WeddingEnglish", serif;
 
-  font-size: 24px;
+  font-size: 18px;
 
   letter-spacing: 0.08em;
 
-  color: #55564e;
+  color: var(--sage);
+
+  text-align: right;
 }
+
+
+/* 中间点 */
 
 .schedule-dot {
   position: relative;
@@ -901,331 +794,238 @@ a {
   width: 9px;
   height: 9px;
 
-  margin: auto;
+  margin: 0 auto;
 
+  border: 1px solid var(--sage);
   border-radius: 50%;
 
-  background: #6e6d64;
-
-  box-shadow:
-    0 0 0 7px #f7f3e9;
+  background: var(--paper);
 }
 
+
+/* 右边内容 */
+
 .schedule-content {
-  padding-left: 22px;
+  justify-self: start;
+
+  padding-left: 25px;
+
+  text-align: left;
 }
 
 .schedule-content strong {
   display: block;
 
-  font-size: 17px;
+  /* 中文 */
+  font-family: "WeddingChinese", serif;
 
+  font-size: 18px;
   font-weight: 400;
 
-  letter-spacing: 0.15em;
-
-  color: #4a4b45;
+  letter-spacing: 0.08em;
 }
 
 .schedule-content span {
   display: block;
 
-  margin-top: 8px;
+  margin-top: 6px;
 
-  font-size: 9px;
+  /* 英文 */
+  font-family: "WeddingEnglish", serif;
 
-  letter-spacing: 0.28em;
+  font-size: 8px;
+  letter-spacing: 0.25em;
 
-  color: #949188;
+  color: var(--muted);
 }
 
 
-/* =========================
-   12. LOCATION
-   ========================= */
+/* =====================================================
+   LOCATION
+===================================================== */
 
-.location {
-  background:
-    linear-gradient(
-      180deg,
-      #faf8f2,
-      #f3efe4
-    );
-}
-
-.location-map {
-  width: 100%;
-  max-width: 850px;
-
+.location-card {
+  max-width: 760px;
   margin: 0 auto;
-
-  overflow: hidden;
-
-  background: #ebe7dd;
-
-  border: 1px solid rgba(78, 76, 67, 0.1);
 }
 
 
 /*
-   IMPORTANT:
-   不裁切地图
-   不固定高度
-   保持原图比例
-*/
+ * 不裁切地图
+ * 完整显示原图
+ */
 
-.location-map img {
+.location-map {
   display: block;
 
+  overflow: hidden;
+
+  border: 1px solid var(--line);
+
+  background: rgba(255,255,255,0.25);
+
+  line-height: 0;
+}
+
+.location-map img {
   width: 100%;
   height: auto;
-
-  max-width: 100%;
 
   object-fit: contain;
 }
 
 
-/* location info */
-
 .location-info {
-  text-align: center;
+  padding: 28px 10px;
 
-  margin-top: 35px;
+  text-align: center;
 }
 
 .location-info h3 {
+  margin: 0 0 10px;
+
+  /* 中文 */
+  font-family: "WeddingChinese", serif;
+
   font-size: 21px;
-
   font-weight: 400;
-
-  letter-spacing: 0.12em;
-
-  color: #484942;
 }
 
 .location-info p {
-  margin-top: 12px;
+  margin: 0;
 
-  font-size: 12px;
-  line-height: 2;
+  /* 中文 */
+  font-family: "WeddingChinese", serif;
 
-  letter-spacing: 0.08em;
+  color: var(--muted);
 
-  color: #858278;
+  font-size: 13px;
+  line-height: 1.8;
 }
-
-
-/* map button */
 
 .map-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
 
-  margin-top: 26px;
+  margin-top: 22px;
 
-  min-width: 210px;
-  min-height: 48px;
+  padding: 11px 22px;
 
-  padding: 0 24px;
+  border: 1px solid rgba(62,73,65,0.4);
 
-  border: 1px solid rgba(70, 69, 62, 0.3);
+  color: var(--ink);
+  text-decoration: none;
 
-  color: #55564e;
-
-  transition:
-    background 0.3s ease,
-    color 0.3s ease,
-    transform 0.3s ease;
-}
-
-.map-button:hover {
-  transform: translateY(-2px);
-
-  background: #56574f;
-
-  color: #fff;
-}
-
-.map-button span {
+  /* 中文 */
   font-family: "WeddingChinese", serif;
 
   font-size: 12px;
-
-  letter-spacing: 0.15em;
+  letter-spacing: 0.1em;
 }
 
 
-/* =========================
-   13. REPLY
-   ========================= */
-
-.reply {
-  background:
-    linear-gradient(
-      180deg,
-      #f3efe4,
-      #faf8f2
-    );
-}
+/* =====================================================
+   REPLY
+===================================================== */
 
 .reply-card {
-  width: min(100%, 620px);
+  width: min(100%, 560px);
 
   margin: 0 auto;
 
-  padding: 38px 25px 42px;
+  padding: 30px 22px;
 
-  border: 1px solid rgba(77, 75, 66, 0.15);
+  border: 1px solid var(--line);
 
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255,255,255,0.18);
 }
 
-.reply-intro {
+.reply-question {
+  margin: 0 0 24px;
+
   text-align: center;
 
-  margin-bottom: 32px;
+  /* 中文 */
+  font-family: "WeddingChinese", serif;
+
+  font-size: 16px;
 }
-
-.reply-intro p {
-  font-size: 13px;
-
-  line-height: 2;
-
-  letter-spacing: 0.08em;
-
-  color: #747269;
-}
-
-
-/* attendance buttons */
 
 .attendance-options {
   display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 12px;
-
-  margin-bottom: 28px;
+  gap: 10px;
 }
 
-.attendance-button {
-  min-height: 48px;
+.attendance-button,
+.stay-button {
+  padding: 13px;
 
-  border: 1px solid rgba(77, 75, 66, 0.22);
+  border: 1px solid var(--line);
 
-  color: #66655d;
+  background: transparent;
 
+  /* 中文 */
   font-family: "WeddingChinese", serif;
 
-  font-size: 12px;
-
-  letter-spacing: 0.08em;
-
-  transition:
-    background 0.25s ease,
-    color 0.25s ease;
+  cursor: pointer;
 }
 
-.attendance-button.active {
-  background: #62635b;
+.attendance-button.selected,
+.stay-button.selected {
+  background: rgba(130,151,138,0.14);
 
-  color: #fff;
-
-  border-color: #62635b;
+  border-color: var(--sage);
 }
 
-
-/* form */
-
-.reply-form {
-  display: none;
+.stay-fields {
+  margin-top: 28px;
 }
 
-.reply-form.show {
-  display: block;
+.form-group {
+  margin-bottom: 22px;
 }
 
-.form-field {
-  margin-top: 20px;
-}
-
-.form-field label {
+.form-group label {
   display: block;
 
   margin-bottom: 8px;
 
-  font-family: "WeddingChinese", serif;
-
-  font-size: 12px;
-
-  letter-spacing: 0.12em;
-
-  color: #66655d;
-}
-
-.form-field input,
-.form-field textarea,
-.form-field select {
-  width: 100%;
-
-  min-height: 46px;
-
-  padding: 10px 13px;
-
-  border: 1px solid rgba(78, 76, 67, 0.18);
-
-  outline: none;
-
-  background: rgba(255, 255, 255, 0.55);
-
-  color: #55564e;
-
+  /* 中文 */
   font-family: "WeddingChinese", serif;
 
   font-size: 13px;
-
-  border-radius: 0;
-
-  transition:
-    border-color 0.25s ease,
-    background 0.25s ease;
 }
 
-.form-field textarea {
-  min-height: 110px;
+.small-options {
+  display: grid;
 
+  grid-template-columns: 1fr 1fr;
+
+  gap: 8px;
+}
+
+input,
+textarea {
+  width: 100%;
+
+  padding: 12px;
+
+  border: 1px solid var(--line);
+
+  outline: none;
+
+  background: rgba(255,255,255,0.25);
+
+  color: var(--ink);
+
+  /* 中文输入 */
+  font-family: "WeddingChinese", serif;
+}
+
+textarea {
   resize: vertical;
-
-  line-height: 1.8;
 }
 
-.form-field input:focus,
-.form-field textarea:focus,
-.form-field select:focus {
-  border-color: rgba(70, 69, 62, 0.5);
-
-  background: rgba(255, 255, 255, 0.75);
-}
-
-
-/* accommodation */
-
-.stay-title {
-  margin-top: 28px;
-
-  margin-bottom: 12px;
-
-  font-size: 12px;
-
-  letter-spacing: 0.12em;
-
-  color: #66655d;
-}
-
-.stay-options {
+.date-row {
   display: grid;
 
   grid-template-columns: 1fr 1fr;
@@ -1233,297 +1033,200 @@ a {
   gap: 10px;
 }
 
-.stay-option {
-  min-height: 44px;
-
-  border: 1px solid rgba(78, 76, 67, 0.2);
-
-  color: #77756d;
-
-  font-size: 12px;
-
-  transition:
-    background 0.25s ease,
-    color 0.25s ease;
-}
-
-.stay-option.active {
-  background: #686960;
-
-  border-color: #686960;
-
-  color: #fff;
-}
-
-
-/* submit */
-
-.reply-submit {
+.submit-button {
   width: 100%;
 
-  min-height: 50px;
+  padding: 13px;
 
-  margin-top: 32px;
+  border: 1px solid rgba(62,73,65,0.45);
 
-  background: #5c5d55;
+  background: transparent;
 
-  color: #fff;
-
+  /* 中文 */
   font-family: "WeddingChinese", serif;
 
-  font-size: 13px;
+  cursor: pointer;
 
-  letter-spacing: 0.2em;
-
-  transition:
-    transform 0.25s ease,
-    opacity 0.25s ease;
+  letter-spacing: 0.15em;
 }
-
-.reply-submit:hover {
-  transform: translateY(-2px);
-
-  opacity: 0.9;
-}
-
-
-/* reply success */
 
 .reply-success {
-  display: none;
-
-  padding: 35px 10px;
+  margin: 20px 0 0;
 
   text-align: center;
+
+  /* 中文 */
+  font-family: "WeddingChinese", serif;
+
+  color: var(--sage);
+
+  font-size: 13px;
 }
 
-.reply-success.show {
-  display: block;
-}
-
-.reply-success p {
-  font-size: 16px;
-
-  line-height: 2;
-
-  letter-spacing: 0.12em;
-
-  color: #5e5f57;
+.hidden {
+  display: none !important;
 }
 
 
-/* =========================
-   14. FINAL
-   ========================= */
+/* =====================================================
+   FINAL
+===================================================== */
 
-.final {
-  min-height: 80svh;
+.final-section {
+  min-height: 65svh;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
+  padding: 80px 22px;
+
   text-align: center;
 
   background:
     radial-gradient(
-      circle at center,
-      #faf8f1 0%,
-      #ebe5d6 100%
-    );
+      circle at 50% 40%,
+      rgba(145,170,176,0.13),
+      transparent 45%
+    ),
+    var(--paper-light);
 }
 
-.final-inner {
-  padding:
-    80px 25px;
-}
+.final-inner > span {
+  /* 英文 */
+  font-family: "WeddingEnglish", serif;
 
-.final-inner .with-love {
-  margin-bottom: 24px;
+  font-style: italic;
 
-  font-size: 10px;
+  font-size: 18px;
 
-  letter-spacing: 0.42em;
-
-  text-transform: lowercase;
-
-  color: #88857a;
+  color: var(--muted);
 }
 
 .final-inner h2 {
-  font-size: clamp(28px, 8vw, 45px);
+  margin: 20px 0 15px;
 
+  /* 中文 */
+  font-family: "WeddingChinese", serif;
+
+  font-size: clamp(28px, 7vw, 44px);
   font-weight: 400;
 
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
+}
 
-  color: #41423c;
+.final-inner p {
+  margin: 0;
+
+  /* 日期数字 → 英文字体 */
+  font-family: "WeddingEnglish", serif;
+
+  font-size: 12px;
+  letter-spacing: 0.2em;
 }
 
 .final-inner strong {
   display: block;
 
-  margin-top: 25px;
+  margin-top: 45px;
 
-  font-size: 13px;
-
-  font-weight: 400;
-
-  letter-spacing: 0.22em;
-
-  color: #77756c;
-}
-
-.final-inner .final-greeting {
-  margin-top: 40px;
-
+  /* 中文 */
   font-family: "WeddingChinese", serif;
 
   font-size: 20px;
+  font-weight: 400;
 
-  letter-spacing: 0.3em;
-
-  color: #55564e;
+  letter-spacing: 0.25em;
 }
 
 
-/* =========================
-   15. Reveal animation
-   ========================= */
+/* =====================================================
+   MOBILE
+===================================================== */
 
-.reveal {
-  opacity: 0;
+@media (max-width: 600px) {
 
-  transform: translateY(25px);
-
-  transition:
-    opacity 0.9s ease,
-    transform 0.9s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-
-  transform: translateY(0);
-}
-
-
-/* =========================
-   16. Desktop
-   ========================= */
-
-@media (min-width: 768px) {
-
-  .hero {
-    padding:
-      100px 50px
-      90px;
+  .section {
+    padding-top: 85px;
+    padding-bottom: 85px;
   }
 
   .hero-inner {
-    padding: 70px 30px;
+    padding-top: 80px;
+    padding-bottom: 80px;
   }
 
-  .section-inner {
-    padding:
-      130px 40px
-      140px;
-  }
-
-  .gallery-main img {
-    aspect-ratio: 16 / 10;
-  }
-
-  .photo-thumb {
-    flex-basis: 230px;
-
-    aspect-ratio: 4 / 5;
-  }
-
-  .reply-card {
-    padding:
-      50px
-      55px
-      55px;
-  }
-
-}
-
-
-/* =========================
-   17. Small phones
-   ========================= */
-
-@media (max-width: 380px) {
-
-  .hero {
-    padding-left: 18px;
-    padding-right: 18px;
-  }
-
-  .hero::before {
-    inset: 14px;
+  .guest-name {
+    font-size: 34px;
   }
 
   .couple-name {
     font-size: 34px;
   }
 
-  .guest-name {
+  .couple-en {
     font-size: 17px;
-    padding-left: 17px;
+  }
+
+
+  /* 缩略图 */
+
+  .photo-thumb {
+    flex-basis: 62vw;
+  }
+
+  .photo-scroll {
+    gap: 12px;
+
+    padding-left: 8vw;
+    padding-right: 8vw;
+  }
+
+
+  /* 流程 */
+
+  .schedule {
+    width: 94%;
+  }
+
+  .schedule-item {
+    grid-template-columns: 1fr 28px 1fr;
+  }
+
+  .schedule-time {
     padding-right: 17px;
+
+    font-size: 16px;
   }
 
-  .section-inner {
-    padding-left: 18px;
-    padding-right: 18px;
+  .schedule-content {
+    padding-left: 17px;
   }
 
-  .attendance-options {
+  .schedule-content strong {
+    font-size: 16px;
+  }
+
+  .schedule-content span {
+    font-size: 7px;
+  }
+
+
+  /* 地图 */
+
+  .location-card {
+    width: 100%;
+  }
+
+  .location-map img {
+    width: 100%;
+    height: auto;
+
+    object-fit: contain;
+  }
+
+
+  .date-row {
     grid-template-columns: 1fr;
   }
-
-  .stay-options {
-    grid-template-columns: 1fr;
-  }
-
-}
-
-
-/* =========================
-   18. Accessibility
-   ========================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-}
-
-
-/* =========================
-   19. Prevent accidental
-       horizontal overflow
-   ========================= */
-
-html,
-body {
-  max-width: 100%;
-}
-
-.page,
-.section {
-  max-width: 100%;
 }
