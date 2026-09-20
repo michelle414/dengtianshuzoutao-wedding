@@ -7,51 +7,42 @@ const weddingConfig = {
 
   weddingDate: "2026-10-25T12:08:00+08:00",
 
-  weddingDateText: "2026年10月25日",
-  lunarDateText: "丙午年九月十六 · 星期日",
-
-  venue: "吉安宾馆·礼堂",
-  address: "中国·江西·吉安·吉州区沿江路99号",
-
-  mapUrl: "https://surl.amap.com/1qtd9gB5ti",
-
   music: "Shortcut To Heaven.mp3",
 
-  /*
-   * 等你上传婚纱照以后，
-   * 只需要把文件名写在这里。
-   *
-   * 例如：
-   *
-   * photos: [
-   *   { src: "wedding-main.jpg" },
-   *   { src: "wedding-01.jpg" },
-   *   { src: "wedding-02.jpg" },
-   *   { src: "wedding-03.jpg" },
-   *   { src: "wedding-04.jpg" }
-   * ]
-   */
-  photos: []
+  photos: [
+    "photos/photo-01.jpg",
+    "photos/photo-02.jpg",
+    "photos/photo-03.jpg",
+    "photos/photo-04.jpg",
+    "photos/photo-05.jpg",
+    "photos/photo-06.jpg",
+    "photos/photo-07.jpg",
+    "photos/photo-08.jpg",
+    "photos/photo-09.jpg",
+    "photos/photo-10.jpg"
+  ]
 };
 
 
-/* ==================== GUEST ==================== */
+/* =====================================================
+   宾客姓名
+===================================================== */
 
 function getGuestName() {
   const params = new URLSearchParams(window.location.search);
+
   const guest = params.get("guest");
 
-  return guest
-    ? guest.trim() || "宾客"
-    : "宾客";
+  if (!guest || !guest.trim()) {
+    return "宾客";
+  }
+
+  return guest.trim();
 }
 
 
 function formatGuestName(name) {
-  /*
-   * 暂时保留中文名字之间的轻微留白，
-   * 但不增加“叔叔、阿姨、先生、女士”等称呼。
-   */
+
   if (
     name.includes(" ") ||
     name.includes("　") ||
@@ -70,383 +61,823 @@ function formatGuestName(name) {
 }
 
 
-/* ==================== INIT ==================== */
+/* =====================================================
+   页面初始化
+===================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  const guestName = document.getElementById("guestName");
+  initGuestName();
 
-  if (guestName) {
-    guestName.textContent = formatGuestName(getGuestName());
-  }
+  initCalendar();
 
+  initCountdown();
 
-  /* 地图 */
-
-  const mapButton = document.getElementById("mapButton");
-  const mapImageLink = document.getElementById("mapImageLink");
-
-  if (mapButton) {
-    mapButton.href = weddingConfig.mapUrl;
-  }
-
-  if (mapImageLink) {
-    mapImageLink.href = weddingConfig.mapUrl;
-  }
-
-
-  /* 音乐 */
-
-  const music = document.getElementById("bgMusic");
-  const musicControl = document.getElementById("musicControl");
-  const openInvitation = document.getElementById("openInvitation");
-
-  music.src = weddingConfig.music;
-
-
-  function updateMusicButton() {
-    if (!musicControl) return;
-
-    musicControl.textContent = music.paused ? "♪" : "♫";
-  }
-
-
-  if (openInvitation) {
-
-    openInvitation.addEventListener("click", async () => {
-
-      try {
-        await music.play();
-      } catch (error) {
-        console.log("音乐播放需要用户再次点击。");
-      }
-
-      updateMusicButton();
-
-      document
-        .querySelector(".wedding-day")
-        ?.scrollIntoView({
-          behavior: "smooth"
-        });
-    });
-
-  }
-
-
-  if (musicControl) {
-
-    musicControl.addEventListener("click", async () => {
-
-      if (music.paused) {
-
-        try {
-          await music.play();
-        } catch (error) {
-          console.log(error);
-        }
-
-      } else {
-
-        music.pause();
-
-      }
-
-      updateMusicButton();
-    });
-
-  }
-
-
-  /* 倒计时 */
-
-  startCountdown();
-
-
-  /* 照片 */
+  initMusic();
 
   initGallery();
 
-
-  /* 宾客回复 */
-
   initReply();
+
+  initReveal();
 
 });
 
 
-/* ==================== COUNTDOWN ==================== */
+/* =====================================================
+   宾客姓名
+===================================================== */
 
-function startCountdown() {
+function initGuestName() {
 
-  const number = document.getElementById("countdownNumber");
+  const guestNameElement =
+    document.getElementById("guestName");
 
-  if (!number) return;
+  if (!guestNameElement) {
+    return;
+  }
+
+  const guestName = getGuestName();
+
+  guestNameElement.textContent =
+    formatGuestName(guestName);
+}
 
 
-  function update() {
+/* =====================================================
+   2026年10月日历
+   周一开始
+===================================================== */
 
-    const target = new Date(weddingConfig.weddingDate).getTime();
-    const now = Date.now();
+function initCalendar() {
 
-    const difference = target - now;
+  const calendar =
+    document.getElementById("calendarGrid");
 
-    if (difference <= 0) {
+  if (!calendar) {
+    return;
+  }
 
-      number.textContent = "0";
+  calendar.innerHTML = "";
+
+  /*
+    2026年10月1日是星期四。
+
+    如果周一为第一列：
+    周一 空
+    周二 空
+    周三 空
+    周四 1
+
+    所以这里放 3 个空白。
+  */
+
+  const firstDay = 3;
+
+  for (let i = 0; i < firstDay; i++) {
+
+    const empty =
+      document.createElement("div");
+
+    empty.className = "calendar-empty";
+
+    calendar.appendChild(empty);
+  }
+
+
+  for (let day = 1; day <= 31; day++) {
+
+    const cell =
+      document.createElement("div");
+
+    cell.className = "calendar-day";
+
+
+    if (day === 25) {
+
+      const special =
+        document.createElement("div");
+
+      special.className = "calendar-special";
+
+      special.textContent = day;
+
+      cell.appendChild(special);
+
+    } else {
+
+      cell.textContent = day;
+
+    }
+
+    calendar.appendChild(cell);
+  }
+}
+
+
+/* =====================================================
+   倒计时
+===================================================== */
+
+function initCountdown() {
+
+  const countdown =
+    document.getElementById("countdownNumber");
+
+  if (!countdown) {
+    return;
+  }
+
+
+  function updateCountdown() {
+
+    const now = new Date();
+
+    const wedding =
+      new Date(weddingConfig.weddingDate);
+
+    const diff =
+      wedding.getTime() - now.getTime();
+
+
+    if (diff <= 0) {
+
+      countdown.textContent = "0";
 
       return;
     }
 
-    const days = Math.ceil(
-      difference / (1000 * 60 * 60 * 24)
-    );
 
-    number.textContent = days;
+    const days =
+      Math.ceil(
+        diff / (1000 * 60 * 60 * 24)
+      );
+
+    countdown.textContent = days;
   }
 
 
-  update();
+  updateCountdown();
 
-  setInterval(update, 60 * 1000);
+  setInterval(
+    updateCountdown,
+    60 * 1000
+  );
 }
 
 
-/* ==================== GALLERY ==================== */
+/* =====================================================
+   音乐
+===================================================== */
+
+function initMusic() {
+
+  const music =
+    document.getElementById("bgMusic");
+
+  const musicButton =
+    document.getElementById("musicControl");
+
+  const openButton =
+    document.getElementById("openInvitation");
+
+
+  if (!music || !musicButton) {
+    return;
+  }
+
+
+  music.src = weddingConfig.music;
+
+
+  let playing = false;
+
+
+  function playMusic() {
+
+    music.play()
+      .then(() => {
+
+        playing = true;
+
+        musicButton.classList.add("playing");
+
+        musicButton.textContent = "♫";
+
+      })
+      .catch(() => {
+
+        playing = false;
+
+      });
+  }
+
+
+  function pauseMusic() {
+
+    music.pause();
+
+    playing = false;
+
+    musicButton.classList.remove("playing");
+
+    musicButton.textContent = "♪";
+  }
+
+
+  musicButton.addEventListener(
+    "click",
+    () => {
+
+      if (playing) {
+
+        pauseMusic();
+
+      } else {
+
+        playMusic();
+
+      }
+
+    }
+  );
+
+
+  if (openButton) {
+
+    openButton.addEventListener(
+      "click",
+      () => {
+
+        playMusic();
+
+        const target =
+          document.getElementById("ourDay");
+
+        if (target) {
+
+          target.scrollIntoView({
+            behavior: "smooth"
+          });
+
+        }
+
+      }
+    );
+
+  }
+}
+
+
+/* =====================================================
+   MOMENTS 相册
+===================================================== */
 
 function initGallery() {
 
-  const mainImage = document.getElementById("mainGalleryImage");
-  const placeholder = document.getElementById("photoPlaceholder");
-  const photoScroll = document.getElementById("photoScroll");
+  const mainImage =
+    document.getElementById("mainGalleryImage");
 
-  const prevButton = document.getElementById("photoPrev");
-  const nextButton = document.getElementById("photoNext");
+  const scroll =
+    document.getElementById("photoScroll");
+
+  const prev =
+    document.getElementById("photoPrev");
+
+  const next =
+    document.getElementById("photoNext");
 
 
-  if (!mainImage || !photoScroll) {
+  if (
+    !mainImage ||
+    !scroll
+  ) {
     return;
   }
 
 
-  /* 目前还没有照片 */
+  /*
+    01 是主图
+    02-10 是缩略图
+  */
 
-  if (!weddingConfig.photos.length) {
+  const thumbnails =
+    weddingConfig.photos.slice(1);
 
-    mainImage.style.display = "none";
 
-    if (placeholder) {
-      placeholder.style.display = "flex";
+  thumbnails.forEach(
+    (src, index) => {
+
+      const img =
+        document.createElement("img");
+
+      img.src = src;
+
+      img.alt =
+        `Moment ${index + 2}`;
+
+      img.className =
+        "photo-thumb";
+
+
+      img.addEventListener(
+        "click",
+        () => {
+
+          mainImage.src = src;
+
+
+          document
+            .querySelectorAll(".photo-thumb")
+            .forEach(
+              item => {
+                item.classList.remove("active");
+              }
+            );
+
+
+          img.classList.add("active");
+
+
+          img.scrollIntoView({
+            behavior: "smooth",
+            inline: "center",
+            block: "nearest"
+          });
+
+        }
+      );
+
+
+      scroll.appendChild(img);
+
     }
+  );
 
-    photoScroll.innerHTML = `
-      <div class="photo-thumb-placeholder">
-        OUR MOMENTS
-      </div>
-    `;
 
-    if (prevButton) {
-      prevButton.style.display = "none";
-    }
+  const first =
+    scroll.querySelector(".photo-thumb");
 
-    if (nextButton) {
-      nextButton.style.display = "none";
-    }
-
-    return;
+  if (first) {
+    first.classList.add("active");
   }
 
 
-  /* 有照片以后 */
+  /*
+    左右按钮
+  */
 
-  if (placeholder) {
-    placeholder.style.display = "none";
-  }
+  if (prev) {
 
-  mainImage.style.display = "block";
+    prev.addEventListener(
+      "click",
+      () => {
 
-
-  weddingConfig.photos.forEach((photo, index) => {
-
-    const image = document.createElement("img");
-
-    image.src = photo.src;
-    image.alt = `TIANSHU & TAO · ${index + 1}`;
-
-    image.className = "photo-thumb";
-
-    if (index === 0) {
-      image.classList.add("active");
-      mainImage.src = photo.src;
-    }
-
-
-    image.addEventListener("click", () => {
-
-      mainImage.src = photo.src;
-
-      document
-        .querySelectorAll(".photo-thumb")
-        .forEach(item => {
-          item.classList.remove("active");
+        scroll.scrollBy({
+          left: -window.innerWidth * 0.65,
+          behavior: "smooth"
         });
 
-      image.classList.add("active");
-
-    });
-
-
-    photoScroll.appendChild(image);
-
-  });
-
-
-  /* 左右滑动 */
-
-  if (prevButton) {
-
-    prevButton.addEventListener("click", () => {
-
-      photoScroll.scrollBy({
-        left: -window.innerWidth * 0.62,
-        behavior: "smooth"
-      });
-
-    });
+      }
+    );
 
   }
 
 
-  if (nextButton) {
+  if (next) {
 
-    nextButton.addEventListener("click", () => {
+    next.addEventListener(
+      "click",
+      () => {
 
-      photoScroll.scrollBy({
-        left: window.innerWidth * 0.62,
-        behavior: "smooth"
-      });
+        scroll.scrollBy({
+          left: window.innerWidth * 0.65,
+          behavior: "smooth"
+        });
 
-    });
+      }
+    );
 
   }
+
+
+  /*
+    自动轻微滚动
+    用户触摸后不会强制抢控制权
+  */
+
+  let autoScrollTimer;
+
+  function startAutoScroll() {
+
+    autoScrollTimer =
+      setInterval(() => {
+
+        if (
+          document.hidden ||
+          scroll.matches(":hover")
+        ) {
+          return;
+        }
+
+
+        const maxScroll =
+          scroll.scrollWidth -
+          scroll.clientWidth;
+
+
+        if (
+          scroll.scrollLeft >=
+          maxScroll - 10
+        ) {
+
+          scroll.scrollTo({
+            left: 0,
+            behavior: "smooth"
+          });
+
+        } else {
+
+          scroll.scrollBy({
+            left: window.innerWidth * 0.45,
+            behavior: "smooth"
+          });
+
+        }
+
+      }, 5000);
+
+  }
+
+
+  startAutoScroll();
+
+
+  /*
+    用户手动滑动时暂停一小段时间
+  */
+
+  let pauseTimer;
+
+  scroll.addEventListener(
+    "touchstart",
+    () => {
+
+      clearInterval(autoScrollTimer);
+
+      clearTimeout(pauseTimer);
+
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  scroll.addEventListener(
+    "touchend",
+    () => {
+
+      pauseTimer =
+        setTimeout(
+          startAutoScroll,
+          7000
+        );
+
+    },
+    {
+      passive: true
+    }
+  );
 
 }
 
 
-/* ==================== REPLY ==================== */
+/* =====================================================
+   宾客回复
+===================================================== */
 
 function initReply() {
 
   const attendanceButtons =
-    document.querySelectorAll(".attendance-button");
+    document.querySelectorAll(
+      ".attendance-button"
+    );
 
   const stayFields =
-    document.getElementById("stayFields");
+    document.getElementById(
+      "stayFields"
+    );
 
-  const stayButtons =
-    document.querySelectorAll(".stay-button");
+  const absenceMessage =
+    document.getElementById(
+      "absenceMessage"
+    );
 
-  const submitButton =
-    document.getElementById("submitReply");
-
-  const success =
-    document.getElementById("replySuccess");
+  const replySuccess =
+    document.getElementById(
+      "replySuccess"
+    );
 
 
   let attendance = "";
-  let stay = "";
 
 
-  attendanceButtons.forEach(button => {
+  attendanceButtons.forEach(
+    button => {
 
-    button.addEventListener("click", () => {
+      button.addEventListener(
+        "click",
+        () => {
 
-      attendance = button.dataset.attendance;
-
-      attendanceButtons.forEach(item => {
-        item.classList.remove("selected");
-      });
-
-      button.classList.add("selected");
+          attendance =
+            button.dataset.attendance;
 
 
-      if (attendance === "yes") {
+          attendanceButtons.forEach(
+            item => {
+              item.classList.remove(
+                "selected"
+              );
+            }
+          );
 
-        stayFields?.classList.remove("hidden");
 
-      } else {
+          button.classList.add(
+            "selected"
+          );
 
-        stayFields?.classList.add("hidden");
+
+          if (
+            attendance === "yes"
+          ) {
+
+            stayFields.classList.remove(
+              "hidden"
+            );
+
+            absenceMessage.classList.add(
+              "hidden"
+            );
+
+          } else {
+
+            stayFields.classList.add(
+              "hidden"
+            );
+
+            absenceMessage.classList.remove(
+              "hidden"
+            );
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+
+  /*
+    住宿选择
+  */
+
+  const stayButtons =
+    document.querySelectorAll(
+      ".stay-button"
+    );
+
+
+  stayButtons.forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          stayButtons.forEach(
+            item => {
+              item.classList.remove(
+                "selected"
+              );
+            }
+          );
+
+          button.classList.add(
+            "selected"
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+  /*
+    出席提交
+  */
+
+  const submit =
+    document.getElementById(
+      "replySubmit"
+    );
+
+
+  if (submit) {
+
+    submit.addEventListener(
+      "click",
+      () => {
+
+        saveReply({
+          attendance: "yes",
+
+          stay:
+            document.querySelector(
+              ".stay-button.selected"
+            )?.dataset.stay || "",
+
+          count:
+            document.getElementById(
+              "guestCount"
+            )?.value || "1",
+
+          checkIn:
+            document.getElementById(
+              "checkIn"
+            )?.value || "",
+
+          checkOut:
+            document.getElementById(
+              "checkOut"
+            )?.value || "",
+
+          message:
+            document.getElementById(
+              "message"
+            )?.value || ""
+        });
+
+
+        showReplySuccess();
 
       }
+    );
 
-    });
-
-  });
-
-
-  stayButtons.forEach(button => {
-
-    button.addEventListener("click", () => {
-
-      stay = button.dataset.stay;
-
-      stayButtons.forEach(item => {
-        item.classList.remove("selected");
-      });
-
-      button.classList.add("selected");
-
-    });
-
-  });
+  }
 
 
-  if (!submitButton) return;
+  /*
+    无法出席提交
+  */
+
+  const absenceSubmit =
+    document.getElementById(
+      "absenceSubmit"
+    );
 
 
-  submitButton.addEventListener("click", () => {
+  if (absenceSubmit) {
 
-    const guest = getGuestName();
+    absenceSubmit.addEventListener(
+      "click",
+      () => {
 
-    const peopleCount =
-      document.getElementById("peopleCount")?.value || "";
+        saveReply({
 
-    const checkIn =
-      document.getElementById("checkIn")?.value || "";
+          attendance: "no",
 
-    const checkOut =
-      document.getElementById("checkOut")?.value || "";
+          message:
+            document.getElementById(
+              "absenceText"
+            )?.value || ""
 
-    const message =
-      document.getElementById("guestMessage")?.value || "";
+        });
 
 
-    const replyData = {
+        showReplySuccess();
+
+      }
+    );
+
+  }
+
+
+  function showReplySuccess() {
+
+    if (!replySuccess) {
+      return;
+    }
+
+    stayFields.classList.add(
+      "hidden"
+    );
+
+    absenceMessage.classList.add(
+      "hidden"
+    );
+
+    replySuccess.classList.remove(
+      "hidden"
+    );
+
+  }
+
+
+  function saveReply(data) {
+
+    const guest =
+      getGuestName();
+
+
+    const reply = {
+
       guest,
-      attendance,
-      stay,
-      peopleCount,
-      checkIn,
-      checkOut,
-      message,
-      submittedAt: new Date().toISOString()
+
+      ...data,
+
+      submittedAt:
+        new Date().toISOString()
+
     };
 
 
     localStorage.setItem(
-      `weddingReply_${guest}`,
-      JSON.stringify(replyData)
+      `wedding-reply-${guest}`,
+      JSON.stringify(reply)
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   简单出现动画
+===================================================== */
+
+function initReveal() {
+
+  const elements =
+    document.querySelectorAll(
+      ".section-heading, .calendar-card, .countdown-block, .main-photo-frame, .moments-quote, .photo-slider-wrap, .schedule, .location-card, .reply-card"
     );
 
 
-    if (success) {
-      success.classList.remove("hidden");
+  if (!("IntersectionObserver" in window)) {
+
+    elements.forEach(
+      element => {
+        element.classList.add("visible");
+      }
+    );
+
+    return;
+  }
+
+
+  elements.forEach(
+    element => {
+      element.classList.add("reveal");
     }
+  );
 
-    submitButton.textContent = "已送出";
 
-    submitButton.disabled = true;
+  const observer =
+    new IntersectionObserver(
+      entries => {
 
-  });
+        entries.forEach(
+          entry => {
+
+            if (entry.isIntersecting) {
+
+              entry.target.classList.add(
+                "visible"
+              );
+
+              observer.unobserve(
+                entry.target
+              );
+
+            }
+
+          }
+        );
+
+      },
+      {
+        threshold: 0.12
+      }
+    );
+
+
+  elements.forEach(
+    element => {
+      observer.observe(element);
+    }
+  );
 
 }
