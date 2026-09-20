@@ -252,7 +252,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    music.volume = 0.25;
+    // 初始音量先保持很轻
+    music.volume = 0.08;
 
   }
 
@@ -261,7 +262,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!music) return;
 
-    music.volume = 0.25;
+    // 每次开始播放时，先从很轻的音量开始
+    music.volume = 0.08;
 
     const playPromise =
       music.play();
@@ -273,6 +275,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
           musicToggle?.classList.add(
             "playing"
+          );
+
+
+          // =================================================
+          // 音乐淡入
+          // 0.08 → 0.25
+          // 用时约 2.5 秒
+          // =================================================
+
+          const targetVolume = 0.25;
+
+          const startVolume = 0.08;
+
+          const fadeDuration = 2500;
+
+          const startTime =
+            Date.now();
+
+
+          function fadeIn() {
+
+            const elapsed =
+              Date.now() - startTime;
+
+
+            const progress =
+              Math.min(
+                elapsed / fadeDuration,
+                1
+              );
+
+
+            music.volume =
+              startVolume +
+              (targetVolume - startVolume) *
+              progress;
+
+
+            if (progress < 1) {
+
+              requestAnimationFrame(
+                fadeIn
+              );
+
+            }
+
+          }
+
+
+          requestAnimationFrame(
+            fadeIn
           );
 
         })
