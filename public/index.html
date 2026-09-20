@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
@@ -34,60 +35,73 @@
   </button>
 
 
-  <!-- =========================
-       首页
-  ========================== -->
   <main>
+
+    <!-- =====================================================
+         首页
+    ====================================================== -->
 
     <section class="hero">
 
       <div class="hero-inner">
 
-        <div class="hero-invite">
-          邀请您
+        <!-- 宾客姓名 -->
+        <div class="guest-name-wrap">
+
+          <div class="guest-name-label">
+            TO
+          </div>
+
+          <div
+            class="guest-name"
+            id="guestName"
+          >
+            邹 小 明
+          </div>
+
         </div>
 
-        <div
-          class="guest-name"
-          id="guestName"
-        >
-          邹 小 明
-        </div>
 
-        <div class="hero-line"></div>
-
+        <!-- 邀请语 -->
         <div class="hero-subtitle">
           诚邀您出席
         </div>
 
+
+        <!-- 新人 -->
         <div class="couple-name">
+
           <span>邓天澍</span>
-          <span class="couple-amp">&amp;</span>
+
+          <span class="couple-amp">
+            &amp;
+          </span>
+
           <span>邹涛</span>
+
         </div>
+
 
         <div class="couple-en">
           TIANSHU &amp; TAO
         </div>
 
+
+        <!-- 日期 -->
         <div class="hero-date">
-          <strong>2026年10月25日</strong>
-          <span>丙午年九月十六 · 星期日</span>
+
+          <strong>
+            2026年10月25日
+          </strong>
+
+          <span>
+            丙午年九月十六 · 星期日
+          </span>
+
         </div>
 
 
-        <!--
-          婚纱照位置
-          以后把照片放进 public 后，
-          app.js 里配置即可
-        -->
-        <div class="hero-photo-wrap">
-          <div class="photo-placeholder" id="heroPhoto">
-            <span>我们的婚礼</span>
-          </div>
-        </div>
-
-
+        <!-- 开启 -->
         <button
           class="open-invitation"
           id="openInvitation"
@@ -101,25 +115,45 @@
     </section>
 
 
-    <!-- =========================
+    <!-- =====================================================
          我们的婚礼
-    ========================== -->
-    <section class="section wedding-day" id="weddingDay">
+    ====================================================== -->
+
+    <section
+      class="section wedding-day"
+      id="weddingDay"
+    >
 
       <div class="section-heading">
-        <span class="section-eyebrow">OUR DAY</span>
-        <h2>我们的婚礼</h2>
+
+        <span class="section-eyebrow">
+          OUR DAY
+        </span>
+
+        <h2>
+          我们的婚礼
+        </h2>
+
       </div>
 
 
       <div class="calendar-card">
 
         <div class="calendar-title">
-          <span>2026年</span>
-          <strong>10月</strong>
+
+          <span>
+            2026年
+          </span>
+
+          <strong>
+            10月
+          </strong>
+
         </div>
 
+
         <div class="calendar-week">
+
           <span>一</span>
           <span>二</span>
           <span>三</span>
@@ -127,7 +161,9 @@
           <span>五</span>
           <span>六</span>
           <span>日</span>
+
         </div>
+
 
         <div class="calendar-grid">
 
@@ -163,7 +199,9 @@
           <span>23</span>
           <span>24</span>
 
-          <span class="wedding-day-number">25</span>
+          <span class="wedding-day-number">
+            25
+          </span>
 
           <span>26</span>
           <span>27</span>
@@ -183,26 +221,61 @@
           距离婚礼还有
         </div>
 
-        <div class="countdown" id="countdown">
+
+        <div
+          class="countdown"
+          id="countdown"
+        >
 
           <div class="countdown-item">
-            <strong id="days">--</strong>
-            <span>天</span>
+
+            <strong id="days">
+              --
+            </strong>
+
+            <span>
+              天
+            </span>
+
           </div>
 
-          <div class="countdown-item">
-            <strong id="hours">--</strong>
-            <span>时</span>
-          </div>
 
           <div class="countdown-item">
-            <strong id="minutes">--</strong>
-            <span>分</span>
+
+            <strong id="hours">
+              --
+            </strong>
+
+            <span>
+              时
+            </span>
+
           </div>
 
+
           <div class="countdown-item">
-            <strong id="seconds">--</strong>
-            <span>秒</span>
+
+            <strong id="minutes">
+              --
+            </strong>
+
+            <span>
+              分
+            </span>
+
+          </div>
+
+
+          <div class="countdown-item">
+
+            <strong id="seconds">
+              --
+            </strong>
+
+            <span>
+              秒
+            </span>
+
           </div>
 
         </div>
@@ -212,25 +285,41 @@
     </section>
 
 
-    <!-- =========================
+    <!-- =====================================================
          婚礼照片
-    ========================== -->
-    <section class="section photo-section" id="photos">
+    ====================================================== -->
+
+    <section
+      class="section photo-section"
+      id="photos"
+    >
 
       <div class="section-heading">
-        <span class="section-eyebrow">MOMENTS</span>
-        <h2>婚礼照片</h2>
+
+        <span class="section-eyebrow">
+          MOMENTS
+        </span>
+
+        <h2>
+          婚礼照片
+        </h2>
+
       </div>
 
 
-      <!-- 主照片 -->
+      <!-- 主婚纱照 -->
+
       <div class="main-photo-frame">
 
         <div
           class="main-gallery-image photo-placeholder"
           id="mainGalleryImage"
         >
-          <span>我们的瞬间</span>
+
+          <span>
+            我们的瞬间
+          </span>
+
         </div>
 
       </div>
@@ -238,7 +327,9 @@
 
       <div class="photo-caption">
 
-        <span>我们的瞬间</span>
+        <span>
+          我们的瞬间
+        </span>
 
         <small>
           The moments we keep
@@ -247,7 +338,8 @@
       </div>
 
 
-      <!-- 横向滚动照片 -->
+      <!-- 横向滚动缩略图 -->
+
       <div class="photo-scroll-wrap">
 
         <button
@@ -259,10 +351,12 @@
           ←
         </button>
 
+
         <div
           class="photo-scroll"
           id="photoScroll"
         ></div>
+
 
         <button
           class="photo-arrow photo-arrow-right"
@@ -278,14 +372,25 @@
     </section>
 
 
-    <!-- =========================
+    <!-- =====================================================
          婚礼流程
-    ========================== -->
-    <section class="section schedule-section" id="schedule">
+    ====================================================== -->
+
+    <section
+      class="section schedule-section"
+      id="schedule"
+    >
 
       <div class="section-heading">
-        <span class="section-eyebrow">THE DAY</span>
-        <h2>婚礼流程</h2>
+
+        <span class="section-eyebrow">
+          THE DAY
+        </span>
+
+        <h2>
+          婚礼流程
+        </h2>
+
       </div>
 
 
@@ -300,7 +405,9 @@
           <div class="schedule-line"></div>
 
           <div class="schedule-content">
-            <strong>迎宾</strong>
+            <strong>
+              迎宾
+            </strong>
           </div>
 
         </div>
@@ -315,7 +422,9 @@
           <div class="schedule-line"></div>
 
           <div class="schedule-content">
-            <strong>婚礼仪式</strong>
+            <strong>
+              婚礼仪式
+            </strong>
           </div>
 
         </div>
@@ -330,7 +439,9 @@
           <div class="schedule-line"></div>
 
           <div class="schedule-content">
-            <strong>喜宴</strong>
+            <strong>
+              喜宴
+            </strong>
           </div>
 
         </div>
@@ -340,14 +451,25 @@
     </section>
 
 
-    <!-- =========================
+    <!-- =====================================================
          婚礼地点
-    ========================== -->
-    <section class="section location-section" id="location">
+    ====================================================== -->
+
+    <section
+      class="section location-section"
+      id="location"
+    >
 
       <div class="section-heading">
-        <span class="section-eyebrow">THE PLACE</span>
-        <h2>婚礼地点</h2>
+
+        <span class="section-eyebrow">
+          THE PLACE
+        </span>
+
+        <h2>
+          婚礼地点
+        </h2>
+
       </div>
 
 
@@ -368,9 +490,6 @@
       </div>
 
 
-      <!--
-        这里以后放你从高德地图截下来的真实地图
-      -->
       <a
         id="mapImageLink"
         class="location-map-link"
@@ -404,17 +523,26 @@
         target="_blank"
         rel="noopener noreferrer"
       >
+
         打开高德地图导航
-        <span>↗</span>
+
+        <span>
+          ↗
+        </span>
+
       </a>
 
     </section>
 
 
-    <!-- =========================
+    <!-- =====================================================
          宾客回复
-    ========================== -->
-    <section class="section reply-section" id="reply">
+    ====================================================== -->
+
+    <section
+      class="section reply-section"
+      id="reply"
+    >
 
       <div class="section-heading">
 
@@ -422,7 +550,9 @@
           WITH YOU
         </span>
 
-        <h2>宾客回复</h2>
+        <h2>
+          宾客回复
+        </h2>
 
         <p class="section-description">
           告诉我们你的安排，让我们提前为你准备。
@@ -432,6 +562,7 @@
 
 
       <!-- 出席选择 -->
+
       <div class="attendance-choice">
 
         <button
@@ -439,6 +570,7 @@
           data-attendance="no"
           type="button"
         >
+
           <span class="option-title">
             很遗憾无法出席
           </span>
@@ -446,6 +578,7 @@
           <span class="option-mark">
             ○
           </span>
+
         </button>
 
 
@@ -454,6 +587,7 @@
           data-attendance="yes"
           type="button"
         >
+
           <span class="option-title">
             我会出席，婚礼见
           </span>
@@ -461,12 +595,14 @@
           <span class="option-mark">
             ○
           </span>
+
         </button>
 
       </div>
 
 
-      <!-- 出席后填写 -->
+      <!-- 出席之后 -->
+
       <div
         class="reply-details"
         id="replyDetails"
@@ -477,6 +613,7 @@
           <label>
             是否需要住宿？
           </label>
+
 
           <div class="small-choice-group">
 
@@ -511,6 +648,7 @@
             <label for="stayPeople">
               入住人数
             </label>
+
 
             <div class="number-control">
 
@@ -616,7 +754,8 @@
       </div>
 
 
-      <!-- 无法出席后显示 -->
+      <!-- 无法出席 -->
+
       <div
         class="absence-message"
         id="absenceMessage"
@@ -635,9 +774,10 @@
     </section>
 
 
-    <!-- =========================
+    <!-- =====================================================
          结尾
-    ========================== -->
+    ====================================================== -->
+
     <section class="final-section">
 
       <div class="final-inner">
