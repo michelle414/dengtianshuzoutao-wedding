@@ -58,6 +58,7 @@
       <div class="paint-layer paint-layer-one"></div>
       <div class="paint-layer paint-layer-two"></div>
       <div class="paint-layer paint-layer-three"></div>
+      <div class="paint-layer paint-layer-four"></div>
 
       <div class="hero-content">
 
@@ -66,7 +67,7 @@
         </div>
 
 
-        <!-- 宾客姓名：这里故意放在最前面、最大 -->
+        <!-- 宾客姓名：第一视觉 -->
 
         <div class="guest-invitation">
 
@@ -113,8 +114,12 @@
             2026 · 10 · 25
           </div>
 
-          <div class="hero-date-sub">
-            SUNDAY · 丙午年九月十六
+          <div class="hero-date-day">
+            SUNDAY
+          </div>
+
+          <div class="hero-date-lunar">
+            丙午年九月十六
           </div>
 
         </div>
@@ -154,39 +159,42 @@
 
     <section class="section our-day" id="our-day">
 
-      <div class="section-inner">
+      <div class="section-inner our-day-inner">
 
-        <div class="section-heading">
+        <div class="section-heading refined-heading">
 
           <div class="section-eyebrow">
             OUR DAY
           </div>
 
           <h2>
-            The day we say yes.
+            The day<br>
+            we say yes.
           </h2>
 
         </div>
 
 
-        <div class="date-intro">
+        <!-- 日期主视觉 -->
 
-          <div class="date-big">
+        <div class="date-master">
+
+          <div class="date-master-number">
             25
           </div>
 
-          <div class="date-info">
+          <div class="date-master-info">
 
-            <div class="date-month">
-              OCTOBER 2026
+            <div class="date-master-month">
+              OCTOBER
             </div>
 
-            <div class="date-full">
-              2026年10月25日
+            <div class="date-master-year">
+              2026
             </div>
 
-            <div class="date-lunar">
-              丙午年九月十六
+            <div class="date-master-week">
+              SUNDAY
             </div>
 
           </div>
@@ -194,12 +202,25 @@
         </div>
 
 
-        <!-- 日历由 JS 自动生成 -->
+        <div class="date-lunar-large">
+          丙午年九月十六
+        </div>
 
-        <div
-          class="calendar"
-          id="calendar"
-        ></div>
+
+        <!-- 日历 -->
+
+        <div class="calendar-block">
+
+          <div class="calendar-title">
+            OCTOBER 2026
+          </div>
+
+          <div
+            class="calendar"
+            id="calendar"
+          ></div>
+
+        </div>
 
 
         <!-- 倒计时 -->
@@ -217,21 +238,21 @@
               <span>DAYS</span>
             </div>
 
-            <div class="countdown-dot">:</div>
+            <div class="countdown-divider"></div>
 
             <div class="countdown-item">
               <strong id="hours">--</strong>
               <span>HOURS</span>
             </div>
 
-            <div class="countdown-dot">:</div>
+            <div class="countdown-divider"></div>
 
             <div class="countdown-item">
               <strong id="minutes">--</strong>
               <span>MINUTES</span>
             </div>
 
-            <div class="countdown-dot">:</div>
+            <div class="countdown-divider"></div>
 
             <div class="countdown-item">
               <strong id="seconds">--</strong>
@@ -270,45 +291,36 @@
         </div>
 
 
-        <!-- 第一张大图 -->
-
-        <div class="main-photo" id="mainPhoto">
+        <div
+          class="main-photo"
+          id="mainPhoto"
+        >
 
           <div class="photo-placeholder">
-
-            <span>
-              YOUR PHOTO
-            </span>
-
+            <span>YOUR PHOTO</span>
           </div>
 
         </div>
 
 
         <div class="photo-caption">
-          A little moment,
+          A little moment,<br>
           we want to remember forever.
         </div>
 
-
-        <!-- 横向照片 -->
 
         <div class="photo-carousel-wrap">
 
           <div
             class="photo-carousel"
             id="photoCarousel"
-          >
-
-            <!-- JS 自动生成 -->
-
-          </div>
+          ></div>
 
         </div>
 
 
         <div class="swipe-hint">
-          SWIPE TO DISCOVER
+          <span>SWIPE TO DISCOVER</span>
           <span>→</span>
         </div>
 
@@ -361,22 +373,21 @@
 
     <section class="section wedding" id="wedding">
 
-      <div class="section-inner">
+      <div class="section-inner wedding-inner">
 
-        <div class="section-heading">
+        <div class="section-heading refined-heading">
 
           <div class="section-eyebrow">
             THE WEDDING
           </div>
 
           <h2>
-            Wedding Day
+            Our<br>
+            wedding day.
           </h2>
 
         </div>
 
-
-        <!-- JS 根据 schedule 自动生成 -->
 
         <div
           class="schedule"
@@ -395,17 +406,24 @@
 
     <section class="section location" id="location">
 
-      <div class="location-paint"></div>
-
-      <div class="section-inner">
+      <div class="section-inner location-inner">
 
         <div class="section-eyebrow">
           LOCATION
         </div>
 
-        <h2 id="venueName">
-          吉安宾馆·礼堂
-        </h2>
+        <div class="location-title-row">
+
+          <h2 id="venueName">
+            吉安宾馆·礼堂
+          </h2>
+
+          <span class="location-pin">
+            ↗
+          </span>
+
+        </div>
+
 
         <div
           class="venue-address"
@@ -415,24 +433,88 @@
         </div>
 
 
-        <div class="location-card">
+        <!--
+          地图：
+          后面上传 photos/location-map.jpg
+          整张图点击即可导航
+        -->
 
-          <div class="location-card-top">
+        <a
+          class="location-map-frame"
+          id="mapImageLink"
+          href="#"
+          target="_blank"
+          rel="noopener"
+          aria-label="打开地图导航"
+        >
+
+          <div class="location-map-image">
+
+            <img
+              src="photos/location-map.jpg"
+              alt="吉安宾馆·礼堂地图"
+              onerror="this.style.display='none'; this.parentElement.classList.add('map-placeholder-active');"
+            >
+
+            <div class="map-placeholder">
+
+              <span class="map-placeholder-small">
+                JI'AN · JIANGXI
+              </span>
+
+              <strong>
+                吉安宾馆·礼堂
+              </strong>
+
+              <span>
+                TAP TO OPEN MAP
+              </span>
+
+            </div>
+
+            <div class="map-overlay"></div>
+
+            <div class="map-pin">
+              <span>✦</span>
+            </div>
+
+          </div>
+
+          <div class="map-frame-caption">
 
             <span>
-              JIAN HOTEL
+              TAP THE MAP
             </span>
 
             <span>
-              JI'AN · JIANGXI
+              ↗
             </span>
 
           </div>
 
-          <div class="location-card-line"></div>
+        </a>
 
-          <div class="location-card-text">
-            Wedding Ceremony &amp; Reception
+
+        <div class="location-meta">
+
+          <div>
+            <span class="meta-label">
+              VENUE
+            </span>
+
+            <strong>
+              JIAN HOTEL · HALL
+            </strong>
+          </div>
+
+          <div>
+            <span class="meta-label">
+              CITY
+            </span>
+
+            <strong>
+              JI'AN · JIANGXI
+            </strong>
           </div>
 
         </div>
@@ -492,8 +574,6 @@
         </div>
 
 
-        <!-- 出席 -->
-
         <div class="attendance">
 
           <button
@@ -532,8 +612,6 @@
         </div>
 
 
-        <!-- RSVP 表单 -->
-
         <form
           class="rsvp-form"
           id="rsvpForm"
@@ -563,8 +641,6 @@
 
           </div>
 
-
-          <!-- 出席人数 -->
 
           <div
             class="form-field"
@@ -605,8 +681,6 @@
           </div>
 
 
-          <!-- 住宿 -->
-
           <div
             class="lodging-box"
             id="lodgingBox"
@@ -645,8 +719,6 @@
 
           </div>
 
-
-          <!-- 祝福 -->
 
           <div class="form-field">
 
@@ -701,11 +773,16 @@
 
       <div class="final-paint final-paint-one"></div>
       <div class="final-paint final-paint-two"></div>
+      <div class="final-paint final-paint-three"></div>
 
       <div class="final-content">
 
-        <div class="section-eyebrow">
-          WITH LOVE
+        <div class="final-topline">
+          A DAY TO REMEMBER
+        </div>
+
+        <div class="final-ornament">
+          ✦
         </div>
 
         <h2>
@@ -716,12 +793,22 @@
           愿意来到我们的这一天。
         </p>
 
+        <div class="final-divider"></div>
+
         <div class="final-names">
-          TIANSHU &amp; TAO
+          TIANSHU <span>&amp;</span> TAO
         </div>
 
         <div class="final-date">
-          2026 · 10 · 25
+          25 · 10 · 2026
+        </div>
+
+        <div class="final-location">
+          JI'AN · JIANGXI
+        </div>
+
+        <div class="final-closing">
+          WITH LOVE, ALWAYS.
         </div>
 
       </div>
