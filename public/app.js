@@ -142,32 +142,49 @@ document.addEventListener("DOMContentLoaded", () => {
      设置基本资料
   ====================================================== */
 
-  const venueName =
-    document.getElementById("venueName");
+const venueName =
+  document.getElementById("venueName");
 
-  const venueAddress =
-    document.getElementById("venueAddress");
+const venueAddress =
+  document.getElementById("venueAddress");
 
-  const navigationButton =
-    document.getElementById("navigationButton");
+const navigationButton =
+  document.getElementById("navigationButton");
 
-
-  if (venueName) {
-    venueName.textContent =
-      weddingConfig.venue;
-  }
+const mapImageLink =
+  document.getElementById("mapImageLink");
 
 
-  if (venueAddress) {
-    venueAddress.textContent =
-      weddingConfig.address;
-  }
+if (venueName) {
+
+  venueName.textContent =
+    weddingConfig.venue;
+
+}
 
 
-  if (navigationButton) {
-    navigationButton.href =
-      weddingConfig.mapUrl;
-  }
+if (venueAddress) {
+
+  venueAddress.textContent =
+    weddingConfig.address;
+
+}
+
+
+if (navigationButton) {
+
+  navigationButton.href =
+    weddingConfig.mapUrl;
+
+}
+
+
+if (mapImageLink) {
+
+  mapImageLink.href =
+    weddingConfig.mapUrl;
+
+}
 
 
   /* =====================================================
