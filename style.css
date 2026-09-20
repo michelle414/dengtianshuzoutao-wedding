@@ -1,23 +1,37 @@
+```css
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500&display=swap');
 
 :root {
-  --ivory: #f4f0e7;
-  --paper: #ebe8df;
+  /* =========================
+     BRIGHT MONET PALETTE
+     ========================= */
 
-  /* Monet-inspired palette */
-  --mist-blue: #aebdc0;
-  --pond-blue: #829da0;
-  --sage: #a5ad99;
-  --deep-sage: #69786f;
-  --lavender: #b8afb8;
-  --blush: #d5b7ae;
-  --cream: #eee7d8;
-  --soft-gold: #b8a47d;
+  --ivory: #faf7ee;
+  --paper: #f5f1e5;
+  --cream: #f1e8cf;
 
-  --ink: #3f4947;
-  --soft-ink: #66706b;
-  --white: #faf8f2;
+  --sky: #c7dfe0;
+  --water: #9fc5c3;
+
+  --sage: #b8c8a8;
+  --leaf: #91a58d;
+
+  --blush: #e5c5bd;
+  --lavender: #d2c8d6;
+
+  --sunlight: #eadcae;
+  --gold: #b9a36c;
+
+  --ink: #4a5551;
+  --soft-ink: #747d76;
+
+  --white: #fffdf7;
 }
+
+
+/* =========================
+   BASE
+========================= */
 
 * {
   box-sizing: border-box;
@@ -29,22 +43,37 @@ html {
 
 body {
   margin: 0;
+
   background:
     radial-gradient(
-      circle at 15% 20%,
-      rgba(174, 189, 192, 0.16),
+      circle at 12% 12%,
+      rgba(234, 220, 174, 0.22),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 88% 28%,
+      rgba(199, 223, 224, 0.25),
       transparent 32%
     ),
     radial-gradient(
-      circle at 85% 65%,
-      rgba(165, 173, 153, 0.14),
+      circle at 40% 90%,
+      rgba(184, 200, 168, 0.16),
       transparent 30%
     ),
     var(--ivory);
+
   color: var(--ink);
-  font-family: "Noto Serif SC", "Songti SC", "STSong", serif;
+
+  font-family:
+    "Noto Serif SC",
+    "Songti SC",
+    "STSong",
+    serif;
+
   font-weight: 300;
+
   letter-spacing: 0.035em;
+
   line-height: 1.9;
 }
 
@@ -60,27 +89,34 @@ textarea {
   font: inherit;
 }
 
+
 /* =========================
-   MUSIC
+   MUSIC BUTTON
 ========================= */
 
 .music-button {
   position: fixed;
+
   z-index: 50;
+
   top: 22px;
   right: 22px;
 
-  width: 42px;
-  height: 42px;
+  width: 43px;
+  height: 43px;
 
-  border: 1px solid rgba(250, 248, 242, 0.65);
+  border: 1px solid rgba(255, 253, 247, 0.85);
+
   border-radius: 50%;
 
-  background: rgba(63, 73, 71, 0.18);
+  background: rgba(74, 85, 81, 0.12);
+
   backdrop-filter: blur(10px);
 
   color: var(--white);
+
   font-family: "Cormorant Garamond", serif;
+
   font-size: 19px;
 
   cursor: pointer;
@@ -91,9 +127,11 @@ textarea {
 }
 
 .music-button:hover {
-  background: rgba(63, 73, 71, 0.35);
+  background: rgba(74, 85, 81, 0.25);
+
   transform: rotate(8deg);
 }
+
 
 /* =========================
    HERO
@@ -101,38 +139,50 @@ textarea {
 
 .hero {
   position: relative;
+
   min-height: 100svh;
+
   overflow: hidden;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
   background:
     linear-gradient(
       135deg,
-      rgba(174, 189, 192, 0.45),
-      rgba(238, 231, 216, 0.35),
-      rgba(165, 173, 153, 0.35)
+      rgba(199, 223, 224, 0.48),
+      rgba(250, 247, 238, 0.15),
+      rgba(184, 200, 168, 0.35)
     );
 }
 
 .hero-image {
   position: absolute;
+
   inset: -3%;
 
   background-image: url("./assets/hero.jpg");
+
   background-size: cover;
+
   background-position: center;
 
+  /*
+    明亮、柔和、略带油画空气感
+  */
+
   filter:
-    saturate(0.72)
-    contrast(0.91)
-    brightness(1.04);
+    saturate(0.82)
+    contrast(0.88)
+    brightness(1.10);
 
   transform: scale(1.02);
 
-  animation: heroBreath 18s ease-in-out infinite alternate;
+  animation:
+    heroBreath 18s ease-in-out infinite alternate;
 }
 
 @keyframes heroBreath {
@@ -145,127 +195,180 @@ textarea {
   }
 }
 
+
 /*
-  这一层很重要：
-  不让照片颜色太“数码”，
-  给照片加一点莫奈式的雾感。
+  柔和的阳光雾层
 */
 
 .hero-overlay {
   position: absolute;
+
   inset: 0;
 
   background:
     linear-gradient(
       180deg,
-      rgba(49, 63, 62, 0.18) 0%,
-      rgba(49, 63, 62, 0.03) 35%,
-      rgba(238, 231, 216, 0.28) 100%
+      rgba(255, 253, 247, 0.08),
+      rgba(255, 253, 247, 0.00) 35%,
+      rgba(245, 241, 229, 0.25) 100%
     );
 
-  mix-blend-mode: multiply;
+  mix-blend-mode: screen;
 }
+
+
+/* =========================
+   HERO CONTENT
+========================= */
 
 .hero-content {
   position: relative;
+
   z-index: 2;
 
-  width: min(90%, 700px);
-
-  text-align: center;
-  color: var(--white);
+  width: min(90%, 720px);
 
   padding: 50px 20px;
+
+  text-align: center;
+
+  color: var(--white);
+
+  text-shadow:
+    0 1px 16px rgba(55, 70, 66, 0.20);
 }
 
 .hero-eyebrow {
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(14px, 2vw, 18px);
-  letter-spacing: 0.35em;
+  font-family:
+    "Cormorant Garamond",
+    serif;
 
-  opacity: 0.9;
+  font-size:
+    clamp(14px, 2vw, 18px);
+
+  letter-spacing: 0.38em;
+
+  opacity: 0.94;
 }
 
 .hero-content h1 {
   margin: 0;
 
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(48px, 12vw, 100px);
-  font-weight: 300;
-  letter-spacing: 0.04em;
+  font-family:
+    "Cormorant Garamond",
+    serif;
 
-  line-height: 0.95;
+  font-size:
+    clamp(52px, 13vw, 108px);
+
+  font-weight: 300;
+
+  letter-spacing: 0.045em;
+
+  line-height: 0.92;
 }
 
 .hero-names {
-  margin-top: 28px;
+  margin-top: 30px;
 
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(25px, 6vw, 46px);
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(26px, 6vw, 48px);
+
   font-weight: 400;
 
-  letter-spacing: 0.12em;
+  letter-spacing: 0.13em;
 }
 
 .hero-latin {
-  margin-top: 10px;
+  margin-top: 11px;
 
-  font-family: "Cormorant Garamond", serif;
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
   font-size: 14px;
-  letter-spacing: 0.42em;
 
-  opacity: 0.88;
+  letter-spacing: 0.44em;
+
+  opacity: 0.90;
 }
 
 .hero-date {
-  margin-top: 34px;
+  margin-top: 36px;
 
-  font-family: "Cormorant Garamond", serif;
-  font-size: 22px;
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size: 23px;
+
   letter-spacing: 0.18em;
 }
 
 .hero-lunar {
-  margin-top: 3px;
+  margin-top: 4px;
 
   font-size: 13px;
+
   letter-spacing: 0.18em;
 
-  opacity: 0.82;
+  opacity: 0.88;
 }
 
 .guest-greeting {
   margin: 24px auto 0;
 
-  font-size: 15px;
-  letter-spacing: 0.12em;
-
   min-height: 1.9em;
+
+  font-size: 15px;
+
+  letter-spacing: 0.12em;
 }
+
+
+/* =========================
+   OPEN INVITATION
+========================= */
 
 .open-button {
   display: inline-flex;
+
   align-items: center;
+
   justify-content: center;
 
-  margin-top: 38px;
+  margin-top: 40px;
 
-  min-width: 190px;
-  padding: 13px 30px;
+  min-width: 195px;
 
-  border: 1px solid rgba(250, 248, 242, 0.72);
+  padding: 13px 32px;
+
+  border:
+    1px solid
+    rgba(255, 253, 247, 0.82);
+
   border-radius: 999px;
 
-  background: rgba(250, 248, 242, 0.10);
-  backdrop-filter: blur(8px);
+  background:
+    rgba(255, 253, 247, 0.16);
+
+  backdrop-filter: blur(10px);
 
   color: var(--white);
 
-  font-family: "Cormorant Garamond", serif;
-  font-size: 16px;
-  letter-spacing: 0.16em;
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size: 17px;
+
+  letter-spacing: 0.18em;
 
   cursor: pointer;
 
@@ -276,76 +379,114 @@ textarea {
 }
 
 .open-button:hover {
-  background: rgba(250, 248, 242, 0.88);
-  color: var(--deep-sage);
+  background: rgba(255, 253, 247, 0.90);
+
+  color: var(--leaf);
+
   transform: translateY(-2px);
 }
 
 .scroll-hint {
   position: absolute;
+
   bottom: 25px;
+
   left: 50%;
 
   transform: translateX(-50%);
 
-  font-family: "Cormorant Garamond", serif;
-  font-size: 12px;
-  letter-spacing: 0.28em;
+  font-family:
+    "Cormorant Garamond",
+    serif;
 
-  opacity: 0.75;
+  font-size: 12px;
+
+  letter-spacing: 0.30em;
+
+  opacity: 0.78;
 }
 
+
 /* =========================
-   GENERAL SECTIONS
+   INVITATION
 ========================= */
 
 .invitation {
   background:
     radial-gradient(
-      ellipse at 10% 5%,
-      rgba(184, 175, 184, 0.13),
-      transparent 28%
+      circle at 15% 8%,
+      rgba(234, 220, 174, 0.22),
+      transparent 27%
     ),
     radial-gradient(
-      ellipse at 90% 40%,
-      rgba(165, 173, 153, 0.15),
+      circle at 90% 38%,
+      rgba(199, 223, 224, 0.22),
       transparent 30%
+    ),
+    radial-gradient(
+      circle at 30% 82%,
+      rgba(184, 200, 168, 0.18),
+      transparent 28%
     ),
     var(--ivory);
 }
 
+
+/* =========================
+   SECTIONS
+========================= */
+
 .section {
   position: relative;
 
-  width: min(100% - 42px, 1000px);
+  width:
+    min(
+      calc(100% - 42px),
+      1000px
+    );
+
   margin: 0 auto;
 
-  padding: 110px 0;
+  padding: 115px 0;
 }
 
 .section + .section {
-  border-top: 1px solid rgba(105, 120, 111, 0.12);
+  border-top:
+    1px solid
+    rgba(145, 165, 141, 0.13);
 }
 
 .section-label {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 
-  font-family: "Cormorant Garamond", serif;
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
   font-size: 13px;
-  letter-spacing: 0.38em;
 
-  color: var(--deep-sage);
+  letter-spacing: 0.40em;
+
+  color: var(--leaf);
+
   text-transform: uppercase;
 }
 
 .section-title {
-  margin: 0 0 30px;
+  margin:
+    0 0 32px;
 
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(38px, 8vw, 64px);
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(40px, 8vw, 66px);
+
   font-weight: 300;
 
-  letter-spacing: 0.03em;
+  letter-spacing: 0.035em;
+
   line-height: 1;
 }
 
@@ -353,88 +494,118 @@ textarea {
   max-width: 620px;
 
   color: var(--soft-ink);
+
   font-size: 15px;
 }
 
+
 /* =========================
-   DATE / COUNTDOWN
+   DATE CARD
 ========================= */
 
 .date-card {
   position: relative;
 
-  padding: 70px 25px;
+  padding: 76px 25px;
+
+  overflow: hidden;
 
   text-align: center;
 
   background:
     linear-gradient(
       135deg,
-      rgba(174, 189, 192, 0.14),
-      rgba(250, 248, 242, 0.65),
-      rgba(165, 173, 153, 0.12)
+      rgba(255, 253, 247, 0.90),
+      rgba(234, 220, 174, 0.16),
+      rgba(199, 223, 224, 0.18)
     );
 
-  border: 1px solid rgba(105, 120, 111, 0.16);
+  border:
+    1px solid
+    rgba(145, 165, 141, 0.16);
 
   box-shadow:
-    0 20px 60px rgba(63, 73, 71, 0.07);
+    0 25px 70px
+    rgba(103, 119, 110, 0.07);
 }
 
 .date-number {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(54px, 13vw, 110px);
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(56px, 14vw, 115px);
+
   font-weight: 300;
 
   line-height: 0.9;
 
-  color: var(--pond-blue);
+  color: var(--water);
 }
 
 .date-month {
-  margin-top: 15px;
+  margin-top: 16px;
 
-  font-family: "Cormorant Garamond", serif;
-  font-size: 20px;
-  letter-spacing: 0.3em;
+  font-family:
+    "Cormorant Garamond",
+    serif;
 
-  color: var(--deep-sage);
+  font-size: 21px;
+
+  letter-spacing: 0.30em;
+
+  color: var(--leaf);
 }
 
 .countdown {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+
+  grid-template-columns:
+    repeat(4, 1fr);
 
   gap: 10px;
 
   max-width: 580px;
-  margin: 50px auto 0;
+
+  margin: 52px auto 0;
 }
 
 .countdown-item {
   padding: 20px 8px;
 
-  border-top: 1px solid rgba(105, 120, 111, 0.22);
-  border-bottom: 1px solid rgba(105, 120, 111, 0.12);
+  border-top:
+    1px solid
+    rgba(145, 165, 141, 0.20);
+
+  border-bottom:
+    1px solid
+    rgba(145, 165, 141, 0.12);
 }
 
 .countdown-number {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 32px;
-  color: var(--pond-blue);
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size: 34px;
+
+  color: var(--water);
 }
 
 .countdown-label {
   margin-top: 3px;
 
   font-size: 10px;
-  letter-spacing: 0.16em;
+
+  letter-spacing: 0.17em;
 
   color: var(--soft-ink);
 }
 
+
 /* =========================
-   PHOTO / MOMENTS
+   MOMENTS
 ========================= */
 
 .photo-main {
@@ -443,21 +614,24 @@ textarea {
   background: var(--paper);
 
   box-shadow:
-    0 25px 65px rgba(63, 73, 71, 0.10);
+    0 28px 70px
+    rgba(103, 119, 110, 0.10);
 }
 
 .photo-main img {
   display: block;
 
   width: 100%;
+
   height: auto;
 
   filter:
-    saturate(0.78)
-    contrast(0.93)
-    brightness(1.03);
+    saturate(0.84)
+    contrast(0.91)
+    brightness(1.06);
 
-  transition: transform 1s ease;
+  transition:
+    transform 1s ease;
 }
 
 .photo-main:hover img {
@@ -466,7 +640,9 @@ textarea {
 
 .photo-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+
+  grid-template-columns:
+    1fr 1fr;
 
   gap: 18px;
 
@@ -476,28 +652,30 @@ textarea {
 .photo-item {
   overflow: hidden;
 
+  aspect-ratio: 4 / 5;
+
   background:
     linear-gradient(
       135deg,
-      rgba(174, 189, 192, 0.22),
-      rgba(165, 173, 153, 0.18),
-      rgba(213, 183, 174, 0.15)
+      rgba(199, 223, 224, 0.35),
+      rgba(184, 200, 168, 0.28),
+      rgba(229, 197, 189, 0.20)
     );
-
-  aspect-ratio: 4 / 5;
 }
 
 .photo-item img {
   width: 100%;
+
   height: 100%;
 
   object-fit: cover;
 
   filter:
-    saturate(0.78)
-    contrast(0.94)
-    brightness(1.04);
+    saturate(0.84)
+    contrast(0.92)
+    brightness(1.06);
 }
+
 
 /* =========================
    STORY
@@ -508,26 +686,34 @@ textarea {
 }
 
 .story p {
-  margin: 0 0 24px;
+  margin:
+    0 0 25px;
 
   color: var(--soft-ink);
+
   font-size: 15px;
 }
 
 .story-dropcap:first-letter {
   float: left;
 
-  margin: 8px 10px 0 0;
+  margin:
+    8px 10px 0 0;
 
-  font-family: "Cormorant Garamond", serif;
-  font-size: 65px;
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size: 67px;
+
   line-height: 0.75;
 
-  color: var(--pond-blue);
+  color: var(--water);
 }
 
+
 /* =========================
-   WEDDING SCHEDULE
+   SCHEDULE
 ========================= */
 
 .schedule {
@@ -536,26 +722,35 @@ textarea {
 
 .schedule-item {
   display: grid;
-  grid-template-columns: 100px 1fr;
+
+  grid-template-columns:
+    100px 1fr;
 
   gap: 25px;
 
-  padding: 28px 0;
+  padding: 29px 0;
 
-  border-bottom: 1px solid rgba(105, 120, 111, 0.15);
+  border-bottom:
+    1px solid
+    rgba(145, 165, 141, 0.15);
 }
 
 .schedule-time {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 28px;
+  font-family:
+    "Cormorant Garamond",
+    serif;
 
-  color: var(--pond-blue);
+  font-size: 29px;
+
+  color: var(--water);
 }
 
 .schedule-content h3 {
-  margin: 0 0 5px;
+  margin:
+    0 0 5px;
 
   font-size: 18px;
+
   font-weight: 400;
 
   color: var(--ink);
@@ -569,6 +764,7 @@ textarea {
   color: var(--soft-ink);
 }
 
+
 /* =========================
    LOCATION
 ========================= */
@@ -576,48 +772,61 @@ textarea {
 .location-card {
   position: relative;
 
-  padding: 55px 30px;
+  padding: 60px 30px;
+
+  text-align: center;
 
   background:
     linear-gradient(
-      140deg,
-      rgba(174, 189, 192, 0.18),
-      rgba(250, 248, 242, 0.72),
-      rgba(184, 175, 184, 0.14)
+      135deg,
+      rgba(199, 223, 224, 0.20),
+      rgba(255, 253, 247, 0.78),
+      rgba(234, 220, 174, 0.16)
     );
 
-  border: 1px solid rgba(105, 120, 111, 0.14);
-
-  text-align: center;
+  border:
+    1px solid
+    rgba(145, 165, 141, 0.14);
 }
 
 .location-name {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 30px;
+  font-family:
+    "Cormorant Garamond",
+    serif;
 
-  color: var(--deep-sage);
+  font-size: 31px;
+
+  color: var(--leaf);
 }
 
 .location-address {
-  margin: 15px auto 28px;
-
   max-width: 500px;
 
+  margin:
+    16px auto 30px;
+
   font-size: 14px;
+
   color: var(--soft-ink);
 }
 
 .map-button {
   display: inline-block;
 
-  padding: 11px 28px;
+  padding:
+    11px 29px;
 
-  border: 1px solid var(--deep-sage);
+  border:
+    1px solid
+    var(--leaf);
 
-  color: var(--deep-sage);
+  color: var(--leaf);
 
-  font-family: "Cormorant Garamond", serif;
-  letter-spacing: 0.13em;
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  letter-spacing: 0.14em;
 
   transition:
     background 0.3s ease,
@@ -625,9 +834,11 @@ textarea {
 }
 
 .map-button:hover {
-  background: var(--deep-sage);
+  background: var(--leaf);
+
   color: var(--white);
 }
+
 
 /* =========================
    RSVP
@@ -635,7 +846,9 @@ textarea {
 
 .rsvp-form {
   max-width: 600px;
-  margin: 45px auto 0;
+
+  margin:
+    45px auto 0;
 }
 
 .form-group {
@@ -648,6 +861,7 @@ textarea {
   margin-bottom: 7px;
 
   font-size: 13px;
+
   color: var(--soft-ink);
 }
 
@@ -656,12 +870,17 @@ textarea {
 .form-group textarea {
   width: 100%;
 
-  padding: 13px 14px;
+  padding:
+    13px 14px;
 
-  border: 1px solid rgba(105, 120, 111, 0.22);
+  border:
+    1px solid
+    rgba(145, 165, 141, 0.22);
+
   border-radius: 0;
 
-  background: rgba(250, 248, 242, 0.60);
+  background:
+    rgba(255, 253, 247, 0.72);
 
   color: var(--ink);
 
@@ -675,12 +894,15 @@ textarea {
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: var(--pond-blue);
-  background: rgba(250, 248, 242, 0.9);
+  border-color: var(--water);
+
+  background:
+    rgba(255, 253, 247, 0.95);
 }
 
 .form-group textarea {
   min-height: 120px;
+
   resize: vertical;
 }
 
@@ -688,15 +910,21 @@ textarea {
   display: block;
 
   width: 100%;
+
   padding: 14px;
 
   border: 0;
 
-  background: var(--deep-sage);
+  background: var(--leaf);
+
   color: var(--white);
 
-  font-family: "Cormorant Garamond", serif;
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
   font-size: 17px;
+
   letter-spacing: 0.18em;
 
   cursor: pointer;
@@ -707,7 +935,8 @@ textarea {
 }
 
 .submit-button:hover {
-  background: var(--pond-blue);
+  background: var(--water);
+
   transform: translateY(-1px);
 }
 
@@ -716,36 +945,44 @@ textarea {
 
   text-align: center;
 
-  color: var(--deep-sage);
+  color: var(--leaf);
 }
 
+
 /* =========================
-   FINAL
+   FINAL SECTION
 ========================= */
 
 .final-section {
   position: relative;
 
-  min-height: 75vh;
+  min-height: 78vh;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
   overflow: hidden;
 
   background:
     radial-gradient(
-      circle at 25% 25%,
-      rgba(174, 189, 192, 0.32),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 80% 70%,
-      rgba(165, 173, 153, 0.27),
+      circle at 20% 20%,
+      rgba(199, 223, 224, 0.72),
       transparent 30%
     ),
-    #566761;
+    radial-gradient(
+      circle at 78% 68%,
+      rgba(184, 200, 168, 0.62),
+      transparent 31%
+    ),
+    radial-gradient(
+      circle at 52% 90%,
+      rgba(234, 220, 174, 0.40),
+      transparent 25%
+    ),
+    #9eb7ae;
 
   color: var(--white);
 
@@ -754,53 +991,73 @@ textarea {
 
 .final-inner {
   position: relative;
+
   z-index: 2;
 
-  padding: 60px 25px;
+  padding:
+    60px 25px;
 }
 
 .final-small {
-  font-family: "Cormorant Garamond", serif;
+  font-family:
+    "Cormorant Garamond",
+    serif;
 
   font-size: 14px;
-  letter-spacing: 0.35em;
 
-  opacity: 0.82;
+  letter-spacing: 0.36em;
+
+  opacity: 0.88;
 }
 
 .final-title {
-  margin: 25px 0;
+  margin:
+    25px 0;
 
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(42px, 10vw, 80px);
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(43px, 10vw, 82px);
+
   font-weight: 300;
 
   line-height: 1;
 }
 
 .final-names {
-  font-family: "Cormorant Garamond", serif;
+  font-family:
+    "Cormorant Garamond",
+    serif;
 
-  font-size: 24px;
+  font-size: 25px;
+
   letter-spacing: 0.18em;
 }
 
 .final-date {
-  margin-top: 20px;
+  margin-top: 21px;
 
-  font-family: "Cormorant Garamond", serif;
+  font-family:
+    "Cormorant Garamond",
+    serif;
 
   font-size: 18px;
-  letter-spacing: 0.25em;
+
+  letter-spacing: 0.26em;
 }
 
+
 /* =========================
-   REVEAL ANIMATION
+   REVEAL
 ========================= */
 
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
+
+  transform:
+    translateY(28px);
 
   transition:
     opacity 0.9s ease,
@@ -809,29 +1066,39 @@ textarea {
 
 .reveal.visible {
   opacity: 1;
-  transform: translateY(0);
+
+  transform:
+    translateY(0);
 }
+
 
 /* =========================
    MOBILE
 ========================= */
 
 @media (max-width: 600px) {
+
   .section {
-    width: min(100% - 30px, 1000px);
-    padding: 82px 0;
+    width:
+      min(
+        calc(100% - 30px),
+        1000px
+      );
+
+    padding: 85px 0;
   }
 
   .hero-content {
-    padding: 40px 15px;
+    padding:
+      40px 15px;
   }
 
   .hero-content h1 {
-    font-size: 55px;
+    font-size: 57px;
   }
 
   .hero-names {
-    font-size: 28px;
+    font-size: 29px;
   }
 
   .hero-date {
@@ -844,10 +1111,12 @@ textarea {
 
   .music-button {
     top: 16px;
+
     right: 16px;
 
-    width: 38px;
-    height: 38px;
+    width: 39px;
+
+    height: 39px;
   }
 
   .countdown {
@@ -855,7 +1124,7 @@ textarea {
   }
 
   .countdown-number {
-    font-size: 27px;
+    font-size: 28px;
   }
 
   .countdown-label {
@@ -867,16 +1136,19 @@ textarea {
   }
 
   .schedule-item {
-    grid-template-columns: 75px 1fr;
+    grid-template-columns:
+      75px 1fr;
 
     gap: 15px;
   }
 
   .schedule-time {
-    font-size: 23px;
+    font-size: 24px;
   }
 
   .location-card {
-    padding: 45px 20px;
+    padding:
+      48px 20px;
   }
 }
+```
