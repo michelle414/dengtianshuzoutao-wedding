@@ -12,37 +12,40 @@
 
 
 /* =========================================================
-   ROOT
+   基础
 ========================================================= */
 
 :root {
-  --paper: #f6f1e7;
-  --paper-light: #fbf8f0;
-  --paper-deep: #ebe3d4;
+  --paper: #f7f2e8;
+  --paper-2: #fbf8f0;
 
-  --ink: #38443e;
-  --ink-soft: #68716a;
+  --ink: #455149;
+  --ink-light: #7a837b;
 
-  --sage: #8d9b8b;
-  --sage-light: #c9d0c3;
+  --sage: #91a292;
+  --sage-dark: #6f8173;
 
-  --blue: #aebfc1;
-  --blue-light: #dce5e2;
+  --blue: #b9c9c8;
+  --blue-light: #dce6e1;
 
-  --lavender: #c8c3cf;
-  --rose: #d7bfc0;
+  --lavender: #cbc8d1;
+  --rose: #d9c3c0;
 
-  --line: rgba(56, 68, 62, 0.18);
+  --line: rgba(69, 81, 73, 0.16);
 
-  --serif: Georgia, "Times New Roman", serif;
-  --english: "WeddingEnglish", Georgia, serif;
-  --chinese: "WeddingChinese", "Songti SC", "STSong", serif;
+  --chinese:
+    "WeddingChinese",
+    "Songti SC",
+    "STSong",
+    "SimSun",
+    serif;
+
+  --english:
+    "WeddingEnglish",
+    Georgia,
+    "Times New Roman",
+    serif;
 }
-
-
-/* =========================================================
-   RESET
-========================================================= */
 
 * {
   box-sizing: border-box;
@@ -54,78 +57,65 @@ html {
 
 body {
   margin: 0;
-  background: var(--paper);
+
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(196, 211, 201, 0.18),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(184, 202, 205, 0.16),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 70% 80%,
+      rgba(203, 195, 210, 0.13),
+      transparent 25%
+    ),
+    var(--paper);
+
   color: var(--ink);
-  font-family: var(--serif);
+
   overflow-x: hidden;
 }
 
 
-/* =========================================================
-   PAPER TEXTURE
-========================================================= */
+/* 纸张轻微纤维 */
 
 body::before {
   content: "";
+
   position: fixed;
   inset: 0;
-  z-index: 1000;
+
+  z-index: 9999;
+
   pointer-events: none;
 
-  opacity: 0.24;
+  opacity: 0.2;
 
   background-image:
     repeating-linear-gradient(
       0deg,
-      rgba(76, 72, 62, 0.018) 0px,
-      rgba(76, 72, 62, 0.018) 1px,
+      rgba(80, 75, 65, 0.018) 0px,
+      rgba(80, 75, 65, 0.018) 1px,
       transparent 1px,
       transparent 4px
     ),
     repeating-linear-gradient(
       90deg,
-      rgba(255, 255, 255, 0.20) 0px,
-      rgba(255, 255, 255, 0.20) 1px,
+      rgba(255,255,255,0.14) 0px,
+      rgba(255,255,255,0.14) 1px,
       transparent 1px,
       transparent 5px
-    );
-
-  mix-blend-mode: multiply;
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-
-  background:
-    radial-gradient(
-      circle at 15% 10%,
-      rgba(205, 220, 211, 0.22),
-      transparent 26%
-    ),
-    radial-gradient(
-      circle at 88% 18%,
-      rgba(185, 203, 207, 0.20),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 70% 78%,
-      rgba(203, 194, 211, 0.16),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 20% 88%,
-      rgba(216, 190, 190, 0.13),
-      transparent 25%
     );
 }
 
 
 /* =========================================================
-   GENERAL
+   通用
 ========================================================= */
 
 button,
@@ -135,116 +125,107 @@ select {
   font: inherit;
 }
 
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
-}
-
 a {
   color: inherit;
   text-decoration: none;
 }
 
-main {
-  position: relative;
+button {
+  -webkit-tap-highlight-color: transparent;
 }
 
 .section {
-  position: relative;
-  width: min(1180px, calc(100% - 40px));
+  width: min(100% - 32px, 980px);
+
   margin: 0 auto;
-  padding: 130px 0;
+
+  padding: 105px 0;
 }
 
-.section-heading {
+.section-title {
   text-align: center;
-  margin-bottom: 70px;
+
+  margin-bottom: 55px;
 }
 
-.left-heading {
-  text-align: left;
-}
-
-.section-kicker {
+.title-en {
   display: block;
 
-  margin-bottom: 18px;
+  margin-bottom: 12px;
 
   font-family: var(--english);
-  font-size: 12px;
-  letter-spacing: 0.22em;
+
+  font-size: 10px;
+
+  letter-spacing: 0.28em;
 
   color: var(--sage);
 }
 
-.section-heading h2 {
+.section-title h2 {
   margin: 0;
 
-  font-family: var(--english);
+  font-family: var(--chinese);
+
+  font-size: clamp(34px, 7vw, 60px);
+
   font-weight: 400;
 
-  font-size: clamp(48px, 7vw, 92px);
-  line-height: 0.95;
-  letter-spacing: -0.035em;
+  letter-spacing: 0.1em;
 
   color: var(--ink);
 }
 
-.section-heading p {
-  margin: 22px 0 0;
+.section-title p {
+  margin: 17px 0 0;
 
   font-family: var(--chinese);
-  font-size: 15px;
-  color: var(--ink-soft);
+
+  font-size: 14px;
+
+  color: var(--ink-light);
 }
 
 
 /* =========================================================
-   MUSIC
+   音乐
 ========================================================= */
 
 .music-button {
   position: fixed;
 
-  top: 22px;
-  right: 22px;
+  top: 16px;
+  right: 16px;
 
   z-index: 500;
 
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
 
-  border: 1px solid rgba(56, 68, 62, 0.22);
+  border: 1px solid rgba(69,81,73,0.2);
+
   border-radius: 50%;
 
-  background: rgba(246, 241, 231, 0.76);
+  background: rgba(248,244,235,0.8);
+
   backdrop-filter: blur(8px);
 
   color: var(--ink);
 
+  font-family: var(--english);
+
+  font-size: 16px;
+
   cursor: pointer;
-
-  transition:
-    transform 0.25s ease,
-    background 0.25s ease;
 }
 
-.music-button:hover {
-  transform: rotate(8deg);
+.music-button.playing {
+  animation: musicRotate 3s linear infinite;
 }
 
-.music-icon {
-  display: inline-block;
-  font-size: 19px;
-}
-
-.music-button.playing .music-icon {
-  animation: musicSpin 3s linear infinite;
-}
-
-@keyframes musicSpin {
+@keyframes musicRotate {
   from {
-    transform: rotate(0deg);
+    transform: rotate(0);
   }
 
   to {
@@ -254,280 +235,371 @@ main {
 
 
 /* =========================================================
-   HERO
+   首页
 ========================================================= */
 
 .hero {
   min-height: 100svh;
 
-  padding: 22px;
+  padding: 10px;
 
   display: flex;
-  align-items: center;
-  justify-content: center;
 
-  background:
-    radial-gradient(
-      ellipse at 50% 5%,
-      rgba(255, 255, 255, 0.88),
-      transparent 50%
-    ),
-    var(--paper);
+  justify-content: center;
+  align-items: center;
 }
 
 .hero-paper {
   position: relative;
 
-  width: min(100%, 1060px);
-  min-height: calc(100svh - 44px);
+  width: 100%;
+  max-width: 620px;
 
-  padding: 50px 50px 60px;
+  min-height: calc(100svh - 20px);
+
+  padding: 28px 22px 35px;
 
   display: flex;
+
   flex-direction: column;
+
+  align-items: center;
+
   justify-content: space-between;
 
-  border: 1px solid rgba(56, 68, 62, 0.18);
+  overflow: hidden;
+
+  border: 1px solid rgba(69,81,73,0.15);
 
   background:
     radial-gradient(
-      circle at 18% 18%,
-      rgba(205, 220, 211, 0.18),
-      transparent 25%
+      ellipse at 20% 15%,
+      rgba(204,218,207,0.18),
+      transparent 32%
     ),
     radial-gradient(
-      circle at 85% 20%,
-      rgba(188, 205, 209, 0.20),
-      transparent 28%
+      ellipse at 90% 30%,
+      rgba(190,207,211,0.17),
+      transparent 30%
     ),
-    rgba(250, 247, 239, 0.62);
-
-  box-shadow:
-    0 20px 70px rgba(69, 67, 58, 0.06);
+    rgba(251,248,240,0.5);
 }
 
-.hero-paper::before,
-.hero-paper::after {
-  content: "";
 
-  position: absolute;
+/* 顶部 */
 
-  width: 100px;
-  height: 100px;
+.hero-top {
+  width: 100%;
 
-  border-radius: 50%;
-
-  filter: blur(2px);
-
-  pointer-events: none;
-}
-
-.hero-paper::before {
-  top: 15%;
-  left: 3%;
-
-  background: rgba(185, 205, 193, 0.14);
-}
-
-.hero-paper::after {
-  right: 5%;
-  bottom: 15%;
-
-  background: rgba(187, 195, 211, 0.12);
-}
-
-.hero-topline {
   display: flex;
+
   justify-content: space-between;
 
-  font-family: var(--english);
-  font-size: 10px;
-  letter-spacing: 0.2em;
+  align-items: center;
 
-  color: var(--ink-soft);
+  font-family: var(--chinese);
+
+  font-size: 11px;
+
+  letter-spacing: 0.14em;
+
+  color: var(--ink-light);
+}
+
+.hero-mini-en {
+  font-family: var(--english);
+
+  font-size: 8px;
+
+  letter-spacing: 0.2em;
 }
 
 
 /* =========================================================
-   GUEST
+   宾客名字
 ========================================================= */
 
 .guest-area {
+  width: 100%;
+
   text-align: center;
 
-  margin-top: 20px;
-  margin-bottom: 15px;
+  margin-top: 25px;
 }
 
-.guest-eyebrow {
-  margin-bottom: 17px;
+.guest-small {
+  font-family: var(--chinese);
 
-  font-family: var(--english);
-  font-size: 11px;
-  letter-spacing: 0.35em;
+  font-size: 13px;
+
+  letter-spacing: 0.15em;
+
+  color: var(--ink-light);
+
+  margin-bottom: 13px;
+}
+
+.guest-name {
+  min-height: 1.2em;
+
+  font-family: var(--chinese);
+
+  font-size: clamp(42px, 12vw, 66px);
+
+  font-weight: 400;
+
+  line-height: 1.15;
+
+  letter-spacing: 0.12em;
+
+  color: var(--ink);
+}
+
+.guest-line {
+  width: 35px;
+
+  height: 1px;
+
+  margin: 14px auto;
+
+  background: var(--sage);
+}
+
+.guest-text {
+  font-family: var(--chinese);
+
+  font-size: 15px;
+
+  letter-spacing: 0.22em;
+
+  color: var(--ink-light);
+}
+
+
+/* =========================================================
+   新郎新娘
+========================================================= */
+
+.couple {
+  width: 100%;
+
+  text-align: center;
+
+  margin-top: 10px;
+}
+
+.couple-name {
+  font-family: var(--chinese);
+
+  font-size: clamp(30px, 8vw, 46px);
+
+  line-height: 1.2;
+
+  letter-spacing: 0.12em;
+
+  color: var(--ink);
+}
+
+.couple-name span {
+  margin: 0 5px;
+
+  font-family: var(--serif);
+
+  font-size: 0.65em;
 
   color: var(--sage);
 }
 
-.guest-name {
-  font-family: var(--chinese);
+.couple-en {
+  margin-top: 8px;
 
-  font-size: clamp(42px, 7vw, 76px);
-  line-height: 1.1;
-
-  color: var(--ink);
-
-  letter-spacing: 0.05em;
-
-  min-height: 1.2em;
-
-  text-shadow:
-    0 1px 0 rgba(255,255,255,0.6);
-}
-
-.guest-invitation {
-  margin-top: 17px;
-
-  font-family: var(--chinese);
-
-  font-size: 17px;
-  letter-spacing: 0.25em;
-
-  color: var(--ink-soft);
-}
-
-
-/* =========================================================
-   COUPLE
-========================================================= */
-
-.hero-couple {
-  text-align: center;
-}
-
-.couple-latin {
   font-family: var(--english);
 
-  font-size: clamp(42px, 7vw, 82px);
-  line-height: 0.9;
+  font-size: 9px;
 
-  letter-spacing: -0.04em;
+  letter-spacing: 0.28em;
 
-  color: var(--ink);
-}
-
-.couple-latin span {
-  font-family: var(--serif);
-  font-size: 0.6em;
-  margin: 0 0.08em;
-}
-
-.couple-chinese {
-  margin-top: 18px;
-
-  font-family: var(--chinese);
-
-  font-size: 18px;
-  letter-spacing: 0.2em;
-
-  color: var(--ink-soft);
-}
-
-.couple-chinese span {
-  margin: 0 5px;
+  color: var(--sage);
 }
 
 
 /* =========================================================
-   HERO DATE
+   日期
 ========================================================= */
 
 .hero-date {
   text-align: center;
+
+  margin-top: 5px;
 }
 
-.date-main {
+.hero-date-main {
+  font-family: var(--chinese);
+
+  font-size: 20px;
+
+  letter-spacing: 0.13em;
+}
+
+.hero-date-sub {
+  margin-top: 7px;
+
+  font-family: var(--chinese);
+
+  font-size: 11px;
+
+  letter-spacing: 0.08em;
+
+  color: var(--ink-light);
+}
+
+
+/* =========================================================
+   首页婚纱照
+========================================================= */
+
+.hero-photo {
+  position: relative;
+
+  width: min(100%, 355px);
+
+  aspect-ratio: 0.78 / 1;
+
+  margin: 12px auto 12px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(69,81,73,0.18);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(203,216,207,0.55),
+      rgba(220,215,224,0.42)
+    );
+
+  box-shadow:
+    0 15px 40px rgba(69,81,73,0.08);
+}
+
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+
+  display: none;
+
+  object-fit: cover;
+}
+
+.hero-photo.has-image img {
+  display: block;
+}
+
+.hero-photo.has-image .hero-photo-empty {
+  display: none;
+}
+
+.hero-photo-empty {
+  position: absolute;
+
+  inset: 0;
+
   display: flex;
-  align-items: center;
+
+  flex-direction: column;
+
   justify-content: center;
-  gap: 15px;
+  align-items: center;
+
+  font-family: var(--chinese);
+
+  font-size: 18px;
+
+  letter-spacing: 0.15em;
+
+  color: rgba(69,81,73,0.55);
+
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      rgba(255,255,255,0.45),
+      transparent 30%
+    );
+}
+
+.hero-photo-empty::after {
+  content: "照片位置";
+
+  margin-top: 9px;
 
   font-family: var(--english);
 
-  font-size: clamp(38px, 6vw, 70px);
-  line-height: 1;
+  font-size: 8px;
 
-  letter-spacing: -0.035em;
+  letter-spacing: 0.2em;
+
+  color: rgba(69,81,73,0.4);
 }
 
-.date-main span {
-  font-size: 0.22em;
-  letter-spacing: 0.25em;
 
-  color: var(--sage);
-}
+/* =========================================================
+   开启请柬
+========================================================= */
 
-.date-divider {
-  width: 70px;
-  height: 1px;
-
-  margin: 18px auto;
-
-  background: var(--line);
-}
-
-.date-sub {
+.open-invitation {
   display: flex;
+
+  align-items: center;
   justify-content: center;
-  gap: 25px;
+
+  gap: 17px;
+
+  min-width: 138px;
+
+  padding: 11px 18px;
+
+  border: 1px solid rgba(69,81,73,0.35);
+
+  background:
+    rgba(251,248,240,0.48);
+
+  color: var(--ink);
 
   font-family: var(--chinese);
 
   font-size: 13px;
 
-  color: var(--ink-soft);
-}
-
-
-/* =========================================================
-   OPEN
-========================================================= */
-
-.open-invitation {
-  align-self: center;
-
-  display: flex;
-  align-items: center;
-  gap: 24px;
-
-  padding: 13px 5px;
-
-  border: 0;
-  border-bottom: 1px solid rgba(56, 68, 62, 0.35);
-
-  background: transparent;
-
-  font-family: var(--chinese);
-
-  font-size: 15px;
-  letter-spacing: 0.18em;
-
-  color: var(--ink);
+  letter-spacing: 0.14em;
 
   cursor: pointer;
 
   transition:
-    gap 0.3s ease,
-    border-color 0.3s ease;
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.open-invitation:active {
+  transform: scale(0.97);
 }
 
 .open-invitation:hover {
-  gap: 32px;
-  border-color: var(--sage);
+  background: rgba(255,255,255,0.55);
 }
 
 .open-arrow {
   font-family: var(--serif);
+
+  font-size: 14px;
+}
+
+.hero-bottom {
+  font-family: var(--english);
+
+  font-size: 8px;
+
+  letter-spacing: 0.3em;
+
+  color: var(--ink-light);
 }
 
 
@@ -535,44 +607,40 @@ main {
    OUR DAY
 ========================================================= */
 
-.our-day {
-  min-height: 100vh;
-}
-
 .day-layout {
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
+  gap: 70px;
+
   align-items: center;
-  gap: 100px;
 }
 
 
-/* Calendar */
+/* 日历 */
 
 .calendar-card {
-  width: min(100%, 450px);
-
-  padding: 48px;
+  padding: 32px 25px;
 
   border: 1px solid var(--line);
 
-  background: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.13);
 }
 
-.calendar-month {
+.calendar-title {
+  font-family: var(--chinese);
+
+  font-size: 30px;
+}
+
+.calendar-year {
+  margin-top: 2px;
+
   font-family: var(--english);
 
-  font-size: 34px;
+  font-size: 11px;
 
-  letter-spacing: 0.04em;
-}
-
-.calendar-month span {
-  display: block;
-
-  margin-top: 5px;
-
-  font-size: 12px;
   letter-spacing: 0.25em;
 
   color: var(--sage);
@@ -581,131 +649,145 @@ main {
 .calendar-week,
 .calendar-grid {
   display: grid;
+
   grid-template-columns: repeat(7, 1fr);
 }
 
 .calendar-week {
-  margin-top: 38px;
-  margin-bottom: 12px;
+  margin-top: 30px;
+  margin-bottom: 10px;
 
-  font-family: var(--english);
+  font-family: var(--chinese);
+
   font-size: 10px;
 
-  color: var(--ink-soft);
+  color: var(--ink-light);
 }
 
 .calendar-grid {
-  gap: 5px;
+  gap: 4px;
 }
 
 .calendar-grid span {
   aspect-ratio: 1;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  font-family: var(--serif);
+  font-family: var(--english);
+
   font-size: 13px;
 }
 
 .calendar-grid .selected-day {
   position: relative;
 
-  color: white;
-
   z-index: 1;
+
+  color: #fff;
 }
 
 .calendar-grid .selected-day::before {
   content: "";
 
   position: absolute;
-  z-index: -1;
 
-  width: 40px;
-  height: 40px;
+  width: 37px;
+  height: 37px;
+
+  z-index: -1;
 
   border-radius: 50%;
 
   background:
     radial-gradient(
       circle at 35% 30%,
-      #d7e1dc,
-      #9eada0
+      #c8d8ce,
+      #91a595
     );
-
-  box-shadow:
-    0 4px 16px rgba(98, 116, 103, 0.18);
 }
 
 
-/* Day copy */
+/* 文字 */
 
 .day-copy {
-  max-width: 450px;
+  text-align: left;
 }
 
-.large-copy {
-  margin: 0;
+.day-big {
+  font-family: var(--chinese);
 
-  font-family: var(--english);
+  font-size: 38px;
 
-  font-size: clamp(42px, 5vw, 70px);
-  line-height: 0.98;
-
-  letter-spacing: -0.035em;
+  letter-spacing: 0.1em;
 }
 
-.thin-rule {
-  width: 80px;
+.day-script {
+  margin-top: 6px;
+
+  font-family: var(--chinese);
+
+  font-size: 49px;
+
+  letter-spacing: 0.06em;
+
+  color: var(--sage-dark);
+}
+
+.day-line {
+  width: 45px;
+
   height: 1px;
 
-  margin: 35px 0;
+  margin: 25px 0;
 
   background: var(--sage);
 }
 
-.date-chinese {
+.day-copy p {
   margin: 0;
 
   font-family: var(--chinese);
 
+  font-size: 14px;
+
   line-height: 2;
 
-  color: var(--ink-soft);
+  color: var(--ink-light);
 }
 
 
-/* Countdown */
+/* 倒计时 */
 
 .countdown-wrap {
-  margin-top: 100px;
+  margin-top: 80px;
 
   text-align: center;
 }
 
-.countdown-label {
-  font-family: var(--english);
+.countdown-title {
+  font-family: var(--chinese);
 
-  font-size: 10px;
-  letter-spacing: 0.25em;
+  font-size: 14px;
 
-  color: var(--sage);
+  color: var(--ink-light);
 }
 
 .countdown {
-  margin-top: 24px;
-
   display: flex;
+
   justify-content: center;
   align-items: center;
 
-  gap: clamp(10px, 3vw, 35px);
+  gap: 10px;
+
+  margin-top: 20px;
 }
 
-.countdown > div:not(.countdown-dot) {
-  min-width: 65px;
+.countdown div {
+  min-width: 50px;
 }
 
 .countdown strong {
@@ -713,152 +795,276 @@ main {
 
   font-family: var(--english);
 
-  font-size: clamp(35px, 5vw, 60px);
+  font-size: 37px;
+
   font-weight: 400;
 }
 
 .countdown span {
   display: block;
 
-  margin-top: 5px;
+  margin-top: 3px;
 
-  font-family: var(--english);
+  font-family: var(--chinese);
 
-  font-size: 8px;
-  letter-spacing: 0.2em;
+  font-size: 9px;
 
-  color: var(--ink-soft);
+  color: var(--ink-light);
 }
 
-.countdown-dot {
-  font-size: 25px;
+.countdown i {
+  font-family: var(--english);
+
+  font-style: normal;
+
   color: var(--sage);
 }
 
 
 /* =========================================================
-   MOMENTS
+   婚礼照片
 ========================================================= */
 
-.photo-gallery {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 18px;
+.photos-section {
+  padding-top: 80px;
 }
 
-.photo-item {
+
+/* 大图 */
+
+.main-photo {
   position: relative;
+
+  width: 100%;
+
+  max-width: 760px;
+
+  margin: 0 auto;
+
+  aspect-ratio: 1 / 1.12;
 
   overflow: hidden;
 
-  background: var(--paper-deep);
+  border: 1px solid rgba(69,81,73,0.16);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(203,216,207,0.5),
+      rgba(216,209,219,0.45)
+    );
 }
 
-.photo-item:nth-child(1) {
-  grid-column: span 7;
-}
-
-.photo-item:nth-child(2) {
-  grid-column: span 5;
-}
-
-.photo-item:nth-child(3) {
-  grid-column: span 5;
-}
-
-.photo-item:nth-child(4) {
-  grid-column: span 7;
-}
-
-.photo-item img {
-  display: block;
+.main-photo img {
+  display: none;
 
   width: 100%;
   height: 100%;
 
   object-fit: cover;
-
-  transition: transform 0.8s ease;
 }
 
-.photo-item:hover img {
-  transform: scale(1.025);
+.main-photo.has-image img {
+  display: block;
 }
 
-.photo-item.landscape {
-  aspect-ratio: 1.35 / 1;
+.main-photo.has-image .photo-placeholder {
+  display: none;
 }
 
-.photo-item.portrait {
-  aspect-ratio: 0.85 / 1;
-}
+.photo-placeholder {
+  position: absolute;
 
-
-/* =========================================================
-   STORY
-========================================================= */
-
-.story {
-  min-height: 80vh;
+  inset: 0;
 
   display: flex;
+
   align-items: center;
+  justify-content: center;
 
-  background:
-    radial-gradient(
-      ellipse at 75% 35%,
-      rgba(180, 201, 201, 0.16),
-      transparent 32%
-    );
-}
-
-.story-inner {
-  width: 100%;
-}
-
-.story .section-heading {
-  margin-bottom: 70px;
-}
-
-.story-copy {
-  max-width: 650px;
-
-  margin-left: auto;
-}
-
-.story-copy p {
-  margin: 0 0 32px;
+  flex-direction: column;
 
   font-family: var(--chinese);
 
-  font-size: 18px;
-  line-height: 2;
+  font-size: 20px;
 
-  color: var(--ink-soft);
+  letter-spacing: 0.15em;
+
+  color: rgba(69,81,73,0.5);
+}
+
+.photo-placeholder small {
+  margin-top: 8px;
+
+  font-family: var(--english);
+
+  font-size: 8px;
+
+  letter-spacing: 0.25em;
+}
+
+
+/* 横向照片 */
+
+.photo-scroll {
+  display: flex;
+
+  gap: 12px;
+
+  overflow-x: auto;
+
+  margin-top: 14px;
+
+  padding: 2px 0 10px;
+
+  scroll-snap-type: x mandatory;
+
+  -webkit-overflow-scrolling: touch;
+
+  scrollbar-width: none;
+}
+
+.photo-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.photo-thumb {
+  flex: 0 0 125px;
+
+  height: 155px;
+
+  overflow: hidden;
+
+  scroll-snap-align: start;
+
+  border: 1px solid rgba(69,81,73,0.13);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(203,216,207,0.5),
+      rgba(216,209,219,0.45)
+    );
+}
+
+.photo-thumb img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+.photo-thumb-placeholder {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-family: var(--chinese);
+
+  font-size: 12px;
+
+  color: rgba(69,81,73,0.4);
+}
+
+.photo-hint {
+  margin-top: 12px;
+
+  text-align: center;
+
+  font-family: var(--chinese);
+
+  font-size: 10px;
+
+  color: var(--ink-light);
 }
 
 
 /* =========================================================
-   WEDDING
+   故事
 ========================================================= */
 
-.wedding {
-  padding-bottom: 150px;
+.story {
+  position: relative;
+
+  overflow: hidden;
 }
 
+.story::before {
+  content: "T & T";
+
+  position: absolute;
+
+  top: 30px;
+  right: -30px;
+
+  font-family: var(--english);
+
+  font-size: 150px;
+
+  color: rgba(145,162,146,0.07);
+}
+
+.story-content {
+  width: min(100%, 650px);
+
+  margin: 0 auto;
+
+  text-align: center;
+}
+
+.story-content p {
+  margin: 0 0 27px;
+
+  font-family: var(--chinese);
+
+  font-size: 16px;
+
+  line-height: 2.2;
+
+  color: var(--ink-light);
+}
+
+.story-content .story-last {
+  margin-top: 45px;
+
+  font-size: 21px;
+
+  color: var(--ink);
+}
+
+.story-decor {
+  margin-bottom: 30px;
+
+  font-family: var(--english);
+
+  font-size: 34px;
+
+  color: var(--sage);
+}
+
+
+/* =========================================================
+   婚礼流程
+========================================================= */
+
 .schedule {
-  width: min(700px, 100%);
+  width: min(100%, 680px);
 
   margin: 0 auto;
 }
 
 .schedule-item {
-  position: relative;
-
   display: grid;
-  grid-template-columns: 110px 1fr;
 
-  padding: 35px 0;
+  grid-template-columns: 90px 1fr;
+
+  padding: 28px 0;
 
   border-top: 1px solid var(--line);
 }
@@ -872,47 +1078,58 @@ main {
 
   font-size: 27px;
 
-  color: var(--sage);
-}
-
-.schedule-content {
-  padding-left: 30px;
+  color: var(--sage-dark);
 }
 
 .schedule-title {
   font-family: var(--chinese);
 
-  font-size: 22px;
-  letter-spacing: 0.08em;
+  font-size: 19px;
+
+  letter-spacing: 0.12em;
 }
 
 .schedule-english {
-  margin-top: 7px;
+  margin-top: 6px;
 
   font-family: var(--english);
 
-  font-size: 10px;
-  letter-spacing: 0.25em;
+  font-size: 8px;
 
-  color: var(--ink-soft);
+  letter-spacing: 0.22em;
+
+  color: var(--ink-light);
 }
 
 
 /* =========================================================
-   LOCATION
+   地点
 ========================================================= */
 
-.location {
+.venue {
   text-align: center;
+
+  margin-bottom: 35px;
 }
 
 .venue-name {
-  font-size: 23px !important;
+  font-family: var(--chinese);
+
+  font-size: 25px;
+
   letter-spacing: 0.1em;
 }
 
 .venue-address {
+  margin-top: 12px;
+
+  font-family: var(--chinese);
+
+  font-size: 13px;
+
   line-height: 1.9;
+
+  color: var(--ink-light);
 }
 
 .location-map {
@@ -920,76 +1137,58 @@ main {
 
   display: block;
 
-  width: min(100%, 850px);
-
-  margin: 0 auto;
+  width: 100%;
 
   overflow: hidden;
 
   border: 1px solid var(--line);
-
-  background: var(--paper-deep);
 }
 
 .location-map img {
-  display: block;
-
   width: 100%;
 
-  max-height: 560px;
+  display: block;
+
+  aspect-ratio: 1.65 / 1;
 
   object-fit: cover;
-
-  transition: transform 0.8s ease;
 }
 
-.location-map:hover img {
-  transform: scale(1.015);
-}
-
-.map-overlay {
+.location-map span {
   position: absolute;
 
-  right: 20px;
-  bottom: 20px;
+  right: 12px;
+  bottom: 12px;
 
-  padding: 10px 14px;
+  padding: 7px 10px;
 
-  background: rgba(250,247,239,0.86);
-  backdrop-filter: blur(5px);
-
-  font-family: var(--english);
-
-  font-size: 10px;
-  letter-spacing: 0.2em;
-}
-
-.navigation-button {
-  width: min(100%, 850px);
-
-  margin: 20px auto 0;
-
-  padding: 17px 20px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  border: 1px solid rgba(56,68,62,0.28);
+  background: rgba(251,248,240,0.88);
 
   font-family: var(--chinese);
 
-  font-size: 14px;
-  letter-spacing: 0.08em;
-
-  transition:
-    background 0.25s ease,
-    border-color 0.25s ease;
+  font-size: 10px;
 }
 
-.navigation-button:hover {
-  background: rgba(255,255,255,0.35);
-  border-color: var(--sage);
+.navigation-button {
+  width: 100%;
+
+  margin-top: 13px;
+
+  padding: 15px 17px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  border: 1px solid rgba(69,81,73,0.25);
+
+  font-family: var(--chinese);
+
+  font-size: 13px;
+
+  letter-spacing: 0.08em;
 }
 
 
@@ -997,33 +1196,26 @@ main {
    RSVP
 ========================================================= */
 
-.rsvp {
-  max-width: 760px;
-
-  text-align: center;
-}
-
 .rsvp-form {
-  margin-top: 50px;
+  width: min(100%, 620px);
 
-  text-align: left;
+  margin: 0 auto;
 }
 
 .form-field {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .form-field > label {
   display: block;
 
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 
-  font-family: var(--english);
+  font-family: var(--chinese);
 
-  font-size: 10px;
-  letter-spacing: 0.22em;
+  font-size: 12px;
 
-  color: var(--sage);
+  color: var(--ink-light);
 }
 
 .form-field input,
@@ -1031,12 +1223,11 @@ main {
 .form-field select {
   width: 100%;
 
-  padding: 14px 0;
+  padding: 12px 0;
 
   border: 0;
-  border-bottom: 1px solid var(--line);
 
-  border-radius: 0;
+  border-bottom: 1px solid var(--line);
 
   outline: none;
 
@@ -1046,36 +1237,27 @@ main {
 
   font-family: var(--chinese);
 
-  font-size: 15px;
-}
-
-.form-field input:focus,
-.form-field textarea:focus,
-.form-field select:focus {
-  border-color: var(--sage);
-}
-
-.form-field textarea {
-  resize: vertical;
+  font-size: 14px;
 }
 
 .choice-group {
   display: flex;
+
   gap: 20px;
 
   flex-wrap: wrap;
 }
 
 .choice {
-  cursor: pointer;
-
   display: flex;
+
   align-items: center;
-  gap: 8px;
+
+  gap: 7px;
 
   font-family: var(--chinese);
 
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .choice input {
@@ -1085,53 +1267,53 @@ main {
 .submit-button {
   width: 100%;
 
-  padding: 17px 20px;
+  padding: 15px;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  border: 1px solid rgba(56,68,62,0.28);
+  border: 1px solid rgba(69,81,73,0.3);
 
   background: transparent;
 
-  color: var(--ink);
+  display: flex;
 
-  cursor: pointer;
+  justify-content: space-between;
+
+  color: var(--ink);
 
   font-family: var(--chinese);
 
-  transition: background 0.25s ease;
-}
+  font-size: 14px;
 
-.submit-button:hover {
-  background: rgba(255,255,255,0.3);
+  cursor: pointer;
 }
 
 .form-result {
-  min-height: 24px;
+  min-height: 25px;
 
-  margin-top: 18px;
+  margin-top: 15px;
 
   text-align: center;
 
   font-family: var(--chinese);
 
-  color: var(--sage);
+  font-size: 13px;
+
+  color: var(--sage-dark);
 }
 
 
 /* =========================================================
-   FINAL
+   最后
 ========================================================= */
 
 .final-section {
-  min-height: 80vh;
+  min-height: 65vh;
 
-  padding: 130px 25px;
+  padding: 110px 25px;
 
   display: flex;
+
   flex-direction: column;
+
   justify-content: center;
   align-items: center;
 
@@ -1139,73 +1321,63 @@ main {
 
   background:
     radial-gradient(
-      ellipse at 50% 50%,
-      rgba(191, 207, 201, 0.18),
-      transparent 45%
+      ellipse at center,
+      rgba(191,207,200,0.18),
+      transparent 55%
     );
 }
 
-.final-monogram {
-  font-family: var(--english);
+.final-flower {
+  font-size: 35px;
 
-  font-size: 50px;
+  color: var(--sage);
+
+  margin-bottom: 20px;
 }
 
-.final-monogram span {
-  font-family: var(--serif);
-  font-size: 0.5em;
+.final-title {
+  font-family: var(--chinese);
+
+  font-size: 40px;
+
+  letter-spacing: 0.2em;
 }
 
-.final-small {
-  margin: 25px 0;
+.final-section p {
+  margin-top: 17px;
+
+  font-family: var(--chinese);
+
+  font-size: 13px;
+
+  color: var(--ink-light);
+}
+
+.final-couple {
+  margin-top: 55px;
+
+  font-family: var(--chinese);
+
+  font-size: 27px;
+
+  letter-spacing: 0.12em;
+}
+
+.final-date {
+  margin-top: 10px;
 
   font-family: var(--english);
 
   font-size: 10px;
-  letter-spacing: 0.35em;
+
+  letter-spacing: 0.2em;
 
   color: var(--sage);
 }
 
-.final-section h2 {
-  margin: 0;
-
-  font-family: var(--english);
-
-  font-weight: 400;
-
-  font-size: clamp(65px, 13vw, 150px);
-
-  line-height: 0.8;
-
-  letter-spacing: -0.05em;
-}
-
-.final-section h2 span {
-  font-size: 0.35em;
-}
-
-.final-date {
-  margin-top: 45px;
-
-  font-family: var(--english);
-
-  letter-spacing: 0.25em;
-
-  color: var(--ink-soft);
-}
-
-.final-thank {
-  margin-top: 80px;
-
-  font-family: var(--chinese);
-
-  color: var(--ink-soft);
-}
-
 
 /* =========================================================
-   ADMIN HIDDEN
+   隐藏管理入口
 ========================================================= */
 
 .admin-hidden-link {
@@ -1219,153 +1391,191 @@ main {
 
 
 /* =========================================================
-   MOBILE
+   手机端：重点
 ========================================================= */
 
 @media (max-width: 700px) {
 
   .section {
-    width: min(100% - 30px, 1180px);
-    padding: 95px 0;
+    width: calc(100% - 30px);
+
+    padding: 85px 0;
   }
 
-  .music-button {
-    top: 14px;
-    right: 14px;
 
-    width: 40px;
-    height: 40px;
-  }
+  /* 首页 */
 
   .hero {
-    padding: 10px;
+    padding: 8px;
   }
 
   .hero-paper {
-    min-height: calc(100svh - 20px);
+    min-height: calc(100svh - 16px);
 
-    padding: 28px 22px 40px;
+    padding:
+      25px
+      18px
+      30px;
   }
 
-  .hero-topline {
-    font-size: 8px;
+  .hero-top {
+    font-size: 10px;
+  }
+
+  .hero-mini-en {
+    font-size: 7px;
   }
 
   .guest-area {
-    margin-top: 30px;
+    margin-top: 20px;
   }
 
   .guest-name {
-    font-size: clamp(38px, 12vw, 58px);
+    font-size: clamp(43px, 13vw, 62px);
+
+    letter-spacing: 0.1em;
   }
 
-  .guest-invitation {
-    font-size: 14px;
+  .couple-name {
+    font-size: clamp(28px, 8vw, 38px);
   }
 
-  .couple-latin {
-    font-size: clamp(38px, 12vw, 58px);
-  }
-
-  .couple-chinese {
-    font-size: 15px;
-  }
-
-  .date-main {
-    font-size: 39px;
-  }
-
-  .date-sub {
-    flex-direction: column;
-    gap: 5px;
-
-    font-size: 11px;
-  }
-
-  .section-heading {
-    margin-bottom: 50px;
-  }
-
-  .section-heading h2 {
-    font-size: 50px;
-  }
-
-  .day-layout {
-    grid-template-columns: 1fr;
-    gap: 55px;
-  }
-
-  .calendar-card {
-    padding: 30px 20px;
-  }
-
-  .calendar-grid .selected-day::before {
-    width: 35px;
-    height: 35px;
-  }
-
-  .large-copy {
-    font-size: 47px;
-  }
-
-  .countdown {
-    gap: 8px;
-  }
-
-  .countdown > div:not(.countdown-dot) {
-    min-width: 50px;
-  }
-
-  .countdown strong {
-    font-size: 30px;
-  }
-
-  .countdown span {
-    font-size: 6px;
-  }
-
-  .countdown-dot {
+  .hero-date-main {
     font-size: 18px;
   }
 
-  .photo-gallery {
-    display: block;
+  .hero-photo {
+    width: min(82vw, 340px);
+
+    aspect-ratio: 0.78 / 1;
+
+    margin-top: 8px;
+    margin-bottom: 10px;
   }
 
-  .photo-item {
-    margin-bottom: 14px;
+  .open-invitation {
+    min-width: 132px;
+
+    padding: 10px 15px;
+
+    font-size: 12px;
   }
 
-  .story-copy {
+
+  /* 日期 */
+
+  .day-layout {
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+  }
+
+  .day-copy {
+    text-align: center;
+  }
+
+  .day-line {
+    margin: 22px auto;
+  }
+
+  .day-big {
+    font-size: 32px;
+  }
+
+  .day-script {
+    font-size: 43px;
+  }
+
+
+  /* 倒计时 */
+
+  .countdown {
+    gap: 5px;
+  }
+
+  .countdown div {
+    min-width: 45px;
+  }
+
+  .countdown strong {
+    font-size: 29px;
+  }
+
+
+  /* 照片 */
+
+  .photos-section {
+    width: 100%;
+
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .photos-section .section-title {
+    padding: 0 7px;
+  }
+
+  .main-photo {
+    width: 100%;
+
+    aspect-ratio: 0.82 / 1;
+  }
+
+  .photo-scroll {
     margin-left: 0;
+    margin-right: -15px;
+
+    padding-right: 15px;
   }
 
-  .story-copy p {
-    font-size: 16px;
+  .photo-thumb {
+    flex-basis: 115px;
+
+    height: 145px;
   }
+
+
+  /* 故事 */
+
+  .story-content p {
+    font-size: 15px;
+
+    line-height: 2.1;
+  }
+
+
+  /* 流程 */
 
   .schedule-item {
     grid-template-columns: 78px 1fr;
+
+    padding: 25px 0;
   }
 
   .schedule-time {
     font-size: 23px;
   }
 
-  .schedule-content {
-    padding-left: 15px;
+  .schedule-title {
+    font-size: 17px;
   }
 
-  .schedule-title {
-    font-size: 18px;
-  }
+
+  /* 地图 */
 
   .location-map img {
-    min-height: 250px;
+    aspect-ratio: 1.2 / 1;
   }
 
-  .final-section h2 {
-    font-size: 78px;
+
+  /* 最后 */
+
+  .final-title {
+    font-size: 36px;
+  }
+
+  .final-couple {
+    font-size: 23px;
   }
 
 }
