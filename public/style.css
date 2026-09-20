@@ -1,4 +1,5 @@
 :root {
+
   --paper: #f6f2e8;
   --paper-light: #fbf9f3;
   --paper-deep: #eee9dc;
@@ -19,13 +20,29 @@
 
   --white: #fffdf8;
 
+
+  /* 中文 */
+
   --serif:
+    "WeddingChinese",
     "Songti SC",
     "STSong",
     "Noto Serif CJK SC",
     "Times New Roman",
     Georgia,
     serif;
+
+
+  /* 英文 */
+
+  --editorial:
+    "WeddingEnglish",
+    "Times New Roman",
+    Georgia,
+    serif;
+
+
+  /* 普通界面 */
 
   --sans:
     -apple-system,
@@ -34,14 +51,46 @@
     "PingFang SC",
     "Microsoft YaHei",
     sans-serif;
-
-  --editorial:
-    "Times New Roman",
-    Georgia,
-    "Songti SC",
-    serif;
 }
 
+
+/* =====================================================
+   婚礼字体
+===================================================== */
+
+@font-face {
+
+  font-family: "WeddingEnglish";
+
+  src:
+    url("./fonts/FZVDLGTMCJW-L.TTF")
+    format("truetype");
+
+  font-weight: normal;
+  font-style: normal;
+
+  font-display: swap;
+}
+
+
+@font-face {
+
+  font-family: "WeddingChinese";
+
+  src:
+    url("./fonts/FZZiLSJW-B.TTF")
+    format("truetype");
+
+  font-weight: normal;
+  font-style: normal;
+
+  font-display: swap;
+}
+
+
+/* =====================================================
+   GLOBAL
+===================================================== */
 
 * {
   box-sizing: border-box;
@@ -54,11 +103,14 @@ html {
 
 
 body {
+
   margin: 0;
+
   background: var(--paper);
+
   color: var(--ink);
 
-  font-family: var(--sans);
+  font-family: var(--serif);
 
   overflow-x: hidden;
 
@@ -81,17 +133,20 @@ button {
 
 a {
   color: inherit;
+
   text-decoration: none;
 }
 
 
 main {
   width: 100%;
+
   overflow: hidden;
 }
 
 
 .section {
+
   position: relative;
 
   min-height: 100svh;
@@ -101,18 +156,24 @@ main {
     22px;
 
   display: flex;
+
   align-items: center;
 }
 
 
 .section-inner {
-  width: min(100%, 680px);
+
+  width:
+    min(100%, 680px);
+
   margin: 0 auto;
 }
 
 
 .section-inner.wide {
-  width: min(100%, 760px);
+
+  width:
+    min(100%, 760px);
 }
 
 
@@ -121,6 +182,7 @@ main {
 ===================================================== */
 
 .hero {
+
   position: relative;
 
   min-height: 100svh;
@@ -131,32 +193,39 @@ main {
     46px;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
   overflow: hidden;
 
   background:
+
     radial-gradient(
       ellipse at 8% 15%,
       rgba(176, 199, 173, .56),
       transparent 31%
     ),
+
     radial-gradient(
       ellipse at 94% 21%,
       rgba(190, 212, 216, .64),
       transparent 34%
     ),
+
     radial-gradient(
       ellipse at 48% 100%,
       rgba(232, 199, 193, .54),
       transparent 35%
     ),
+
     var(--paper);
 }
 
 
 .paint-layer {
+
   position: absolute;
 
   border-radius: 50%;
@@ -168,6 +237,7 @@ main {
 
 
 .paint-layer-one {
+
   width: 370px;
   height: 230px;
 
@@ -177,11 +247,13 @@ main {
   background:
     rgba(160, 186, 158, .34);
 
-  transform: rotate(-22deg);
+  transform:
+    rotate(-22deg);
 }
 
 
 .paint-layer-two {
+
   width: 330px;
   height: 210px;
 
@@ -191,11 +263,13 @@ main {
   background:
     rgba(182, 207, 215, .42);
 
-  transform: rotate(24deg);
+  transform:
+    rotate(24deg);
 }
 
 
 .paint-layer-three {
+
   width: 370px;
   height: 230px;
 
@@ -208,6 +282,7 @@ main {
 
 
 .paint-layer-four {
+
   width: 240px;
   height: 180px;
 
@@ -217,21 +292,26 @@ main {
   background:
     rgba(218, 207, 174, .25);
 
-  transform: rotate(-20deg);
+  transform:
+    rotate(-20deg);
 }
 
 
 .hero-content {
+
   position: relative;
+
   z-index: 2;
 
-  width: min(100%, 680px);
+  width:
+    min(100%, 680px);
 
   text-align: center;
 }
 
 
 .hero-small-title {
+
   margin-bottom: 43px;
 
   font-family: var(--editorial);
@@ -249,12 +329,16 @@ main {
 ===================================================== */
 
 .guest-invitation {
+
   margin-bottom: 50px;
 }
 
 
 .guest-for {
+
   margin-bottom: 12px;
+
+  font-family: var(--editorial);
 
   font-size: 9px;
 
@@ -265,6 +349,7 @@ main {
 
 
 .guest-name {
+
   min-height: 78px;
 
   font-family: var(--serif);
@@ -281,12 +366,15 @@ main {
   color: var(--ink-deep);
 
   text-shadow:
-    0 3px 24px rgba(70, 80, 65, .09);
+    0 3px 24px
+    rgba(70, 80, 65, .09);
 }
 
 
 .guest-rule {
+
   width: 150px;
+
   height: 1px;
 
   margin:
@@ -305,6 +393,7 @@ main {
 
 
 .guest-text {
+
   font-family: var(--serif);
 
   font-size: 19px;
@@ -325,14 +414,17 @@ main {
 ===================================================== */
 
 .couple {
+
   margin-bottom: 32px;
 }
 
 
 .couple-cn {
+
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   gap: 14px;
@@ -351,6 +443,7 @@ main {
 
 
 .couple-and {
+
   color: var(--gold);
 
   font-family: var(--editorial);
@@ -362,6 +455,7 @@ main {
 
 
 .couple-en {
+
   margin-top: 10px;
 
   font-family: var(--editorial);
@@ -379,11 +473,13 @@ main {
 ===================================================== */
 
 .hero-date {
+
   margin-bottom: 36px;
 }
 
 
 .hero-date-number {
+
   font-family: var(--editorial);
 
   font-size: 18px;
@@ -394,25 +490,69 @@ main {
 }
 
 
-.hero-date-day {
-  margin-top: 8px;
+.hero-date-sub {
+
+  display: flex;
+
+  align-items: baseline;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: 10px;
+}
+
+
+.hero-date-week-en {
 
   font-family: var(--editorial);
 
-  font-size: 8px;
+  font-size: 10px;
 
-  letter-spacing: .4em;
+  letter-spacing: .16em;
+
+  color: var(--ink);
+
+  opacity: .9;
+}
+
+
+.hero-date-week-cn {
+
+  font-family: var(--serif);
+
+  font-size: 17px;
+
+  letter-spacing: .12em;
+
+  color: var(--ink-deep);
+
+  opacity: .98;
+}
+
+
+.hero-date-divider {
+
+  font-family: var(--editorial);
+
+  font-size: 9px;
 
   color: var(--soft-ink);
+
+  opacity: .6;
 }
 
 
 .hero-date-lunar {
-  margin-top: 11px;
+
+  margin-top: 0;
 
   font-family: var(--serif);
 
-  font-size: 19px;
+  font-size: 16px;
 
   letter-spacing: .13em;
 
@@ -421,10 +561,11 @@ main {
 
 
 /* =====================================================
-   OPEN
+   OPEN INVITATION
 ===================================================== */
 
 .open-invitation {
+
   position: relative;
 
   display: inline-flex;
@@ -461,17 +602,21 @@ main {
 
 
 .open-invitation:hover {
-  transform: translateY(-3px);
+
+  transform:
+    translateY(-3px);
 
   background:
     rgba(255, 253, 248, .85);
 
   box-shadow:
-    0 12px 35px rgba(70, 80, 65, .08);
+    0 12px 35px
+    rgba(70, 80, 65, .08);
 }
 
 
 .open-cn {
+
   font-family: var(--serif);
 
   font-size: 16px;
@@ -481,6 +626,7 @@ main {
 
 
 .open-en {
+
   font-family: var(--editorial);
 
   font-size: 7px;
@@ -492,7 +638,10 @@ main {
 
 
 .open-arrow {
+
   margin-top: 4px;
+
+  font-family: var(--editorial);
 
   font-size: 13px;
 
@@ -509,7 +658,8 @@ main {
   }
 
   50% {
-    transform: translateY(4px);
+    transform:
+      translateY(4px);
   }
 
 }
@@ -520,6 +670,7 @@ main {
 ===================================================== */
 
 .music-toggle {
+
   position: fixed;
 
   z-index: 100;
@@ -544,13 +695,15 @@ main {
   background:
     rgba(255, 253, 248, .72);
 
-  backdrop-filter: blur(10px);
+  backdrop-filter:
+    blur(10px);
 
   color: var(--ink);
 
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   box-shadow:
@@ -560,13 +713,15 @@ main {
 
 
 .music-icon {
-  font-family: var(--serif);
+
+  font-family: var(--editorial);
 
   font-size: 18px;
 }
 
 
 .music-toggle.playing .music-icon {
+
   animation:
     musicRotate 3s linear infinite;
 }
@@ -590,11 +745,13 @@ main {
 ===================================================== */
 
 .section-heading {
+
   margin-bottom: 48px;
 }
 
 
 .section-eyebrow {
+
   margin-bottom: 15px;
 
   font-family: var(--editorial);
@@ -610,6 +767,7 @@ main {
 .section-heading h2,
 .our-story h2,
 .with-us h2 {
+
   margin: 0;
 
   font-family: var(--serif);
@@ -628,6 +786,7 @@ main {
 
 
 .refined-heading h2 {
+
   max-width: 520px;
 }
 
@@ -637,27 +796,33 @@ main {
 ===================================================== */
 
 .our-day {
+
   background:
+
     radial-gradient(
       ellipse at 92% 12%,
       rgba(201, 217, 212, .58),
       transparent 30%
     ),
+
     radial-gradient(
       ellipse at 5% 80%,
       rgba(230, 205, 198, .28),
       transparent 30%
     ),
+
     var(--paper-light);
 }
 
 
 .our-day-inner {
+
   padding-top: 12px;
 }
 
 
 .date-master {
+
   display: flex;
 
   align-items: flex-end;
@@ -669,6 +834,7 @@ main {
 
 
 .date-master-number {
+
   font-family: var(--editorial);
 
   font-size:
@@ -685,11 +851,13 @@ main {
 
 
 .date-master-info {
+
   padding-bottom: 5px;
 }
 
 
 .date-master-month {
+
   font-family: var(--editorial);
 
   font-size: 14px;
@@ -701,6 +869,7 @@ main {
 
 
 .date-master-year {
+
   margin-top: 5px;
 
   font-family: var(--editorial);
@@ -714,6 +883,7 @@ main {
 
 
 .date-master-week {
+
   margin-top: 9px;
 
   font-family: var(--editorial);
@@ -727,11 +897,11 @@ main {
 
 
 .date-lunar-large {
+
   margin-top: 32px;
 
   padding:
-    17px
-    0;
+    17px 0;
 
   border-top:
     1px solid
@@ -756,11 +926,13 @@ main {
 ===================================================== */
 
 .calendar-block {
+
   margin-top: 38px;
 }
 
 
 .calendar-title {
+
   margin-bottom: 15px;
 
   font-family: var(--editorial);
@@ -774,6 +946,7 @@ main {
 
 
 .calendar {
+
   width: 100%;
 
   padding:
@@ -792,6 +965,7 @@ main {
 
 
 .calendar-header {
+
   display: grid;
 
   grid-template-columns:
@@ -812,6 +986,7 @@ main {
 
 
 .calendar-grid {
+
   display: grid;
 
   grid-template-columns:
@@ -822,11 +997,13 @@ main {
 
 
 .calendar-day {
+
   min-height: 35px;
 
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   position: relative;
@@ -838,11 +1015,13 @@ main {
 
 
 .calendar-day.empty {
+
   opacity: 0;
 }
 
 
 .calendar-day.wedding-day {
+
   color: white;
 
   z-index: 1;
@@ -850,6 +1029,7 @@ main {
 
 
 .calendar-day.wedding-day::before {
+
   content: "";
 
   position: absolute;
@@ -867,6 +1047,7 @@ main {
 
 
 .calendar-day.wedding-day::after {
+
   content: "";
 
   position: absolute;
@@ -889,11 +1070,13 @@ main {
 ===================================================== */
 
 .countdown-wrap {
+
   margin-top: 45px;
 }
 
 
 .countdown-label {
+
   margin-bottom: 18px;
 
   font-family: var(--editorial);
@@ -907,6 +1090,7 @@ main {
 
 
 .countdown {
+
   display: grid;
 
   grid-template-columns:
@@ -922,11 +1106,13 @@ main {
 
 
 .countdown-item {
+
   text-align: center;
 }
 
 
 .countdown-item strong {
+
   display: block;
 
   font-family: var(--editorial);
@@ -941,6 +1127,7 @@ main {
 
 
 .countdown-item span {
+
   display: block;
 
   margin-top: 4px;
@@ -956,6 +1143,7 @@ main {
 
 
 .countdown-divider {
+
   width: 1px;
 
   height: 24px;
@@ -970,17 +1158,20 @@ main {
 ===================================================== */
 
 .moments {
+
   background:
     #edf0e8;
 }
 
 
 .moments-heading {
+
   margin-bottom: 39px;
 }
 
 
 .main-photo {
+
   width: 100%;
 
   aspect-ratio: 4 / 5;
@@ -990,6 +1181,7 @@ main {
   position: relative;
 
   background:
+
     linear-gradient(
       145deg,
       #d6ded1,
@@ -1004,12 +1196,14 @@ main {
 
 
 .photo-placeholder {
+
   width: 100%;
   height: 100%;
 
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   font-family: var(--editorial);
@@ -1024,6 +1218,7 @@ main {
 
 
 .photo-caption {
+
   padding:
     23px
     4px
@@ -1040,6 +1235,7 @@ main {
 
 
 .photo-carousel-wrap {
+
   width: 100%;
 
   overflow: hidden;
@@ -1047,6 +1243,7 @@ main {
 
 
 .photo-carousel {
+
   display: flex;
 
   gap: 13px;
@@ -1064,11 +1261,13 @@ main {
 
 
 .photo-carousel::-webkit-scrollbar {
+
   display: none;
 }
 
 
 .photo-card {
+
   flex:
     0 0 72%;
 
@@ -1083,11 +1282,13 @@ main {
 
 
 .photo-card .photo-placeholder {
+
   font-size: 8px;
 }
 
 
 .swipe-hint {
+
   margin-top: 13px;
 
   display: flex;
@@ -1109,35 +1310,43 @@ main {
 ===================================================== */
 
 .our-story {
+
   min-height: 85svh;
 
   background:
+
     radial-gradient(
       ellipse at 85% 20%,
       rgba(205, 218, 221, .72),
       transparent 35%
     ),
+
     radial-gradient(
       ellipse at 10% 80%,
       rgba(226, 197, 192, .5),
       transparent 34%
     ),
+
     var(--paper);
 }
 
 
 .story-inner {
+
   position: relative;
 }
 
 
 .story-inner h2 {
+
   margin-bottom: 34px;
 }
 
 
 .story-line {
+
   width: 90px;
+
   height: 1px;
 
   margin-bottom: 30px;
@@ -1148,6 +1357,7 @@ main {
 
 
 .story-inner p {
+
   margin:
     0
     0
@@ -1164,105 +1374,206 @@ main {
 
 
 /* =====================================================
-   WEDDING SCHEDULE
+   WEDDING
 ===================================================== */
 
 .wedding {
+
   background:
+
     radial-gradient(
       ellipse at 100% 5%,
       rgba(211, 225, 212, .35),
       transparent 35%
     ),
+
     var(--paper-light);
 }
 
 
 .wedding-inner {
-  width: min(100%, 720px);
+
+  width:
+    min(100%, 720px);
 }
 
 
-.schedule {
-  margin-top: 14px;
+/* =====================================================
+   婚礼流程时间轴
+===================================================== */
+
+#schedule {
+
+  position: relative;
+
+  width:
+    min(100%, 650px);
+
+  margin:
+    55px auto 0;
+
+  padding:
+    8px 0;
 }
 
+
+/*
+  中间竖线
+*/
+
+#schedule::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: 12px;
+  bottom: 12px;
+
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  width: 1px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent,
+      rgba(90, 75, 55, .32) 8%,
+      rgba(90, 75, 55, .32) 92%,
+      transparent
+    );
+}
+
+
+/*
+  每一个时间节点
+*/
 
 .schedule-item {
+
   position: relative;
 
   display: grid;
 
   grid-template-columns:
-    minmax(130px, 1fr)
-    minmax(120px, .85fr);
+    1fr
+    52px
+    1fr;
+
+  align-items: center;
 
   min-height: 145px;
 
-  border-top:
-    1px solid
-    rgba(100, 110, 100, .19);
+  margin-bottom: 4px;
 }
 
 
-.schedule-item:last-child {
-  border-bottom:
-    1px solid
-    rgba(100, 110, 100, .19);
-}
-
+/*
+  时间
+*/
 
 .schedule-time {
-  padding:
-    30px
-    0;
+
+  grid-column: 1;
+
+  grid-row: 1;
+
+  text-align: right;
+
+  padding-right: 24px;
 
   font-family: var(--editorial);
 
   font-size:
-    clamp(47px, 13vw, 72px);
+    clamp(30px, 8vw, 48px);
 
-  line-height: .9;
+  line-height: 1;
 
-  letter-spacing: -.045em;
+  letter-spacing: -.035em;
 
   color: var(--sage-dark);
 }
 
 
-.schedule-info {
-  padding:
-    33px
-    0
-    25px
-    18px;
+/*
+  中间圆点
+*/
 
-  border-left:
+.schedule-item::before {
+
+  content: "";
+
+  grid-column: 2;
+
+  grid-row: 1;
+
+  justify-self: center;
+
+  width: 13px;
+  height: 13px;
+
+  border-radius: 50%;
+
+  background:
+    var(--paper-light);
+
+  border:
     1px solid
-    rgba(100, 110, 100, .12);
+    rgba(90, 75, 55, .58);
+
+  box-shadow:
+    0 0 0 5px
+    rgba(255, 253, 248, .55);
+
+  z-index: 3;
+}
+
+
+/*
+  右侧内容
+  注意：
+  app.js 实际使用的是 schedule-info
+*/
+
+.schedule-info {
+
+  grid-column: 3;
+
+  grid-row: 1;
+
+  padding-left: 24px;
+
+  text-align: left;
 }
 
 
 .schedule-title {
+
   font-family: var(--serif);
 
   font-size:
-    clamp(22px, 6vw, 29px);
+    clamp(21px, 5.8vw, 29px);
 
-  line-height: 1.25;
+  line-height: 1.35;
+
+  letter-spacing: .1em;
 
   color: var(--ink-deep);
 }
 
 
 .schedule-en {
-  margin-top: 11px;
+
+  margin-top: 10px;
 
   font-family: var(--editorial);
 
   font-size: 7px;
 
-  letter-spacing: .34em;
+  letter-spacing: .32em;
 
   color: var(--soft-ink);
 }
@@ -1273,27 +1584,34 @@ main {
 ===================================================== */
 
 .location {
+
   background:
+
     radial-gradient(
       ellipse at 5% 8%,
       rgba(200, 218, 203, .7),
       transparent 32%
     ),
+
     radial-gradient(
       ellipse at 95% 90%,
       rgba(227, 200, 193, .46),
       transparent 32%
     ),
+
     #eef0e8;
 }
 
 
 .location-inner {
-  width: min(100%, 720px);
+
+  width:
+    min(100%, 720px);
 }
 
 
 .location-title-row {
+
   display: flex;
 
   align-items: center;
@@ -1303,6 +1621,7 @@ main {
 
 
 .location h2 {
+
   margin: 0;
 
   font-family: var(--serif);
@@ -1321,6 +1640,7 @@ main {
 
 
 .location-pin {
+
   margin-top: 7px;
 
   color: var(--gold);
@@ -1330,6 +1650,7 @@ main {
 
 
 .venue-address {
+
   max-width: 430px;
 
   margin-top: 15px;
@@ -1349,6 +1670,7 @@ main {
 ===================================================== */
 
 .location-map-frame {
+
   display: block;
 
   margin-top: 38px;
@@ -1376,6 +1698,7 @@ main {
 
 
 .location-map-frame:hover {
+
   transform:
     rotate(0)
     translateY(-3px);
@@ -1387,6 +1710,7 @@ main {
 
 
 .location-map-image {
+
   position: relative;
 
   width: 100%;
@@ -1396,6 +1720,7 @@ main {
   overflow: hidden;
 
   background:
+
     linear-gradient(
       135deg,
       #d9dfd4,
@@ -1406,6 +1731,7 @@ main {
 
 
 .location-map-image img {
+
   position: absolute;
 
   inset: 0;
@@ -1426,6 +1752,7 @@ main {
 
 
 .map-overlay {
+
   position: absolute;
 
   inset: 0;
@@ -1433,6 +1760,7 @@ main {
   pointer-events: none;
 
   background:
+
     linear-gradient(
       135deg,
       rgba(237, 229, 205, .12),
@@ -1444,6 +1772,7 @@ main {
 
 
 .map-placeholder {
+
   position: absolute;
 
   inset: 0;
@@ -1463,21 +1792,25 @@ main {
   color: #59655b;
 
   background:
+
     radial-gradient(
       ellipse at 20% 20%,
       rgba(170, 194, 169, .58),
       transparent 35%
     ),
+
     radial-gradient(
       ellipse at 80% 70%,
       rgba(194, 211, 216, .62),
       transparent 38%
     ),
+
     #e8e4d7;
 }
 
 
 .map-placeholder-small {
+
   font-family: var(--editorial);
 
   font-size: 7px;
@@ -1487,6 +1820,7 @@ main {
 
 
 .map-placeholder strong {
+
   font-family: var(--serif);
 
   font-size: 27px;
@@ -1496,6 +1830,7 @@ main {
 
 
 .map-placeholder > span:last-child {
+
   font-family: var(--editorial);
 
   font-size: 7px;
@@ -1506,12 +1841,8 @@ main {
 }
 
 
-.map-placeholder-active .map-placeholder {
-  display: flex;
-}
-
-
 .map-pin {
+
   position: absolute;
 
   left: 50%;
@@ -1535,12 +1866,14 @@ main {
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   background:
     rgba(255, 253, 248, .78);
 
-  backdrop-filter: blur(6px);
+  backdrop-filter:
+    blur(6px);
 
   color: var(--gold);
 
@@ -1553,6 +1886,7 @@ main {
 
 
 .map-frame-caption {
+
   min-height: 47px;
 
   padding:
@@ -1583,9 +1917,11 @@ main {
 ===================================================== */
 
 .location-meta {
+
   display: grid;
 
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns:
+    1fr 1fr;
 
   gap: 15px;
 
@@ -1600,6 +1936,7 @@ main {
 
 
 .location-meta > div {
+
   display: flex;
 
   flex-direction: column;
@@ -1609,6 +1946,7 @@ main {
 
 
 .meta-label {
+
   font-family: var(--editorial);
 
   font-size: 7px;
@@ -1620,6 +1958,7 @@ main {
 
 
 .location-meta strong {
+
   font-family: var(--editorial);
 
   font-size: 10px;
@@ -1637,6 +1976,7 @@ main {
 ===================================================== */
 
 .navigation-button {
+
   position: relative;
 
   margin-top: 20px;
@@ -1669,7 +2009,9 @@ main {
 
 
 .navigation-button:hover {
-  transform: translateY(-2px);
+
+  transform:
+    translateY(-2px);
 
   box-shadow:
     0 15px 35px
@@ -1678,6 +2020,7 @@ main {
 
 
 .navigation-button span:first-child {
+
   font-family: var(--serif);
 
   font-size: 21px;
@@ -1685,6 +2028,7 @@ main {
 
 
 .navigation-button small {
+
   font-family: var(--editorial);
 
   font-size: 7px;
@@ -1696,7 +2040,10 @@ main {
 
 
 .navigation-arrow {
+
   margin-left: auto;
+
+  font-family: var(--editorial);
 
   font-size: 20px;
 }
@@ -1707,22 +2054,27 @@ main {
 ===================================================== */
 
 .with-us {
+
   background:
+
     radial-gradient(
       circle at 100% 0,
       rgba(231, 204, 199, .5),
       transparent 30%
     ),
+
     radial-gradient(
       circle at 0 100%,
       rgba(204, 219, 205, .4),
       transparent 30%
     ),
+
     var(--paper);
 }
 
 
 .with-us-heading p {
+
   margin-top: 26px;
 
   font-family: var(--serif);
@@ -1740,6 +2092,7 @@ main {
 ===================================================== */
 
 .attendance {
+
   display: grid;
 
   grid-template-columns:
@@ -1755,6 +2108,7 @@ main {
 
 
 .attendance-button {
+
   min-height: 135px;
 
   padding: 18px;
@@ -1776,6 +2130,7 @@ main {
 
 
 .attendance-button.active {
+
   border-color:
     var(--sage-dark);
 
@@ -1787,6 +2142,7 @@ main {
 
 
 .attendance-en {
+
   display: block;
 
   font-family: var(--editorial);
@@ -1800,6 +2156,7 @@ main {
 
 
 .attendance-cn {
+
   display: block;
 
   margin-top: 30px;
@@ -1817,11 +2174,13 @@ main {
 ===================================================== */
 
 .rsvp-form {
+
   display: none;
 }
 
 
 .rsvp-form.visible {
+
   display: block;
 
   animation:
@@ -1832,6 +2191,7 @@ main {
 @keyframes formAppear {
 
   from {
+
     opacity: 0;
 
     transform:
@@ -1839,6 +2199,7 @@ main {
   }
 
   to {
+
     opacity: 1;
 
     transform:
@@ -1849,11 +2210,13 @@ main {
 
 
 .form-field {
+
   margin-bottom: 30px;
 }
 
 
 .form-field label {
+
   display: block;
 
   margin-bottom: 10px;
@@ -1871,6 +2234,7 @@ main {
 .form-field input,
 .form-field select,
 .form-field textarea {
+
   width: 100%;
 
   border: none;
@@ -1882,10 +2246,10 @@ main {
   border-radius: 0;
 
   padding:
-    12px
-    0;
+    12px 0;
 
-  background: transparent;
+  background:
+    transparent;
 
   color: var(--ink);
 
@@ -1894,6 +2258,7 @@ main {
 
 
 .form-field textarea {
+
   resize: vertical;
 }
 
@@ -1901,6 +2266,7 @@ main {
 .form-field input:focus,
 .form-field select:focus,
 .form-field textarea:focus {
+
   border-bottom-color:
     var(--sage-dark);
 }
@@ -1911,9 +2277,9 @@ main {
 ===================================================== */
 
 .lodging-box {
+
   margin:
-    35px
-    0;
+    35px 0;
 
   padding:
     24px;
@@ -1928,6 +2294,7 @@ main {
 
 
 .lodging-title {
+
   font-family: var(--editorial);
 
   font-size: 8px;
@@ -1939,6 +2306,7 @@ main {
 
 
 .lodging-question {
+
   margin-top: 12px;
 
   font-family: var(--serif);
@@ -1948,6 +2316,7 @@ main {
 
 
 .lodging-options {
+
   display: flex;
 
   gap: 25px;
@@ -1957,11 +2326,14 @@ main {
 
 
 .lodging-options label {
+
   display: flex;
 
   align-items: center;
 
   gap: 8px;
+
+  font-family: var(--serif);
 
   font-size: 13px;
 }
@@ -1972,6 +2344,7 @@ main {
 ===================================================== */
 
 .submit-rsvp {
+
   width: 100%;
 
   min-height: 76px;
@@ -1996,6 +2369,7 @@ main {
 
 
 .submit-rsvp span {
+
   font-family: var(--serif);
 
   font-size: 18px;
@@ -2003,6 +2377,7 @@ main {
 
 
 .submit-rsvp small {
+
   font-family: var(--editorial);
 
   font-size: 7px;
@@ -2014,6 +2389,7 @@ main {
 
 
 .rsvp-success {
+
   display: none;
 
   margin-top: 25px;
@@ -2036,17 +2412,20 @@ main {
 ===================================================== */
 
 .final-section {
+
   position: relative;
 
-  min-height: 92svh;
+  min-height: 100svh;
 
   padding:
     100px
-    24px;
+    28px
+    90px;
 
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   overflow: hidden;
@@ -2054,99 +2433,123 @@ main {
   text-align: center;
 
   background:
+
     radial-gradient(
       ellipse at 12% 18%,
       rgba(194, 216, 194, .72),
       transparent 33%
     ),
+
     radial-gradient(
       ellipse at 90% 78%,
       rgba(226, 197, 193, .56),
       transparent 34%
     ),
+
     radial-gradient(
       ellipse at 52% 45%,
       rgba(236, 228, 203, .32),
       transparent 40%
     ),
+
     var(--paper-light);
 }
 
 
-.final-content {
+/*
+  很淡的装饰光晕
+*/
+
+.final-section::before {
+
+  content: "";
+
+  position: absolute;
+
+  width: 280px;
+  height: 280px;
+
+  left: -150px;
+  top: 18%;
+
+  border-radius: 50%;
+
+  background:
+    rgba(174, 185, 167, .16);
+
+  filter:
+    blur(25px);
+
+  pointer-events: none;
+}
+
+
+.final-section::after {
+
+  content: "";
+
+  position: absolute;
+
+  width: 260px;
+  height: 260px;
+
+  right: -140px;
+  bottom: 14%;
+
+  border-radius: 50%;
+
+  background:
+    rgba(230, 200, 194, .16);
+
+  filter:
+    blur(25px);
+
+  pointer-events: none;
+}
+
+
+.final-inner {
+
   position: relative;
 
   z-index: 2;
 
-  width: min(100%, 570px);
+  width:
+    min(88%, 560px);
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  text-align: center;
 }
 
 
-.final-topline {
+.final-eyebrow {
+
   font-family: var(--editorial);
 
-  font-size: 7px;
+  font-size: 8px;
 
-  letter-spacing: .5em;
+  letter-spacing: .42em;
 
   color: var(--sage-dark);
+
+  opacity: .82;
+
+  margin-bottom: 27px;
 }
 
 
-.final-ornament {
-  margin:
-    26px
-    0
-    20px;
+.final-line {
 
-  color: var(--gold);
+  width: 46px;
 
-  font-size: 17px;
-}
-
-
-.final-content h2 {
-  margin: 0;
-
-  font-family: var(--serif);
-
-  font-size:
-    clamp(52px, 15vw, 76px);
-
-  font-weight: 400;
-
-  line-height: 1;
-
-  letter-spacing: -.04em;
-
-  color: var(--ink-deep);
-}
-
-
-.final-content p {
-  margin:
-    16px
-    0
-    35px;
-
-  font-family: var(--serif);
-
-  font-size: 18px;
-
-  line-height: 1.7;
-
-  color: var(--soft-ink);
-}
-
-
-.final-divider {
-  width: 80px;
   height: 1px;
 
-  margin:
-    0
-    auto
-    27px;
+  margin-bottom: 42px;
 
   background:
     linear-gradient(
@@ -2158,70 +2561,94 @@ main {
 }
 
 
-.final-names {
+.final-thank {
+
+  font-family: var(--serif);
+
+  font-size:
+    clamp(
+      27px,
+      7vw,
+      39px
+    );
+
+  line-height: 1.85;
+
+  letter-spacing: .12em;
+
+  color: var(--ink-deep);
+
+  margin-bottom: 26px;
+}
+
+
+.final-small {
+
+  max-width: 330px;
+
   font-family: var(--editorial);
 
-  font-size: 15px;
+  font-size: 7px;
 
-  letter-spacing: .38em;
+  line-height: 1.9;
+
+  letter-spacing: .25em;
+
+  color: var(--soft-ink);
+
+  opacity: .65;
+
+  margin-bottom: 58px;
+}
+
+
+.final-names {
+
+  font-family: var(--editorial);
+
+  font-size:
+    clamp(
+      17px,
+      4.5vw,
+      22px
+    );
+
+  letter-spacing: .22em;
 
   color: var(--ink);
+
+  margin-bottom: 17px;
 }
 
 
 .final-names span {
+
   margin:
     0
-    5px;
+    7px;
 
   color: var(--gold);
 }
 
 
 .final-date {
-  margin-top: 14px;
 
   font-family: var(--editorial);
 
-  font-size: 12px;
+  font-size: 8px;
 
-  letter-spacing: .25em;
+  letter-spacing: .32em;
 
   color: var(--soft-ink);
 }
 
 
-.final-location {
-  margin-top: 8px;
-
-  font-family: var(--editorial);
-
-  font-size: 7px;
-
-  letter-spacing: .4em;
-
-  color: #8a9189;
-}
-
-
-.final-closing {
-  margin-top: 55px;
-
-  font-family: var(--editorial);
-
-  font-size: 7px;
-
-  letter-spacing: .46em;
-
-  color: var(--sage-dark);
-}
-
-
 /* =====================================================
-   ANIMATION
+   REVEAL
 ===================================================== */
 
 .reveal {
+
   opacity: 0;
 
   transform:
@@ -2234,6 +2661,7 @@ main {
 
 
 .reveal.visible {
+
   opacity: 1;
 
   transform:
@@ -2247,7 +2675,9 @@ main {
 
 @media (min-width: 700px) {
 
+
   .section {
+
     padding:
       145px
       40px;
@@ -2255,6 +2685,7 @@ main {
 
 
   .hero {
+
     padding:
       80px
       40px;
@@ -2262,532 +2693,361 @@ main {
 
 
   .hero-small-title {
+
     margin-bottom: 58px;
   }
 
 
   .guest-invitation {
+
     margin-bottom: 63px;
   }
 
 
   .guest-name {
+
     font-size: 82px;
   }
 
 
   .hero-date-lunar {
-    font-size: 21px;
+
+    font-size: 19px;
   }
 
 
   .main-photo {
+
     aspect-ratio: 16 / 10;
   }
 
 
   .photo-card {
+
     flex-basis: 38%;
   }
 
 
   .schedule-item {
+
     min-height: 175px;
   }
 
 
   .schedule-time {
-    font-size: 76px;
+
+    font-size: 52px;
   }
 
 
   .attendance-button {
+
     min-height: 160px;
   }
 
 
   .location-map-image {
+
     aspect-ratio: 16 / 9;
+  }
+
+
+  .final-thank {
+
+    font-size: 40px;
   }
 
 }
 
-/* =====================================================
-   婚礼字体
-===================================================== */
-
-@font-face {
-  font-family: "WeddingEnglish";
-  src: url("./fonts/FZVDLGTMCJW-L.TTF") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "WeddingChinese";
-  src: url("./fonts/FZZiLSJW-B.TTF") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 
 /* =====================================================
-   英文统一字体
-===================================================== */
-
-.hero,
-.hero *,
-.date-master,
-.date-master *,
-.schedule-section,
-.schedule-section *,
-.location-section,
-.location-section *,
-.final-section,
-.final-section * {
-  font-family: "WeddingEnglish", serif;
-}
-
-
-/* =====================================================
-   中文统一字体
-===================================================== */
-
-.guest-invitation,
-.guest-invitation *,
-.couple-cn,
-.hero-date-week-cn,
-.hero-date-lunar,
-.date-lunar-large,
-.schedule-title,
-.location-address,
-.final-thank {
-  font-family: "WeddingChinese", serif;
-}
-
-
-/* =====================================================
-   首页日期
-===================================================== */
-
-.hero-date-sub {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-  letter-spacing: 0.08em;
-}
-
-.hero-date-week-en {
-  font-family: "WeddingEnglish", serif;
-  font-size: 0.95rem;
-  letter-spacing: 0.16em;
-  opacity: 0.88;
-}
-
-.hero-date-week-cn {
-  font-family: "WeddingChinese", serif;
-  font-size: 1.05rem;
-  letter-spacing: 0.12em;
-  opacity: 0.95;
-}
-
-.hero-date-divider {
-  font-family: "WeddingEnglish", serif;
-  font-size: 0.8rem;
-  opacity: 0.55;
-}
-
-.hero-date-lunar {
-  font-family: "WeddingChinese", serif;
-  font-size: 1.02rem;
-  letter-spacing: 0.13em;
-  opacity: 0.9;
-}
-
-
-/* =====================================================
-   婚礼流程
-   竖直时间轴
-===================================================== */
-
-#schedule {
-  position: relative;
-  width: min(88%, 620px);
-  margin: 70px auto 0;
-  padding: 8px 0;
-}
-
-
-/*
-  中间那条线
-*/
-
-#schedule::before {
-  content: "";
-  position: absolute;
-
-  top: 10px;
-  bottom: 10px;
-
-  left: 50%;
-  transform: translateX(-50%);
-
-  width: 1px;
-
-  background: rgba(90, 75, 55, 0.28);
-}
-
-
-/*
-  每一个流程项目
-*/
-
-.schedule-item {
-  position: relative;
-
-  display: grid;
-  grid-template-columns: 1fr 56px 1fr;
-
-  align-items: center;
-
-  min-height: 120px;
-
-  margin-bottom: 8px;
-}
-
-
-/*
-  左边时间
-*/
-
-.schedule-time {
-  grid-column: 1;
-
-  text-align: right;
-
-  padding-right: 26px;
-
-  font-family: "WeddingEnglish", serif;
-
-  font-size: 1.55rem;
-
-  letter-spacing: 0.08em;
-
-  color: #4e463c;
-}
-
-
-/*
-  中间圆点
-*/
-
-.schedule-item::before {
-  content: "";
-
-  grid-column: 2;
-
-  grid-row: 1;
-
-  justify-self: center;
-
-  width: 12px;
-  height: 12px;
-
-  border-radius: 50%;
-
-  background: #f8f5ee;
-
-  border: 1px solid rgba(90, 75, 55, 0.6);
-
-  box-shadow:
-    0 0 0 5px rgba(255, 255, 255, 0.35);
-
-  z-index: 2;
-}
-
-
-/*
-  右边内容
-*/
-
-.schedule-content {
-  grid-column: 3;
-
-  padding-left: 26px;
-
-  text-align: left;
-}
-
-
-/*
-  中文标题
-*/
-
-.schedule-title {
-  font-family: "WeddingChinese", serif;
-
-  font-size: 1.45rem;
-
-  line-height: 1.5;
-
-  letter-spacing: 0.12em;
-
-  color: #40392f;
-}
-
-
-/*
-  英文副标题
-*/
-
-.schedule-english {
-  margin-top: 5px;
-
-  font-family: "WeddingEnglish", serif;
-
-  font-size: 0.72rem;
-
-  letter-spacing: 0.2em;
-
-  opacity: 0.62;
-}
-
-
-/*
-  如果你的 app.js 生成的结构
-  左右顺序不同，统一处理
-*/
-
-.schedule-item:nth-child(even) .schedule-time {
-  text-align: right;
-}
-
-
-/* =====================================================
-   最后一页
-===================================================== */
-
-.final-section {
-  min-height: 100svh;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: relative;
-
-  padding:
-    100px
-    28px
-    90px;
-
-  overflow: hidden;
-}
-
-
-.final-inner {
-  width: min(88%, 560px);
-
-  text-align: center;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-
-/*
-  WITH LOVE
-*/
-
-.final-eyebrow {
-  font-family: "WeddingEnglish", serif;
-
-  font-size: 0.78rem;
-
-  letter-spacing: 0.34em;
-
-  opacity: 0.68;
-
-  margin-bottom: 25px;
-}
-
-
-/*
-  中间细线
-*/
-
-.final-line {
-  width: 42px;
-
-  height: 1px;
-
-  background: rgba(80, 68, 55, 0.38);
-
-  margin-bottom: 42px;
-}
-
-
-/*
-  核心感谢文字
-*/
-
-.final-thank {
-  font-family: "WeddingChinese", serif;
-
-  font-size: clamp(1.65rem, 5vw, 2.35rem);
-
-  line-height: 2;
-
-  letter-spacing: 0.14em;
-
-  color: #3e382f;
-
-  text-align: center;
-
-  margin-bottom: 24px;
-}
-
-
-/*
-  英文小字
-*/
-
-.final-small {
-  max-width: 320px;
-
-  font-family: "WeddingEnglish", serif;
-
-  font-size: 0.65rem;
-
-  line-height: 1.8;
-
-  letter-spacing: 0.18em;
-
-  opacity: 0.52;
-
-  margin-bottom: 55px;
-}
-
-
-/*
-  新郎新娘
-*/
-
-.final-names {
-  font-family: "WeddingEnglish", serif;
-
-  font-size: clamp(1.25rem, 4vw, 1.65rem);
-
-  letter-spacing: 0.18em;
-
-  color: #4a4238;
-
-  margin-bottom: 17px;
-}
-
-.final-names span {
-  margin: 0 8px;
-
-  opacity: 0.55;
-}
-
-
-/*
-  最终日期
-*/
-
-.final-date {
-  font-family: "WeddingEnglish", serif;
-
-  font-size: 0.75rem;
-
-  letter-spacing: 0.28em;
-
-  opacity: 0.6;
-}
-
-
-/* =====================================================
-   手机端流程优化
+   MOBILE
 ===================================================== */
 
 @media (max-width: 600px) {
 
-  #schedule {
-    width: 88%;
-    margin-top: 55px;
+
+  .hero {
+
+    padding:
+      54px
+      20px
+      42px;
   }
 
 
-  .schedule-item {
-    grid-template-columns: 78px 34px 1fr;
+  .hero-small-title {
 
-    min-height: 105px;
+    margin-bottom: 36px;
+
+    font-size: 8px;
+
+    letter-spacing: .38em;
+  }
+
+
+  .guest-invitation {
+
+    margin-bottom: 43px;
+  }
+
+
+  .guest-name {
+
+    min-height: 65px;
+
+    font-size:
+      clamp(43px, 13vw, 68px);
+  }
+
+
+  .guest-text {
+
+    font-size: 18px;
+  }
+
+
+  .hero-date-sub {
+
+    gap: 7px;
+  }
+
+
+  .hero-date-week-en {
+
+    font-size: 9px;
+  }
+
+
+  .hero-date-week-cn {
+
+    font-size: 16px;
+
+    letter-spacing: .1em;
+  }
+
+
+  .hero-date-lunar {
+
+    font-size: 15px;
+
+    letter-spacing: .1em;
+  }
+
+
+  .date-master {
+
+    gap: 18px;
+  }
+
+
+  .date-master-number {
+
+    font-size:
+      clamp(
+        110px,
+        31vw,
+        155px
+      );
+  }
+
+
+  .date-master-month {
+
+    font-size: 12px;
+  }
+
+
+  .date-master-year {
+
+    font-size: 27px;
+  }
+
+
+  .date-lunar-large {
+
+    font-size: 22px;
+
+    letter-spacing: .13em;
+  }
+
+
+  /* -------------------------------
+     手机时间轴
+  -------------------------------- */
+
+  #schedule {
+
+    width: 100%;
+
+    margin-top: 48px;
+
+    padding:
+      5px
+      0;
   }
 
 
   #schedule::before {
-    left: 78px;
+
+    left: 76px;
+
+    transform:
+      translateX(-50%);
   }
 
 
-  .schedule-item::before {
-    grid-column: 2;
+  .schedule-item {
+
+    grid-template-columns:
+      76px
+      34px
+      minmax(0, 1fr);
+
+    min-height: 108px;
+
+    margin-bottom: 2px;
   }
 
 
   .schedule-time {
-    font-size: 1.2rem;
 
-    padding-right: 15px;
+    grid-column: 1;
+
+    padding-right: 13px;
+
+    font-size: 22px;
+
+    letter-spacing: -.02em;
 
     white-space: nowrap;
   }
 
 
-  .schedule-content {
-    padding-left: 15px;
+  .schedule-item::before {
+
+    grid-column: 2;
+
+    width: 11px;
+    height: 11px;
+  }
+
+
+  .schedule-info {
+
+    grid-column: 3;
+
+    padding-left: 14px;
   }
 
 
   .schedule-title {
-    font-size: 1.22rem;
+
+    font-size: 20px;
+
+    letter-spacing: .08em;
   }
 
 
-  .schedule-english {
-    font-size: 0.62rem;
+  .schedule-en {
 
-    letter-spacing: 0.13em;
+    margin-top: 7px;
+
+    font-size: 6px;
+
+    letter-spacing: .18em;
   }
 
+
+  /* -------------------------------
+     RSVP
+  -------------------------------- */
+
+  .attendance-button {
+
+    min-height: 125px;
+  }
+
+
+  /* -------------------------------
+     FINAL
+  -------------------------------- */
 
   .final-section {
-    padding-left: 22px;
-    padding-right: 22px;
+
+    min-height: 100svh;
+
+    padding:
+      85px
+      22px
+      75px;
+  }
+
+
+  .final-inner {
+
+    width: 92%;
+  }
+
+
+  .final-eyebrow {
+
+    font-size: 7px;
+
+    letter-spacing: .36em;
+
+    margin-bottom: 23px;
+  }
+
+
+  .final-line {
+
+    margin-bottom: 36px;
   }
 
 
   .final-thank {
-    font-size: 1.65rem;
 
-    line-height: 2;
+    font-size:
+      clamp(
+        25px,
+        7vw,
+        31px
+      );
 
-    letter-spacing: 0.12em;
+    line-height: 1.9;
+
+    letter-spacing: .1em;
+
+    margin-bottom: 23px;
   }
 
 
   .final-small {
-    font-size: 0.58rem;
 
-    max-width: 260px;
+    max-width: 270px;
+
+    font-size: 6px;
+
+    letter-spacing: .18em;
+
+    margin-bottom: 48px;
+  }
+
+
+  .final-names {
+
+    font-size: 15px;
+
+    letter-spacing: .18em;
+  }
+
+
+  .final-date {
+
+    font-size: 7px;
+
+    letter-spacing: .27em;
   }
 
 }
-
