@@ -1,1846 +1,695 @@
-```css
-:root {
-  --paper: #f5f1e7;
-  --paper-light: #faf7ef;
+```javascript
+const weddingConfig = {
 
-  --ink: #3f4b43;
-  --green: #687e70;
-  --green-deep: #435d50;
+  weddingDate:
+    "2026-10-25T12:08:00+08:00",
 
-  --muted: #8b8b7e;
-  --gold: #b89b62;
+  welcome: {
+    time: "11:00",
+    cn: "迎宾",
+    en: "WELCOME"
+  },
 
-  --blue-paint: #b8ced0;
-  --pink-paint: #dcb8ae;
-  --green-paint: #b9c8b4;
-  --cream-paint: #e6d5aa;
-}
+  ceremony: {
+    time: "12:08",
+    cn: "婚礼仪式",
+    en: "CEREMONY"
+  },
 
-* {
-  box-sizing: border-box;
-}
+  reception: {
+    time: "12:18",
+    cn: "喜宴",
+    en: "RECEPTION"
+  }
 
-html {
-  scroll-behavior: smooth;
-}
+};
 
-body {
-  margin: 0;
-  overflow-x: hidden;
 
-  background: var(--paper);
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
 
-  color: var(--ink);
 
-  font-family:
-    "Noto Serif SC",
-    "Songti SC",
-    "STSong",
-    Georgia,
-    serif;
+    /* =================================================
+       GUEST NAME
+    ================================================= */
 
-  -webkit-font-smoothing: antialiased;
-}
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
+    const guestName =
+      params.get("guest");
 
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
-}
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+    const guestCard =
+      document.getElementById(
+        "guestCard"
+      );
 
+    const guestElement =
+      document.getElementById(
+        "guestName"
+      );
 
-/* ================= MUSIC ================= */
 
-.music-button {
-  position: fixed;
+    if (
+      guestName &&
+      guestName.trim()
+    ) {
 
-  top: 22px;
-  right: 22px;
+      guestElement.textContent =
+        guestName.trim();
 
-  z-index: 999;
+    } else {
 
-  width: 42px;
-  height: 42px;
+      guestCard.style.display =
+        "none";
 
-  padding: 0;
+    }
 
-  border: 1px solid rgba(67,93,80,.35);
-  border-radius: 50%;
 
-  background: rgba(250,247,239,.72);
 
-  backdrop-filter: blur(10px);
+    /* =================================================
+       MUSIC
+    ================================================= */
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    const music =
+      document.getElementById(
+        "bgMusic"
+      );
 
-  gap: 3px;
+    const musicButton =
+      document.getElementById(
+        "musicToggle"
+      );
 
-  cursor: pointer;
-}
 
-.music-button span {
-  width: 1px;
-  height: 10px;
+    function startMusic() {
 
-  background: var(--green-deep);
-}
+      if (!music) return;
 
-.music-button.playing span:nth-child(1) {
-  animation: music1 .8s infinite alternate;
-}
+      music.volume = 0.38;
 
-.music-button.playing span:nth-child(2) {
-  animation: music2 .8s infinite alternate;
-}
 
-.music-button.playing span:nth-child(3) {
-  animation: music3 .8s infinite alternate;
-}
+      music
+        .play()
+        .then(() => {
 
-@keyframes music1 {
-  from { height: 5px; }
-  to { height: 14px; }
-}
+          musicButton
+            ?.classList
+            .add("playing");
 
-@keyframes music2 {
-  from { height: 12px; }
-  to { height: 6px; }
-}
+        })
+        .catch(() => {});
 
-@keyframes music3 {
-  from { height: 8px; }
-  to { height: 15px; }
-}
+    }
 
 
-/* ================= HERO ================= */
+    if (musicButton) {
 
-.hero {
-  position: relative;
+      musicButton.addEventListener(
+        "click",
+        () => {
 
-  min-height: 100svh;
+          if (music.paused) {
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+            startMusic();
 
-  overflow: hidden;
+          } else {
 
-  background:
-    linear-gradient(
-      115deg,
-      #e9eee8 0%,
-      #f8f2e5 45%,
-      #f1e4dc 100%
-    );
-}
+            music.pause();
 
-.hero::before {
-  content: "";
+            musicButton
+              .classList
+              .remove("playing");
 
-  position: absolute;
-  inset: 0;
+          }
 
-  background:
-    radial-gradient(
-      ellipse at 5% 15%,
-      rgba(184,206,208,.8),
-      transparent 32%
-    ),
-    radial-gradient(
-      ellipse at 92% 28%,
-      rgba(220,184,174,.65),
-      transparent 30%
-    ),
-    radial-gradient(
-      ellipse at 50% 105%,
-      rgba(185,200,180,.65),
-      transparent 38%
-    );
-}
+        }
+      );
 
-.hero-frame {
-  position: absolute;
+    }
 
-  inset: 17px;
 
-  border:
-    1px solid
-    rgba(184,155,98,.42);
 
-  pointer-events: none;
-}
+    /* =================================================
+       OPEN INVITATION
+    ================================================= */
 
-.hero-paint {
-  position: absolute;
+    const openButton =
+      document.getElementById(
+        "openInvitation"
+      );
 
-  border-radius: 48% 52% 57% 43%;
 
-  filter: blur(30px);
+    if (openButton) {
 
-  opacity: .45;
+      openButton.addEventListener(
+        "click",
+        () => {
 
-  pointer-events: none;
-}
+          startMusic();
 
-.hero-paint-1 {
-  width: 460px;
-  height: 280px;
 
-  left: -180px;
-  top: 8%;
+          document
+            .getElementById("ourDay")
+            ?.scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
 
-  background: var(--blue-paint);
+        }
+      );
 
-  transform: rotate(-22deg);
-}
+    }
 
-.hero-paint-2 {
-  width: 390px;
-  height: 330px;
 
-  right: -170px;
-  bottom: 15%;
 
-  background: var(--pink-paint);
+    /* =================================================
+       CALENDAR
+    ================================================= */
 
-  transform: rotate(18deg);
-}
+    function createCalendar() {
 
-.hero-paint-3 {
-  width: 300px;
-  height: 190px;
+      const calendar =
+        document.getElementById(
+          "calendarGrid"
+        );
 
-  left: 20%;
-  bottom: -80px;
 
-  background: var(--cream-paint);
-}
+      if (!calendar) return;
 
-.hero-content {
-  position: relative;
 
-  z-index: 2;
+      const year = 2026;
 
-  width: min(900px, 90%);
+      const month = 9;
 
-  padding:
-    70px
-    20px
-    100px;
 
-  text-align: center;
-}
+      const days =
+        new Date(
+          year,
+          month + 1,
+          0
+        ).getDate();
 
-.hero-top {
-  margin-bottom: 35px;
 
-  color: var(--green-deep);
+      const firstDay =
+        new Date(
+          year,
+          month,
+          1
+        ).getDay();
 
-  font-family: Georgia, serif;
 
-  font-size: 9px;
+      const mondayIndex =
+        firstDay === 0
+          ? 6
+          : firstDay - 1;
 
-  letter-spacing: .5em;
-}
 
+      for (
+        let i = 0;
+        i < mondayIndex;
+        i++
+      ) {
 
-/* guest */
+        const empty =
+          document.createElement(
+            "div"
+          );
 
-.personal-invitation {
-  width: min(100%, 470px);
+        empty.className =
+          "calendar-day empty";
 
-  margin: 0 auto 58px;
+        calendar.appendChild(
+          empty
+        );
 
-  padding:
-    12px
-    20px
-    25px;
-}
+      }
 
-.personal-label {
-  margin-bottom: 17px;
 
-  color: var(--gold);
+      for (
+        let day = 1;
+        day <= days;
+        day++
+      ) {
 
-  font-family: Georgia, serif;
+        const element =
+          document.createElement(
+            "div"
+          );
 
-  font-size: 9px;
 
-  letter-spacing: .55em;
-}
+        element.className =
+          "calendar-day";
 
-.guest-name {
-  color: var(--green-deep);
 
-  font-size:
-    clamp(
-      38px,
-      10vw,
-      62px
-    );
+        if (day === 25) {
 
-  line-height: 1.2;
+          element.classList.add(
+            "wedding-day"
+          );
 
-  font-weight: 400;
+        }
 
-  letter-spacing: .08em;
-}
 
-.personal-rule {
-  width: 65px;
-  height: 1px;
+        element.textContent =
+          day;
 
-  margin:
-    21px auto
-    18px;
 
-  background: var(--gold);
+        calendar.appendChild(
+          element
+        );
 
-  opacity: .65;
-}
+      }
 
-.personal-text {
-  color: var(--muted);
+    }
 
-  font-size: 14px;
 
-  letter-spacing: .35em;
-}
+    createCalendar();
 
 
-/* couple */
 
-.couple {
-  margin-bottom: 55px;
-}
+    /* =================================================
+       COUNTDOWN
+    ================================================= */
 
-.couple-name {
-  display: flex;
+    const countdown =
+      document.getElementById(
+        "countdownDays"
+      );
 
-  justify-content: center;
-  align-items: center;
 
-  gap: 18px;
+    function updateCountdown() {
 
-  color: #424d46;
+      if (!countdown) return;
 
-  font-size:
-    clamp(
-      30px,
-      7vw,
-      52px
+
+      const now =
+        new Date();
+
+
+      const wedding =
+        new Date(
+          weddingConfig.weddingDate
+        );
+
+
+      const difference =
+        wedding.getTime()
+        -
+        now.getTime();
+
+
+      if (difference <= 0) {
+
+        countdown.textContent =
+          "0";
+
+        return;
+
+      }
+
+
+      const days =
+        Math.floor(
+          difference /
+          (
+            1000 *
+            60 *
+            60 *
+            24
+          )
+        );
+
+
+      countdown.textContent =
+        days;
+
+    }
+
+
+    updateCountdown();
+
+
+    setInterval(
+      updateCountdown,
+      1000
     );
 
-  letter-spacing: .08em;
-}
 
-.couple-name i {
-  color: var(--gold);
 
-  font-family: Georgia, serif;
+    /* =================================================
+       WEDDING SCHEDULE
+    ================================================= */
 
-  font-size: .65em;
+    function renderSchedule() {
 
-  font-style: normal;
-}
+      const container =
+        document.getElementById(
+          "weddingSchedule"
+        );
 
-.couple-name-en {
-  margin-top: 16px;
 
-  color: var(--green);
+      if (!container) return;
 
-  font-family: Georgia, serif;
 
-  font-size: 9px;
+      const schedule = [
 
-  letter-spacing: .48em;
-}
+        weddingConfig.welcome,
 
+        weddingConfig.ceremony,
 
-/* date */
+        weddingConfig.reception
 
-.hero-date {
-  display: flex;
+      ];
 
-  justify-content: center;
-  align-items: center;
 
-  gap: 22px;
+      schedule.forEach(
+        (item) => {
 
-  margin-bottom: 48px;
-}
+          const row =
+            document.createElement(
+              "div"
+            );
 
-.hero-date-big {
-  color: var(--green-deep);
 
-  font-family: Georgia, serif;
+          row.className =
+            "schedule-item";
 
-  font-size: 72px;
 
-  font-weight: 400;
+          row.innerHTML = `
 
-  line-height: .8;
-}
+            <div class="schedule-time">
+              ${item.time}
+            </div>
 
-.hero-date-side {
-  display: flex;
+            <div class="schedule-content">
 
-  flex-direction: column;
+              <strong>
+                ${item.cn}
+              </strong>
 
-  align-items: flex-start;
+              <span>
+                ${item.en}
+              </span>
 
-  text-align: left;
-}
+            </div>
 
-.hero-date-side span {
-  color: var(--gold);
+          `;
 
-  font-family: Georgia, serif;
 
-  font-size: 11px;
+          container.appendChild(
+            row
+          );
 
-  letter-spacing: .28em;
-}
+        }
+      );
 
-.hero-date-side strong {
-  margin-top: 4px;
+    }
 
-  color: var(--green-deep);
 
-  font-family: Georgia, serif;
+    renderSchedule();
 
-  font-size: 19px;
 
-  font-weight: 400;
 
-  letter-spacing: .12em;
-}
+    /* =================================================
+       RSVP
+    ================================================= */
 
-.hero-date-side small {
-  margin-top: 6px;
+    const rsvpForm =
+      document.getElementById(
+        "rsvpForm"
+      );
 
-  color: var(--muted);
+    const attendingFields =
+      document.getElementById(
+        "attendingFields"
+      );
 
-  font-family: Georgia, serif;
+    const stayDate =
+      document.getElementById(
+        "stayDate"
+      );
 
-  font-size: 8px;
+    const rsvpSuccess =
+      document.getElementById(
+        "rsvpSuccess"
+      );
 
-  letter-spacing: .1em;
-}
 
+    let attendance =
+      "";
 
-/* button */
 
-.open-button {
-  min-width: 200px;
+    let accommodation =
+      "";
 
-  padding: 15px 28px;
 
-  border:
-    1px solid
-    rgba(67,93,80,.55);
+    /* 出席 / 不出席 */
 
-  background: rgba(250,247,239,.3);
+    document
+      .querySelectorAll(
+        ".attendance-option"
+      )
+      .forEach(
+        (button) => {
 
-  color: var(--green-deep);
+          button.addEventListener(
+            "click",
+            () => {
 
-  cursor: pointer;
+              document
+                .querySelectorAll(
+                  ".attendance-option"
+                )
+                .forEach(
+                  (item) => {
 
-  transition: .3s;
-}
+                    item.classList.remove(
+                      "selected"
+                    );
 
-.open-button:hover {
-  background: rgba(250,247,239,.7);
-}
+                  }
+                );
 
-.open-button:active {
-  transform: translateY(2px);
-}
 
-.open-button span {
-  display: block;
+              button.classList.add(
+                "selected"
+              );
 
-  font-size: 14px;
 
-  letter-spacing: .25em;
-}
+              attendance =
+                button.dataset.attendance;
 
-.open-button small {
-  display: block;
 
-  margin-top: 6px;
+              rsvpForm.classList.add(
+                "active"
+              );
 
-  font-family: Georgia, serif;
 
-  font-size: 8px;
+              if (
+                attendance === "yes"
+              ) {
 
-  letter-spacing: .35em;
-}
+                attendingFields.classList.add(
+                  "show"
+                );
 
-.hero-bottom {
-  position: absolute;
+              } else {
 
-  bottom: 27px;
-  left: 50%;
+                attendingFields.classList.remove(
+                  "show"
+                );
 
-  transform: translateX(-50%);
+                stayDate.classList.remove(
+                  "show"
+                );
 
-  color: rgba(67,93,80,.65);
+                accommodation =
+                  "";
 
-  font-family: Georgia, serif;
+              }
 
-  font-size: 7px;
 
-  letter-spacing: .35em;
+              rsvpForm.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+              });
 
-  white-space: nowrap;
-}
+            }
+          );
 
-.hero-bottom span {
-  display: block;
+        }
+      );
 
-  width: 1px;
-  height: 25px;
 
-  margin:
-    9px auto 0;
+    /* 住宿 */
 
-  background: rgba(67,93,80,.45);
-}
+    document
+      .querySelectorAll(
+        ".stay-options button"
+      )
+      .forEach(
+        (button) => {
 
+          button.addEventListener(
+            "click",
+            () => {
 
-/* ================= GENERAL ================= */
+              document
+                .querySelectorAll(
+                  ".stay-options button"
+                )
+                .forEach(
+                  (item) => {
 
-.editorial-section,
-.location-section,
-.rsvp-section {
-  position: relative;
+                    item.classList.remove(
+                      "selected"
+                    );
 
-  padding:
-    130px
-    25px;
-}
+                  }
+                );
 
-.editorial-inner {
-  width: min(100%, 900px);
 
-  margin: auto;
-}
+              button.classList.add(
+                "selected"
+              );
 
-.editorial-inner.wide {
-  width: min(100%, 1100px);
-}
 
-.section-number {
-  position: absolute;
+              accommodation =
+                button.dataset.stay;
 
-  top: 35px;
-  left: 30px;
 
-  color: rgba(67,93,80,.35);
+              if (
+                accommodation === "yes"
+              ) {
 
-  font-family: Georgia, serif;
+                stayDate.classList.add(
+                  "show"
+                );
 
-  font-size: 10px;
+              } else {
 
-  letter-spacing: .2em;
-}
+                stayDate.classList.remove(
+                  "show"
+                );
 
-.eyebrow {
-  color: var(--gold);
+              }
 
-  font-family: Georgia, serif;
+            }
+          );
 
-  font-size: 9px;
+        }
+      );
 
-  letter-spacing: .48em;
-}
 
-.section-heading {
-  max-width: 500px;
+    /* 提交 */
 
-  margin-bottom: 75px;
-}
+    if (rsvpForm) {
 
-.section-heading.center {
-  margin:
-    0 auto
-    75px;
+      rsvpForm.addEventListener(
+        "submit",
+        (event) => {
 
-  text-align: center;
-}
+          event.preventDefault();
 
-.section-heading h2 {
-  margin:
-    18px 0
-    16px;
 
-  color: var(--green-deep);
+          if (!attendance) {
 
-  font-size:
-    clamp(
-      38px,
-      8vw,
-      64px
-    );
+            rsvpSuccess.textContent =
+              "请先选择是否出席。";
 
-  line-height: 1.12;
+            return;
 
-  font-weight: 400;
-}
+          }
 
-.section-heading p {
-  margin: 0;
 
-  color: var(--muted);
+          const data =
+            new FormData(
+              rsvpForm
+            );
 
-  font-size: 13px;
 
-  letter-spacing: .18em;
-}
+          const response = {
 
+            guest:
+              guestName || "",
 
-/* ================= OUR DAY ================= */
+            name:
+              data.get("name"),
 
-.our-day {
-  background: var(--paper-light);
-}
+            attendance:
+              attendance,
 
-.calendar-area {
-  width: min(100%, 560px);
+            people:
+              attendance === "yes"
+                ? data.get("people")
+                : "",
 
-  margin:
-    0 auto;
-}
+            accommodation:
+              attendance === "yes"
+                ? accommodation
+                : "",
 
-.calendar-title {
-  display: flex;
+            date:
+              attendance === "yes"
+              && accommodation === "yes"
+                ? data.get("date")
+                : "",
 
-  justify-content: space-between;
-  align-items: baseline;
+            message:
+              data.get("message"),
 
-  padding-bottom: 20px;
+            createdAt:
+              new Date()
+                .toISOString()
 
-  border-bottom:
-    1px solid
-    rgba(67,93,80,.2);
-}
+          };
 
-.calendar-title span {
-  color: var(--green-deep);
 
-  font-family: Georgia, serif;
+          localStorage.setItem(
 
-  font-size: 24px;
+            "wedding-rsvp",
 
-  letter-spacing: .18em;
-}
+            JSON.stringify(
+              response
+            )
 
-.calendar-title strong {
-  color: var(--gold);
+          );
 
-  font-family: Georgia, serif;
 
-  font-size: 13px;
+          if (
+            attendance === "yes"
+          ) {
 
-  font-weight: 400;
+            rsvpSuccess.innerHTML = `
+              <strong>期待与你相见。</strong><br>
+              2026 · 10 · 25<br>
+              吉安宾馆·礼堂<br><br>
+              婚礼见。
+            `;
 
-  letter-spacing: .15em;
-}
+          } else {
 
-.calendar-week,
-.calendar-grid {
-  display: grid;
+            rsvpSuccess.innerHTML = `
+              <strong>谢谢你的告知。</strong><br>
+              虽然这次无法相见，<br>
+              你的祝福我们已经收到。
+            `;
 
-  grid-template-columns:
-    repeat(7, 1fr);
-}
+          }
 
-.calendar-week {
-  padding:
-    18px 0
-    10px;
-}
 
-.calendar-week span {
-  color: var(--muted);
+          rsvpForm.reset();
 
-  font-family: Georgia, serif;
+        }
+      );
 
-  font-size: 8px;
+    }
 
-  text-align: center;
-
-  letter-spacing: .1em;
-}
-
-.calendar-grid {
-  row-gap: 4px;
-}
-
-.calendar-day {
-  position: relative;
-
-  height: 58px;
-
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-
-  color: #6d756d;
-
-  font-family: Georgia, serif;
-
-  font-size: 14px;
-}
-
-.calendar-day.empty {
-  opacity: 0;
-}
-
-.calendar-day.wedding-day {
-  color: white;
-
-  font-weight: bold;
-}
-
-.calendar-day.wedding-day::before {
-  content: "";
-
-  position: absolute;
-
-  z-index: -1;
-
-  width: 45px;
-  height: 45px;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle at 35% 30%,
-      #e7caa9,
-      #cb927f
-    );
-}
-
-.calendar-note {
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-
-  gap: 18px;
-
-  margin-top: 38px;
-
-  padding-top: 25px;
-
-  border-top:
-    1px solid
-    rgba(67,93,80,.16);
-}
-
-.calendar-note > span {
-  color: var(--gold);
-
-  font-family: Georgia, serif;
-
-  font-size: 37px;
-}
-
-.calendar-note div {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 6px;
-}
-
-.calendar-note strong {
-  color: var(--green-deep);
-
-  font-size: 14px;
-
-  font-weight: 400;
-
-  letter-spacing: .12em;
-}
-
-.calendar-note small {
-  color: var(--muted);
-
-  font-size: 10px;
-
-  letter-spacing: .1em;
-}
-
-.countdown {
-  margin-top: 90px;
-
-  text-align: center;
-}
-
-.countdown-label {
-  color: var(--gold);
-
-  font-family: Georgia, serif;
-
-  font-size: 8px;
-
-  letter-spacing: .4em;
-}
-
-.countdown-number {
-  display: flex;
-
-  justify-content: center;
-  align-items: baseline;
-
-  gap: 10px;
-
-  margin-top: 10px;
-
-  color: var(--green-deep);
-
-  font-family: Georgia, serif;
-}
-
-.countdown-number span {
-  font-size: 78px;
-
-  line-height: 1;
-}
-
-.countdown-number small {
-  font-size: 10px;
-
-  letter-spacing: .25em;
-}
-
-.countdown-cn {
-  margin-top: 8px;
-
-  color: var(--muted);
-
-  font-size: 11px;
-
-  letter-spacing: .2em;
-}
-
-
-/* ================= MOMENTS ================= */
-
-.moments {
-  background:
-    linear-gradient(
-      135deg,
-      #eef1e9,
-      #f7eee5
-    );
-}
-
-.hero-photo {
-  width: min(100%, 760px);
-
-  margin:
-    0 auto;
-
-  aspect-ratio: 4 / 5;
-
-  overflow: hidden;
-
-  background:
-    linear-gradient(
-      135deg,
-      #b9cfce,
-      #eee1d3 55%,
-      #d3b5aa
-    );
-
-  box-shadow:
-    0 30px 90px
-    rgba(55,75,65,.17);
-}
-
-.photo-placeholder {
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-  align-items: center;
-
-  color: rgba(67,93,80,.42);
-}
-
-.photo-placeholder span {
-  font-family: Georgia, serif;
-
-  font-size: 11px;
-
-  letter-spacing: .4em;
-}
-
-.photo-placeholder small {
-  margin-top: 10px;
-
-  font-size: 11px;
-
-  letter-spacing: .12em;
-}
-
-.photo-caption {
-  width: min(100%, 760px);
-
-  margin:
-    35px auto
-    60px;
-
-  text-align: center;
-}
-
-.caption-en {
-  color: var(--green-deep);
-
-  font-family: Georgia, serif;
-
-  font-size: 22px;
-
-  font-style: italic;
-}
-
-.caption-cn {
-  margin-top: 9px;
-
-  color: var(--muted);
-
-  font-size: 12px;
-
-  letter-spacing: .16em;
-}
-
-.photo-strip {
-  display: flex;
-
-  gap: 18px;
-
-  overflow-x: auto;
-
-  padding:
-    0 20px
-    20px;
-
-  scroll-snap-type: x mandatory;
-
-  scrollbar-width: none;
-}
-
-.photo-strip::-webkit-scrollbar {
-  display: none;
-}
-
-.photo-item {
-  flex:
-    0 0
-    min(68vw, 330px);
-
-  aspect-ratio: 4 / 5;
-
-  scroll-snap-align: center;
-
-  overflow: hidden;
-
-  background:
-    linear-gradient(
-      145deg,
-      #d4e0dc,
-      #ead7cd
-    );
-}
-
-.swipe-text {
-  margin-top: 5px;
-
-  color: var(--muted);
-
-  font-family: Georgia, serif;
-
-  font-size: 8px;
-
-  text-align: center;
-
-  letter-spacing: .35em;
-}
-
-
-/* ================= STORY ================= */
-
-.story-section {
-  position: relative;
-
-  min-height: 80svh;
-
-  display: flex;
-
-  align-items: center;
-
-  overflow: hidden;
-
-  padding:
-    130px 25px;
-
-  background:
-    linear-gradient(
-      120deg,
-      #e5ede4,
-      #f5eddf
-    );
-}
-
-.story-paint {
-  position: absolute;
-
-  width: 650px;
-  height: 390px;
-
-  right: -230px;
-  top: 15%;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      ellipse,
-      rgba(221,183,171,.65),
-      rgba(221,183,171,0)
-    );
-
-  filter: blur(35px);
-}
-
-.story-inner {
-  position: relative;
-
-  width: min(100%, 820px);
-
-  margin: auto;
-}
-
-.story-inner h2 {
-  max-width: 720px;
-
-  margin:
-    25px 0
-    50px;
-
-  color: var(--green-deep);
-
-  font-family: Georgia, serif;
-
-  font-size:
-    clamp(
-      43px,
-      9vw,
-      78px
-    );
-
-  line-height: 1.08;
-
-  font-weight: 400;
-}
-
-.story-inner h2 em {
-  display: block;
-
-  color: #70877a;
-
-  font-weight: 400;
-}
-
-.story-copy {
-  max-width: 520px;
-
-  color: #68736c;
-
-  font-size: 15px;
-
-  line-height: 2.2;
-
-  letter-spacing: .06em;
-}
-
-.story-copy p {
-  margin:
-    0 0
-    20px;
-}
-
-
-/* ================= WEDDING ================= */
-
-.wedding {
-  background: var(--paper-light);
-}
-
-.schedule {
-  width: min(100%, 760px);
-
-  margin: auto;
-}
-
-.schedule-item {
-  display: grid;
-
-  grid-template-columns:
-    145px
-    1fr;
-
-  align-items: center;
-
-  min-height: 145px;
-
-  border-top:
-    1px solid
-    rgba(67,93,80,.18);
-}
-
-.schedule-item:last-child {
-  border-bottom:
-    1px solid
-    rgba(67,93,80,.18);
-}
-
-.schedule-time {
-  color: var(--gold);
-
-  font-family: Georgia, serif;
-
-  font-size: 37px;
-}
-
-.schedule-content strong {
-  display: block;
-
-  color: var(--green-deep);
-
-  font-size: 19px;
-
-  font-weight: 400;
-
-  letter-spacing: .15em;
-}
-
-.schedule-content span {
-  display: block;
-
-  margin-top: 9px;
-
-  color: var(--muted);
-
-  font-family: Georgia, serif;
-
-  font-size: 9px;
-
-  letter-spacing: .3em;
-}
-
-
-/* ================= LOCATION ================= */
-
-.location-section {
-  background:
-    linear-gradient(
-      135deg,
-      #e3ece8,
-      #f0e6dc
-    );
-}
-
-.location-inner {
-  width: min(100%, 900px);
-
-  margin: auto;
-
-  text-align: center;
-}
-
-.location-title {
-  margin-top: 30px;
-
-  color: var(--green-deep);
-
-  font-size:
-    clamp(
-      37px,
-      8vw,
-      65px
-    );
-
-  letter-spacing: .06em;
-}
-
-.location-en {
-  margin-top: 13px;
-
-  color: var(--gold);
-
-  font-family: Georgia, serif;
-
-  font-size: 9px;
-
-  letter-spacing: .35em;
-}
-
-.location-address {
-  margin-top: 35px;
-
-  color: var(--muted);
-
-  font-size: 13px;
-
-  line-height: 2.1;
-
-  letter-spacing: .08em;
-}
-
-.map-link {
-  display: inline-flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  gap: 7px;
-
-  margin-top: 38px;
-
-  padding:
-    15px 35px;
-
-  border:
-    1px solid
-    rgba(67,93,80,.5);
-
-  color: var(--green-deep);
-}
-
-.map-link span {
-  font-size: 13px;
-
-  letter-spacing: .2em;
-}
-
-.map-link small {
-  font-family: Georgia, serif;
-
-  font-size: 8px;
-
-  letter-spacing: .3em;
-}
-
-
-/* ================= RSVP ================= */
-
-.rsvp-section {
-  background:
-    linear-gradient(
-      135deg,
-      #f5f0e5,
-      #e7eee7
-    );
-}
-
-.rsvp-inner {
-  width: min(100%, 720px);
-
-  margin: auto;
-}
-
-.rsvp-inner > .eyebrow {
-  text-align: center;
-}
-
-.rsvp-inner h2 {
-  margin:
-    20px 0
-    16px;
-
-  color: var(--green-deep);
-
-  font-family: Georgia, serif;
-
-  font-size:
-    clamp(
-      42px,
-      9vw,
-      68px
-    );
-
-  font-weight: 400;
-
-  line-height: 1.08;
-
-  text-align: center;
-}
-
-.rsvp-intro {
-  margin:
-    0 auto
-    70px;
-
-  color: var(--muted);
-
-  font-size: 13px;
-
-  text-align: center;
-
-  letter-spacing: .18em;
-}
-
-
-/* question */
-
-.rsvp-question {
-  margin-bottom: 60px;
-}
-
-.question-title {
-  margin-bottom: 25px;
-
-  color: var(--green-deep);
-
-  font-size: 14px;
-
-  text-align: center;
-
-  letter-spacing: .12em;
-}
-
-.attendance-options {
-  display: grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap: 18px;
-}
-
-.attendance-option {
-  min-height: 130px;
-
-  padding: 25px 15px;
-
-  border:
-    1px solid
-    rgba(67,93,80,.24);
-
-  background:
-    rgba(250,247,239,.35);
-
-  color: var(--green-deep);
-
-  cursor: pointer;
-
-  transition:
-    background .3s,
-    border .3s,
-    transform .3s;
-}
-
-.attendance-option:hover {
-  background:
-    rgba(250,247,239,.75);
-}
-
-.attendance-option.selected {
-  border-color:
-    var(--green-deep);
-
-  background:
-    rgba(255,253,247,.85);
-
-  box-shadow:
-    inset 0 0 0 1px
-    var(--green-deep);
-}
-
-.option-cn {
-  display: block;
-
-  font-size: 15px;
-
-  letter-spacing: .12em;
-}
-
-.option-en {
-  display: block;
-
-  margin-top: 10px;
-
-  color: var(--gold);
-
-  font-family: Georgia, serif;
-
-  font-size: 8px;
-
-  letter-spacing: .2em;
-}
-
-
-/* form */
-
-.rsvp-form {
-  display: none;
-}
-
-.rsvp-form.active {
-  display: block;
-}
-
-.rsvp-name-field {
-  margin-bottom: 35px;
-}
-
-.rsvp-form label {
-  display: block;
-
-  color: var(--green-deep);
-
-  font-size: 12px;
-
-  letter-spacing: .12em;
-}
-
-.rsvp-form input,
-.rsvp-form select,
-.rsvp-form textarea {
-  display: block;
-
-  width: 100%;
-
-  margin-top: 11px;
-
-  padding:
-    14px 2px;
-
-  border: none;
-
-  border-bottom:
-    1px solid
-    rgba(67,93,80,.25);
-
-  border-radius: 0;
-
-  outline: none;
-
-  background: transparent;
-
-  color: var(--ink);
-
-  appearance: none;
-}
-
-.rsvp-form input:focus,
-.rsvp-form select:focus,
-.rsvp-form textarea:focus {
-  border-bottom-color:
-    var(--green-deep);
-}
-
-
-/* attending */
-
-.attending-fields {
-  display: none;
-
-  padding:
-    35px 0;
-
-  border-top:
-    1px solid
-    rgba(67,93,80,.15);
-
-  border-bottom:
-    1px solid
-    rgba(67,93,80,.15);
-}
-
-.attending-fields.show {
-  display: block;
-}
-
-.field-note {
-  margin-bottom: 30px;
-
-  color: var(--muted);
-
-  font-size: 12px;
-
-  letter-spacing: .1em;
-}
-
-.field-title {
-  margin-top: 32px;
-
-  color: var(--green-deep);
-
-  font-size: 12px;
-
-  letter-spacing: .12em;
-}
-
-.stay-options {
-  display: flex;
-
-  gap: 12px;
-
-  margin-top: 15px;
-}
-
-.stay-options button {
-  flex: 1;
-
-  padding: 13px;
-
-  border:
-    1px solid
-    rgba(67,93,80,.22);
-
-  background:
-    rgba(250,247,239,.3);
-
-  color: var(--green-deep);
-
-  cursor: pointer;
-}
-
-.stay-options button.selected {
-  border-color:
-    var(--green-deep);
-
-  background:
-    rgba(255,253,247,.85);
-}
-
-.stay-date {
-  display: none;
-
-  margin-top: 25px;
-}
-
-.stay-date.show {
-  display: block;
-}
-
-
-/* message */
-
-.message-field {
-  margin-top: 45px;
-}
-
-.message-field span {
-  display: block;
-}
-
-.message-field textarea {
-  min-height: 150px;
-
-  padding-top: 14px;
-
-  line-height: 1.9;
-}
-
-
-/* submit */
-
-.rsvp-submit {
-  width: 100%;
-
-  margin-top: 45px;
-
-  padding: 18px;
-
-  border: none;
-
-  background: var(--green-deep);
-
-  color: white;
-
-  cursor: pointer;
-
-  letter-spacing: .18em;
-}
-
-.rsvp-submit span {
-  display: block;
-
-  font-size: 14px;
-}
-
-.rsvp-submit small {
-  display: block;
-
-  margin-top: 6px;
-
-  font-family: Georgia, serif;
-
-  font-size: 8px;
-
-  letter-spacing: .3em;
-}
-
-.rsvp-success {
-  min-height: 40px;
-
-  margin-top: 25px;
-
-  color: var(--green-deep);
-
-  font-size: 13px;
-
-  line-height: 1.9;
-
-  text-align: center;
-}
-
-
-/* ================= FINAL ================= */
-
-.final-section {
-  position: relative;
-
-  min-height: 80svh;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  overflow: hidden;
-
-  background:
-    linear-gradient(
-      135deg,
-      #dfe9e3,
-      #f3e5dc
-    );
-}
-
-.final-paint {
-  position: absolute;
-
-  width: 650px;
-  height: 430px;
-
-  left: 50%;
-  top: 50%;
-
-  transform:
-    translate(-50%,-50%);
-
-  background:
-    radial-gradient(
-      ellipse,
-      rgba(190,205,190,.6),
-      rgba(190,205,190,0) 70%
-    );
-
-  filter: blur(20px);
-}
-
-.final-content {
-  position: relative;
-
-  z-index: 2;
-
-  text-align: center;
-}
-
-.final-en {
-  color: var(--gold);
-
-  font-family: Georgia, serif;
-
-  font-size: 9px;
-
-  letter-spacing: .5em;
-}
-
-.final-main {
-  margin: 25px 0;
-
-  color: var(--green-deep);
-
-  font-size: 58px;
-
-  font-weight: 400;
-
-  letter-spacing: .18em;
-}
-
-.final-date {
-  color: var(--green-deep);
-
-  font-family: Georgia, serif;
-
-  font-size: 12px;
-
-  letter-spacing: .35em;
-}
-
-.final-place {
-  margin-top: 12px;
-
-  color: var(--muted);
-
-  font-size: 12px;
-
-  letter-spacing: .12em;
-}
-
-
-/* ================= MOBILE ================= */
-
-@media (max-width: 600px) {
-
-  .hero-content {
-    padding:
-      65px
-      10px
-      95px;
   }
-
-  .hero-top {
-    margin-bottom: 28px;
-  }
-
-  .personal-invitation {
-    margin-bottom: 48px;
-  }
-
-  .couple {
-    margin-bottom: 45px;
-  }
-
-  .couple-name {
-    gap: 10px;
-
-    font-size: 30px;
-  }
-
-  .hero-date {
-    gap: 16px;
-  }
-
-  .hero-date-big {
-    font-size: 62px;
-  }
-
-  .hero-date-side strong {
-    font-size: 17px;
-  }
-
-  .editorial-section,
-  .location-section,
-  .rsvp-section {
-    padding:
-      100px
-      20px;
-  }
-
-  .section-number {
-    top: 25px;
-    left: 20px;
-  }
-
-  .section-heading {
-    margin-bottom: 55px;
-  }
-
-  .section-heading h2 {
-    font-size: 42px;
-  }
-
-  .calendar-day {
-    height: 48px;
-  }
-
-  .calendar-day.wedding-day::before {
-    width: 39px;
-    height: 39px;
-  }
-
-  .countdown {
-    margin-top: 70px;
-  }
-
-  .countdown-number span {
-    font-size: 65px;
-  }
-
-  .story-section {
-    min-height: 75svh;
-
-    padding:
-      100px
-      20px;
-  }
-
-  .story-inner h2 {
-    font-size: 45px;
-  }
-
-  .schedule-item {
-    grid-template-columns:
-      100px
-      1fr;
-
-    min-height: 115px;
-  }
-
-  .schedule-time {
-    font-size: 28px;
-  }
-
-  .schedule-content strong {
-    font-size: 16px;
-  }
-
-  .location-title {
-    font-size: 40px;
-  }
-
-  .attendance-options {
-    grid-template-columns: 1fr;
-  }
-
-  .attendance-option {
-    min-height: 105px;
-  }
-
-  .final-main {
-    font-size: 48px;
-  }
-
-}
+);
 ```
