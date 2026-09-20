@@ -5,42 +5,56 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
+
   /* =====================================================
-     1. 读取宾客姓名
-     -----------------------------------------------------
-     网址示例：
+     1. 宾客姓名
+     
+     示例：
      ?guest=邹小明
 
-     有 guest：
-     显示专属宾客姓名
-
-     没有 guest：
-     隐藏宾客专属区域
+     页面显示：
+     邹小明
+     诚邀您出席
   ===================================================== */
 
-  const params = new URLSearchParams(window.location.search);
-  const guestName = params.get("guest");
+  const params =
+    new URLSearchParams(window.location.search);
 
-  const guestCard = document.getElementById("guestCard");
-  const guestNameElement = document.getElementById("guestName");
+  const guestName =
+    params.get("guest");
+
+
+  const guestCard =
+    document.getElementById("guestCard");
+
+  const guestNameElement =
+    document.getElementById("guestName");
+
 
   if (
-    guestCard &&
-    guestNameElement &&
     guestName &&
-    guestName.trim()
+    guestName.trim() &&
+    guestNameElement
   ) {
-    const cleanGuestName = guestName.trim();
 
-    guestNameElement.textContent = cleanGuestName;
+    const cleanGuestName =
+      guestName.trim();
 
-    guestCard.classList.add("has-guest");
+    guestNameElement.textContent =
+      cleanGuestName;
 
   } else if (guestCard) {
 
-    guestCard.style.display = "none";
+    /*
+     * 没有宾客姓名时，
+     * 隐藏整个宾客区域。
+     */
+
+    guestCard.style.display =
+      "none";
 
   }
+
 
 
   /* =====================================================
@@ -59,114 +73,154 @@ document.addEventListener("DOMContentLoaded", () => {
   const musicButton =
     document.getElementById("musicButton");
 
+
   let musicPlaying = false;
 
 
-  if (openInvitation && invitation) {
+  if (
+    openInvitation &&
+    invitation
+  ) {
 
-    openInvitation.addEventListener("click", async () => {
+    openInvitation.addEventListener(
+      "click",
+      async () => {
 
-      /* 尝试播放音乐 */
+        /*
+         * 用户主动点击，
+         * 手机浏览器通常允许此时播放音乐。
+         */
 
-      if (bgMusic) {
+        if (bgMusic) {
 
-        try {
+          try {
 
-          await bgMusic.play();
+            await bgMusic.play();
 
-          musicPlaying = true;
+            musicPlaying = true;
 
-          if (musicButton) {
-            musicButton.classList.add("playing");
+            if (musicButton) {
+
+              musicButton.classList.add(
+                "playing"
+              );
+
+            }
+
+          } catch (error) {
+
+            console.log(
+              "音乐暂时无法自动播放。"
+            );
+
           }
-
-        } catch (error) {
-
-          console.log("音乐暂时无法自动播放。");
 
         }
 
+
+        /*
+         * 滑动进入正式请柬
+         */
+
+        invitation.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
       }
-
-
-      /* 进入正式请柬 */
-
-      invitation.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-
-    });
+    );
 
   }
+
 
 
   /* =====================================================
      3. 音乐播放 / 暂停
   ===================================================== */
 
-  if (musicButton && bgMusic) {
+  if (
+    musicButton &&
+    bgMusic
+  ) {
 
-    musicButton.addEventListener("click", async () => {
+    musicButton.addEventListener(
+      "click",
+      async () => {
 
-      if (!musicPlaying) {
+        if (!musicPlaying) {
 
-        try {
+          try {
 
-          await bgMusic.play();
+            await bgMusic.play();
 
-          musicPlaying = true;
+          } catch (error) {
 
-          musicButton.classList.add("playing");
+            console.log(
+              "音乐播放失败。"
+            );
 
-        } catch (error) {
+          }
 
-          console.log("音乐播放失败。");
+        } else {
+
+          bgMusic.pause();
 
         }
 
-      } else {
+      }
+    );
 
-        bgMusic.pause();
+
+    /*
+     * 音乐真正开始播放
+     */
+
+    bgMusic.addEventListener(
+      "play",
+      () => {
+
+        musicPlaying = true;
+
+        musicButton.classList.add(
+          "playing"
+        );
+
+      }
+    );
+
+
+    /*
+     * 音乐暂停
+     */
+
+    bgMusic.addEventListener(
+      "pause",
+      () => {
 
         musicPlaying = false;
 
-        musicButton.classList.remove("playing");
+        musicButton.classList.remove(
+          "playing"
+        );
 
       }
-
-    });
-
-
-    bgMusic.addEventListener("pause", () => {
-
-      musicPlaying = false;
-
-      musicButton.classList.remove("playing");
-
-    });
-
-
-    bgMusic.addEventListener("play", () => {
-
-      musicPlaying = true;
-
-      musicButton.classList.add("playing");
-
-    });
+    );
 
   }
 
 
+
   /* =====================================================
      4. 婚礼倒计时
-     -----------------------------------------------------
-     2026-10-25 12:08
+     
+     2026年10月25日 12:08
      中国时间 UTC+8
   ===================================================== */
 
   const weddingDate =
-    new Date("2026-10-25T12:08:00+08:00").getTime();
+    new Date(
+      "2026-10-25T12:08:00+08:00"
+    ).getTime();
 
 
   const daysElement =
@@ -184,29 +238,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateCountdown() {
 
-    if (
-      !daysElement ||
-      !hoursElement ||
-      !minutesElement ||
-      !secondsElement
-    ) {
-      return;
-    }
+    const now =
+      Date.now();
+
+    const distance =
+      weddingDate - now;
 
 
-    const now = Date.now();
-
-    const distance = weddingDate - now;
-
-
-    /* 婚礼已经开始 */
+    /*
+     * 婚礼已经开始
+     */
 
     if (distance <= 0) {
 
-      daysElement.textContent = "00";
-      hoursElement.textContent = "00";
-      minutesElement.textContent = "00";
-      secondsElement.textContent = "00";
+      if (daysElement)
+        daysElement.textContent = "00";
+
+      if (hoursElement)
+        hoursElement.textContent = "00";
+
+      if (minutesElement)
+        minutesElement.textContent = "00";
+
+      if (secondsElement)
+        secondsElement.textContent = "00";
 
       return;
 
@@ -214,45 +269,83 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     const days =
-      Math.floor(distance / (1000 * 60 * 60 * 24));
+      Math.floor(
+        distance /
+        (1000 * 60 * 60 * 24)
+      );
+
 
     const hours =
       Math.floor(
-        (distance % (1000 * 60 * 60 * 24))
-        / (1000 * 60 * 60)
+        (
+          distance %
+          (1000 * 60 * 60 * 24)
+        ) /
+        (1000 * 60 * 60)
       );
+
 
     const minutes =
       Math.floor(
-        (distance % (1000 * 60 * 60))
-        / (1000 * 60)
+        (
+          distance %
+          (1000 * 60 * 60)
+        ) /
+        (1000 * 60)
       );
+
 
     const seconds =
       Math.floor(
-        (distance % (1000 * 60))
-        / 1000
+        (
+          distance %
+          (1000 * 60)
+        ) /
+        1000
       );
 
 
-    daysElement.textContent =
-      String(days).padStart(2, "0");
+    if (daysElement) {
 
-    hoursElement.textContent =
-      String(hours).padStart(2, "0");
+      daysElement.textContent =
+        String(days).padStart(2, "0");
 
-    minutesElement.textContent =
-      String(minutes).padStart(2, "0");
+    }
 
-    secondsElement.textContent =
-      String(seconds).padStart(2, "0");
+
+    if (hoursElement) {
+
+      hoursElement.textContent =
+        String(hours).padStart(2, "0");
+
+    }
+
+
+    if (minutesElement) {
+
+      minutesElement.textContent =
+        String(minutes).padStart(2, "0");
+
+    }
+
+
+    if (secondsElement) {
+
+      secondsElement.textContent =
+        String(seconds).padStart(2, "0");
+
+    }
 
   }
 
 
   updateCountdown();
 
-  setInterval(updateCountdown, 1000);
+  setInterval(
+    updateCountdown,
+    1000
+  );
+
 
 
   /* =====================================================
@@ -260,26 +353,39 @@ document.addEventListener("DOMContentLoaded", () => {
   ===================================================== */
 
   const revealElements =
-    document.querySelectorAll(".reveal");
+    document.querySelectorAll(
+      ".reveal"
+    );
 
 
-  if ("IntersectionObserver" in window) {
+  if (
+    "IntersectionObserver"
+    in window
+  ) {
 
     const revealObserver =
       new IntersectionObserver(
         (entries) => {
 
-          entries.forEach((entry) => {
+          entries.forEach(
+            (entry) => {
 
-            if (entry.isIntersecting) {
+              if (
+                entry.isIntersecting
+              ) {
 
-              entry.target.classList.add("visible");
+                entry.target.classList.add(
+                  "visible"
+                );
 
-              revealObserver.unobserve(entry.target);
+                revealObserver.unobserve(
+                  entry.target
+                );
+
+              }
 
             }
-
-          });
+          );
 
         },
         {
@@ -288,136 +394,148 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
 
-    revealElements.forEach((element) => {
+    revealElements.forEach(
+      (element) => {
 
-      revealObserver.observe(element);
+        revealObserver.observe(
+          element
+        );
 
-    });
+      }
+    );
 
   } else {
 
-    revealElements.forEach((element) => {
+    /*
+     * 老浏览器兼容
+     */
 
-      element.classList.add("visible");
+    revealElements.forEach(
+      (element) => {
 
-    });
+        element.classList.add(
+          "visible"
+        );
+
+      }
+    );
 
   }
+
 
 
   /* =====================================================
      6. RSVP
-     -----------------------------------------------------
-     第一阶段：
-     只做前端确认
-
-     下一阶段：
-     接入 Cloudflare Worker + D1
+     
+     目前先做前端确认。
+     后面再接真正数据库。
   ===================================================== */
 
   const rsvpForm =
-    document.getElementById("rsvpForm");
+    document.getElementById(
+      "rsvpForm"
+    );
 
   const rsvpResult =
-    document.getElementById("rsvpResult");
+    document.getElementById(
+      "rsvpResult"
+    );
 
 
   if (rsvpForm) {
 
-    rsvpForm.addEventListener("submit", (event) => {
+    rsvpForm.addEventListener(
+      "submit",
+      (event) => {
 
-      event.preventDefault();
-
-
-      const nameElement =
-        document.getElementById("rsvpName");
-
-      const attendanceElement =
-        document.getElementById("rsvpAttendance");
-
-      const peopleElement =
-        document.getElementById("rsvpPeople");
-
-      const messageElement =
-        document.getElementById("rsvpMessage");
+        event.preventDefault();
 
 
-      const name =
-        nameElement
-          ? nameElement.value.trim()
-          : "";
+        const name =
+          document
+            .getElementById("rsvpName")
+            .value
+            .trim();
 
 
-      const attendance =
-        attendanceElement
-          ? attendanceElement.value
-          : "";
+        const attendance =
+          document
+            .getElementById(
+              "rsvpAttendance"
+            )
+            .value;
 
 
-      const people =
-        peopleElement
-          ? peopleElement.value
-          : "1";
+        const people =
+          document
+            .getElementById(
+              "rsvpPeople"
+            )
+            .value;
 
 
-      const message =
-        messageElement
-          ? messageElement.value.trim()
-          : "";
+        const message =
+          document
+            .getElementById(
+              "rsvpMessage"
+            )
+            .value
+            .trim();
 
 
-      if (!name) {
-
-        if (rsvpResult) {
+        if (!name) {
 
           rsvpResult.textContent =
             "请填写您的姓名。";
 
+          return;
+
         }
 
-        return;
+
+        if (
+          attendance === "yes"
+        ) {
+
+          rsvpResult.textContent =
+            `谢谢 ${name}！我们会在婚礼当天等你，一共 ${people} 人。`;
+
+        } else {
+
+          rsvpResult.textContent =
+            `谢谢 ${name} 的祝福，我们会一直记得。`;
+
+        }
+
+
+        console.log(
+          "RSVP:",
+          {
+            name,
+            attendance,
+            people,
+            message
+          }
+        );
 
       }
-
-
-      if (!rsvpResult) {
-        return;
-      }
-
-
-      if (attendance === "yes") {
-
-        rsvpResult.textContent =
-          `谢谢 ${name}！我们会在婚礼当天等你，一共 ${people} 人。`;
-
-      } else {
-
-        rsvpResult.textContent =
-          `谢谢 ${name} 的祝福，我们会一直记得。`;
-
-      }
-
-
-      console.log("RSVP:", {
-        guestFromUrl: guestName || null,
-        name,
-        attendance,
-        people,
-        message
-      });
-
-    });
+    );
 
   }
 
 
+
   /* =====================================================
-     7. 防止页面打开时自动跳到中间
+     7. 防止浏览器记住上一次滚动位置
   ===================================================== */
 
-  if ("scrollRestoration" in history) {
+  if (
+    "scrollRestoration"
+    in history
+  ) {
 
-    history.scrollRestoration = "manual";
+    history.scrollRestoration =
+      "manual";
 
   }
 
