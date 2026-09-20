@@ -4,15 +4,24 @@
 
 @font-face {
   font-family: "WeddingEnglish";
-  src: url("./fonts/FZVDLGTMCJW-L.TTF") format("truetype");
+
+  src:
+    url("./fonts/FZVDLGTMCJW-L.TTF")
+    format("truetype");
+
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
+
 @font-face {
   font-family: "WeddingChinese";
-  src: url("./fonts/FZZiLSJW-B.TTF") format("truetype");
+
+  src:
+    url("./fonts/FZZiLSJW-B.TTF")
+    format("truetype");
+
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -24,6 +33,31 @@
 ========================================================= */
 
 :root {
+
+  --paper:
+    #f5f0e7;
+
+  --paper-light:
+    #faf7f0;
+
+  --paper-deep:
+    #e8dfd1;
+
+  --ink:
+    #35312c;
+
+  --soft:
+    #777066;
+
+  --muted:
+    #a29a8e;
+
+  --line:
+    rgba(65, 58, 49, 0.16);
+
+  --line-dark:
+    rgba(65, 58, 49, 0.28);
+
   --english:
     "WeddingEnglish",
     "Times New Roman",
@@ -31,25 +65,6 @@
     serif;
 
   --chinese:
-    "WeddingChinese",
-    "Songti SC",
-    "STSong",
-    "Noto Serif CJK SC",
-    serif;
-
-  --ink: #34312d;
-  --soft-ink: #716c65;
-  --muted: #9a9389;
-
-  --line: rgba(52, 49, 45, 0.16);
-
-  --paper: #f7f3ec;
-  --paper-light: #fbf9f5;
-  --cream: #eee8dc;
-
-  --accent: #8c8170;
-
-  --serif:
     "WeddingChinese",
     "Songti SC",
     "STSong",
@@ -65,28 +80,61 @@
   box-sizing: border-box;
 }
 
+
 html {
   scroll-behavior: smooth;
 }
 
+
 body {
   margin: 0;
-  padding: 0;
-
-  background: var(--paper);
 
   color: var(--ink);
+
+  background: var(--paper);
 
   font-family: var(--chinese);
 
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+
+  text-rendering:
+    optimizeLegibility;
 }
+
+
+body::before {
+  content: "";
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  pointer-events: none;
+
+  opacity: 0.22;
+
+  background-image:
+    radial-gradient(
+      rgba(70, 58, 45, 0.18)
+      0.45px,
+      transparent 0.55px
+    );
+
+  background-size:
+    5px 5px;
+
+  mix-blend-mode: multiply;
+}
+
 
 img {
   display: block;
+
   max-width: 100%;
 }
+
 
 button,
 input,
@@ -95,54 +143,92 @@ textarea {
   font: inherit;
 }
 
+
+button {
+  -webkit-tap-highlight-color:
+    transparent;
+}
+
+
 a {
   color: inherit;
+
   text-decoration: none;
 }
 
 
-/* =========================================================
-   GLOBAL
-========================================================= */
-
 section {
   position: relative;
-  width: 100%;
+
   overflow: hidden;
 }
 
-.section-inner {
-  width: min(88%, 1100px);
-  margin: 0 auto;
+
+/* =========================================================
+   MUSIC
+========================================================= */
+
+.music-button {
+  position: fixed;
+
+  top: 17px;
+  right: 17px;
+
+  z-index: 1000;
+
+  width: 40px;
+  height: 40px;
+
+  padding: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 2px;
+
+  border:
+    1px solid
+    rgba(53,49,44,0.22);
+
+  border-radius: 50%;
+
+  background:
+    rgba(248,244,236,0.78);
+
+  backdrop-filter:
+    blur(10px);
+
+  cursor: pointer;
 }
 
-.section-heading {
-  text-align: center;
+
+.music-button span {
+  width: 1px;
+
+  height: 9px;
+
+  background:
+    var(--ink);
+
+  transition:
+    height 0.3s ease;
 }
 
-.section-eyebrow {
-  margin-bottom: 15px;
 
-  font-family: var(--english);
-  font-size: 10px;
-
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-
-  color: var(--muted);
+.music-button.playing span:nth-child(1) {
+  height: 5px;
 }
 
-.section-heading h2 {
-  margin: 0;
 
-  font-family: var(--english);
+.music-button.playing span:nth-child(2) {
+  height: 12px;
+}
 
-  font-size: clamp(31px, 8vw, 64px);
 
-  font-weight: normal;
-  line-height: 1.08;
-
-  letter-spacing: 0.015em;
+.music-button.playing span:nth-child(3) {
+  height: 7px;
 }
 
 
@@ -151,115 +237,226 @@ section {
 ========================================================= */
 
 .hero {
+
   min-height: 100svh;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
-  padding: 70px 22px 60px;
+  padding:
+    72px 24px
+    70px;
 
   background:
+
     radial-gradient(
-      circle at 50% 28%,
-      rgba(255,255,255,0.98),
-      rgba(248,244,237,0.9) 43%,
-      rgba(239,232,221,0.96) 100%
+      ellipse at 50% 15%,
+      rgba(255,255,255,0.96),
+      transparent 50%
+    ),
+
+    linear-gradient(
+      135deg,
+      #f8f4ec,
+      #eee7db
     );
 }
 
+
 .hero::before {
+
   content: "";
 
   position: absolute;
 
-  width: 74vw;
-  height: 74vw;
+  inset: 16px;
 
-  max-width: 620px;
-  max-height: 620px;
+  border:
+    1px solid
+    rgba(61,54,46,0.13);
 
-  border: 1px solid rgba(92, 82, 68, 0.1);
-
-  border-radius: 50%;
-
-  left: 50%;
-  top: 50%;
-
-  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
+
 
 .hero::after {
+
   content: "";
 
   position: absolute;
 
-  width: 52vw;
-  height: 52vw;
+  inset: 25px;
 
-  max-width: 440px;
-  max-height: 440px;
+  border:
+    1px solid
+    rgba(61,54,46,0.055);
 
-  border: 1px solid rgba(92, 82, 68, 0.07);
+  pointer-events: none;
+}
+
+
+.paper-light {
+
+  position: absolute;
 
   border-radius: 50%;
 
-  left: 50%;
-  top: 50%;
+  filter:
+    blur(1px);
 
-  transform: translate(-50%, -50%);
+  opacity: 0.4;
+
+  pointer-events: none;
 }
 
-.hero-inner {
-  position: relative;
-  z-index: 2;
 
-  width: min(100%, 620px);
+.paper-light-one {
+
+  width: 420px;
+  height: 420px;
+
+  top: -170px;
+  left: -160px;
+
+  background:
+    rgba(255,255,255,0.75);
+}
+
+
+.paper-light-two {
+
+  width: 380px;
+  height: 380px;
+
+  right: -170px;
+  bottom: -130px;
+
+  background:
+    rgba(219,205,184,0.45);
+}
+
+
+.hero-content {
+
+  position: relative;
+
+  z-index: 5;
+
+  width:
+    min(100%, 620px);
 
   text-align: center;
 }
 
 
 /* =========================================================
-   GUEST INVITATION
+   HERO TOP
 ========================================================= */
 
-.guest-invitation {
+.hero-top {
+
   margin-bottom: 34px;
 
-  font-family: var(--chinese);
+  font-family:
+    var(--english);
 
-  color: var(--ink);
+  font-size: 9px;
+
+  letter-spacing:
+    0.38em;
+
+  color:
+    var(--muted);
 }
+
+
+/* =========================================================
+   PERSONAL INVITATION
+========================================================= */
+
+.personal-invitation {
+
+  width:
+    min(88%, 400px);
+
+  margin:
+    0 auto 36px;
+
+  padding:
+    20px 18px 19px;
+
+  text-align: center;
+
+  border-top:
+    1px solid
+    var(--line);
+
+  border-bottom:
+    1px solid
+    var(--line);
+}
+
+
+.personal-label {
+
+  margin-bottom: 11px;
+
+  font-family:
+    var(--english);
+
+  font-size: 8px;
+
+  letter-spacing:
+    0.35em;
+
+  color:
+    var(--muted);
+}
+
 
 .guest-name {
-  display: block;
 
-  margin-bottom: 14px;
+  font-family:
+    var(--chinese);
 
-  font-family: var(--chinese);
+  font-size:
+    clamp(29px, 8vw, 44px);
 
-  font-size: clamp(27px, 7vw, 43px);
+  line-height: 1.35;
 
-  font-weight: normal;
-
-  line-height: 1.3;
-
-  letter-spacing: 0.08em;
+  letter-spacing:
+    0.12em;
 }
 
-.guest-text {
-  display: block;
 
-  font-family: var(--chinese);
+.personal-rule {
 
-  font-size: 14px;
+  width: 38px;
+  height: 1px;
 
-  line-height: 1.8;
+  margin:
+    13px auto;
 
-  letter-spacing: 0.12em;
+  background:
+    rgba(53,49,44,0.25);
+}
 
-  color: var(--soft-ink);
+
+.personal-text {
+
+  font-family:
+    var(--chinese);
+
+  font-size: 13px;
+
+  letter-spacing:
+    0.18em;
+
+  color:
+    var(--soft);
 }
 
 
@@ -267,42 +464,56 @@ section {
    COUPLE
 ========================================================= */
 
-.couple {
-  margin-top: 8px;
+.couple-name {
+
+  display: flex;
+
+  align-items: baseline;
+
+  justify-content: center;
+
+  gap: 13px;
+
+  font-family:
+    var(--chinese);
+
+  font-size:
+    clamp(23px, 6vw, 34px);
+
+  letter-spacing:
+    0.12em;
 }
 
-.couple-en {
-  margin-bottom: 16px;
 
-  font-family: var(--english);
+.couple-name i {
 
-  font-size: clamp(29px, 8vw, 57px);
+  font-family:
+    var(--english);
 
-  font-weight: normal;
+  font-size: 20px;
 
-  line-height: 1;
+  font-style: normal;
 
-  letter-spacing: 0.08em;
+  color:
+    var(--muted);
 }
 
-.couple-en span {
-  display: inline-block;
 
-  margin: 0 8px;
+.couple-name-en {
 
-  font-size: 0.7em;
+  margin-top: 14px;
 
-  color: var(--muted);
-}
+  font-family:
+    var(--english);
 
-.couple-cn {
-  font-family: var(--chinese);
+  font-size:
+    clamp(15px, 4vw, 20px);
 
-  font-size: 18px;
+  letter-spacing:
+    0.24em;
 
-  line-height: 1.7;
-
-  letter-spacing: 0.18em;
+  color:
+    var(--soft);
 }
 
 
@@ -311,186 +522,368 @@ section {
 ========================================================= */
 
 .hero-date {
-  margin-top: 30px;
-}
 
-.hero-date-number {
-  font-family: var(--english);
+  margin-top: 37px;
 
-  font-size: clamp(47px, 14vw, 86px);
+  display: flex;
 
-  line-height: 0.95;
+  align-items: center;
 
-  letter-spacing: 0.025em;
-}
+  justify-content: center;
 
-.hero-date-month {
-  margin-top: 10px;
-
-  font-family: var(--english);
-
-  font-size: 11px;
-
-  letter-spacing: 0.28em;
-
-  color: var(--muted);
+  gap: 21px;
 }
 
 
-/* 第一页这里：
-   丙午年九月十六 · 星期日
-*/
+.hero-date-big {
+
+  font-family:
+    var(--english);
+
+  font-size:
+    clamp(76px, 22vw, 125px);
+
+  line-height:
+    0.75;
+
+  letter-spacing:
+    -0.035em;
+}
+
+
+.hero-date-side {
+
+  min-width: 135px;
+
+  text-align: left;
+}
+
+
+.hero-date-side > span {
+
+  display: block;
+
+  font-family:
+    var(--english);
+
+  font-size: 12px;
+
+  letter-spacing:
+    0.27em;
+
+  color:
+    var(--soft);
+}
+
+
+.hero-date-side strong {
+
+  display: block;
+
+  margin-top: 4px;
+
+  font-family:
+    var(--english);
+
+  font-size: 18px;
+
+  font-weight: normal;
+
+  letter-spacing:
+    0.18em;
+}
+
+
+/* ★ 第一页最终版本 */
 
 .hero-date-sub {
+
+  margin-top: 9px;
+
   display: flex;
 
   align-items: baseline;
-  justify-content: center;
 
-  gap: 15px;
-
-  margin-top: 16px;
+  gap: 10px;
 
   white-space: nowrap;
-
-  letter-spacing: 0.06em;
 }
+
 
 .hero-date-lunar {
-  font-family: var(--chinese);
 
-  font-size: 1.12rem;
+  font-family:
+    var(--chinese);
 
-  line-height: 1.5;
+  font-size: 13px;
 
-  letter-spacing: 0.08em;
+  letter-spacing:
+    0.08em;
 
-  color: var(--ink);
+  color:
+    var(--ink);
 }
+
 
 .hero-date-divider {
-  font-family: var(--english);
 
-  font-size: 0.9rem;
+  font-family:
+    var(--english);
 
-  color: var(--muted);
+  font-size: 10px;
 
-  transform: translateY(-1px);
+  color:
+    var(--muted);
 }
 
+
 .hero-date-week-cn {
-  font-family: var(--chinese);
 
-  font-size: 1.16rem;
+  font-family:
+    var(--chinese);
 
-  font-weight: 500;
+  font-size: 14px;
 
-  line-height: 1.5;
+  letter-spacing:
+    0.1em;
 
-  letter-spacing: 0.1em;
-
-  color: var(--ink);
+  color:
+    var(--ink);
 }
 
 
 /* =========================================================
-   OPEN INVITATION
+   OPEN
 ========================================================= */
 
-.open-invitation {
+.open-button {
+
+  margin-top: 43px;
+
+  min-width: 185px;
+
+  padding:
+    15px 27px
+    14px;
+
   display: inline-flex;
 
   flex-direction: column;
 
   align-items: center;
 
-  justify-content: center;
+  gap: 6px;
 
-  gap: 5px;
+  border:
+    1px solid
+    rgba(53,49,44,0.28);
 
-  min-width: 190px;
+  background:
+    rgba(255,255,255,0.22);
 
-  margin-top: 39px;
-
-  padding: 15px 25px 14px;
-
-  border: 1px solid rgba(52,49,45,0.25);
-
-  background: rgba(255,255,255,0.25);
+  color:
+    var(--ink);
 
   cursor: pointer;
 
   transition:
-    background 0.3s ease,
-    transform 0.3s ease,
-    border-color 0.3s ease;
+    all 0.35s ease;
 }
 
-.open-invitation:hover {
-  background: rgba(255,255,255,0.55);
 
-  border-color: rgba(52,49,45,0.45);
+.open-button:hover {
 
-  transform: translateY(-2px);
+  background:
+    rgba(255,255,255,0.6);
+
+  transform:
+    translateY(-2px);
 }
 
-.open-cn {
-  font-family: var(--chinese);
+
+.open-button span {
+
+  font-family:
+    var(--chinese);
 
   font-size: 14px;
 
-  letter-spacing: 0.2em;
+  letter-spacing:
+    0.2em;
 }
 
-.open-en {
-  font-family: var(--english);
 
-  font-size: 8px;
+.open-button small {
 
-  letter-spacing: 0.25em;
+  font-family:
+    var(--english);
 
-  color: var(--muted);
+  font-size: 7px;
+
+  letter-spacing:
+    0.25em;
+
+  color:
+    var(--muted);
+}
+
+
+.hero-bottom {
+
+  position: absolute;
+
+  bottom: 28px;
+
+  left: 50%;
+
+  z-index: 5;
+
+  transform:
+    translateX(-50%);
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 9px;
+
+  font-family:
+    var(--english);
+
+  font-size: 7px;
+
+  letter-spacing:
+    0.28em;
+
+  color:
+    var(--muted);
+}
+
+
+.hero-bottom span {
+
+  width: 1px;
+
+  height: 28px;
+
+  background:
+    rgba(53,49,44,0.25);
 }
 
 
 /* =========================================================
-   MUSIC
+   COMMON EDITORIAL
 ========================================================= */
 
-.music-toggle {
-  position: fixed;
+.editorial-section {
 
-  top: 18px;
-  right: 18px;
+  padding:
+    120px 0
+    125px;
 
-  z-index: 100;
-
-  width: 39px;
-  height: 39px;
-
-  border: 1px solid rgba(52,49,45,0.18);
-
-  border-radius: 50%;
-
-  background: rgba(250,247,241,0.82);
-
-  backdrop-filter: blur(8px);
-
-  cursor: pointer;
+  background:
+    var(--paper-light);
 }
 
-.music-toggle::before {
-  content: "♪";
 
-  font-family: var(--english);
+.editorial-inner {
 
-  font-size: 16px;
+  width:
+    min(88%, 900px);
 
-  color: var(--ink);
+  margin:
+    0 auto;
 }
 
-.music-toggle.is-playing::before {
-  content: "Ⅱ";
+
+.editorial-inner.wide {
+
+  width:
+    min(92%, 1050px);
+}
+
+
+.section-number {
+
+  position: absolute;
+
+  top: 35px;
+  left: 5.5%;
+
+  font-family:
+    var(--english);
+
+  font-size: 9px;
+
+  letter-spacing:
+    0.25em;
+
+  color:
+    var(--muted);
+}
+
+
+.section-heading {
+
+  text-align: center;
+}
+
+
+.eyebrow {
+
+  margin-bottom: 17px;
+
+  font-family:
+    var(--english);
+
+  font-size: 9px;
+
+  letter-spacing:
+    0.34em;
+
+  color:
+    var(--muted);
+}
+
+
+.section-heading h2 {
+
+  margin: 0;
+
+  font-family:
+    var(--english);
+
+  font-size:
+    clamp(37px, 9vw, 72px);
+
+  font-weight:
+    normal;
+
+  line-height:
+    1.05;
+
+  letter-spacing:
+    0.01em;
+}
+
+
+.section-heading p {
+
+  margin:
+    18px 0 0;
+
+  font-family:
+    var(--chinese);
+
+  font-size: 13px;
+
+  letter-spacing:
+    0.13em;
+
+  color:
+    var(--soft);
 }
 
 
@@ -499,59 +892,86 @@ section {
 ========================================================= */
 
 .our-day {
-  padding: 110px 0 125px;
 
-  background: var(--paper-light);
+  background:
+
+    radial-gradient(
+      circle at 50% 10%,
+      rgba(255,255,255,0.95),
+      transparent 50%
+    ),
+
+    var(--paper-light);
 }
 
-.date-master {
-  margin-top: 65px;
+
+.date-display {
+
+  margin:
+    67px auto 0;
 
   text-align: center;
 }
 
-.date-master-number {
-  font-family: var(--english);
 
-  font-size: clamp(75px, 20vw, 170px);
+.date-display-number {
 
-  line-height: 0.82;
+  font-family:
+    var(--english);
 
-  letter-spacing: -0.025em;
+  font-size:
+    clamp(88px, 25vw, 175px);
+
+  line-height:
+    0.72;
+
+  letter-spacing:
+    -0.04em;
 }
 
-.date-master-month {
-  margin-top: 20px;
 
-  font-family: var(--english);
+.date-display-month {
+
+  margin-top: 23px;
+
+  font-family:
+    var(--english);
 
   font-size: 11px;
 
-  letter-spacing: 0.35em;
-
-  color: var(--muted);
+  letter-spacing:
+    0.4em;
 }
 
-.date-master-week {
-  margin-top: 12px;
 
-  font-family: var(--english);
+.date-display-year {
 
-  font-size: 14px;
+  margin-top: 6px;
 
-  letter-spacing: 0.18em;
+  font-family:
+    var(--english);
+
+  font-size: 17px;
+
+  letter-spacing:
+    0.24em;
+
+  color:
+    var(--soft);
 }
 
-.date-lunar-large {
-  margin-top: 16px;
 
-  font-family: var(--chinese);
+.date-display-lunar {
 
-  font-size: 27px;
+  margin-top: 17px;
 
-  line-height: 1.5;
+  font-family:
+    var(--chinese);
 
-  letter-spacing: 0.12em;
+  font-size: 19px;
+
+  letter-spacing:
+    0.12em;
 }
 
 
@@ -559,67 +979,212 @@ section {
    CALENDAR
 ========================================================= */
 
-.calendar {
-  width: min(88%, 520px);
+.calendar-area {
 
-  margin: 70px auto 0;
+  width:
+    min(100%, 560px);
+
+  margin:
+    68px auto 0;
+
+  padding:
+    34px 28px;
+
+  border-top:
+    1px solid
+    var(--line);
+
+  border-bottom:
+    1px solid
+    var(--line);
+}
+
+
+.calendar-title {
+
+  display: flex;
+
+  align-items: baseline;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-bottom: 27px;
+}
+
+
+.calendar-title span {
+
+  font-family:
+    var(--english);
+
+  font-size: 11px;
+
+  letter-spacing:
+    0.3em;
+}
+
+
+.calendar-title strong {
+
+  font-family:
+    var(--english);
+
+  font-size: 14px;
+
+  font-weight: normal;
+
+  letter-spacing:
+    0.18em;
+
+  color:
+    var(--muted);
+}
+
+
+.calendar-week {
 
   display: grid;
 
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns:
+    repeat(7, 1fr);
 
-  gap: 8px;
+  margin-bottom: 8px;
 }
 
-.calendar-weekday {
-  padding-bottom: 8px;
 
-  font-family: var(--english);
-
-  font-size: 8px;
-
-  letter-spacing: 0.16em;
-
-  color: var(--muted);
+.calendar-week span {
 
   text-align: center;
+
+  font-family:
+    var(--english);
+
+  font-size: 7px;
+
+  letter-spacing:
+    0.12em;
+
+  color:
+    var(--muted);
 }
 
-.calendar-day,
-.calendar-empty {
-  min-height: 42px;
+
+.calendar-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(7, 1fr);
+
+  gap: 5px;
+}
+
+
+.calendar-day {
+
+  position: relative;
+
+  min-height: 40px;
 
   display: flex;
 
   align-items: center;
+
   justify-content: center;
+
+  font-family:
+    var(--english);
+
+  font-size: 12px;
 }
 
-.calendar-day {
-  position: relative;
 
-  font-family: var(--english);
+.calendar-day.wedding-day {
 
-  font-size: 13px;
+  font-size: 14px;
+
+  z-index: 1;
 }
 
-.calendar-day.is-wedding-day {
-  font-size: 15px;
 
-  font-weight: bold;
-}
+.calendar-day.wedding-day::before {
 
-.calendar-day.is-wedding-day::before {
   content: "";
 
   position: absolute;
 
-  width: 36px;
-  height: 36px;
+  width: 33px;
+  height: 33px;
 
-  border: 1px solid rgba(52,49,45,0.45);
+  border:
+    1px solid
+    rgba(53,49,44,0.42);
 
   border-radius: 50%;
+
+  z-index: -1;
+}
+
+
+.calendar-note {
+
+  margin-top: 30px;
+
+  padding-top: 22px;
+
+  border-top:
+    1px solid
+    var(--line);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 16px;
+}
+
+
+.calendar-note > span {
+
+  font-family:
+    var(--english);
+
+  font-size: 35px;
+
+  line-height: 1;
+}
+
+
+.calendar-note strong {
+
+  display: block;
+
+  font-family:
+    var(--chinese);
+
+  font-size: 13px;
+
+  font-weight: normal;
+}
+
+
+.calendar-note small {
+
+  display: block;
+
+  margin-top: 5px;
+
+  font-family:
+    var(--chinese);
+
+  font-size: 10px;
+
+  color:
+    var(--muted);
 }
 
 
@@ -628,43 +1193,69 @@ section {
 ========================================================= */
 
 .countdown {
-  width: min(88%, 620px);
 
-  margin: 72px auto 0;
-
-  display: grid;
-
-  grid-template-columns: repeat(4, 1fr);
-
-  border-top: 1px solid var(--line);
-
-  border-bottom: 1px solid var(--line);
-}
-
-.countdown-item {
-  padding: 24px 6px 21px;
+  margin:
+    65px auto 0;
 
   text-align: center;
 }
 
-.countdown-number {
-  font-family: var(--english);
 
-  font-size: clamp(27px, 7vw, 44px);
+.countdown-label {
+
+  font-family:
+    var(--english);
+
+  font-size: 8px;
+
+  letter-spacing:
+    0.32em;
+
+  color:
+    var(--muted);
+}
+
+
+.countdown-number {
+
+  margin-top: 15px;
+
+  font-family:
+    var(--english);
+
+  font-size:
+    clamp(50px, 13vw, 82px);
 
   line-height: 1;
 }
 
-.countdown-label {
-  margin-top: 10px;
 
-  font-family: var(--english);
+.countdown-number small {
 
-  font-size: 7px;
+  font-size: 9px;
 
-  letter-spacing: 0.2em;
+  letter-spacing:
+    0.25em;
 
-  color: var(--muted);
+  color:
+    var(--muted);
+}
+
+
+.countdown-cn {
+
+  margin-top: 9px;
+
+  font-family:
+    var(--chinese);
+
+  font-size: 12px;
+
+  letter-spacing:
+    0.14em;
+
+  color:
+    var(--soft);
 }
 
 
@@ -673,53 +1264,154 @@ section {
 ========================================================= */
 
 .moments {
-  padding: 120px 0;
 
   background:
     linear-gradient(
-      180deg,
-      #f3eee6 0%,
-      #eee7dc 100%
+      145deg,
+      #eee6d9,
+      #f8f4ed
     );
 }
 
-.photo-gallery {
-  width: min(92%, 1000px);
 
-  margin: 60px auto 0;
+.photo-main {
 
-  display: grid;
+  margin-top: 60px;
 
-  grid-template-columns: repeat(2, 1fr);
-
-  gap: 10px;
-}
-
-.photo-item {
-  overflow: hidden;
-
-  background: #e9e2d7;
+  width: 100%;
 
   aspect-ratio: 4 / 5;
+
+  background:
+    #e5ddd0;
+
+  overflow: hidden;
 }
 
-.photo-item img {
+
+.photo-placeholder {
+
   width: 100%;
   height: 100%;
 
-  object-fit: cover;
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border:
+    1px solid
+    rgba(53,49,44,0.08);
+
+  color:
+    var(--muted);
+
+  background:
+
+    radial-gradient(
+      circle at 50% 30%,
+      rgba(255,255,255,0.5),
+      transparent 55%
+    );
 }
 
+
+.photo-placeholder span {
+
+  font-family:
+    var(--english);
+
+  font-size: 10px;
+
+  letter-spacing:
+    0.35em;
+}
+
+
+.photo-placeholder small {
+
+  margin-top: 8px;
+
+  font-family:
+    var(--chinese);
+
+  font-size: 11px;
+}
+
+
 .photo-caption {
-  margin-top: 10px;
 
-  font-family: var(--chinese);
+  padding:
+    17px 2px
+    28px;
+}
 
-  font-size: 12px;
 
-  letter-spacing: 0.08em;
+.caption-en {
 
-  color: var(--soft-ink);
+  font-family:
+    var(--english);
+
+  font-size: 13px;
+
+  letter-spacing:
+    0.06em;
+}
+
+
+.caption-cn {
+
+  margin-top: 5px;
+
+  font-family:
+    var(--chinese);
+
+  font-size: 11px;
+
+  color:
+    var(--soft);
+}
+
+
+.photo-strip {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 8px;
+}
+
+
+.photo-item {
+
+  aspect-ratio: 3 / 4;
+
+  overflow: hidden;
+
+  background:
+    #e3dbcf;
+}
+
+
+.swipe-text {
+
+  margin-top: 16px;
+
+  font-family:
+    var(--english);
+
+  font-size: 7px;
+
+  letter-spacing:
+    0.28em;
+
+  color:
+    var(--muted);
 }
 
 
@@ -727,36 +1419,113 @@ section {
    STORY
 ========================================================= */
 
-.our-story {
-  padding: 125px 0;
+.story-section {
 
-  background: var(--paper-light);
+  min-height: 82svh;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding:
+    130px 0;
+
+  background:
+    #f8f4ec;
 }
 
-.our-story h2 {
-  font-family: var(--english);
+
+.story-wash {
+
+  position: absolute;
+
+  width: 520px;
+  height: 520px;
+
+  border-radius: 50%;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(226,213,194,0.38),
+      transparent 68%
+    );
 }
+
 
 .story-inner {
-  width: min(86%, 680px);
 
-  margin: 60px auto 0;
+  position: relative;
+
+  z-index: 2;
+
+  width:
+    min(88%, 700px);
 
   text-align: center;
 }
 
-.story-inner p {
+
+.story-inner h2 {
+
   margin: 0;
 
-  font-family: var(--chinese);
+  font-family:
+    var(--english);
 
-  font-size: 16px;
+  font-size:
+    clamp(40px, 10vw, 78px);
 
-  line-height: 2.15;
+  font-weight:
+    normal;
 
-  letter-spacing: 0.08em;
+  line-height:
+    1.04;
+}
 
-  color: var(--soft-ink);
+
+.story-inner h2 em {
+
+  font-style:
+    normal;
+
+  color:
+    var(--soft);
+}
+
+
+.story-copy {
+
+  margin-top: 52px;
+}
+
+
+.story-copy p {
+
+  margin:
+    0 0 18px;
+
+  font-family:
+    var(--chinese);
+
+  font-size: 15px;
+
+  line-height:
+    2.1;
+
+  letter-spacing:
+    0.1em;
+
+  color:
+    var(--soft);
 }
 
 
@@ -764,31 +1533,29 @@ section {
    WEDDING SCHEDULE
 ========================================================= */
 
-.schedule-section {
-  padding: 125px 0;
+.wedding {
 
   background:
-    linear-gradient(
-      180deg,
-      #eee8de 0%,
-      #f7f3ec 100%
-    );
+    var(--paper-light);
 }
 
-#schedule {
+
+.schedule {
+
   position: relative;
 
-  width: min(90%, 720px);
+  width:
+    min(100%, 700px);
 
-  margin: 72px auto 0;
-
-  padding: 10px 0;
+  margin:
+    72px auto 0;
 }
 
 
-/* 中间时间轴 */
+/* 中间轴 */
 
-#schedule::before {
+.schedule::before {
+
   content: "";
 
   position: absolute;
@@ -800,50 +1567,48 @@ section {
 
   width: 1px;
 
-  background: rgba(52,49,45,0.18);
+  transform:
+    translateX(-50%);
 
-  transform: translateX(-50%);
+  background:
+    rgba(53,49,44,0.18);
 }
 
 
-/* 每一项 */
-
 .schedule-item {
+
   position: relative;
+
+  min-height: 150px;
 
   display: grid;
 
-  grid-template-columns: 1fr 56px 1fr;
+  grid-template-columns:
+    1fr 44px 1fr;
 
   align-items: center;
-
-  min-height: 145px;
 }
 
 
-/* 时间 */
-
 .schedule-time {
-  grid-column: 1;
 
-  padding-right: 27px;
+  grid-column: 1;
 
   text-align: right;
 
-  font-family: var(--english);
+  padding-right: 22px;
 
-  font-size: clamp(37px, 9vw, 61px);
+  font-family:
+    var(--english);
+
+  font-size:
+    clamp(34px, 9vw, 56px);
 
   line-height: 1;
-
-  letter-spacing: 0.01em;
 }
 
 
-/* 中间圆点 */
-
-.schedule-item::before {
-  content: "";
+.schedule-dot {
 
   grid-column: 2;
 
@@ -851,53 +1616,62 @@ section {
 
   justify-self: center;
 
-  width: 11px;
-  height: 11px;
+  width: 10px;
+  height: 10px;
 
-  border: 1px solid rgba(52,49,45,0.48);
+  border:
+    1px solid
+    rgba(53,49,44,0.5);
 
   border-radius: 50%;
 
-  background: var(--paper);
+  background:
+    var(--paper-light);
 
-  z-index: 2;
+  z-index: 3;
 }
 
 
-/* 右侧内容 */
+.schedule-content {
 
-.schedule-info {
   grid-column: 3;
 
-  padding-left: 27px;
+  padding-left: 22px;
 }
 
 
-/* 中文标题 */
+.schedule-content strong {
 
-.schedule-title {
-  font-family: var(--chinese);
+  display: block;
 
-  font-size: 19px;
+  font-family:
+    var(--chinese);
 
-  line-height: 1.6;
+  font-size: 18px;
 
-  letter-spacing: 0.12em;
+  font-weight: normal;
+
+  letter-spacing:
+    0.13em;
 }
 
 
-/* 英文 */
+.schedule-content span {
 
-.schedule-en {
-  margin-top: 5px;
+  display: block;
 
-  font-family: var(--english);
+  margin-top: 7px;
+
+  font-family:
+    var(--english);
 
   font-size: 8px;
 
-  letter-spacing: 0.25em;
+  letter-spacing:
+    0.25em;
 
-  color: var(--muted);
+  color:
+    var(--muted);
 }
 
 
@@ -906,256 +1680,693 @@ section {
 ========================================================= */
 
 .location-section {
-  padding: 125px 0;
 
-  background: var(--paper-light);
+  padding:
+    125px 0
+    135px;
+
+  background:
+    linear-gradient(
+      160deg,
+      #f1ebe1,
+      #faf7f0
+    );
 }
 
-.location-card {
-  width: min(90%, 760px);
 
-  margin: 65px auto 0;
+.location-inner {
+
+  width:
+    min(90%, 760px);
+
+  margin:
+    0 auto;
 
   text-align: center;
 }
 
-.venue-name {
-  font-family: var(--chinese);
 
-  font-size: 24px;
+.location-title {
 
-  line-height: 1.6;
+  margin-top: 34px;
 
-  letter-spacing: 0.12em;
+  font-family:
+    var(--chinese);
+
+  font-size:
+    clamp(27px, 7vw, 40px);
+
+  letter-spacing:
+    0.13em;
 }
 
-.venue-address {
-  margin-top: 14px;
 
-  font-family: var(--chinese);
+.location-en {
+
+  margin-top: 10px;
+
+  font-family:
+    var(--english);
+
+  font-size: 9px;
+
+  letter-spacing:
+    0.3em;
+
+  color:
+    var(--muted);
+}
+
+
+.location-address {
+
+  margin-top: 21px;
+
+  font-family:
+    var(--chinese);
 
   font-size: 13px;
 
-  line-height: 1.8;
+  line-height: 1.9;
 
-  letter-spacing: 0.06em;
+  letter-spacing:
+    0.08em;
 
-  color: var(--soft-ink);
+  color:
+    var(--soft);
 }
 
 
-/* 地图 */
+/* =========================================================
+   MAP IMAGE
+========================================================= */
 
-.location-map-image {
+.map-image-link {
+
+  position: relative;
+
   display: block;
 
-  width: 100%;
-
-  margin-top: 35px;
+  margin-top: 38px;
 
   overflow: hidden;
 
-  border: 1px solid rgba(52,49,45,0.12);
+  border:
+    1px solid
+    rgba(53,49,44,0.14);
 
-  background: #ebe5db;
+  background:
+    #e4ddd1;
 }
 
-.location-map-image img {
+
+.location-map {
+
   width: 100%;
 
   aspect-ratio: 16 / 10;
 
   object-fit: cover;
 
-  transition: transform 0.5s ease;
-}
-
-.location-map-image:hover img {
-  transform: scale(1.015);
+  transition:
+    transform 0.7s ease;
 }
 
 
-/* 导航按钮 */
+.map-image-link:hover
+.location-map {
 
-.navigation-button {
-  display: inline-flex;
+  transform:
+    scale(1.025);
+}
+
+
+.map-image-caption {
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  padding:
+    14px 17px;
+
+  display: flex;
+
+  justify-content: space-between;
 
   align-items: center;
-  justify-content: center;
 
-  gap: 10px;
+  background:
+    linear-gradient(
+      transparent,
+      rgba(35,31,27,0.48)
+    );
 
-  margin-top: 27px;
+  color: white;
 
-  padding: 14px 24px;
-
-  border: 1px solid rgba(52,49,45,0.25);
-
-  background: transparent;
-
-  transition:
-    background 0.3s ease,
-    transform 0.3s ease;
+  text-align: left;
 }
 
-.navigation-button:hover {
-  background: rgba(255,255,255,0.65);
 
-  transform: translateY(-2px);
+.map-image-caption span {
+
+  font-family:
+    var(--chinese);
+
+  font-size: 12px;
 }
 
-.navigation-button span:first-child {
-  font-family: var(--chinese);
 
-  font-size: 13px;
+.map-image-caption small {
 
-  letter-spacing: 0.12em;
-}
+  font-family:
+    var(--english);
 
-.navigation-button span:last-child {
-  font-family: var(--english);
+  font-size: 7px;
 
-  font-size: 8px;
-
-  letter-spacing: 0.2em;
-
-  color: var(--muted);
+  letter-spacing:
+    0.18em;
 }
 
 
 /* =========================================================
-   WITH US / RSVP
+   MAP BUTTON
 ========================================================= */
 
-.with-us {
-  padding: 125px 0 140px;
+.map-link {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 25px;
+
+  padding:
+    14px 25px;
+
+  border:
+    1px solid
+    rgba(53,49,44,0.27);
 
   background:
-    linear-gradient(
-      180deg,
-      #f1ebe1 0%,
-      #eae2d5 100%
-    );
+    rgba(255,255,255,0.25);
+
+  transition:
+    all 0.3s ease;
 }
 
-.with-us h2 {
-  font-family: var(--chinese);
 
-  font-size: clamp(27px, 7vw, 45px);
+.map-link:hover {
 
-  line-height: 1.55;
+  background:
+    rgba(255,255,255,0.65);
 
-  letter-spacing: 0.08em;
+  transform:
+    translateY(-2px);
 }
 
-.with-us-heading p {
-  margin-top: 17px;
 
-  font-family: var(--chinese);
+.map-link span {
+
+  font-family:
+    var(--chinese);
 
   font-size: 13px;
 
-  line-height: 1.9;
-
-  letter-spacing: 0.08em;
-
-  color: var(--soft-ink);
+  letter-spacing:
+    0.15em;
 }
 
 
-/* RSVP form */
+.map-link small {
 
-.rsvp-form {
-  width: min(88%, 560px);
+  font-family:
+    var(--english);
 
-  margin: 55px auto 0;
+  font-size: 7px;
+
+  letter-spacing:
+    0.2em;
+
+  color:
+    var(--muted);
 }
 
-.form-group {
-  margin-bottom: 23px;
+
+/* =========================================================
+   RSVP
+========================================================= */
+
+.rsvp-section {
+
+  padding:
+    125px 0
+    145px;
+
+  background:
+    #eee7dc;
 }
 
-.form-label {
+
+.rsvp-inner {
+
+  width:
+    min(88%, 620px);
+
+  margin:
+    0 auto;
+}
+
+
+.rsvp-inner > .eyebrow,
+.rsvp-inner > h2,
+.rsvp-intro {
+
+  text-align: center;
+}
+
+
+.rsvp-inner h2 {
+
+  margin: 0;
+
+  font-family:
+    var(--english);
+
+  font-size:
+    clamp(40px, 10vw, 68px);
+
+  font-weight:
+    normal;
+
+  line-height:
+    1.02;
+}
+
+
+.rsvp-intro {
+
+  margin-top: 20px;
+
+  font-family:
+    var(--chinese);
+
+  font-size: 13px;
+
+  letter-spacing:
+    0.12em;
+
+  color:
+    var(--soft);
+}
+
+
+/* =========================================================
+   RSVP QUESTION
+========================================================= */
+
+.rsvp-question {
+
+  margin-top: 58px;
+
+  padding-top: 26px;
+
+  border-top:
+    1px solid
+    var(--line);
+}
+
+
+.question-title {
+
+  font-family:
+    var(--chinese);
+
+  font-size: 14px;
+
+  letter-spacing:
+    0.08em;
+}
+
+
+.attendance-options {
+
+  margin-top: 18px;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 10px;
+}
+
+
+.attendance-option {
+
+  padding:
+    17px 10px;
+
+  border:
+    1px solid
+    rgba(53,49,44,0.18);
+
+  background:
+    rgba(255,255,255,0.22);
+
+  cursor: pointer;
+
+  text-align: center;
+}
+
+
+.attendance-option.selected {
+
+  background:
+    rgba(255,255,255,0.72);
+
+  border-color:
+    rgba(53,49,44,0.5);
+}
+
+
+.option-cn {
+
   display: block;
 
-  margin-bottom: 9px;
+  font-family:
+    var(--chinese);
 
-  font-family: var(--chinese);
+  font-size: 13px;
+}
+
+
+.option-en {
+
+  display: block;
+
+  margin-top: 6px;
+
+  font-family:
+    var(--english);
+
+  font-size: 7px;
+
+  letter-spacing:
+    0.16em;
+
+  color:
+    var(--muted);
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.rsvp-form {
+
+  margin-top: 35px;
+}
+
+
+.rsvp-name-field label,
+.attending-fields label {
+
+  display: block;
+
+  font-family:
+    var(--chinese);
 
   font-size: 12px;
 
-  letter-spacing: 0.1em;
+  letter-spacing:
+    0.08em;
 
-  color: var(--soft-ink);
+  color:
+    var(--soft);
 }
 
-.form-input,
-.form-select,
-.form-textarea {
+
+.rsvp-name-field input,
+.attending-fields select,
+.stay-date input {
+
   width: 100%;
 
-  padding: 13px 0;
+  margin-top: 9px;
+
+  padding:
+    12px 0;
 
   border: 0;
 
-  border-bottom: 1px solid rgba(52,49,45,0.22);
+  border-bottom:
+    1px solid
+    rgba(53,49,44,0.22);
 
   outline: none;
 
-  background: transparent;
+  background:
+    transparent;
 
-  color: var(--ink);
+  color:
+    var(--ink);
 
-  font-family: var(--chinese);
+  font-family:
+    var(--chinese);
 
   font-size: 14px;
 
   border-radius: 0;
 }
 
-.form-input:focus,
-.form-select:focus,
-.form-textarea:focus {
-  border-bottom-color: rgba(52,49,45,0.65);
+
+.attending-fields {
+
+  display: none;
+
+  margin-top: 27px;
 }
 
-.rsvp-submit {
-  width: 100%;
+
+.rsvp-form.active
+.attending-fields {
+
+  display: block;
+}
+
+
+.field-note {
+
+  margin-bottom: 22px;
+
+  font-family:
+    var(--chinese);
+
+  font-size: 11px;
+
+  color:
+    var(--muted);
+}
+
+
+.field-title {
+
+  margin-top: 27px;
+
+  font-family:
+    var(--chinese);
+
+  font-size: 12px;
+
+  color:
+    var(--soft);
+}
+
+
+.stay-options {
 
   margin-top: 12px;
 
-  padding: 15px;
+  display: flex;
 
-  border: 1px solid rgba(52,49,45,0.28);
+  gap: 9px;
+}
 
-  background: rgba(255,255,255,0.28);
+
+.stay-options button {
+
+  padding:
+    10px 25px;
+
+  border:
+    1px solid
+    rgba(53,49,44,0.18);
+
+  background:
+    transparent;
 
   cursor: pointer;
 
-  font-family: var(--chinese);
+  font-family:
+    var(--chinese);
+
+  font-size: 12px;
+}
+
+
+.stay-options button.selected {
+
+  background:
+    rgba(255,255,255,0.6);
+
+  border-color:
+    rgba(53,49,44,0.45);
+}
+
+
+.stay-date {
+
+  display: none;
+
+  margin-top: 20px;
+}
+
+
+.message-field {
+
+  display: block;
+
+  margin-top: 35px;
+}
+
+
+.message-field > span {
+
+  display: block;
+
+  margin-bottom: 10px;
+
+  font-family:
+    var(--chinese);
+
+  font-size: 12px;
+
+  color:
+    var(--soft);
+}
+
+
+.message-field textarea {
+
+  width: 100%;
+
+  padding:
+    12px 0;
+
+  resize: vertical;
+
+  border:
+    0;
+
+  border-bottom:
+    1px solid
+    rgba(53,49,44,0.22);
+
+  outline: none;
+
+  background:
+    transparent;
+
+  font-family:
+    var(--chinese);
+
+  font-size: 14px;
+
+  line-height: 1.8;
+}
+
+
+.rsvp-submit {
+
+  width: 100%;
+
+  margin-top: 28px;
+
+  padding:
+    17px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 6px;
+
+  border:
+    1px solid
+    rgba(53,49,44,0.27);
+
+  background:
+    rgba(255,255,255,0.28);
+
+  cursor: pointer;
+}
+
+
+.rsvp-submit span {
+
+  font-family:
+    var(--chinese);
 
   font-size: 13px;
 
-  letter-spacing: 0.18em;
+  letter-spacing:
+    0.18em;
 }
 
+
+.rsvp-submit small {
+
+  font-family:
+    var(--english);
+
+  font-size: 7px;
+
+  letter-spacing:
+    0.22em;
+
+  color:
+    var(--muted);
+}
+
+
 .rsvp-success {
+
   display: none;
 
-  margin-top: 22px;
+  margin-top: 20px;
 
   text-align: center;
 
-  font-family: var(--chinese);
+  font-family:
+    var(--chinese);
 
   font-size: 13px;
 
-  letter-spacing: 0.08em;
-
-  color: var(--soft-ink);
+  letter-spacing:
+    0.08em;
 }
 
+
 .rsvp-success.show {
+
   display: block;
 }
 
@@ -1165,161 +2376,313 @@ section {
 ========================================================= */
 
 .final-section {
+
   min-height: 100svh;
 
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
-  padding: 100px 25px;
+  padding:
+    100px 25px;
 
   background:
+
     radial-gradient(
-      circle at 50% 42%,
-      rgba(255,255,255,0.98),
-      rgba(247,243,236,0.92) 52%,
-      rgba(237,230,219,1) 100%
-    );
+      ellipse at center,
+      rgba(255,255,255,0.95),
+      transparent 65%
+    ),
+
+    #eee7db;
 }
 
-.final-inner {
+
+.final-wash {
+
+  position: absolute;
+
+  width: 600px;
+  height: 600px;
+
+  border:
+    1px solid
+    rgba(53,49,44,0.06);
+
+  border-radius: 50%;
+}
+
+
+.final-content {
+
   position: relative;
 
-  width: min(100%, 600px);
+  width:
+    min(100%, 570px);
 
-  padding: 75px 25px;
+  padding:
+    80px 25px;
 
   text-align: center;
+
+  border:
+    1px solid
+    rgba(53,49,44,0.12);
 }
 
 
-/* 外框 */
+.final-content::before {
 
-.final-inner::before {
   content: "";
 
   position: absolute;
 
-  inset: 20px 5px;
+  inset: 10px;
 
-  border: 1px solid rgba(52,49,45,0.1);
+  border:
+    1px solid
+    rgba(53,49,44,0.055);
 
   pointer-events: none;
 }
 
 
-/* 小标题 */
+.final-en {
 
-.final-eyebrow {
-  font-family: var(--english);
+  font-family:
+    var(--english);
 
-  font-size: 9px;
+  font-size: 10px;
 
-  letter-spacing: 0.35em;
+  letter-spacing:
+    0.34em;
 
-  color: var(--muted);
+  color:
+    var(--muted);
 }
 
-
-/* 中间线 */
 
 .final-line {
-  width: 55px;
+
+  width: 45px;
   height: 1px;
 
-  margin: 24px auto 32px;
+  margin:
+    27px auto 31px;
 
-  background: rgba(52,49,45,0.25);
+  background:
+    rgba(53,49,44,0.25);
 }
 
 
-/* 感谢语 */
+.final-main {
 
-.final-thank {
-  font-family: var(--chinese);
+  font-family:
+    var(--chinese);
 
-  font-size: clamp(25px, 7vw, 39px);
+  font-size:
+    clamp(26px, 7vw, 40px);
 
-  line-height: 1.8;
+  line-height:
+    1.8;
 
-  letter-spacing: 0.1em;
-
-  color: var(--ink);
+  letter-spacing:
+    0.12em;
 }
 
-
-/* 小英文 */
 
 .final-small {
-  width: min(100%, 330px);
 
-  margin: 32px auto 0;
+  width:
+    min(100%, 320px);
 
-  font-family: var(--english);
+  margin:
+    30px auto 0;
 
-  font-size: 8px;
+  font-family:
+    var(--english);
 
-  line-height: 1.8;
+  font-size: 7px;
 
-  letter-spacing: 0.22em;
+  line-height:
+    1.8;
 
-  color: var(--muted);
+  letter-spacing:
+    0.23em;
+
+  color:
+    var(--muted);
 }
 
-
-/* 新人名字 */
-
-.final-names {
-  margin-top: 55px;
-
-  font-family: var(--english);
-
-  font-size: clamp(17px, 5vw, 24px);
-
-  letter-spacing: 0.22em;
-}
-
-.final-names span {
-  margin: 0 7px;
-
-  color: var(--muted);
-}
-
-
-/* 日期 */
 
 .final-date {
-  margin-top: 14px;
 
-  font-family: var(--english);
+  margin-top: 48px;
 
-  font-size: 9px;
+  font-family:
+    var(--english);
 
-  letter-spacing: 0.32em;
+  font-size: 10px;
 
-  color: var(--muted);
+  letter-spacing:
+    0.3em;
+}
+
+
+.final-place {
+
+  margin-top: 12px;
+
+  font-family:
+    var(--chinese);
+
+  font-size: 12px;
+
+  letter-spacing:
+    0.12em;
+
+  color:
+    var(--soft);
 }
 
 
 /* =========================================================
-   REVEAL ANIMATION
+   MOBILE
 ========================================================= */
 
-.reveal {
-  opacity: 0;
+@media (max-width: 520px) {
 
-  transform: translateY(25px);
+  .hero {
+    padding:
+      65px 18px
+      65px;
+  }
 
-  transition:
-    opacity 0.9s ease,
-    transform 0.9s ease;
-}
 
-.reveal.is-visible {
-  opacity: 1;
+  .hero::before {
+    inset: 11px;
+  }
 
-  transform: translateY(0);
+
+  .hero::after {
+    inset: 18px;
+  }
+
+
+  .hero-date {
+    gap: 15px;
+  }
+
+
+  .hero-date-side {
+    min-width: 124px;
+  }
+
+
+  .hero-date-sub {
+    gap: 7px;
+  }
+
+
+  .hero-date-lunar {
+    font-size: 11px;
+  }
+
+
+  .hero-date-week-cn {
+    font-size: 12px;
+  }
+
+
+  .editorial-section {
+    padding:
+      105px 0
+      115px;
+  }
+
+
+  .section-number {
+    top: 27px;
+    left: 6%;
+  }
+
+
+  .calendar-area {
+    padding:
+      28px 14px;
+  }
+
+
+  .calendar-day {
+    min-height: 37px;
+  }
+
+
+  .calendar-note {
+    gap: 11px;
+  }
+
+
+  .calendar-note > span {
+    font-size: 30px;
+  }
+
+
+  .photo-strip {
+    gap: 6px;
+  }
+
+
+  .schedule-item {
+    min-height: 130px;
+
+    grid-template-columns:
+      1fr 34px 1.12fr;
+  }
+
+
+  .schedule-time {
+    padding-right: 15px;
+
+    font-size: 31px;
+  }
+
+
+  .schedule-content {
+    padding-left: 15px;
+  }
+
+
+  .schedule-content strong {
+    font-size: 16px;
+  }
+
+
+  .schedule-content span {
+    font-size: 6px;
+  }
+
+
+  .location-section {
+    padding:
+      110px 0
+      120px;
+  }
+
+
+  .attendance-options {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .final-content {
+    padding:
+      70px 18px;
+  }
+
 }
 
 
@@ -1329,112 +2692,39 @@ section {
 
 @media (min-width: 768px) {
 
-  .hero {
-    padding-top: 90px;
+  .hero-date-big {
+    font-size: 125px;
   }
 
-  .guest-invitation {
-    margin-bottom: 42px;
+
+  .hero-date-side {
+    min-width: 180px;
   }
 
-  .guest-name {
-    font-size: 40px;
+
+  .photo-main {
+    aspect-ratio: 16 / 10;
   }
 
-  .couple-en {
-    font-size: 57px;
+
+  .photo-strip {
+    grid-template-columns:
+      repeat(4, 1fr);
   }
 
-  .hero-date-number {
-    font-size: 86px;
-  }
-
-  .hero-date-lunar {
-    font-size: 18px;
-  }
-
-  .hero-date-week-cn {
-    font-size: 19px;
-  }
-
-  .photo-gallery {
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 14px;
-  }
 
   .schedule-item {
     min-height: 165px;
   }
 
-  .schedule-time {
-    font-size: 61px;
-  }
-
-  .schedule-title {
-    font-size: 22px;
-  }
-
-  .final-inner {
-    padding: 100px 50px;
-  }
-
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 480px) {
-
-  .hero {
-    padding-left: 18px;
-    padding-right: 18px;
-  }
-
-  .hero-date-sub {
-    gap: 11px;
-  }
-
-  .hero-date-lunar {
-    font-size: 1rem;
-  }
-
-  .hero-date-week-cn {
-    font-size: 1.08rem;
-  }
-
-  .calendar {
-    gap: 4px;
-  }
-
-  .schedule-item {
-    grid-template-columns: 1fr 40px 1.1fr;
-  }
 
   .schedule-time {
-    padding-right: 15px;
-
-    font-size: 35px;
+    font-size: 57px;
   }
 
-  .schedule-info {
-    padding-left: 15px;
-  }
 
-  .schedule-title {
-    font-size: 17px;
-  }
-
-  .schedule-en {
-    font-size: 7px;
-
-    letter-spacing: 0.18em;
-  }
-
-  .final-inner::before {
-    inset: 25px 0;
+  .schedule-content strong {
+    font-size: 21px;
   }
 
 }
@@ -1453,14 +2743,11 @@ section {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation-duration:
+      0.01ms !important;
+
+    transition-duration:
+      0.01ms !important;
   }
 
-  .reveal {
-    opacity: 1;
-
-    transform: none;
-  }
 }
