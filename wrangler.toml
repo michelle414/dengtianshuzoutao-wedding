@@ -1,5 +1,13 @@
 name = "dengtianshuzoutao-wedding"
+main = "worker.js"
 compatibility_date = "2026-09-20"
 
 [assets]
 directory = "./public"
+binding = "ASSETS"
+run_worker_first = ["/api/*"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "wedding-guests"
+database_id = "c07f6631-6b3f-408b-bef2-f020acdb75d8"
