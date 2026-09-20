@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    music.volume = 0.45;
+    music.volume = 0.25;
 
   }
 
@@ -261,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!music) return;
 
-    music.volume = 0.45;
+    music.volume = 0.25;
 
     const playPromise =
       music.play();
