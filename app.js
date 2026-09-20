@@ -17,14 +17,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const params = new URLSearchParams(window.location.search);
 
-  const guestName = params.get("guest");
+  const params = new URLSearchParams(window.location.search);
+const guestName = params.get("guest");
 
-  const guestGreeting = document.getElementById("guestGreeting");
+const guestCard = document.getElementById("guestCard");
+const guestNameElement = document.getElementById("guestName");
 
-  if (guestName && guestGreeting) {
-    guestGreeting.textContent = `${guestName}，诚邀您出席`;
-  }
+if (guestName && guestName.trim()) {
+  const cleanGuestName = guestName.trim();
 
+  guestNameElement.textContent = cleanGuestName;
+} else {
+  guestCard.style.display = "none";
+}
 
   /* =====================================================
      2. 开启请柬
