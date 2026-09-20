@@ -1,14 +1,15 @@
-```css
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500&display=swap');
 
+
+/* =====================================================
+   01 · VARIABLES
+===================================================== */
+
 :root {
-  /* =========================
-     BRIGHT MONET PALETTE
-     ========================= */
 
   --ivory: #faf7ee;
   --paper: #f5f1e5;
-  --cream: #f1e8cf;
+  --white: #fffdf7;
 
   --sky: #c7dfe0;
   --water: #9fc5c3;
@@ -22,16 +23,14 @@
   --sunlight: #eadcae;
   --gold: #b9a36c;
 
-  --ink: #4a5551;
+  --ink: #43534e;
   --soft-ink: #747d76;
-
-  --white: #fffdf7;
 }
 
 
-/* =========================
-   BASE
-========================= */
+/* =====================================================
+   02 · BASE
+===================================================== */
 
 * {
   box-sizing: border-box;
@@ -47,17 +46,17 @@ body {
   background:
     radial-gradient(
       circle at 12% 12%,
-      rgba(234, 220, 174, 0.22),
+      rgba(234, 220, 174, 0.24),
       transparent 28%
     ),
     radial-gradient(
       circle at 88% 28%,
-      rgba(199, 223, 224, 0.25),
+      rgba(199, 223, 224, 0.28),
       transparent 32%
     ),
     radial-gradient(
       circle at 40% 90%,
-      rgba(184, 200, 168, 0.16),
+      rgba(184, 200, 168, 0.18),
       transparent 30%
     ),
     var(--ivory);
@@ -90,14 +89,14 @@ textarea {
 }
 
 
-/* =========================
-   MUSIC BUTTON
-========================= */
+/* =====================================================
+   03 · MUSIC
+===================================================== */
 
 .music-button {
   position: fixed;
 
-  z-index: 50;
+  z-index: 100;
 
   top: 22px;
   right: 22px;
@@ -105,37 +104,40 @@ textarea {
   width: 43px;
   height: 43px;
 
-  border: 1px solid rgba(255, 253, 247, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.75);
 
   border-radius: 50%;
 
-  background: rgba(74, 85, 81, 0.12);
+  background: rgba(63, 79, 73, 0.18);
 
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 
   color: var(--white);
 
-  font-family: "Cormorant Garamond", serif;
+  font-family:
+    "Cormorant Garamond",
+    serif;
 
   font-size: 19px;
 
   cursor: pointer;
 
   transition:
-    background 0.3s ease,
-    transform 0.3s ease;
+    transform 0.3s ease,
+    background 0.3s ease;
 }
 
 .music-button:hover {
-  background: rgba(74, 85, 81, 0.25);
-
   transform: rotate(8deg);
+
+  background: rgba(63, 79, 73, 0.28);
 }
 
 
-/* =========================
-   HERO
-========================= */
+/* =====================================================
+   04 · HERO
+===================================================== */
 
 .hero {
   position: relative;
@@ -153,31 +155,33 @@ textarea {
   background:
     linear-gradient(
       135deg,
-      rgba(199, 223, 224, 0.48),
-      rgba(250, 247, 238, 0.15),
-      rgba(184, 200, 168, 0.35)
+      rgba(199, 223, 224, 0.52),
+      rgba(250, 247, 238, 0.12),
+      rgba(184, 200, 168, 0.38)
     );
 }
+
+
+/* -----------------------------------------------------
+   HERO IMAGE
+----------------------------------------------------- */
 
 .hero-image {
   position: absolute;
 
-  inset: -3%;
+  inset: -4%;
 
-  background-image: url("./assets/hero.jpg");
+  background-image:
+    url("./assets/hero.jpg");
 
   background-size: cover;
 
   background-position: center;
 
-  /*
-    明亮、柔和、略带油画空气感
-  */
-
   filter:
-    saturate(0.82)
+    saturate(0.84)
     contrast(0.88)
-    brightness(1.10);
+    brightness(1.12);
 
   transform: scale(1.02);
 
@@ -186,6 +190,7 @@ textarea {
 }
 
 @keyframes heroBreath {
+
   from {
     transform: scale(1.02);
   }
@@ -193,12 +198,13 @@ textarea {
   to {
     transform: scale(1.07);
   }
+
 }
 
 
-/*
-  柔和的阳光雾层
-*/
+/* -----------------------------------------------------
+   HERO LIGHT
+----------------------------------------------------- */
 
 .hero-overlay {
   position: absolute;
@@ -206,237 +212,586 @@ textarea {
   inset: 0;
 
   background:
+
+    radial-gradient(
+      circle at 50% 28%,
+      rgba(255, 253, 247, 0.40),
+      transparent 38%
+    ),
+
     linear-gradient(
       180deg,
-      rgba(255, 253, 247, 0.08),
-      rgba(255, 253, 247, 0.00) 35%,
-      rgba(245, 241, 229, 0.25) 100%
+      rgba(255, 253, 247, 0.16),
+      rgba(255, 253, 247, 0.04) 42%,
+      rgba(245, 241, 229, 0.36) 100%
     );
 
   mix-blend-mode: screen;
 }
 
 
-/* =========================
-   HERO CONTENT
-========================= */
+/* =====================================================
+   05 · HERO CONTENT
+===================================================== */
 
 .hero-content {
+
   position: relative;
 
-  z-index: 2;
+  z-index: 5;
 
-  width: min(90%, 720px);
+  width: min(92%, 820px);
 
-  padding: 50px 20px;
+  min-height: 100svh;
 
-  text-align: center;
+  margin: 0 auto;
 
-  color: var(--white);
+  display: flex;
 
-  text-shadow:
-    0 1px 16px rgba(55, 70, 66, 0.20);
-}
-
-.hero-eyebrow {
-  margin-bottom: 22px;
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size:
-    clamp(14px, 2vw, 18px);
-
-  letter-spacing: 0.38em;
-
-  opacity: 0.94;
-}
-
-.hero-content h1 {
-  margin: 0;
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size:
-    clamp(52px, 13vw, 108px);
-
-  font-weight: 300;
-
-  letter-spacing: 0.045em;
-
-  line-height: 0.92;
-}
-
-.hero-names {
-  margin-top: 30px;
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size:
-    clamp(26px, 6vw, 48px);
-
-  font-weight: 400;
-
-  letter-spacing: 0.13em;
-}
-
-.hero-latin {
-  margin-top: 11px;
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size: 14px;
-
-  letter-spacing: 0.44em;
-
-  opacity: 0.90;
-}
-
-.hero-date {
-  margin-top: 36px;
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size: 23px;
-
-  letter-spacing: 0.18em;
-}
-
-.hero-lunar {
-  margin-top: 4px;
-
-  font-size: 13px;
-
-  letter-spacing: 0.18em;
-
-  opacity: 0.88;
-}
-
-.guest-greeting {
-  margin: 24px auto 0;
-
-  min-height: 1.9em;
-
-  font-size: 15px;
-
-  letter-spacing: 0.12em;
-}
-
-
-/* =========================
-   OPEN INVITATION
-========================= */
-
-.open-button {
-  display: inline-flex;
+  flex-direction: column;
 
   align-items: center;
 
   justify-content: center;
 
-  margin-top: 40px;
+  text-align: center;
 
-  min-width: 195px;
+  padding:
+    70px 0 60px;
 
-  padding: 13px 32px;
+  color: var(--white);
+
+  text-shadow:
+    0 2px 18px rgba(50, 67, 61, 0.22);
+}
+
+
+/* =====================================================
+   06 · WEDDING INVITATION
+===================================================== */
+
+.hero-kicker {
+
+  margin-bottom: 30px;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: 12px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.42em;
+
+  color:
+    rgba(255, 253, 247, 0.92);
+}
+
+
+/* =====================================================
+   07 · GUEST CARD
+   宾客姓名是独立视觉层
+===================================================== */
+
+.guest-card {
+
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: fit-content;
+
+  min-width: 270px;
+
+  max-width: 82vw;
+
+  padding:
+    18px 42px 20px;
+
+  margin:
+    0 auto 38px;
+
+  background:
+    rgba(255, 253, 247, 0.82);
 
   border:
     1px solid
+    rgba(255, 255, 255, 0.92);
+
+  box-shadow:
+
+    0 20px 60px
+    rgba(55, 72, 65, 0.16),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.95);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border-radius: 3px;
+
+  color: var(--ink);
+
+  text-shadow: none;
+
+  animation:
+    guestAppear 1.2s ease both;
+}
+
+
+/* -----------------------------------------------------
+   金色角线
+----------------------------------------------------- */
+
+.guest-card::before,
+.guest-card::after {
+
+  content: "";
+
+  position: absolute;
+
+  width: 30px;
+
+  height: 30px;
+
+  pointer-events: none;
+}
+
+.guest-card::before {
+
+  left: -1px;
+  top: -1px;
+
+  border-left:
+    1px solid
+    rgba(185, 163, 108, 0.72);
+
+  border-top:
+    1px solid
+    rgba(185, 163, 108, 0.72);
+}
+
+.guest-card::after {
+
+  right: -1px;
+  bottom: -1px;
+
+  border-right:
+    1px solid
+    rgba(185, 163, 108, 0.72);
+
+  border-bottom:
+    1px solid
+    rgba(185, 163, 108, 0.72);
+}
+
+
+/* -----------------------------------------------------
+   宾客姓名
+----------------------------------------------------- */
+
+.guest-name {
+
+  font-family:
+    "Noto Serif SC",
+    "Songti SC",
+    "STSong",
+    serif;
+
+  font-size:
+    clamp(2rem, 6vw, 3.2rem);
+
+  font-weight: 500;
+
+  line-height: 1.2;
+
+  letter-spacing: 0.16em;
+
+  color:
+    #354740;
+
+  white-space: normal;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* -----------------------------------------------------
+   姓名装饰线
+----------------------------------------------------- */
+
+.guest-line {
+
+  width: 65px;
+
+  height: 1px;
+
+  margin:
+    12px auto 10px;
+
+  background:
+    linear-gradient(
+      to right,
+      transparent,
+      rgba(185, 163, 108, 0.9),
+      transparent
+    );
+}
+
+
+/* -----------------------------------------------------
+   诚邀您出席
+----------------------------------------------------- */
+
+.guest-invite {
+
+  font-family:
+    "Noto Serif SC",
+    "Songti SC",
+    "STSong",
+    serif;
+
+  font-size: 13px;
+
+  letter-spacing: 0.34em;
+
+  color:
+    rgba(67, 83, 78, 0.84);
+}
+
+
+/* -----------------------------------------------------
+   宾客出现动画
+----------------------------------------------------- */
+
+@keyframes guestAppear {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(20px)
+      scale(0.97);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+  }
+
+}
+
+
+/* =====================================================
+   08 · COUPLE
+===================================================== */
+
+.couple-block {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  margin-bottom: 22px;
+}
+
+
+.couple-name {
+
+  font-family:
+    "Cormorant Garamond",
+    "Noto Serif SC",
+    Georgia,
+    serif;
+
+  font-size:
+    clamp(3rem, 8vw, 5.5rem);
+
+  font-weight: 400;
+
+  line-height: 1;
+
+  letter-spacing: 0.045em;
+
+  color:
+    var(--white);
+
+  text-shadow:
+    0 3px 22px
+    rgba(45, 62, 56, 0.28);
+}
+
+
+.couple-name span {
+
+  margin:
+    0 0.08em;
+
+  color:
+    #e2d2a4;
+
+  font-style: italic;
+}
+
+
+.couple-latin {
+
+  margin-top: 12px;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: 13px;
+
+  letter-spacing: 0.48em;
+
+  color:
+    rgba(255, 253, 247, 0.88);
+}
+
+
+/* =====================================================
+   09 · HERO DATE
+===================================================== */
+
+.hero-date {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  margin-bottom: 32px;
+}
+
+
+.date-main {
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size:
+    clamp(1.25rem, 4vw, 1.8rem);
+
+  letter-spacing: 0.24em;
+
+  color:
+    var(--white);
+}
+
+
+.date-sub {
+
+  margin-top: 4px;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: 11px;
+
+  letter-spacing: 0.20em;
+
+  color:
     rgba(255, 253, 247, 0.82);
+}
+
+
+/* =====================================================
+   10 · OPEN BUTTON
+===================================================== */
+
+.open-button {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-width: 210px;
+
+  padding:
+    12px 30px 13px;
+
+  border:
+    1px solid
+    rgba(255, 253, 247, 0.85);
 
   border-radius: 999px;
 
   background:
-    rgba(255, 253, 247, 0.16);
+    rgba(255, 253, 247, 0.18);
 
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 
-  color: var(--white);
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size: 17px;
-
-  letter-spacing: 0.18em;
+  color:
+    var(--white);
 
   cursor: pointer;
 
   transition:
     background 0.35s ease,
-    color 0.35s ease,
     transform 0.35s ease;
 }
 
-.open-button:hover {
-  background: rgba(255, 253, 247, 0.90);
 
-  color: var(--leaf);
+.open-button span {
 
-  transform: translateY(-2px);
+  font-family:
+    "Noto Serif SC",
+    "Songti SC",
+    serif;
+
+  font-size: 14px;
+
+  letter-spacing: 0.28em;
 }
 
-.scroll-hint {
-  position: absolute;
 
-  bottom: 25px;
+.open-button small {
 
-  left: 50%;
-
-  transform: translateX(-50%);
+  margin-top: 3px;
 
   font-family:
     "Cormorant Garamond",
+    Georgia,
     serif;
 
-  font-size: 12px;
+  font-size: 9px;
 
-  letter-spacing: 0.30em;
+  letter-spacing: 0.32em;
 
-  opacity: 0.78;
+  opacity: 0.72;
 }
 
 
-/* =========================
-   INVITATION
-========================= */
+.open-button:hover {
+
+  background:
+    rgba(255, 253, 247, 0.86);
+
+  color:
+    var(--leaf);
+
+  transform:
+    translateY(-2px);
+}
+
+
+/* =====================================================
+   11 · SCROLL HINT
+===================================================== */
+
+.scroll-hint {
+
+  position: absolute;
+
+  bottom: 22px;
+
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 4px;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: 10px;
+
+  letter-spacing: 0.30em;
+
+  color:
+    rgba(255, 253, 247, 0.82);
+}
+
+
+.scroll-hint span {
+
+  display: block;
+
+  width: 1px;
+
+  height: 28px;
+
+  background:
+    rgba(255, 253, 247, 0.72);
+}
+
+
+/* =====================================================
+   12 · MAIN INVITATION
+===================================================== */
 
 .invitation {
+
   background:
+
     radial-gradient(
       circle at 15% 8%,
       rgba(234, 220, 174, 0.22),
       transparent 27%
     ),
+
     radial-gradient(
       circle at 90% 38%,
       rgba(199, 223, 224, 0.22),
       transparent 30%
     ),
+
     radial-gradient(
       circle at 30% 82%,
       rgba(184, 200, 168, 0.18),
       transparent 28%
     ),
+
     var(--ivory);
 }
 
 
-/* =========================
-   SECTIONS
-========================= */
+/* =====================================================
+   13 · SECTIONS
+===================================================== */
 
 .section {
+
   position: relative;
 
   width:
@@ -445,39 +800,54 @@ textarea {
       1000px
     );
 
-  margin: 0 auto;
+  margin:
+    0 auto;
 
-  padding: 115px 0;
+  padding:
+    115px 0;
 }
 
+
 .section + .section {
+
   border-top:
     1px solid
     rgba(145, 165, 141, 0.13);
 }
 
+
 .section-label {
-  margin-bottom: 16px;
+
+  margin:
+    0 0 17px;
 
   font-family:
     "Cormorant Garamond",
+    Georgia,
     serif;
 
   font-size: 13px;
 
   letter-spacing: 0.40em;
 
-  color: var(--leaf);
-
-  text-transform: uppercase;
+  color:
+    var(--leaf);
 }
 
-.section-title {
+
+/* =====================================================
+   14 · GENERAL HEADINGS
+===================================================== */
+
+.section h2 {
+
   margin:
     0 0 32px;
 
   font-family:
     "Cormorant Garamond",
+    "Noto Serif SC",
+    Georgia,
     serif;
 
   font-size:
@@ -485,80 +855,108 @@ textarea {
 
   font-weight: 300;
 
+  line-height: 1.08;
+
   letter-spacing: 0.035em;
 
-  line-height: 1;
-}
-
-.section-intro {
-  max-width: 620px;
-
-  color: var(--soft-ink);
-
-  font-size: 15px;
+  color:
+    var(--ink);
 }
 
 
-/* =========================
-   DATE CARD
-========================= */
+.section h2 em {
 
-.date-card {
-  position: relative;
+  color:
+    var(--water);
 
-  padding: 76px 25px;
-
-  overflow: hidden;
-
-  text-align: center;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 253, 247, 0.90),
-      rgba(234, 220, 174, 0.16),
-      rgba(199, 223, 224, 0.18)
-    );
-
-  border:
-    1px solid
-    rgba(145, 165, 141, 0.16);
-
-  box-shadow:
-    0 25px 70px
-    rgba(103, 119, 110, 0.07);
+  font-style: italic;
 }
 
-.date-number {
+
+/* =====================================================
+   15 · DATE
+===================================================== */
+
+.big-date {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 25px;
+
+  margin:
+    35px 0 25px;
+}
+
+
+.big-date > span {
+
   font-family:
     "Cormorant Garamond",
+    Georgia,
     serif;
 
   font-size:
-    clamp(56px, 14vw, 115px);
+    clamp(70px, 15vw, 120px);
 
   font-weight: 300;
 
-  line-height: 0.9;
+  line-height: 0.8;
 
-  color: var(--water);
+  color:
+    var(--water);
 }
 
-.date-month {
-  margin-top: 16px;
+
+.big-date strong {
+
+  display: block;
 
   font-family:
     "Cormorant Garamond",
+    Georgia,
     serif;
 
-  font-size: 21px;
+  font-size: 22px;
 
-  letter-spacing: 0.30em;
+  letter-spacing: 0.28em;
 
-  color: var(--leaf);
+  color:
+    var(--leaf);
 }
 
+
+.big-date small {
+
+  display: block;
+
+  margin-top: 4px;
+
+  font-size: 11px;
+
+  letter-spacing: 0.18em;
+
+  color:
+    var(--soft-ink);
+}
+
+
+.chinese-date {
+
+  color:
+    var(--soft-ink);
+
+  font-size: 14px;
+}
+
+
+/* =====================================================
+   16 · COUNTDOWN
+===================================================== */
+
 .countdown {
+
   display: grid;
 
   grid-template-columns:
@@ -568,11 +966,17 @@ textarea {
 
   max-width: 580px;
 
-  margin: 52px auto 0;
+  margin:
+    50px auto 0;
 }
 
-.countdown-item {
-  padding: 20px 8px;
+
+.countdown > div {
+
+  padding:
+    20px 8px;
+
+  text-align: center;
 
   border-top:
     1px solid
@@ -583,144 +987,192 @@ textarea {
     rgba(145, 165, 141, 0.12);
 }
 
-.countdown-number {
+
+.countdown strong {
+
   font-family:
     "Cormorant Garamond",
+    Georgia,
     serif;
 
   font-size: 34px;
 
-  color: var(--water);
+  font-weight: 400;
+
+  color:
+    var(--water);
 }
 
-.countdown-label {
+
+.countdown span {
+
+  display: block;
+
   margin-top: 3px;
 
   font-size: 10px;
 
   letter-spacing: 0.17em;
 
-  color: var(--soft-ink);
+  color:
+    var(--soft-ink);
 }
 
 
-/* =========================
-   MOMENTS
-========================= */
+/* =====================================================
+   17 · PHOTOS
+===================================================== */
 
-.photo-main {
+.photo-frame {
+
   overflow: hidden;
 
-  background: var(--paper);
+  background:
+    var(--paper);
 
   box-shadow:
     0 28px 70px
     rgba(103, 119, 110, 0.10);
 }
 
-.photo-main img {
-  display: block;
+
+.large-photo {
 
   width: 100%;
 
-  height: auto;
-
-  filter:
-    saturate(0.84)
-    contrast(0.91)
-    brightness(1.06);
-
-  transition:
-    transform 1s ease;
+  min-height: 420px;
 }
 
-.photo-main:hover img {
-  transform: scale(1.025);
-}
 
-.photo-grid {
-  display: grid;
+.photo-placeholder {
 
-  grid-template-columns:
-    1fr 1fr;
+  width: 100%;
 
-  gap: 18px;
+  height: 100%;
 
-  margin-top: 18px;
-}
+  min-height: 420px;
 
-.photo-item {
-  overflow: hidden;
+  display: flex;
 
-  aspect-ratio: 4 / 5;
+  align-items: center;
+
+  justify-content: center;
 
   background:
+
     linear-gradient(
       135deg,
       rgba(199, 223, 224, 0.35),
       rgba(184, 200, 168, 0.28),
       rgba(229, 197, 189, 0.20)
     );
-}
 
-.photo-item img {
-  width: 100%;
-
-  height: 100%;
-
-  object-fit: cover;
-
-  filter:
-    saturate(0.84)
-    contrast(0.92)
-    brightness(1.06);
-}
-
-
-/* =========================
-   STORY
-========================= */
-
-.story {
-  max-width: 700px;
-}
-
-.story p {
-  margin:
-    0 0 25px;
-
-  color: var(--soft-ink);
-
-  font-size: 15px;
-}
-
-.story-dropcap:first-letter {
-  float: left;
-
-  margin:
-    8px 10px 0 0;
+  color:
+    rgba(74, 85, 81, 0.55);
 
   font-family:
     "Cormorant Garamond",
     serif;
 
-  font-size: 67px;
+  font-size: 14px;
 
-  line-height: 0.75;
-
-  color: var(--water);
+  letter-spacing: 0.30em;
 }
 
 
-/* =========================
-   SCHEDULE
-========================= */
+.photo-caption {
+
+  margin:
+    25px 0 35px;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size: 24px;
+
+  line-height: 1.25;
+
+  color:
+    var(--leaf);
+}
+
+
+.photo-caption p {
+
+  margin: 0;
+}
+
+
+.photo-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 18px;
+}
+
+
+.photo-grid .photo-frame {
+
+  aspect-ratio:
+    4 / 5;
+}
+
+
+.photo-grid .photo-placeholder {
+
+  min-height: 0;
+
+  height: 100%;
+}
+
+
+/* =====================================================
+   18 · STORY
+===================================================== */
+
+.story-section {
+
+  max-width:
+    760px;
+}
+
+
+.story-text {
+
+  max-width:
+    650px;
+
+  color:
+    var(--soft-ink);
+
+  font-size:
+    15px;
+
+  line-height:
+    2.1;
+}
+
+
+/* =====================================================
+   19 · SCHEDULE
+===================================================== */
 
 .schedule {
-  margin-top: 45px;
+
+  margin-top:
+    45px;
+
+  max-width:
+    700px;
 }
 
+
 .schedule-item {
+
   display: grid;
 
   grid-template-columns:
@@ -728,90 +1180,100 @@ textarea {
 
   gap: 25px;
 
-  padding: 29px 0;
+  padding:
+    29px 0;
 
   border-bottom:
     1px solid
     rgba(145, 165, 141, 0.15);
 }
 
-.schedule-time {
+
+.schedule-item time {
+
   font-family:
     "Cormorant Garamond",
+    Georgia,
     serif;
 
   font-size: 29px;
 
-  color: var(--water);
+  color:
+    var(--water);
 }
 
-.schedule-content h3 {
-  margin:
-    0 0 5px;
+
+.schedule-item strong {
+
+  display: block;
 
   font-size: 18px;
 
   font-weight: 400;
 
-  color: var(--ink);
-}
-
-.schedule-content p {
-  margin: 0;
-
-  font-size: 14px;
-
-  color: var(--soft-ink);
+  color:
+    var(--ink);
 }
 
 
-/* =========================
-   LOCATION
-========================= */
+.schedule-item span {
 
-.location-card {
-  position: relative;
+  display: block;
 
-  padding: 60px 30px;
+  margin-top: 3px;
 
-  text-align: center;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(199, 223, 224, 0.20),
-      rgba(255, 253, 247, 0.78),
-      rgba(234, 220, 174, 0.16)
-    );
-
-  border:
-    1px solid
-    rgba(145, 165, 141, 0.14);
-}
-
-.location-name {
   font-family:
     "Cormorant Garamond",
+    Georgia,
     serif;
 
-  font-size: 31px;
+  font-size: 12px;
 
-  color: var(--leaf);
+  letter-spacing: 0.20em;
+
+  color:
+    var(--soft-ink);
 }
 
-.location-address {
-  max-width: 500px;
+
+.schedule-item.highlight time {
+
+  color:
+    var(--gold);
+}
+
+
+/* =====================================================
+   20 · LOCATION
+===================================================== */
+
+.location-section {
+
+  text-align:
+    center;
+}
+
+
+.address {
 
   margin:
-    16px auto 30px;
+    0 auto 30px;
 
-  font-size: 14px;
+  color:
+    var(--soft-ink);
 
-  color: var(--soft-ink);
+  font-size:
+    14px;
+
+  line-height:
+    2;
 }
 
+
 .map-button {
-  display: inline-block;
+
+  display:
+    inline-block;
 
   padding:
     11px 29px;
@@ -820,55 +1282,94 @@ textarea {
     1px solid
     var(--leaf);
 
-  color: var(--leaf);
+  color:
+    var(--leaf);
 
   font-family:
-    "Cormorant Garamond",
+    "Noto Serif SC",
     serif;
 
-  letter-spacing: 0.14em;
+  letter-spacing:
+    0.12em;
 
   transition:
     background 0.3s ease,
     color 0.3s ease;
 }
 
-.map-button:hover {
-  background: var(--leaf);
 
-  color: var(--white);
+.map-button:hover {
+
+  background:
+    var(--leaf);
+
+  color:
+    var(--white);
 }
 
 
-/* =========================
-   RSVP
-========================= */
+/* =====================================================
+   21 · RSVP
+===================================================== */
 
-.rsvp-form {
-  max-width: 600px;
+.rsvp-section {
+
+  max-width:
+    700px;
+}
+
+
+.rsvp-intro {
+
+  margin-bottom:
+    35px;
+
+  color:
+    var(--soft-ink);
+
+  font-size:
+    14px;
+}
+
+
+#rsvpForm {
+
+  max-width:
+    600px;
 
   margin:
-    45px auto 0;
+    0 auto;
 }
 
-.form-group {
-  margin-bottom: 22px;
+
+#rsvpForm label {
+
+  display:
+    block;
+
+  margin-bottom:
+    20px;
+
+  font-size:
+    13px;
+
+  color:
+    var(--soft-ink);
 }
 
-.form-group label {
-  display: block;
 
-  margin-bottom: 7px;
+#rsvpForm input,
+#rsvpForm select,
+#rsvpForm textarea {
 
-  font-size: 13px;
+  display:
+    block;
 
-  color: var(--soft-ink);
-}
+  width:
+    100%;
 
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
+  margin-top:
+    7px;
 
   padding:
     13px 14px;
@@ -877,184 +1378,261 @@ textarea {
     1px solid
     rgba(145, 165, 141, 0.22);
 
-  border-radius: 0;
+  border-radius:
+    0;
+
+  outline:
+    none;
 
   background:
     rgba(255, 253, 247, 0.72);
 
-  color: var(--ink);
-
-  outline: none;
+  color:
+    var(--ink);
 
   transition:
     border-color 0.25s ease,
     background 0.25s ease;
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: var(--water);
+
+#rsvpForm input:focus,
+#rsvpForm select:focus,
+#rsvpForm textarea:focus {
+
+  border-color:
+    var(--water);
 
   background:
     rgba(255, 253, 247, 0.95);
 }
 
-.form-group textarea {
-  min-height: 120px;
 
-  resize: vertical;
+#rsvpForm textarea {
+
+  min-height:
+    120px;
+
+  resize:
+    vertical;
 }
 
+
 .submit-button {
-  display: block;
 
-  width: 100%;
+  display:
+    block;
 
-  padding: 14px;
+  width:
+    100%;
 
-  border: 0;
+  padding:
+    14px;
 
-  background: var(--leaf);
+  border:
+    0;
 
-  color: var(--white);
+  background:
+    var(--leaf);
+
+  color:
+    var(--white);
 
   font-family:
-    "Cormorant Garamond",
+    "Noto Serif SC",
     serif;
 
-  font-size: 17px;
+  letter-spacing:
+    0.16em;
 
-  letter-spacing: 0.18em;
-
-  cursor: pointer;
+  cursor:
+    pointer;
 
   transition:
     background 0.3s ease,
     transform 0.3s ease;
 }
 
+
 .submit-button:hover {
-  background: var(--water);
-
-  transform: translateY(-1px);
-}
-
-.rsvp-result {
-  margin-top: 20px;
-
-  text-align: center;
-
-  color: var(--leaf);
-}
-
-
-/* =========================
-   FINAL SECTION
-========================= */
-
-.final-section {
-  position: relative;
-
-  min-height: 78vh;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  overflow: hidden;
 
   background:
+    var(--water);
+
+  transform:
+    translateY(-1px);
+}
+
+
+.rsvp-result {
+
+  margin-top:
+    20px;
+
+  text-align:
+    center;
+
+  color:
+    var(--leaf);
+}
+
+
+/* =====================================================
+   22 · FINAL
+===================================================== */
+
+.final-section {
+
+  position:
+    relative;
+
+  min-height:
+    78vh;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  overflow:
+    hidden;
+
+  padding:
+    70px 25px;
+
+  background:
+
     radial-gradient(
       circle at 20% 20%,
       rgba(199, 223, 224, 0.72),
       transparent 30%
     ),
+
     radial-gradient(
       circle at 78% 68%,
       rgba(184, 200, 168, 0.62),
       transparent 31%
     ),
+
     radial-gradient(
       circle at 52% 90%,
       rgba(234, 220, 174, 0.40),
       transparent 25%
     ),
+
     #9eb7ae;
 
-  color: var(--white);
+  color:
+    var(--white);
 
-  text-align: center;
+  text-align:
+    center;
 }
 
-.final-inner {
-  position: relative;
-
-  z-index: 2;
-
-  padding:
-    60px 25px;
-}
 
 .final-small {
+
   font-family:
     "Cormorant Garamond",
+    Georgia,
     serif;
 
-  font-size: 14px;
+  font-size:
+    13px;
 
-  letter-spacing: 0.36em;
+  letter-spacing:
+    0.34em;
 
-  opacity: 0.88;
+  opacity:
+    0.88;
 }
 
-.final-title {
+
+.final-section h2 {
+
   margin:
     25px 0;
 
   font-family:
     "Cormorant Garamond",
+    Georgia,
     serif;
 
   font-size:
     clamp(43px, 10vw, 82px);
 
-  font-weight: 300;
+  font-weight:
+    300;
 
-  line-height: 1;
+  line-height:
+    0.95;
 }
 
-.final-names {
-  font-family:
-    "Cormorant Garamond",
-    serif;
 
-  font-size: 25px;
+.final-section h2 span {
 
-  letter-spacing: 0.18em;
+  font-style:
+    italic;
+
+  color:
+    #eadcae;
 }
+
 
 .final-date {
-  margin-top: 21px;
+
+  margin-top:
+    15px;
 
   font-family:
     "Cormorant Garamond",
+    Georgia,
     serif;
 
-  font-size: 18px;
+  font-size:
+    18px;
 
-  letter-spacing: 0.26em;
+  letter-spacing:
+    0.26em;
 }
 
 
-/* =========================
-   REVEAL
-========================= */
+.final-message {
+
+  margin-top:
+    8px;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size:
+    17px;
+
+  letter-spacing:
+    0.15em;
+
+  opacity:
+    0.9;
+}
+
+
+/* =====================================================
+   23 · REVEAL
+===================================================== */
 
 .reveal {
-  opacity: 0;
+
+  opacity:
+    0;
 
   transform:
     translateY(28px);
@@ -1064,443 +1642,261 @@ textarea {
     transform 0.9s ease;
 }
 
+
 .reveal.visible {
-  opacity: 1;
+
+  opacity:
+    1;
 
   transform:
     translateY(0);
 }
 
 
-/* =========================
-   MOBILE
-========================= */
+/* =====================================================
+   24 · MOBILE
+===================================================== */
 
 @media (max-width: 600px) {
 
-  .section {
-    width:
-      min(
-        calc(100% - 30px),
-        1000px
-      );
-
-    padding: 85px 0;
-  }
-
   .hero-content {
+
+    width:
+      91%;
+
     padding:
-      40px 15px;
+      65px 0 55px;
   }
 
-  .hero-content h1 {
-    font-size: 57px;
+
+  .hero-kicker {
+
+    margin-bottom:
+      23px;
+
+    font-size:
+      10px;
+
+    letter-spacing:
+      0.30em;
   }
 
-  .hero-names {
-    font-size: 29px;
+
+  .guest-card {
+
+    min-width:
+      0;
+
+    width:
+      auto;
+
+    max-width:
+      84vw;
+
+    padding:
+      15px 28px 17px;
+
+    margin-bottom:
+      31px;
   }
 
-  .hero-date {
-    font-size: 20px;
+
+  .guest-name {
+
+    font-size:
+      clamp(1.9rem, 9vw, 2.55rem);
+
+    letter-spacing:
+      0.12em;
   }
 
-  .guest-greeting {
-    font-size: 14px;
+
+  .guest-invite {
+
+    font-size:
+      12px;
+
+    letter-spacing:
+      0.25em;
   }
+
+
+  .couple-name {
+
+    font-size:
+      clamp(2.55rem, 12vw, 3.75rem);
+
+    letter-spacing:
+      0.015em;
+  }
+
+
+  .couple-latin {
+
+    font-size:
+      10px;
+
+    letter-spacing:
+      0.34em;
+  }
+
+
+  .date-main {
+
+    font-size:
+      1.18rem;
+  }
+
+
+  .date-sub {
+
+    font-size:
+      9px;
+
+    letter-spacing:
+      0.13em;
+  }
+
+
+  .open-button {
+
+    min-width:
+      190px;
+
+    padding:
+      11px 24px 12px;
+  }
+
 
   .music-button {
-    top: 16px;
 
-    right: 16px;
+    top:
+      16px;
 
-    width: 39px;
+    right:
+      16px;
 
-    height: 39px;
+    width:
+      39px;
+
+    height:
+      39px;
   }
+
+
+  .section {
+
+    width:
+      calc(100% - 30px);
+
+    padding:
+      85px 0;
+  }
+
+
+  .section h2 {
+
+    font-size:
+      clamp(37px, 11vw, 52px);
+  }
+
+
+  .big-date {
+
+    gap:
+      17px;
+  }
+
+
+  .big-date > span {
+
+    font-size:
+      75px;
+  }
+
+
+  .big-date strong {
+
+    font-size:
+      18px;
+  }
+
 
   .countdown {
-    gap: 5px;
+
+    gap:
+      5px;
   }
 
-  .countdown-number {
-    font-size: 28px;
+
+  .countdown strong {
+
+    font-size:
+      28px;
   }
 
-  .countdown-label {
-    font-size: 9px;
+
+  .countdown span {
+
+    font-size:
+      8px;
   }
+
+
+  .large-photo,
+  .photo-placeholder {
+
+    min-height:
+      330px;
+  }
+
 
   .photo-grid {
-    gap: 10px;
+
+    gap:
+      10px;
   }
 
+
   .schedule-item {
+
     grid-template-columns:
       75px 1fr;
 
-    gap: 15px;
+    gap:
+      15px;
   }
 
-  .schedule-time {
-    font-size: 24px;
+
+  .schedule-item time {
+
+    font-size:
+      24px;
   }
 
-  .location-card {
-    padding:
-      48px 20px;
-  }
-}
-```
-/* =========================================================
-   GUEST PERSONALIZATION — 首页宾客姓名
-   ========================================================= */
 
-.hero-content {
-  position: relative;
-  z-index: 3;
+  .location-section {
 
-  width: min(90%, 760px);
-  margin: 0 auto;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-
-  padding: 8vh 0 6vh;
-}
-
-/* 顶部英文 */
-.hero-kicker {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 0.78rem;
-  letter-spacing: 0.38em;
-  font-weight: 500;
-
-  color: rgba(55, 70, 65, 0.78);
-
-  margin-bottom: 2.5rem;
-}
-
-/* =========================================================
-   宾客姓名卡片
-   ========================================================= */
-
-.guest-card {
-  position: relative;
-
-  min-width: 250px;
-  max-width: 80vw;
-
-  padding: 1.2rem 2.5rem 1.35rem;
-
-  margin-bottom: 2.5rem;
-
-  background: rgba(255, 253, 247, 0.68);
-
-  border: 1px solid rgba(255, 255, 255, 0.78);
-
-  box-shadow:
-    0 12px 40px rgba(72, 92, 84, 0.10),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85);
-
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
-  border-radius: 2px;
-}
-
-/* 宾客姓名 */
-.guest-name {
-  font-family:
-    "Noto Serif SC",
-    "Songti SC",
-    "STSong",
-    serif;
-
-  font-size: clamp(1.8rem, 5vw, 2.8rem);
-
-  line-height: 1.25;
-
-  letter-spacing: 0.16em;
-
-  color: #43534e;
-
-  font-weight: 500;
-
-  white-space: normal;
-  overflow-wrap: anywhere;
-}
-
-/* 姓名下面的细线 */
-.guest-line {
-  width: 52px;
-  height: 1px;
-
-  margin: 0.8rem auto 0.75rem;
-
-  background: rgba(145, 165, 141, 0.75);
-}
-
-/* 诚邀您出席 */
-.guest-invite {
-  font-family:
-    "Noto Serif SC",
-    "Songti SC",
-    "STSong",
-    serif;
-
-  font-size: 0.95rem;
-
-  letter-spacing: 0.28em;
-
-  color: rgba(67, 83, 78, 0.82);
-}
-
-/* =========================================================
-   新人名字
-   ========================================================= */
-
-.couple-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  margin-bottom: 1.5rem;
-}
-
-.couple-name {
-  font-family:
-    "Cormorant Garamond",
-    "Noto Serif SC",
-    Georgia,
-    serif;
-
-  font-size: clamp(2.7rem, 8vw, 5.2rem);
-
-  line-height: 1.05;
-
-  letter-spacing: 0.06em;
-
-  color: #394943;
-
-  font-weight: 500;
-
-  text-shadow:
-    0 2px 18px rgba(255, 255, 255, 0.42);
-}
-
-.couple-name span {
-  font-family: Georgia, serif;
-
-  font-size: 0.72em;
-
-  margin: 0 0.12em;
-
-  color: #a89667;
-
-  font-style: italic;
-}
-
-.couple-latin {
-  margin-top: 0.75rem;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: 0.88rem;
-
-  letter-spacing: 0.45em;
-
-  color: rgba(57, 73, 67, 0.72);
-}
-
-/* =========================================================
-   日期
-   ========================================================= */
-
-.hero-date {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  margin-bottom: 2.7rem;
-}
-
-.date-main {
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: clamp(1.25rem, 4vw, 1.75rem);
-
-  letter-spacing: 0.22em;
-
-  color: #53665f;
-}
-
-.date-sub {
-  margin-top: 0.35rem;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: 0.72rem;
-
-  letter-spacing: 0.24em;
-
-  color: rgba(70, 83, 77, 0.65);
-}
-
-/* =========================================================
-   开启请柬
-   ========================================================= */
-
-.open-button {
-  appearance: none;
-  -webkit-appearance: none;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  min-width: 210px;
-
-  padding: 0.95rem 2.3rem 1rem;
-
-  border: 1px solid rgba(126, 151, 140, 0.65);
-
-  border-radius: 999px;
-
-  background: rgba(255, 253, 247, 0.64);
-
-  color: #53665f;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 8px 30px rgba(71, 91, 83, 0.08);
-
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
-  transition:
-    transform 0.3s ease,
-    background 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.open-button span {
-  font-family:
-    "Noto Serif SC",
-    "Songti SC",
-    serif;
-
-  font-size: 0.95rem;
-
-  letter-spacing: 0.24em;
-}
-
-.open-button small {
-  margin-top: 0.3rem;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: 0.65rem;
-
-  letter-spacing: 0.28em;
-
-  opacity: 0.65;
-}
-
-.open-button:hover {
-  transform: translateY(-2px);
-
-  background: rgba(255, 253, 247, 0.86);
-
-  box-shadow:
-    0 12px 36px rgba(71, 91, 83, 0.14);
-}
-
-/* =========================================================
-   手机端
-   ========================================================= */
-
-@media (max-width: 600px) {
-
-  .hero-content {
-    width: 88%;
-    padding-top: 7vh;
-    padding-bottom: 5vh;
+    text-align:
+      center;
   }
 
-  .hero-kicker {
-    font-size: 0.68rem;
-    letter-spacing: 0.28em;
 
-    margin-bottom: 1.8rem;
+  .final-section {
+
+    min-height:
+      70vh;
   }
 
-  .guest-card {
-    min-width: 0;
-    width: auto;
+}
 
-    max-width: 82vw;
 
-    padding: 1rem 1.8rem 1.15rem;
+/* =====================================================
+   25 · GUEST CARD SAFETY
+===================================================== */
 
-    margin-bottom: 2rem;
-  }
+.guest-card:not(.has-guest) {
 
-  .guest-name {
-    font-size: clamp(1.65rem, 8vw, 2.25rem);
-
-    letter-spacing: 0.12em;
-  }
-
-  .guest-invite {
-    font-size: 0.85rem;
-    letter-spacing: 0.2em;
-  }
-
-  .couple-name {
-    font-size: clamp(2.35rem, 10vw, 3.5rem);
-
-    letter-spacing: 0.03em;
-  }
-
-  .couple-latin {
-    font-size: 0.72rem;
-    letter-spacing: 0.3em;
-  }
-
-  .hero-date {
-    margin-bottom: 2rem;
-  }
-
-  .date-main {
-    font-size: 1.15rem;
-  }
-
-  .date-sub {
-    font-size: 0.65rem;
-    letter-spacing: 0.16em;
-  }
-
-  .open-button {
-    min-width: 185px;
-
-    padding: 0.82rem 1.8rem 0.88rem;
-  }
-
+  display:
+    none;
 }
