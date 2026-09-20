@@ -1,20 +1,14 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
   <title>邓天澍 & 邹涛｜Wedding Invitation</title>
-
-  <meta
-    name="description"
-    content="邓天澍 & 邹涛｜2026年10月25日｜吉安宾馆·礼堂"
-  >
-
+  <meta name="description" content="邓天澍 & 邹涛｜2026年10月25日｜吉安宾馆·礼堂">
   <meta property="og:type" content="website">
   <meta property="og:title" content="邓天澍 & 邹涛｜Wedding Invitation">
   <meta property="og:description" content="2026年10月25日 · 吉安宾馆·礼堂">
-
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -25,593 +19,284 @@
   </audio>
 
   <button class="music-button" id="musicToggle" type="button" aria-label="音乐开关">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span>
   </button>
-
 
   <main>
 
-    <!-- ================= HERO ================= -->
+```
+<section class="hero">
+  <div class="hero-wash wash-one"></div>
+  <div class="hero-wash wash-two"></div>
+  <div class="hero-wash wash-three"></div>
 
-    <section class="hero">
+  <div class="hero-border"></div>
 
-      <div class="hero-paint hero-paint-1"></div>
-      <div class="hero-paint hero-paint-2"></div>
-      <div class="hero-paint hero-paint-3"></div>
+  <div class="hero-content">
+    <div class="hero-kicker">WEDDING INVITATION</div>
 
-      <div class="hero-frame"></div>
+    <div class="guest-card" id="guestCard">
+      <div class="guest-label">FOR YOU</div>
+      <div class="guest-name" id="guestName"></div>
+      <div class="guest-line"></div>
+      <div class="guest-invite">诚邀您出席</div>
+    </div>
 
-      <div class="hero-content">
+    <div class="couple-block">
+      <div class="couple-cn">
+        <span>邓天澍</span>
+        <i>&amp;</i>
+        <span>邹涛</span>
+      </div>
+      <div class="couple-en">TIANSHU&nbsp;&nbsp;&amp;&nbsp;&nbsp;TAO</div>
+    </div>
 
-        <div class="hero-top">
-          WEDDING INVITATION
+    <div class="date-block">
+      <div class="date-number">25</div>
+      <div class="date-copy">
+        <div>OCTOBER</div>
+        <strong>2026</strong>
+        <small>SUNDAY · 丙午年九月十六</small>
+      </div>
+    </div>
+
+    <button class="open-button" id="openInvitation" type="button">
+      <span>开启请柬</span>
+      <small>OPEN INVITATION</small>
+    </button>
+  </div>
+
+  <div class="hero-scroll">
+    <span>SCROLL TO EXPLORE</span>
+    <i></i>
+  </div>
+</section>
+
+
+<section class="section day-section" id="ourDay">
+  <div class="section-index">01</div>
+
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="eyebrow">OUR DAY</div>
+      <h2>The day<br>we say yes.</h2>
+      <p>我们婚礼的这一天</p>
+    </div>
+
+    <div class="calendar-card">
+      <div class="calendar-head">
+        <span>OCTOBER</span>
+        <strong>2026</strong>
+      </div>
+
+      <div class="calendar-week">
+        <span>MON</span><span>TUE</span><span>WED</span>
+        <span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span>
+      </div>
+
+      <div class="calendar-grid" id="calendarGrid"></div>
+
+      <div class="calendar-selected">
+        <b>25</b>
+        <div>
+          <strong>2026年10月25日</strong>
+          <span>丙午年九月十六 · 星期日</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="countdown-box">
+      <div class="countdown-label">COUNTDOWN TO OUR DAY</div>
+      <div class="countdown-value">
+        <strong id="countdownDays">—</strong>
+        <span>DAYS</span>
+      </div>
+      <p>距离婚礼还有</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="section moments-section" id="moments">
+  <div class="section-index">02</div>
+
+  <div class="wide-inner">
+    <div class="center-head">
+      <div class="eyebrow">MOMENTS</div>
+      <h2>Our moments.</h2>
+    </div>
+
+    <div class="main-photo">
+      <div>
+        <span>YOUR PHOTO</span>
+        <small>婚礼照片</small>
+      </div>
+    </div>
+
+    <div class="photo-caption">
+      <strong>Two people, one story.</strong>
+      <span>两个人，一段故事。</span>
+    </div>
+
+    <div class="photo-strip">
+      <div>01</div>
+      <div>02</div>
+      <div>03</div>
+      <div>04</div>
+      <div>05</div>
+    </div>
+
+    <div class="swipe-label">SWIPE TO EXPLORE</div>
+  </div>
+</section>
+
+
+<section class="story-section" id="ourStory">
+  <div class="story-wash"></div>
+  <div class="section-index">03</div>
+
+  <div class="story-inner">
+    <div class="eyebrow">OUR STORY</div>
+
+    <h2>
+      From this moment,<br>
+      <em>together.</em>
+    </h2>
+
+    <div class="story-copy">
+      <p>从相遇，到决定携手走过往后的岁月。</p>
+      <p>我们想把人生中重要的一天，<br>与珍贵的你共同分享。</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="section wedding-section" id="wedding">
+  <div class="section-index">04</div>
+
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="eyebrow">THE WEDDING</div>
+      <h2>Wedding Day.</h2>
+    </div>
+
+    <div class="schedule" id="weddingSchedule"></div>
+  </div>
+</section>
+
+
+<section class="place-section" id="location">
+  <div class="section-index">05</div>
+
+  <div class="place-inner">
+    <div class="eyebrow">THE PLACE</div>
+
+    <h2>吉安宾馆·礼堂</h2>
+    <div class="place-en">JI'AN HOTEL · HALL</div>
+
+    <div class="place-address">
+      中国·江西·吉安<br>
+      吉安市吉州区沿江路99号
+    </div>
+
+    <a class="map-button"
+       href="https://surl.amap.com/1qtd9gB5ti"
+       target="_blank"
+       rel="noopener noreferrer">
+      <span>一键导航</span>
+      <small>OPEN MAP →</small>
+    </a>
+  </div>
+</section>
+
+
+<section class="rsvp-section" id="rsvp">
+  <div class="section-index">06</div>
+
+  <div class="rsvp-inner">
+    <div class="eyebrow">RSVP</div>
+
+    <h2>We’d love<br>to hear from you.</h2>
+    <p class="rsvp-subtitle">期待收到你的消息。</p>
+
+    <div class="question-title">您是否能参加我们的婚礼？</div>
+
+    <div class="attendance-options">
+      <button type="button" class="attendance-option" data-attendance="yes">
+        <strong>很期待，婚礼见</strong>
+        <span>YES, SEE YOU THERE</span>
+      </button>
+
+      <button type="button" class="attendance-option" data-attendance="no">
+        <strong>很遗憾，无法出席</strong>
+        <span>SORRY, I CAN'T MAKE IT</span>
+      </button>
+    </div>
+
+    <form class="rsvp-form" id="rsvpForm">
+
+      <label class="field">
+        <span>姓名</span>
+        <input type="text" name="name" placeholder="请输入您的姓名" required>
+      </label>
+
+      <div class="attending-fields" id="attendingFields">
+
+        <div class="field-note">我们会为您预留座位</div>
+
+        <label class="field">
+          <span>同行人数</span>
+          <select name="people">
+            <option value="1">1人</option>
+            <option value="2">2人</option>
+            <option value="3">3人</option>
+            <option value="4">4人</option>
+          </select>
+        </label>
+
+        <div class="field-title">需要住宿吗？</div>
+
+        <div class="stay-options">
+          <button type="button" data-stay="yes">需要</button>
+          <button type="button" data-stay="no">不需要</button>
         </div>
 
-
-        <div class="personal-invitation" id="guestCard">
-
-          <div class="personal-label">
-            FOR YOU
-          </div>
-
-          <div class="guest-name" id="guestName"></div>
-
-          <div class="personal-rule"></div>
-
-          <div class="personal-text">
-            诚邀您出席
-          </div>
-
-        </div>
-
-
-        <div class="couple">
-
-          <div class="couple-name">
-            <span>邓天澍</span>
-            <i>&amp;</i>
-            <span>邹涛</span>
-          </div>
-
-          <div class="couple-name-en">
-            TIANSHU&nbsp;&nbsp;&amp;&nbsp;&nbsp;TAO
-          </div>
-
-        </div>
-
-
-        <div class="hero-date">
-
-          <div class="hero-date-big">
-            25
-          </div>
-
-          <div class="hero-date-side">
-            <span>OCTOBER</span>
-            <strong>2026</strong>
-            <small>SUNDAY · 丙午年九月十六</small>
-          </div>
-
-        </div>
-
-
-        <button class="open-button" id="openInvitation" type="button">
-
-          <span>开启请柬</span>
-          <small>OPEN INVITATION</small>
-
-        </button>
+        <label class="field stay-date" id="stayDate">
+          <span>入住日期</span>
+          <input type="date" name="date">
+        </label>
 
       </div>
 
-
-      <div class="hero-bottom">
-        SCROLL TO EXPLORE
-        <span></span>
-      </div>
-
-    </section>
-
-
-    <!-- ================= OUR DAY ================= -->
-
-    <section class="editorial-section our-day" id="ourDay">
-
-      <div class="section-number">01</div>
-
-      <div class="editorial-inner">
-
-        <div class="section-heading">
-
-          <div class="eyebrow">OUR DAY</div>
-
-          <h2>
-            The day<br>
-            we say yes.
-          </h2>
-
-          <p>我们婚礼的这一天</p>
-
-        </div>
-
-
-        <div class="calendar-area">
-
-          <div class="calendar-title">
-            <span>OCTOBER</span>
-            <strong>2026</strong>
-          </div>
-
-          <div class="calendar-week">
-            <span>MON</span>
-            <span>TUE</span>
-            <span>WED</span>
-            <span>THU</span>
-            <span>FRI</span>
-            <span>SAT</span>
-            <span>SUN</span>
-          </div>
-
-          <div class="calendar-grid" id="calendarGrid"></div>
-
-
-          <div class="calendar-note">
-
-            <span>25</span>
-
-            <div>
-              <strong>2026年10月25日</strong>
-              <small>丙午年九月十六 · 星期日</small>
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="countdown">
-
-          <div class="countdown-label">
-            COUNTDOWN TO OUR DAY
-          </div>
-
-          <div class="countdown-number">
-            <span id="countdownDays">—</span>
-            <small>DAYS</small>
-          </div>
-
-          <div class="countdown-cn">
-            距离婚礼还有
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= MOMENTS ================= -->
-
-    <section class="editorial-section moments" id="moments">
-
-      <div class="section-number">02</div>
-
-      <div class="editorial-inner wide">
-
-        <div class="section-heading center">
-
-          <div class="eyebrow">MOMENTS</div>
-
-          <h2>Our moments.</h2>
-
-        </div>
-
-
-        <div class="hero-photo">
-
-          <div class="photo-placeholder">
-            <span>YOUR PHOTO</span>
-            <small>婚礼照片</small>
-          </div>
-
-        </div>
-
-
-        <div class="photo-caption">
-
-          <div class="caption-en">
-            Two people, one story.
-          </div>
-
-          <div class="caption-cn">
-            两个人，一段故事。
-          </div>
-
-        </div>
-
-
-        <div class="photo-strip">
-
-          <div class="photo-item">
-            <div class="photo-placeholder">
-              <span>01</span>
-            </div>
-          </div>
-
-          <div class="photo-item">
-            <div class="photo-placeholder">
-              <span>02</span>
-            </div>
-          </div>
-
-          <div class="photo-item">
-            <div class="photo-placeholder">
-              <span>03</span>
-            </div>
-          </div>
-
-          <div class="photo-item">
-            <div class="photo-placeholder">
-              <span>04</span>
-            </div>
-          </div>
-
-          <div class="photo-item">
-            <div class="photo-placeholder">
-              <span>05</span>
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="swipe-text">
-          SWIPE TO EXPLORE
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= STORY ================= -->
-
-    <section class="story-section" id="ourStory">
-
-      <div class="story-paint"></div>
-
-      <div class="section-number">03</div>
-
-      <div class="story-inner">
-
-        <div class="eyebrow">OUR STORY</div>
-
-        <h2>
-          From this moment,
-          <em>together.</em>
-        </h2>
-
-        <div class="story-copy">
-
-          <p>
-            从相遇，到决定携手走过往后的岁月。
-          </p>
-
-          <p>
-            我们想把人生中重要的一天，
-            与珍贵的你共同分享。
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= WEDDING ================= -->
-
-    <section class="editorial-section wedding" id="wedding">
-
-      <div class="section-number">04</div>
-
-      <div class="editorial-inner">
-
-        <div class="section-heading">
-
-          <div class="eyebrow">THE WEDDING</div>
-
-          <h2>Wedding Day.</h2>
-
-        </div>
-
-
-        <div class="schedule" id="weddingSchedule"></div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= LOCATION ================= -->
-
-    <section class="location-section" id="location">
-
-      <div class="section-number">05</div>
-
-      <div class="location-inner">
-
-        <div class="eyebrow">THE PLACE</div>
-
-        <div class="location-title">
-          吉安宾馆·礼堂
-        </div>
-
-        <div class="location-en">
-          JI'AN HOTEL · HALL
-        </div>
-
-        <div class="location-address">
-          中国·江西·吉安<br>
-          吉安市吉州区沿江路99号
-        </div>
-
-        <a
-          class="map-link"
-          href="https://surl.amap.com/1qtd9gB5ti"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span>一键导航</span>
-          <small>OPEN MAP →</small>
-        </a>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= RSVP ================= -->
-
-    <section class="rsvp-section" id="rsvp">
-
-      <div class="section-number">06</div>
-
-      <div class="rsvp-inner">
-
-        <div class="eyebrow">
-          RSVP
-        </div>
-
-        <h2>
-          We’d love<br>
-          to hear from you.
-        </h2>
-
-        <p class="rsvp-intro">
-          期待收到你的消息。
-        </p>
-
-
-        <!-- 出席选择 -->
-
-        <div class="rsvp-question">
-
-          <div class="question-title">
-            您是否能参加我们的婚礼？
-          </div>
-
-          <div class="attendance-options">
-
-            <button
-              type="button"
-              class="attendance-option"
-              data-attendance="yes"
-            >
-
-              <span class="option-cn">
-                很期待，婚礼见
-              </span>
-
-              <span class="option-en">
-                YES, SEE YOU THERE
-              </span>
-
-            </button>
-
-
-            <button
-              type="button"
-              class="attendance-option"
-              data-attendance="no"
-            >
-
-              <span class="option-cn">
-                很遗憾，无法出席
-              </span>
-
-              <span class="option-en">
-                SORRY, I CAN'T MAKE IT
-              </span>
-
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <!-- RSVP表单 -->
-
-        <form id="rsvpForm" class="rsvp-form">
-
-
-          <div class="rsvp-name-field">
-
-            <label>
-              姓名
-
-              <input
-                type="text"
-                name="name"
-                placeholder="请输入您的姓名"
-                required
-              >
-
-            </label>
-
-          </div>
-
-
-          <!-- 出席时显示 -->
-
-          <div
-            class="attending-fields"
-            id="attendingFields"
-          >
-
-            <div class="field-note">
-              我们会为您预留座位
-            </div>
-
-
-            <label>
-              同行人数
-
-              <select name="people">
-
-                <option value="1">1人</option>
-                <option value="2">2人</option>
-                <option value="3">3人</option>
-                <option value="4">4人</option>
-
-              </select>
-
-            </label>
-
-
-            <div class="field-title">
-              需要住宿吗？
-            </div>
-
-
-            <div class="stay-options">
-
-              <button
-                type="button"
-                data-stay="yes"
-              >
-                需要
-              </button>
-
-              <button
-                type="button"
-                data-stay="no"
-              >
-                不需要
-              </button>
-
-            </div>
-
-
-            <div
-              class="stay-date"
-              id="stayDate"
-            >
-
-              <label>
-                入住日期
-
-                <input
-                  type="date"
-                  name="date"
-                >
-
-              </label>
-
-            </div>
-
-          </div>
-
-
-          <!-- 给新人留言 -->
-
-          <label class="message-field">
-
-            <span>
-              想对我们说什么？
-            </span>
-
-            <textarea
-              name="message"
-              rows="6"
-              placeholder="写一句想对我们说的话……"
-            ></textarea>
-
-          </label>
-
-
-          <button
-            type="submit"
-            class="rsvp-submit"
-          >
-
-            <span>
-              送上祝福
-            </span>
-
-            <small>
-              SEND YOUR LOVE
-            </small>
-
-          </button>
-
-
-          <div
-            class="rsvp-success"
-            id="rsvpSuccess"
-          ></div>
-
-        </form>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= FINAL ================= -->
-
-    <section class="final-section">
-
-      <div class="final-paint"></div>
-
-      <div class="final-content">
-
-        <div class="final-en">
-          TIANSHU & TAO
-        </div>
-
-        <div class="final-main">
-          婚礼见
-        </div>
-
-        <div class="final-date">
-          25 · 10 · 2026
-        </div>
-
-        <div class="final-place">
-          吉安宾馆·礼堂
-        </div>
-
-      </div>
-
-    </section>
+      <label class="field message-field">
+        <span>想对我们说什么？</span>
+        <textarea name="message" rows="5" placeholder="写一句想对我们说的话……"></textarea>
+      </label>
+
+      <button class="rsvp-submit" type="submit">
+        <strong>送上祝福</strong>
+        <span>SEND YOUR LOVE</span>
+      </button>
+
+      <div class="rsvp-success" id="rsvpSuccess"></div>
+    </form>
+  </div>
+</section>
+
+
+<section class="final-section">
+  <div class="final-wash"></div>
+
+  <div class="final-content">
+    <div class="final-en">TIANSHU &amp; TAO</div>
+    <div class="final-title">婚礼见</div>
+    <div class="final-date">25 · 10 · 2026</div>
+    <div class="final-place">吉安宾馆·礼堂</div>
+  </div>
+</section>
+```
 
   </main>
-
 
   <script src="app.js"></script>
 
