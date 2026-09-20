@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>婚礼宾客管理</title>
+
+  <style>
+    @font-face {
+      font-family: "WeddingChinese";
+      src: url("./FZZiLSJW-B.TTF") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f7f3ec;
+      color: #3f3a34;
+      font-family: "WeddingChinese", serif;
+    }
+
+    .page {
+      width: min(92%, 560px);
+      margin: 0 auto;
+      padding: 48px 0 70px;
+    }
+
+    .eyebrow {
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      margin-bottom: 12px;
+      opacity: 0.6;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 400;
+      margin: 0 0 8px;
+    }
+
+    .intro {
+      text-align: center;
+      font-size: 14px;
+      opacity: 0.65;
+      margin-bottom: 36px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(80,70,60,0.12);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 10px 35px rgba(60,50,40,0.06);
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    input {
+      width: 100%;
+      height: 50px;
+      border: 1px solid rgba(70,60,50,0.18);
+      border-radius: 10px;
+      background: #fff;
+      padding: 0 15px;
+      font-family: inherit;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: rgba(70,60,50,0.4);
+    }
+
+    .primary {
+      width: 100%;
+      height: 50px;
+      margin-top: 14px;
+      border: 0;
+      border-radius: 10px;
+      background: #4b463f;
+      color: #fff;
+      font-family: inherit;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .result {
+      display: none;
+      margin-top: 24px;
+    }
+
+    .result.show {
+      display: block;
+    }
+
+    .guest-name {
+      font-size: 20px;
+      margin-bottom: 14px;
+    }
+
+    .link-box {
+      background: #f4f0e9;
+      border-radius: 10px;
+      padding: 13px;
+      font-size: 13px;
+      line-height: 1.6;
+      word-break: break-all;
+      margin-bottom: 12px;
+    }
+
+    .copy-button {
+      width: 100%;
+      height: 46px;
+      border: 1px solid rgba(70,60,50,0.2);
+      border-radius: 10px;
+      background: #fff;
+      color: #3f3a34;
+      font-family: inherit;
+      font-size: 15px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    .copy-button:last-child {
+      margin-bottom: 0;
+    }
+
+    .success {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #66705d;
+      min-height: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <div class="eyebrow">TIANSHU & TAO</div>
+
+    <h1>婚礼宾客</h1>
+
+    <div class="intro">
+      输入宾客姓名，生成专属请柬
+    </div>
+
+    <section class="card">
+
+      <label for="guestName">
+        宾客姓名
+      </label>
+
+      <input
+        id="guestName"
+        type="text"
+        placeholder="例如：邹小明 / 邹小明一家"
+      >
+
+      <button
+        class="primary"
+        id="generateButton"
+      >
+        生成专属请柬
+      </button>
+
+      <div
+        class="result"
+        id="result"
+      >
+
+        <div
+          class="guest-name"
+          id="resultName"
+        ></div>
+
+        <div
+          class="link-box"
+          id="resultLink"
+        ></div>
+
+        <button
+          class="copy-button"
+          id="copyLinkButton"
+        >
+          复制请柬链接
+        </button>
+
+        <button
+          class="copy-button"
+          id="copyMessageButton"
+        >
+          复制微信发送文案
+        </button>
+
+        <div
+          class="success"
+          id="successMessage"
+        ></div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    const guestInput =
+      document.getElementById("guestName");
+
+    const generateButton =
+      document.getElementById("generateButton");
+
+    const result =
+      document.getElementById("result");
+
+    const resultName =
+      document.getElementById("resultName");
+
+    const resultLink =
+      document.getElementById("resultLink");
+
+    const copyLinkButton =
+      document.getElementById("copyLinkButton");
+
+    const copyMessageButton =
+      document.getElementById("copyMessageButton");
+
+    const successMessage =
+      document.getElementById("successMessage");
+
+
+    let currentGuest = "";
+    let currentLink = "";
+
+
+    generateButton.addEventListener(
+      "click",
+      () => {
+
+        const guest =
+          guestInput.value.trim();
+
+        if (!guest) {
+
+          alert("请先输入宾客姓名");
+
+          guestInput.focus();
+
+          return;
+        }
+
+
+        currentGuest = guest;
+
+
+        currentLink =
+          `${window.location.origin}/?guest=${encodeURIComponent(guest)}`;
+
+
+        resultName.textContent =
+          guest;
+
+        resultLink.textContent =
+          currentLink;
+
+
+        result.classList.add("show");
+
+        successMessage.textContent = "";
+
+      }
+    );
+
+
+    copyLinkButton.addEventListener(
+      "click",
+      async () => {
+
+        if (!currentLink) {
+          return;
+        }
+
+        await navigator.clipboard.writeText(
+          currentLink
+        );
+
+        successMessage.textContent =
+          "请柬链接已复制";
+
+      }
+    );
+
+
+    copyMessageButton.addEventListener(
+      "click",
+      async () => {
+
+        if (!currentLink || !currentGuest) {
+          return;
+        }
+
+
+        const message =
+`${currentGuest}，诚邀您出席天澍 & 邹涛的婚礼。
+
+📅 2026年10月25日
+📍 吉安宾馆·礼堂
+
+专属请柬：
+${currentLink}`;
+
+
+        await navigator.clipboard.writeText(
+          message
+        );
+
+        successMessage.textContent =
+          "微信发送文案已复制";
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
