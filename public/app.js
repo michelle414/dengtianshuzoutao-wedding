@@ -2,9 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =====================================================
      ★★★ 婚礼资料配置区 ★★★
-
-     以后改资料，优先从这里改。 
-     
   ====================================================== */
 
   const weddingConfig = {
@@ -25,59 +22,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
     lunarDate: "丙午年九月十六",
 
-    weddingDateTime: "2026-10-25T12:08:00+08:00",
+    weddingDateTime:
+      "2026-10-25T12:08:00+08:00",
 
     venue: "吉安宾馆·礼堂",
 
-    address: "中国·江西·吉安·吉州区沿江路99号",
+    address:
+      "中国·江西·吉安·吉州区沿江路99号",
 
-    mapUrl: "https://surl.amap.com/1qtd9gB5ti",
+    mapUrl:
+      "https://surl.amap.com/1qtd9gB5ti",
 
     /*
-      ★ 音乐文件
-
-      如果音乐文件叫 music.mp3：
-      就不用改。
-
-      如果你上传后文件叫：
-      wedding-song.mp3
-
-      就改成：
-      music: "wedding-song.mp3"
+      ★ 音乐
     */
 
-  music: "Shortcut To Heaven.mp3",
+    music:
+      "Shortcut To Heaven.mp3",
 
     /*
       ★ 婚礼照片
 
-      现在先留空。
-
-      等你把照片上传到 GitHub 后，
-      例如：
-
-      photos/1.jpg
-      photos/2.jpg
-      photos/3.jpg
-
-      就在这里填写：
+      以后上传照片后，在这里填写：
 
       photos: [
         "photos/1.jpg",
         "photos/2.jpg",
         "photos/3.jpg"
       ]
-
-      第一张会作为大图。
     */
 
     photos: [],
 
-
     /*
       ★ 婚礼流程
-
-      以后如果改时间，只需要改这里。
     */
 
     schedule: [
@@ -109,23 +87,31 @@ document.addEventListener("DOMContentLoaded", () => {
      宾客姓名
   ====================================================== */
 
-  const params = new URLSearchParams(
-    window.location.search
-  );
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
 
   const guestName =
     params.get("guest");
 
 
   const guestNameElement =
-    document.getElementById("guestName");
+    document.getElementById(
+      "guestName"
+    );
 
 
   const guestInvitation =
-    document.querySelector(".guest-invitation");
+    document.querySelector(
+      ".guest-invitation"
+    );
 
 
-  if (guestName && guestNameElement) {
+  if (
+    guestName &&
+    guestNameElement
+  ) {
 
     guestNameElement.textContent =
       guestName.trim();
@@ -133,7 +119,11 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
 
     if (guestInvitation) {
-      guestInvitation.classList.add("no-guest");
+
+      guestInvitation.classList.add(
+        "no-guest"
+      );
+
     }
 
   }
@@ -143,80 +133,94 @@ document.addEventListener("DOMContentLoaded", () => {
      设置基本资料
   ====================================================== */
 
-const venueName =
-  document.getElementById("venueName");
+  const venueName =
+    document.getElementById(
+      "venueName"
+    );
 
-const venueAddress =
-  document.getElementById("venueAddress");
+  const venueAddress =
+    document.getElementById(
+      "venueAddress"
+    );
 
-const navigationButton =
-  document.getElementById("navigationButton");
+  const navigationButton =
+    document.getElementById(
+      "navigationButton"
+    );
 
-const mapImageLink =
-  document.getElementById("mapImageLink");
-
-
-if (venueName) {
-
-  venueName.textContent =
-    weddingConfig.venue;
-
-}
-
-
-if (venueAddress) {
-
-  venueAddress.textContent =
-    weddingConfig.address;
-
-}
+  const mapImageLink =
+    document.getElementById(
+      "mapImageLink"
+    );
 
 
-if (navigationButton) {
+  if (venueName) {
 
-  navigationButton.href =
-    weddingConfig.mapUrl;
+    venueName.textContent =
+      weddingConfig.venue;
 
-}
+  }
 
 
-if (mapImageLink) {
+  if (venueAddress) {
 
-  mapImageLink.href =
-    weddingConfig.mapUrl;
+    venueAddress.textContent =
+      weddingConfig.address;
 
-}
+  }
+
+
+  if (navigationButton) {
+
+    navigationButton.href =
+      weddingConfig.mapUrl;
+
+  }
+
+
+  if (mapImageLink) {
+
+    mapImageLink.href =
+      weddingConfig.mapUrl;
+
+  }
 
 
   /* =====================================================
      新人名字
   ====================================================== */
 
-  document.querySelectorAll(".couple-cn").forEach((element) => {
+  document
+    .querySelectorAll(".couple-cn")
+    .forEach(element => {
 
-    element.innerHTML = `
-      <span>${weddingConfig.groom}</span>
-      <span class="couple-and">&amp;</span>
-      <span>${weddingConfig.bride}</span>
-    `;
+      element.innerHTML = `
+        <span>${weddingConfig.groom}</span>
+        <span class="couple-and">&amp;</span>
+        <span>${weddingConfig.bride}</span>
+      `;
 
-  });
-
-
-  document.querySelectorAll(".couple-en").forEach((element) => {
-
-    element.textContent =
-      `${weddingConfig.groomLatin} & ${weddingConfig.brideLatin}`;
-
-  });
+    });
 
 
-  document.querySelectorAll(".final-names").forEach((element) => {
+  document
+    .querySelectorAll(".couple-en")
+    .forEach(element => {
 
-    element.textContent =
-      `${weddingConfig.groomLatin} & ${weddingConfig.brideLatin}`;
+      element.textContent =
+        `${weddingConfig.groomLatin} & ${weddingConfig.brideLatin}`;
 
-  });
+    });
+
+
+  document
+    .querySelectorAll(".final-names")
+    .forEach(element => {
+
+      element.textContent =
+        `${weddingConfig.groomLatin} & ${weddingConfig.brideLatin}`;
+
+    });
 
 
   /* =====================================================
@@ -224,23 +228,76 @@ if (mapImageLink) {
   ====================================================== */
 
   const heroDate =
-    document.querySelector(".hero-date-number");
+    document.querySelector(
+      ".hero-date-number"
+    );
 
   const heroDateSub =
-    document.querySelector(".hero-date-sub");
+    document.querySelector(
+      ".hero-date-sub"
+    );
+
 
   if (heroDate) {
 
     heroDate.textContent =
-      `${weddingConfig.year} · ${String(weddingConfig.month).padStart(2, "0")} · ${String(weddingConfig.day).padStart(2, "0")}`;
+      `${weddingConfig.year} · ${String(
+        weddingConfig.month
+      ).padStart(2, "0")} · ${String(
+        weddingConfig.day
+      ).padStart(2, "0")}`;
 
   }
 
 
+  /*
+    首页日期：
+
+    SUNDAY
+    星期日
+    ·
+    丙午年九月十六
+  */
+
   if (heroDateSub) {
 
-    heroDateSub.textContent =
-      `SUNDAY · ${weddingConfig.lunarDate}`;
+    heroDateSub.innerHTML = `
+
+      <span class="hero-date-week-en">
+        SUNDAY
+      </span>
+
+      <span class="hero-date-week-cn">
+        星期日
+      </span>
+
+      <span class="hero-date-divider">
+        ·
+      </span>
+
+      <span class="hero-date-lunar">
+        ${weddingConfig.lunarDate}
+      </span>
+
+    `;
+
+  }
+
+
+  /* =====================================================
+     OUR DAY 农历日期
+  ====================================================== */
+
+  const dateLunarLarge =
+    document.querySelector(
+      ".date-lunar-large"
+    );
+
+
+  if (dateLunarLarge) {
+
+    dateLunarLarge.textContent =
+      weddingConfig.lunarDate;
 
   }
 
@@ -250,16 +307,23 @@ if (mapImageLink) {
   ====================================================== */
 
   const music =
-    document.getElementById("bgMusic");
+    document.getElementById(
+      "bgMusic"
+    );
 
   const musicToggle =
-    document.getElementById("musicToggle");
+    document.getElementById(
+      "musicToggle"
+    );
 
 
   if (music) {
 
     const source =
-      music.querySelector("source");
+      music.querySelector(
+        "source"
+      );
+
 
     if (source) {
 
@@ -270,7 +334,11 @@ if (mapImageLink) {
 
     }
 
-    // 初始音量先保持很轻
+
+    /*
+      初始音量
+    */
+
     music.volume = 0.08;
 
   }
@@ -280,11 +348,18 @@ if (mapImageLink) {
 
     if (!music) return;
 
-    // 每次开始播放时，先从很轻的音量开始
+
+    /*
+      每次开始播放，
+      从很轻的音量开始
+    */
+
     music.volume = 0.08;
+
 
     const playPromise =
       music.play();
+
 
     if (playPromise) {
 
@@ -296,17 +371,21 @@ if (mapImageLink) {
           );
 
 
-          // =================================================
-          // 音乐淡入
-          // 0.08 → 0.25
-          // 用时约 2.5 秒
-          // =================================================
+          /*
+            音乐淡入
 
-          const targetVolume = 0.25;
+            0.08 → 0.25
+            2.5 秒
+          */
 
-          const startVolume = 0.08;
+          const targetVolume =
+            0.25;
 
-          const fadeDuration = 2500;
+          const startVolume =
+            0.08;
+
+          const fadeDuration =
+            2500;
 
           const startTime =
             Date.now();
@@ -315,23 +394,30 @@ if (mapImageLink) {
           function fadeIn() {
 
             const elapsed =
-              Date.now() - startTime;
+              Date.now() -
+              startTime;
 
 
             const progress =
               Math.min(
-                elapsed / fadeDuration,
+                elapsed /
+                  fadeDuration,
                 1
               );
 
 
             music.volume =
               startVolume +
-              (targetVolume - startVolume) *
+              (
+                targetVolume -
+                startVolume
+              ) *
               progress;
 
 
-            if (progress < 1) {
+            if (
+              progress < 1
+            ) {
 
               requestAnimationFrame(
                 fadeIn
@@ -350,7 +436,7 @@ if (mapImageLink) {
         .catch(() => {
 
           /*
-            如果浏览器阻止播放，
+            浏览器禁止自动播放时，
             不让网页报错。
           */
 
@@ -365,7 +451,9 @@ if (mapImageLink) {
 
     if (!music) return;
 
+
     music.pause();
+
 
     musicToggle?.classList.remove(
       "playing"
@@ -375,16 +463,19 @@ if (mapImageLink) {
 
 
   /* =====================================================
-     ★ 开启请柬 = 开始音乐 + 往下滑
-
-     两个动作绑定在同一次点击。
+     开启请柬
+     = 音乐 + 往下滑
   ====================================================== */
 
   const openInvitation =
-    document.getElementById("openInvitation");
+    document.getElementById(
+      "openInvitation"
+    );
 
   const ourDay =
-    document.getElementById("our-day");
+    document.getElementById(
+      "our-day"
+    );
 
 
   if (openInvitation) {
@@ -393,11 +484,18 @@ if (mapImageLink) {
       "click",
       () => {
 
-        // ① 用户点击
-        // ② 立刻播放音乐
+        /*
+          用户第一次点击，
+          同时允许浏览器播放音乐
+        */
+
         startMusic();
 
-        // ③ 往下滑
+
+        /*
+          往 OUR DAY 滑动
+        */
+
         setTimeout(() => {
 
           if (ourDay) {
@@ -429,6 +527,7 @@ if (mapImageLink) {
 
         if (!music) return;
 
+
         if (music.paused) {
 
           startMusic();
@@ -450,7 +549,9 @@ if (mapImageLink) {
   ====================================================== */
 
   const calendar =
-    document.getElementById("calendar");
+    document.getElementById(
+      "calendar"
+    );
 
 
   function createCalendar() {
@@ -494,15 +595,27 @@ if (mapImageLink) {
 
 
     let html = `
+
       <div class="calendar-header">
+
         ${weekdays
-          .map(day => `<div>${day}</div>`)
+          .map(
+            day =>
+              `<div>${day}</div>`
+          )
           .join("")}
+
       </div>
 
+
       <div class="calendar-grid">
+
     `;
 
+
+    /*
+      月初空白位置
+    */
 
     for (
       let i = 0;
@@ -511,13 +624,19 @@ if (mapImageLink) {
     ) {
 
       html += `
+
         <div class="calendar-day empty">
           0
         </div>
+
       `;
 
     }
 
+
+    /*
+      日期
+    */
 
     for (
       let day = 1;
@@ -530,22 +649,31 @@ if (mapImageLink) {
 
 
       html += `
+
         <div
-          class="calendar-day ${
-            isWeddingDay
-              ? "wedding-day"
-              : ""
-          }"
+          class="
+            calendar-day
+            ${
+              isWeddingDay
+                ? "wedding-day"
+                : ""
+            }
+          "
         >
+
           ${day}
+
         </div>
+
       `;
 
     }
 
 
     html += `
+
       </div>
+
     `;
 
 
@@ -569,16 +697,24 @@ if (mapImageLink) {
 
 
   const daysElement =
-    document.getElementById("days");
+    document.getElementById(
+      "days"
+    );
 
   const hoursElement =
-    document.getElementById("hours");
+    document.getElementById(
+      "hours"
+    );
 
   const minutesElement =
-    document.getElementById("minutes");
+    document.getElementById(
+      "minutes"
+    );
 
   const secondsElement =
-    document.getElementById("seconds");
+    document.getElementById(
+      "seconds"
+    );
 
 
   function updateCountdown() {
@@ -592,19 +728,29 @@ if (mapImageLink) {
       now.getTime();
 
 
-    if (difference <= 0) {
+    if (
+      difference <= 0
+    ) {
 
       if (daysElement)
-        daysElement.textContent = "00";
+        daysElement.textContent =
+          "00";
+
 
       if (hoursElement)
-        hoursElement.textContent = "00";
+        hoursElement.textContent =
+          "00";
+
 
       if (minutesElement)
-        minutesElement.textContent = "00";
+        minutesElement.textContent =
+          "00";
+
 
       if (secondsElement)
-        secondsElement.textContent = "00";
+        secondsElement.textContent =
+          "00";
+
 
       return;
 
@@ -614,14 +760,23 @@ if (mapImageLink) {
     const days =
       Math.floor(
         difference /
-        (1000 * 60 * 60 * 24)
+        (
+          1000 *
+          60 *
+          60 *
+          24
+        )
       );
 
 
     const hours =
       Math.floor(
         difference /
-        (1000 * 60 * 60) %
+        (
+          1000 *
+          60 *
+          60
+        ) %
         24
       );
 
@@ -629,7 +784,10 @@ if (mapImageLink) {
     const minutes =
       Math.floor(
         difference /
-        (1000 * 60) %
+        (
+          1000 *
+          60
+        ) %
         60
       );
 
@@ -653,7 +811,8 @@ if (mapImageLink) {
     if (hoursElement) {
 
       hoursElement.textContent =
-        String(hours).padStart(2, "0");
+        String(hours)
+          .padStart(2, "0");
 
     }
 
@@ -661,7 +820,8 @@ if (mapImageLink) {
     if (minutesElement) {
 
       minutesElement.textContent =
-        String(minutes).padStart(2, "0");
+        String(minutes)
+          .padStart(2, "0");
 
     }
 
@@ -669,7 +829,8 @@ if (mapImageLink) {
     if (secondsElement) {
 
       secondsElement.textContent =
-        String(seconds).padStart(2, "0");
+        String(seconds)
+          .padStart(2, "0");
 
     }
 
@@ -678,6 +839,7 @@ if (mapImageLink) {
 
   updateCountdown();
 
+
   setInterval(
     updateCountdown,
     1000
@@ -685,11 +847,14 @@ if (mapImageLink) {
 
 
   /* =====================================================
-     THE WEDDING 婚礼流程
+     THE WEDDING
+     婚礼流程时间轴
   ====================================================== */
 
   const schedule =
-    document.getElementById("schedule");
+    document.getElementById(
+      "schedule"
+    );
 
 
   function renderSchedule() {
@@ -702,17 +867,20 @@ if (mapImageLink) {
         .map(item => {
 
           return `
+
             <div class="schedule-item">
 
               <div class="schedule-time">
                 ${item.time}
               </div>
 
+
               <div class="schedule-info">
 
                 <div class="schedule-title">
                   ${item.title}
                 </div>
+
 
                 <div class="schedule-en">
                   ${item.english}
@@ -721,6 +889,7 @@ if (mapImageLink) {
               </div>
 
             </div>
+
           `;
 
         })
@@ -737,7 +906,9 @@ if (mapImageLink) {
   ====================================================== */
 
   const mainPhoto =
-    document.getElementById("mainPhoto");
+    document.getElementById(
+      "mainPhoto"
+    );
 
   const photoCarousel =
     document.getElementById(
@@ -748,9 +919,15 @@ if (mapImageLink) {
   function createPhotoPlaceholder() {
 
     return `
+
       <div class="photo-placeholder">
-        <span>YOUR PHOTO</span>
+
+        <span>
+          YOUR PHOTO
+        </span>
+
       </div>
+
     `;
 
   }
@@ -762,7 +939,9 @@ if (mapImageLink) {
       !photoCarousel ||
       !mainPhoto
     ) {
+
       return;
+
     }
 
 
@@ -771,8 +950,7 @@ if (mapImageLink) {
 
 
     /*
-      还没有照片：
-      保留漂亮的占位框。
+      还没有照片
     */
 
     if (
@@ -785,17 +963,27 @@ if (mapImageLink) {
 
 
       photoCarousel.innerHTML = `
-        <div class="photo-card">
-          ${createPhotoPlaceholder()}
-        </div>
 
         <div class="photo-card">
+
           ${createPhotoPlaceholder()}
+
         </div>
 
+
         <div class="photo-card">
+
           ${createPhotoPlaceholder()}
+
         </div>
+
+
+        <div class="photo-card">
+
+          ${createPhotoPlaceholder()}
+
+        </div>
+
       `;
 
       return;
@@ -804,10 +992,11 @@ if (mapImageLink) {
 
 
     /*
-      第一张 = 大图
+      第一张作为大图
     */
 
     mainPhoto.innerHTML = `
+
       <img
         src="${photos[0]}"
         alt="邓天澍与邹涛婚礼照片"
@@ -818,6 +1007,7 @@ if (mapImageLink) {
           display:block;
         "
       >
+
     `;
 
 
@@ -827,26 +1017,30 @@ if (mapImageLink) {
 
     photoCarousel.innerHTML =
       photos
-        .map((photo, index) => {
+        .map(
+          (photo, index) => {
 
-          return `
-            <div class="photo-card">
+            return `
 
-              <img
-                src="${photo}"
-                alt="婚礼照片 ${index + 1}"
-                style="
-                  width:100%;
-                  height:100%;
-                  object-fit:cover;
-                  display:block;
-                "
-              >
+              <div class="photo-card">
 
-            </div>
-          `;
+                <img
+                  src="${photo}"
+                  alt="婚礼照片 ${index + 1}"
+                  style="
+                    width:100%;
+                    height:100%;
+                    object-fit:cover;
+                    display:block;
+                  "
+                >
 
-        })
+              </div>
+
+            `;
+
+          }
+        )
         .join("");
 
   }
@@ -889,7 +1083,8 @@ if (mapImageLink) {
     );
 
 
-  let selectedAttendance = "";
+  let selectedAttendance =
+    "";
 
 
   attendanceButtons.forEach(
@@ -901,9 +1096,11 @@ if (mapImageLink) {
 
           attendanceButtons.forEach(
             item => {
+
               item.classList.remove(
                 "active"
               );
+
             }
           );
 
@@ -935,8 +1132,8 @@ if (mapImageLink) {
 
 
           /*
-            如果无法出席，
-            人数和住宿可以隐藏。
+            无法出席：
+            隐藏人数和住宿
           */
 
           if (
@@ -944,23 +1141,37 @@ if (mapImageLink) {
             "declined"
           ) {
 
-            if (peopleField)
+            if (peopleField) {
+
               peopleField.style.display =
                 "none";
 
-            if (lodgingBox)
+            }
+
+
+            if (lodgingBox) {
+
               lodgingBox.style.display =
                 "none";
+
+            }
 
           } else {
 
-            if (peopleField)
+            if (peopleField) {
+
               peopleField.style.display =
                 "block";
 
-            if (lodgingBox)
+            }
+
+
+            if (lodgingBox) {
+
               lodgingBox.style.display =
                 "block";
+
+            }
 
           }
 
@@ -1012,7 +1223,9 @@ if (mapImageLink) {
 
 
         const formData =
-          new FormData(rsvpForm);
+          new FormData(
+            rsvpForm
+          );
 
 
         const rsvpData = {
@@ -1021,31 +1234,37 @@ if (mapImageLink) {
             guestName || "",
 
           name:
-            formData.get("name") || "",
+            formData.get("name") ||
+            "",
 
           attendance:
-            formData.get("attendance") || "",
+            formData.get("attendance") ||
+            "",
 
           guests:
-            formData.get("guests") || "",
+            formData.get("guests") ||
+            "",
 
           lodging:
-            formData.get("lodging") || "",
+            formData.get("lodging") ||
+            "",
 
           message:
-            formData.get("message") || "",
+            formData.get("message") ||
+            "",
 
           submittedAt:
-            new Date().toISOString()
+            new Date()
+              .toISOString()
 
         };
 
 
         /*
-          当前先保存到本机。
+          目前先保存到本机。
 
-          后面做父母管理后台时，
-          会把这里换成真正的数据库。
+          后续接父母管理后台和数据库
+          时再替换。
         */
 
         const oldData =
@@ -1063,15 +1282,19 @@ if (mapImageLink) {
 
         localStorage.setItem(
           "wedding-rsvps",
-          JSON.stringify(oldData)
+          JSON.stringify(
+            oldData
+          )
         );
 
 
         if (rsvpSuccess) {
 
           rsvpSuccess.innerHTML = `
+
             谢谢你的回复。<br>
             我们婚礼见 ♡
+
           `;
 
           rsvpSuccess.style.display =
@@ -1085,14 +1308,17 @@ if (mapImageLink) {
 
         attendanceButtons.forEach(
           item => {
+
             item.classList.remove(
               "active"
             );
+
           }
         );
 
 
-        selectedAttendance = "";
+        selectedAttendance =
+          "";
 
       }
     );
@@ -1148,14 +1374,18 @@ if (mapImageLink) {
 
         },
         {
-          threshold: .12
+          threshold: 0.12
         }
       );
 
 
     sections.forEach(
       section => {
-        observer.observe(section);
+
+        observer.observe(
+          section
+        );
+
       }
     );
 
@@ -1163,9 +1393,11 @@ if (mapImageLink) {
 
     sections.forEach(
       section => {
+
         section.classList.add(
           "visible"
         );
+
       }
     );
 
