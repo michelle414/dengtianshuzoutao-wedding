@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
       music: "wedding-song.mp3"
     */
 
-    music: "music.mp3",
+    music: "Shortcut To Heaven.mp3",
 
     /*
       ★ 婚礼照片
