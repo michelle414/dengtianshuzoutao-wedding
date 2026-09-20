@@ -1,368 +1,238 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  />
+  >
 
   <title>邓天澍 & 邹涛｜婚礼邀请｜2026年10月25日</title>
 
   <meta
     name="description"
     content="邓天澍 & 邹涛诚邀您出席婚礼。2026年10月25日，吉安宾馆·礼堂。"
-  />
+  >
 
-  <meta
-    property="og:type"
-    content="website"
-  />
-
+  <meta property="og:type" content="website">
   <meta
     property="og:title"
     content="邓天澍 & 邹涛｜婚礼邀请"
-  />
-
+  >
   <meta
     property="og:description"
     content="2026年10月25日 · 吉安宾馆·礼堂"
-  />
+  >
 
-  <meta
-    property="og:site_name"
-    content="邓天澍 & 邹涛的婚礼"
-  />
-
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- =========================
-       背景音乐
-       ========================= -->
-
-  <audio
-    id="bgMusic"
-    loop
-    preload="auto"
-  >
-    <source src="assets/music.mp3" type="audio/mpeg" />
+  <!-- 音乐 -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
   </audio>
-
-
-  <!-- =========================
-       音乐按钮
-       ========================= -->
 
   <button
     class="music-toggle"
     id="musicToggle"
     type="button"
-    aria-label="播放或暂停音乐"
+    aria-label="音乐"
   >
     ♫
   </button>
 
 
-  <!-- =========================
-       首页 HERO
-       ========================= -->
-
-  <header class="hero">
-
-    <div class="hero-overlay"></div>
-
-    <div class="hero-inner">
-
-      <!-- 宾客信息：必须在最上面 -->
-
-      <div
-        class="guest-card reveal"
-        id="guestCard"
-      >
-
-        <div class="guest-label">
-          FOR YOU
-        </div>
-
-        <div
-          class="guest-name"
-          id="guestName"
-        >
-        </div>
-
-        <div class="guest-line"></div>
-
-        <div class="guest-invite">
-          诚邀您出席
-        </div>
-
-      </div>
-
-
-      <!-- 婚礼英文标题 -->
-
-      <div class="hero-kicker">
-        WEDDING INVITATION
-      </div>
-
-
-      <!-- 新郎新娘 -->
-
-      <div class="couple-block reveal">
-
-        <div class="couple-name">
-
-          <span class="name-cn">
-            邓天澍
-          </span>
-
-          <span class="ampersand">
-            &
-          </span>
-
-          <span class="name-cn">
-            邹涛
-          </span>
-
-        </div>
-
-        <div class="couple-latin">
-          TIANSHU &amp; TAO
-        </div>
-
-      </div>
-
-
-      <!-- 日期 -->
-
-      <div class="hero-date reveal">
-
-        <div class="date-main">
-          2026 · 10 · 25
-        </div>
-
-        <div class="date-sub">
-          SUNDAY · 丙午年九月十六
-        </div>
-
-      </div>
-
-
-      <!-- 开启 -->
-
-      <button
-        class="open-btn reveal"
-        id="openInvitation"
-        type="button"
-      >
-
-        <span>
-          开启请柬
-        </span>
-
-        <small>
-          OPEN INVITATION
-        </small>
-
-        <b>
-          ↓
-        </b>
-
-      </button>
-
-    </div>
-
-  </header>
-
-
   <main>
 
+    <!-- ==================================================
+         HERO
+         ================================================== -->
 
-    <!-- =========================
-         婚礼信息
-         ========================= -->
+    <section class="hero" id="hero">
 
-    <section
-      class="details-section reveal"
-      id="details"
-    >
+      <div class="paint-blob blob-blue"></div>
+      <div class="paint-blob blob-pink"></div>
+      <div class="paint-blob blob-green"></div>
 
-      <div class="section-inner">
+      <div class="hero-inner">
 
-        <div class="section-eyebrow">
-          THE DAY
+        <div class="hero-kicker">
+          WEDDING INVITATION
         </div>
 
-        <h2>
-          我们的婚礼
-        </h2>
 
-        <p class="section-intro">
-          在秋日的阳光里，
-          <br />
-          邀请你来见证我们的重要时刻。
-        </p>
+        <!-- 宾客 -->
+        <div class="guest-card" id="guestCard">
+
+          <div class="guest-label">
+            FOR YOU
+          </div>
+
+          <div
+            class="guest-name"
+            id="guestName"
+          ></div>
+
+          <div class="guest-line"></div>
+
+          <div class="guest-invite">
+            诚邀您出席
+          </div>
+
+        </div>
+
+
+        <!-- 新人 -->
+        <div class="couple-block">
+
+          <div class="couple-name">
+
+            <span>邓天澍</span>
+
+            <span class="ampersand">&amp;</span>
+
+            <span>邹涛</span>
+
+          </div>
+
+          <div class="couple-latin">
+            TIANSHU &amp; TAO
+          </div>
+
+        </div>
 
 
         <!-- 日期 -->
+        <div class="hero-date">
 
-        <div class="date-card">
-
-          <div class="date-number">
-            25
+          <div class="hero-date-number">
+            2026 · 10 · 25
           </div>
 
-          <div class="date-info">
+          <div class="hero-date-detail">
+            SUNDAY · 丙午年九月十六
+          </div>
 
-            <strong>
+        </div>
+
+
+        <!-- 开启 -->
+        <button
+          class="open-invitation"
+          id="openInvitation"
+          type="button"
+        >
+          <span>开启请柬</span>
+          <small>OPEN INVITATION</small>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         OUR DAY
+         ================================================== -->
+
+    <section
+      class="section our-day"
+      id="ourDay"
+    >
+
+      <div class="section-inner">
+
+        <div class="section-eyebrow">
+          OUR DAY
+        </div>
+
+        <h2>
+          The day we say yes.
+        </h2>
+
+        <p class="section-intro">
+          我们婚礼的这一天
+        </p>
+
+
+        <!-- 2026年10月日历 -->
+
+        <div class="calendar-card">
+
+          <div class="calendar-header">
+
+            <span class="calendar-month">
               OCTOBER
-            </strong>
-
-            <span>
-              2026 · SUNDAY
             </span>
 
-            <span>
-              丙午年九月十六
+            <span class="calendar-year">
+              2026
             </span>
 
           </div>
 
-        </div>
 
+          <div class="calendar-weekdays">
 
-        <!-- 地点 -->
-
-        <div class="location-card">
-
-          <div class="location-eyebrow">
-            LOCATION
-          </div>
-
-          <h3>
-            吉安宾馆·礼堂
-          </h3>
-
-          <p>
-            中国·江西·吉安
-            <br />
-            吉州区沿江路99号
-          </p>
-
-          <a
-            class="map-button"
-            href="https://surl.amap.com/1qtd9gB5ti"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            查看地图 · 导航
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         婚礼流程
-         ========================= -->
-
-    <section
-      class="wedding-section reveal"
-      id="schedule"
-    >
-
-      <div class="section-inner">
-
-        <div class="section-eyebrow">
-          WEDDING DAY
-        </div>
-
-        <h2>
-          婚礼流程
-        </h2>
-
-
-        <div class="schedule">
-
-          <div class="schedule-item">
-
-            <div class="schedule-time">
-              11:00
-            </div>
-
-            <div class="schedule-content">
-
-              <strong>
-                迎宾
-              </strong>
-
-              <span>
-                Welcome
-              </span>
-
-              <p>
-                我们在这里等你。
-              </p>
-
-            </div>
+            <span>MON</span>
+            <span>TUE</span>
+            <span>WED</span>
+            <span>THU</span>
+            <span>FRI</span>
+            <span>SAT</span>
+            <span>SUN</span>
 
           </div>
 
 
-          <div class="schedule-item">
+          <div
+            class="calendar-grid"
+            id="calendarGrid"
+          ></div>
 
-            <div class="schedule-time">
-              12:08
-            </div>
+        </div>
 
-            <div class="schedule-content">
 
-              <strong>
-                婚礼仪式
-              </strong>
+        <!-- 日期说明 -->
 
-              <span>
-                Ceremony
-              </span>
+        <div class="date-detail">
 
-              <p>
-                一起见证我们的婚礼。
-              </p>
+          <div class="date-detail-main">
+            2026年10月25日
+          </div>
 
-            </div>
+          <div class="date-detail-sub">
+            丙午年九月十六 · 星期日
+          </div>
+
+        </div>
+
+
+        <!-- 倒计时 -->
+
+        <div class="countdown-card">
+
+          <div class="countdown-title">
+            COUNTDOWN TO OUR DAY
+          </div>
+
+          <div class="countdown-number">
+
+            <span id="countdownDays">
+              —
+            </span>
+
+            <small>
+              DAYS
+            </small>
 
           </div>
 
-
-          <div class="schedule-item">
-
-            <div class="schedule-time">
-              12:18
-            </div>
-
-            <div class="schedule-content">
-
-              <strong>
-                喜宴
-              </strong>
-
-              <span>
-                Wedding Banquet
-              </span>
-
-              <p>
-                欢聚一堂，共享喜悦。
-              </p>
-
-            </div>
-
+          <div class="countdown-caption">
+            距离婚礼还有
           </div>
 
         </div>
@@ -372,53 +242,13 @@
     </section>
 
 
-    <!-- =========================
-         我们的故事
-         ========================= -->
+    <!-- ==================================================
+         MOMENTS
+         ================================================== -->
 
     <section
-      class="story-section reveal"
-      id="story"
-    >
-
-      <div class="section-inner">
-
-        <div class="section-eyebrow">
-          OUR STORY
-        </div>
-
-        <h2>
-          关于我们
-        </h2>
-
-        <div class="story-text">
-
-          <p>
-            从相遇，到相知，
-            <br />
-            再到决定一起走向未来。
-          </p>
-
-          <p>
-            这一天，
-            <br />
-            我们想和重要的人一起度过。
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         照片区域
-         ========================= -->
-
-    <section
-      class="photo-section reveal"
-      id="photos"
+      class="section moments"
+      id="moments"
     >
 
       <div class="section-inner">
@@ -428,47 +258,127 @@
         </div>
 
         <h2>
-          我们的照片
+          Our moments
         </h2>
 
 
-        <div class="photo-gallery">
+        <!-- 大照片 -->
 
-          <div class="photo-frame photo-main">
+        <div class="main-photo">
 
-            <div class="photo-placeholder">
-              <span>
-                OUR PHOTO
-              </span>
+          <div class="photo-placeholder">
+            <span>YOUR WEDDING PHOTO</span>
+            <small>放一张大婚纱照</small>
+          </div>
 
-              <small>
-                婚礼照片
-              </small>
+        </div>
+
+
+        <!-- 一句话 -->
+
+        <div class="moment-caption">
+
+          <div class="moment-caption-line">
+            Two people, one story.
+          </div>
+
+          <div class="moment-caption-cn">
+            两个人，一段故事。
+          </div>
+
+        </div>
+
+
+        <!-- 横向滑动照片 -->
+
+        <div class="photo-slider-wrap">
+
+          <div
+            class="photo-slider"
+            id="photoSlider"
+          >
+
+            <div class="slide-photo">
+              <div class="photo-placeholder">
+                <span>PHOTO 01</span>
+              </div>
+            </div>
+
+            <div class="slide-photo">
+              <div class="photo-placeholder">
+                <span>PHOTO 02</span>
+              </div>
+            </div>
+
+            <div class="slide-photo">
+              <div class="photo-placeholder">
+                <span>PHOTO 03</span>
+              </div>
+            </div>
+
+            <div class="slide-photo">
+              <div class="photo-placeholder">
+                <span>PHOTO 04</span>
+              </div>
+            </div>
+
+            <div class="slide-photo">
+              <div class="photo-placeholder">
+                <span>PHOTO 05</span>
+              </div>
+            </div>
+
+            <div class="slide-photo">
+              <div class="photo-placeholder">
+                <span>PHOTO 06</span>
+              </div>
             </div>
 
           </div>
 
+        </div>
 
-          <div class="photo-frame">
+        <div class="swipe-hint">
+          ← 左右滑动查看更多 →
+        </div>
 
-            <div class="photo-placeholder">
-              <span>
-                TAO
-              </span>
-            </div>
+      </div>
 
-          </div>
+    </section>
 
 
-          <div class="photo-frame">
+    <!-- ==================================================
+         OUR STORY
+         ================================================== -->
 
-            <div class="photo-placeholder">
-              <span>
-                TIANSHU
-              </span>
-            </div>
+    <section
+      class="section our-story"
+      id="ourStory"
+    >
 
-          </div>
+      <div class="story-paint"></div>
+
+      <div class="section-inner narrow">
+
+        <div class="section-eyebrow">
+          OUR STORY
+        </div>
+
+        <h2>
+          From this moment,<br>
+          together.
+        </h2>
+
+        <div class="story-copy">
+
+          <p>
+            从相遇，到决定携手走过往后的岁月。
+          </p>
+
+          <p>
+            我们想把人生中重要的一天，
+            与珍贵的你共同分享。
+          </p>
 
         </div>
 
@@ -477,78 +387,32 @@
     </section>
 
 
-    <!-- =========================
-         倒计时
-         ========================= -->
+    <!-- ==================================================
+         THE WEDDING
+         ================================================== -->
 
     <section
-      class="countdown-section reveal"
-      id="countdown"
+      class="section wedding"
+      id="wedding"
     >
 
       <div class="section-inner">
 
         <div class="section-eyebrow">
-          COUNTDOWN
+          THE WEDDING
         </div>
 
         <h2>
-          等待与你相见
+          Wedding Day
         </h2>
 
 
-        <div class="countdown">
+        <div
+          class="wedding-schedule"
+          id="weddingSchedule"
+        >
 
-          <div class="countdown-item">
-
-            <strong id="days">
-              0
-            </strong>
-
-            <span>
-              DAYS
-            </span>
-
-          </div>
-
-
-          <div class="countdown-item">
-
-            <strong id="hours">
-              00
-            </strong>
-
-            <span>
-              HOURS
-            </span>
-
-          </div>
-
-
-          <div class="countdown-item">
-
-            <strong id="minutes">
-              00
-            </strong>
-
-            <span>
-              MINUTES
-            </span>
-
-          </div>
-
-
-          <div class="countdown-item">
-
-            <strong id="seconds">
-              00
-            </strong>
-
-            <span>
-              SECONDS
-            </span>
-
-          </div>
+          <!-- JS 自动生成 -->
 
         </div>
 
@@ -557,134 +421,128 @@
     </section>
 
 
-    <!-- =========================
-         RSVP
-         ========================= -->
+    <!-- ==================================================
+         LOCATION
+         ================================================== -->
 
     <section
-      class="rsvp-section reveal"
-      id="rsvp"
+      class="section location"
+      id="location"
     >
 
-      <div class="section-inner">
+      <div class="section-inner narrow">
 
         <div class="section-eyebrow">
-          RSVP
+          LOCATION
         </div>
 
         <h2>
-          回复我们
+          吉安宾馆·礼堂
+        </h2>
+
+        <p class="location-address">
+          中国·江西·吉安<br>
+          吉安市吉州区沿江路99号
+        </p>
+
+
+        <a
+          class="map-button"
+          href="https://surl.amap.com/1qtd9gB5ti"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <strong>一键导航</strong>
+          <span>OPEN MAP →</span>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         住宿登记
+         ================================================== -->
+
+    <section
+      class="section accommodation"
+      id="accommodation"
+    >
+
+      <div class="section-inner narrow">
+
+        <div class="section-eyebrow">
+          ACCOMMODATION
+        </div>
+
+        <h2>
+          住宿登记
         </h2>
 
         <p class="section-intro">
-          如果方便，请告诉我们是否能够到场。
+          如需住宿，请提前告诉我们。
         </p>
 
 
         <form
-          id="rsvpForm"
-          class="rsvp-form"
+          class="simple-form"
+          id="accommodationForm"
         >
 
-          <div class="form-group">
-
-            <label for="rsvpName">
-              姓名
-            </label>
-
+          <label>
+            姓名
             <input
-              id="rsvpName"
-              name="name"
               type="text"
+              name="name"
               placeholder="请输入您的姓名"
               required
-            />
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>
-              是否出席
-            </label>
-
-            <div class="rsvp-options">
-
-              <label>
-                <input
-                  type="radio"
-                  name="attendance"
-                  value="出席"
-                  required
-                />
-                <span>
-                  出席
-                </span>
-              </label>
-
-              <label>
-                <input
-                  type="radio"
-                  name="attendance"
-                  value="无法出席"
-                />
-                <span>
-                  无法出席
-                </span>
-              </label>
-
-            </div>
-
-          </div>
+            >
+          </label>
 
 
-          <div class="form-group">
+          <label>
+            入住人数
+            <select
+              name="people"
+            >
+              <option value="1">1人</option>
+              <option value="2">2人</option>
+              <option value="3">3人</option>
+              <option value="4">4人</option>
+            </select>
+          </label>
 
-            <label for="rsvpGuests">
-              到场人数
-            </label>
 
+          <label>
+            入住日期
             <input
-              id="rsvpGuests"
-              name="guests"
-              type="number"
-              min="1"
-              max="20"
-              placeholder="例如：2"
-            />
-
-          </div>
+              type="date"
+              name="date"
+            >
+          </label>
 
 
-          <div class="form-group">
-
-            <label for="rsvpMessage">
-              想对我们说
-            </label>
-
+          <label>
+            备注
             <textarea
-              id="rsvpMessage"
-              name="message"
-              rows="4"
-              placeholder="写一句祝福吧 ♡"
+              name="note"
+              rows="3"
+              placeholder="如有其他需求可以告诉我们"
             ></textarea>
-
-          </div>
+          </label>
 
 
           <button
             type="submit"
-            class="rsvp-submit"
+            class="submit-button"
           >
-            提交回复
+            提交住宿登记
           </button>
 
-
           <div
-            id="rsvpSuccess"
-            class="rsvp-success"
-            style="display:none;"
+            class="form-success"
+            id="accommodationSuccess"
           ></div>
 
         </form>
@@ -694,34 +552,104 @@
     </section>
 
 
-    <!-- =========================
-         最后的邀请
-         ========================= -->
+    <!-- ==================================================
+         亲友祝福
+         ================================================== -->
 
     <section
-      class="final-section reveal"
+      class="section blessings"
+      id="blessings"
     >
+
+      <div class="section-inner narrow">
+
+        <div class="section-eyebrow">
+          BLESSINGS
+        </div>
+
+        <h2>
+          亲友祝福
+        </h2>
+
+        <p class="section-intro">
+          留下一句话，给我们未来的日子。
+        </p>
+
+
+        <form
+          class="simple-form"
+          id="blessingForm"
+        >
+
+          <label>
+            姓名
+            <input
+              type="text"
+              name="name"
+              placeholder="请输入您的姓名"
+              required
+            >
+          </label>
+
+
+          <label>
+            祝福
+            <textarea
+              name="message"
+              rows="5"
+              placeholder="写一句想对我们说的话"
+              required
+            ></textarea>
+          </label>
+
+
+          <button
+            type="submit"
+            class="submit-button"
+          >
+            留下祝福
+          </button>
+
+          <div
+            class="form-success"
+            id="blessingSuccess"
+          ></div>
+
+        </form>
+
+
+        <div
+          class="blessing-wall"
+          id="blessingWall"
+        ></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         FINAL
+         ================================================== -->
+
+    <section class="final-section">
 
       <div class="final-inner">
 
-        <div class="section-eyebrow">
-          SEE YOU
+        <div class="final-small">
+          TIANSHU &amp; TAO
         </div>
 
-        <h2 class="final-title">
+        <h2>
           婚礼见
         </h2>
 
-        <p>
-          感谢你来到我们的生命里。
-        </p>
-
-        <div class="final-names">
-          邓天澍 &amp; 邹涛
-        </div>
-
         <div class="final-date">
           2026 · 10 · 25
+        </div>
+
+        <div class="final-place">
+          吉安宾馆·礼堂
         </div>
 
       </div>
@@ -730,10 +658,6 @@
 
   </main>
 
-
-  <!-- =========================
-       JS
-       ========================= -->
 
   <script src="app.js"></script>
 
