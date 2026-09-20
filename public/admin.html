@@ -110,8 +110,14 @@
 
     .primary:active,
     .copy-button:active,
-    .delete-button:active {
+    .delete-button:active,
+    .guest-actions button:active {
       transform: scale(0.98);
+    }
+
+    .primary:disabled {
+      opacity: 0.55;
+      cursor: wait;
     }
 
     .result {
@@ -159,6 +165,10 @@
       min-height: 20px;
     }
 
+    .error {
+      color: #9a5f56;
+    }
+
     /* =========================
        宾客名单
     ========================= */
@@ -194,6 +204,13 @@
       opacity: 0.5;
     }
 
+    .loading {
+      text-align: center;
+      padding: 24px 10px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
     .guest-item {
       background: #fff;
       border: 1px solid rgba(70,60,50,0.1);
@@ -210,6 +227,7 @@
 
     .guest-item-name {
       font-size: 17px;
+      word-break: break-word;
     }
 
     .status {
@@ -269,6 +287,18 @@
       height: 30px !important;
     }
 
+    .refresh-button {
+      width: 100%;
+      height: 42px;
+      border: 1px solid rgba(70,60,50,0.16);
+      border-radius: 9px;
+      background: #fff;
+      color: #3f3a34;
+      font-family: inherit;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+
     @media (max-width: 420px) {
       .page {
         padding-top: 32px;
@@ -297,7 +327,6 @@
     添加宾客并生成专属请柬
   </div>
 
-
   <!-- 添加宾客 -->
 
   <section class="card">
@@ -319,7 +348,6 @@
     >
       添加宾客并生成请柬
     </button>
-
 
     <div
       class="result"
@@ -377,17 +405,21 @@
 
     </div>
 
-
     <div
       class="guest-list"
       id="guestList"
     >
-
-      <div class="empty">
-        还没有添加宾客
+      <div class="loading">
+        正在加载宾客名单……
       </div>
-
     </div>
+
+    <button
+      class="refresh-button"
+      id="refreshButton"
+    >
+      刷新宾客名单
+    </button>
 
   </section>
 
@@ -396,8 +428,13 @@
 
 <script>
 
-  const STORAGE_KEY =
-    "wedding-guest-list";
+  /*
+   * =========================
+   * Cloudflare D1 API
+   * =========================
+   */
+
+  const API_URL = "/api/guests";
 
 
   const guestInput =
@@ -430,53 +467,82 @@
   const guestCount =
     document.getElementById("guestCount");
 
+  const refreshButton =
+    document.getElementById("refreshButton");
+
+
+  let guests = [];
 
   let currentGuest = "";
+
   let currentLink = "";
 
 
   /* =========================
-     读取名单
+     工具：安全处理 HTML
   ========================= */
 
-  function getGuests() {
+  function escapeHtml(text) {
+
+    return String(text)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+
+  }
+
+
+  /* =========================
+     加载云端宾客名单
+  ========================= */
+
+  async function loadGuests() {
+
+    guestList.innerHTML =
+      `<div class="loading">正在加载宾客名单……</div>`;
 
     try {
 
-      return JSON.parse(
-        localStorage.getItem(STORAGE_KEY)
-      ) || [];
+      const response =
+        await fetch(API_URL);
 
-    } catch {
+      const data =
+        await response.json();
 
-      return [];
+
+      if (!response.ok || !data.success) {
+
+        throw new Error(
+          data.error || "无法读取宾客名单"
+        );
+
+      }
+
+
+      guests =
+        data.guests || [];
+
+
+      renderGuestList();
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      guestList.innerHTML = `
+        <div class="empty">
+          宾客名单加载失败<br>
+          <small>${escapeHtml(error.message)}</small>
+        </div>
+      `;
+
+      guestCount.textContent =
+        "加载失败";
 
     }
-
-  }
-
-
-  /* =========================
-     保存名单
-  ========================= */
-
-  function saveGuests(guests) {
-
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(guests)
-    );
-
-  }
-
-
-  /* =========================
-     生成链接
-  ========================= */
-
-  function createLink(name) {
-
-    return `${window.location.origin}/?guest=${encodeURIComponent(name)}`;
 
   }
 
@@ -486,10 +552,6 @@
   ========================= */
 
   function renderGuestList() {
-
-    const guests =
-      getGuests();
-
 
     guestCount.textContent =
       `${guests.length} 位`;
@@ -509,7 +571,7 @@
 
 
     guests.forEach(
-      (guest, index) => {
+      (guest) => {
 
         const item =
           document.createElement("div");
@@ -540,14 +602,14 @@
 
             <button
               class="copy-item-link"
-              data-index="${index}"
+              data-id="${guest.id}"
             >
               复制请柬
             </button>
 
             <button
               class="send-button copy-item-message"
-              data-index="${index}"
+              data-id="${guest.id}"
             >
               复制微信文案
             </button>
@@ -556,7 +618,7 @@
 
           <button
             class="delete-button"
-            data-index="${index}"
+            data-id="${guest.id}"
           >
             删除这位宾客
           </button>
@@ -576,23 +638,32 @@
 
 
   /* =========================
-     防止名字破坏 HTML
+     找到指定宾客
   ========================= */
 
-  function escapeHtml(text) {
+  function findGuest(id) {
 
-    return text
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
+    return guests.find(
+      guest =>
+        String(guest.id) === String(id)
+    );
 
   }
 
 
   /* =========================
-     名单按钮
+     复制文本
+  ========================= */
+
+  async function copyText(text) {
+
+    await navigator.clipboard.writeText(text);
+
+  }
+
+
+  /* =========================
+     复制请柬
   ========================= */
 
   function bindListButtons() {
@@ -605,23 +676,38 @@
           "click",
           async () => {
 
-            const guests =
-              getGuests();
-
             const guest =
-              guests[Number(button.dataset.index)];
+              findGuest(button.dataset.id);
 
-            await navigator.clipboard.writeText(
-              guest.link
-            );
 
-            alert("请柬链接已复制");
+            if (!guest) {
+              return;
+            }
+
+
+            try {
+
+              await copyText(
+                guest.link
+              );
+
+              alert("请柬链接已复制");
+
+            } catch (error) {
+
+              alert("复制失败，请长按链接复制");
+
+            }
 
           }
         );
 
       });
 
+
+    /* =========================
+       复制微信文案
+    ========================= */
 
     document
       .querySelectorAll(".copy-item-message")
@@ -631,14 +717,13 @@
           "click",
           async () => {
 
-            const guests =
-              getGuests();
-
-            const index =
-              Number(button.dataset.index);
-
             const guest =
-              guests[index];
+              findGuest(button.dataset.id);
+
+
+            if (!guest) {
+              return;
+            }
 
 
             const message =
@@ -651,18 +736,47 @@
 ${guest.link}`;
 
 
-            await navigator.clipboard.writeText(
-              message
-            );
+            try {
+
+              await copyText(message);
+
+            } catch (error) {
+
+              alert("复制失败，请重试");
+
+              return;
+
+            }
 
 
-            guest.sent = true;
+            try {
 
-            saveGuests(guests);
+              await fetch(
+                `${API_URL}/${guest.id}`,
+                {
+                  method: "PATCH",
+                  headers: {
+                    "Content-Type":
+                      "application/json"
+                  },
+                  body: JSON.stringify({
+                    sent: true
+                  })
+                }
+              );
 
-            renderGuestList();
 
-            alert("微信发送文案已复制");
+              await loadGuests();
+
+              alert("微信发送文案已复制");
+
+            } catch (error) {
+
+              alert(
+                "文案已复制，但发送状态更新失败，请稍后刷新"
+              );
+
+            }
 
           }
         );
@@ -670,24 +784,30 @@ ${guest.link}`;
       });
 
 
+    /* =========================
+       删除宾客
+    ========================= */
+
     document
       .querySelectorAll(".delete-button")
       .forEach(button => {
 
         button.addEventListener(
           "click",
-          () => {
+          async () => {
 
-            const guests =
-              getGuests();
+            const guest =
+              findGuest(button.dataset.id);
 
-            const index =
-              Number(button.dataset.index);
+
+            if (!guest) {
+              return;
+            }
 
 
             const confirmed =
               confirm(
-                `确定要删除「${guests[index].name}」吗？`
+                `确定要删除「${guest.name}」吗？`
               );
 
 
@@ -696,11 +816,40 @@ ${guest.link}`;
             }
 
 
-            guests.splice(index, 1);
+            try {
 
-            saveGuests(guests);
+              const response =
+                await fetch(
+                  `${API_URL}/${guest.id}`,
+                  {
+                    method: "DELETE"
+                  }
+                );
 
-            renderGuestList();
+
+              const data =
+                await response.json();
+
+
+              if (!response.ok || !data.success) {
+
+                throw new Error(
+                  data.error || "删除失败"
+                );
+
+              }
+
+
+              await loadGuests();
+
+
+            } catch (error) {
+
+              alert(
+                `删除失败：${error.message}`
+              );
+
+            }
 
           }
         );
@@ -714,89 +863,114 @@ ${guest.link}`;
      添加宾客
   ========================= */
 
-  generateButton.addEventListener(
-    "click",
-    () => {
+  async function addGuest() {
 
-      const name =
-        guestInput.value.trim();
+    const name =
+      guestInput.value.trim();
 
 
-      if (!name) {
+    if (!name) {
 
-        alert("请先输入宾客姓名");
+      alert("请先输入宾客姓名");
 
-        guestInput.focus();
+      guestInput.focus();
 
-        return;
+      return;
 
-      }
-
-
-      const guests =
-        getGuests();
+    }
 
 
-      const exists =
-        guests.some(
-          guest => guest.name === name
+    generateButton.disabled =
+      true;
+
+    generateButton.textContent =
+      "正在添加……";
+
+
+    successMessage.textContent =
+      "";
+
+
+    try {
+
+      const response =
+        await fetch(
+          API_URL,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+              name
+            })
+          }
         );
 
 
-      if (exists) {
+      const data =
+        await response.json();
 
-        alert("这位宾客已经添加过了");
 
-        return;
+      if (!response.ok || !data.success) {
+
+        throw new Error(
+          data.error || "添加失败"
+        );
 
       }
 
 
-      const link =
-        createLink(name);
+      currentGuest =
+        data.name;
 
-
-      guests.push({
-
-        name,
-
-        link,
-
-        sent: false,
-
-        createdAt:
-          new Date().toISOString()
-
-      });
-
-
-      saveGuests(guests);
-
-
-      currentGuest = name;
-
-      currentLink = link;
+      currentLink =
+        data.link;
 
 
       resultName.textContent =
-        name;
+        data.name;
 
       resultLink.textContent =
-        link;
+        data.link;
 
       result.classList.add("show");
 
+
       successMessage.textContent =
-        "已加入宾客名单";
+        "已加入云端宾客名单";
 
 
-      guestInput.value = "";
+      guestInput.value =
+        "";
 
 
-      renderGuestList();
+      await loadGuests();
+
+
+    } catch (error) {
+
+      successMessage.textContent =
+        error.message;
+
+      successMessage.classList.add(
+        "error"
+      );
+
+    } finally {
+
+      generateButton.disabled =
+        false;
+
+      generateButton.textContent =
+        "添加宾客并生成请柬";
 
     }
-  );
+
+  }
 
 
   /* =========================
@@ -812,13 +986,29 @@ ${guest.link}`;
       }
 
 
-      await navigator.clipboard.writeText(
-        currentLink
-      );
+      try {
 
+        await copyText(
+          currentLink
+        );
 
-      successMessage.textContent =
-        "请柬链接已复制";
+        successMessage.textContent =
+          "请柬链接已复制";
+
+        successMessage.classList.remove(
+          "error"
+        );
+
+      } catch {
+
+        successMessage.textContent =
+          "复制失败，请长按链接复制";
+
+        successMessage.classList.add(
+          "error"
+        );
+
+      }
 
     }
   );
@@ -847,44 +1037,110 @@ ${guest.link}`;
 ${currentLink}`;
 
 
-      await navigator.clipboard.writeText(
-        message
-      );
+      try {
 
-
-      const guests =
-        getGuests();
-
-
-      const guest =
-        guests.find(
-          item => item.name === currentGuest
+        await copyText(
+          message
         );
 
 
-      if (guest) {
+        const guest =
+          guests.find(
+            item =>
+              item.name === currentGuest
+          );
 
-        guest.sent = true;
 
-        saveGuests(guests);
+        if (guest) {
 
-        renderGuestList();
+          await fetch(
+            `${API_URL}/${guest.id}`,
+            {
+              method: "PATCH",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                sent: true
+              })
+            }
+          );
+
+        }
+
+
+        await loadGuests();
+
+
+        successMessage.textContent =
+          "微信发送文案已复制";
+
+        successMessage.classList.remove(
+          "error"
+        );
+
+
+      } catch {
+
+        successMessage.textContent =
+          "复制失败，请重试";
+
+        successMessage.classList.add(
+          "error"
+        );
 
       }
-
-
-      successMessage.textContent =
-        "微信发送文案已复制";
 
     }
   );
 
 
   /* =========================
-     初始加载
+     添加按钮
   ========================= */
 
-  renderGuestList();
+  generateButton.addEventListener(
+    "click",
+    addGuest
+  );
+
+
+  /* =========================
+     回车添加
+  ========================= */
+
+  guestInput.addEventListener(
+    "keydown",
+    event => {
+
+      if (event.key === "Enter") {
+
+        addGuest();
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     刷新
+  ========================= */
+
+  refreshButton.addEventListener(
+    "click",
+    loadGuests
+  );
+
+
+  /* =========================
+     页面打开时加载
+  ========================= */
+
+  loadGuests();
 
 </script>
 
