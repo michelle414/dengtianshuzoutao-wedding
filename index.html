@@ -352,3 +352,457 @@
 
 </body>
 </html>
+/* =====================================================
+   首页 · 宾客专属邀请视觉
+   ===================================================== */
+
+.hero-content {
+  position: relative;
+  z-index: 5;
+
+  width: min(92%, 780px);
+  min-height: 100vh;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 80px 0 70px;
+}
+
+
+/* -----------------------------------------------------
+   WEDDING INVITATION
+----------------------------------------------------- */
+
+.hero-kicker {
+  margin-bottom: 34px;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 12px;
+  font-weight: 500;
+
+  letter-spacing: 0.42em;
+
+  color: rgba(58, 72, 67, 0.72);
+}
+
+
+/* =====================================================
+   宾客姓名 —— 首页第一视觉
+   ===================================================== */
+
+.guest-card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: auto;
+  min-width: 260px;
+  max-width: 82vw;
+
+  margin-bottom: 42px;
+  padding: 18px 42px 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.78),
+      rgba(250,247,238,0.64)
+    );
+
+  border: 1px solid rgba(255,255,255,0.9);
+
+  box-shadow:
+    0 18px 55px rgba(67, 82, 76, 0.13),
+    0 2px 8px rgba(255,255,255,0.55);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border-radius: 3px;
+
+  animation: guestFloatIn 1.2s ease both;
+}
+
+
+/* 四角非常淡的装饰线 */
+
+.guest-card::before,
+.guest-card::after {
+  content: "";
+
+  position: absolute;
+
+  width: 28px;
+  height: 28px;
+
+  pointer-events: none;
+}
+
+.guest-card::before {
+  left: -1px;
+  top: -1px;
+
+  border-left: 1px solid rgba(185,163,108,0.6);
+  border-top: 1px solid rgba(185,163,108,0.6);
+}
+
+.guest-card::after {
+  right: -1px;
+  bottom: -1px;
+
+  border-right: 1px solid rgba(185,163,108,0.6);
+  border-bottom: 1px solid rgba(185,163,108,0.6);
+}
+
+
+/* -----------------------------------------------------
+   宾客姓名
+----------------------------------------------------- */
+
+.guest-name {
+  font-family:
+    "Noto Serif SC",
+    "Songti SC",
+    "STSong",
+    serif;
+
+  font-size: clamp(2rem, 6vw, 3.2rem);
+
+  line-height: 1.2;
+
+  font-weight: 500;
+
+  letter-spacing: 0.18em;
+
+  color: #394a44;
+
+  text-shadow:
+    0 2px 12px rgba(255,255,255,0.8);
+
+  white-space: normal;
+}
+
+
+/* 姓名下面的装饰线 */
+
+.guest-line {
+  width: 62px;
+  height: 1px;
+
+  margin: 13px auto 11px;
+
+  background:
+    linear-gradient(
+      to right,
+      transparent,
+      rgba(168,149,100,0.85),
+      transparent
+    );
+}
+
+
+/* -----------------------------------------------------
+   诚邀您出席
+----------------------------------------------------- */
+
+.guest-invite {
+  font-family:
+    "Noto Serif SC",
+    "Songti SC",
+    "STSong",
+    serif;
+
+  font-size: 14px;
+
+  letter-spacing: 0.34em;
+
+  color: rgba(57,74,68,0.82);
+}
+
+
+/* =====================================================
+   新人
+   ===================================================== */
+
+.couple-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-bottom: 25px;
+}
+
+.couple-name {
+  font-family:
+    "Cormorant Garamond",
+    "Noto Serif SC",
+    Georgia,
+    serif;
+
+  font-size: clamp(3rem, 8vw, 5.4rem);
+
+  line-height: 1;
+
+  letter-spacing: 0.04em;
+
+  font-weight: 500;
+
+  color: #34463f;
+
+  text-shadow:
+    0 3px 20px rgba(255,255,255,0.7);
+}
+
+.couple-name span {
+  margin: 0 0.08em;
+
+  color: #ae9862;
+
+  font-style: italic;
+}
+
+.couple-latin {
+  margin-top: 12px;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: 13px;
+
+  letter-spacing: 0.48em;
+
+  color: rgba(57,73,67,0.68);
+}
+
+
+/* =====================================================
+   日期
+   ===================================================== */
+
+.hero-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-bottom: 34px;
+}
+
+.date-main {
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: clamp(1.25rem, 4vw, 1.8rem);
+
+  letter-spacing: 0.25em;
+
+  color: #53675f;
+}
+
+.date-sub {
+  margin-top: 5px;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: 11px;
+
+  letter-spacing: 0.22em;
+
+  color: rgba(67,82,76,0.62);
+}
+
+
+/* =====================================================
+   开启请柬
+   ===================================================== */
+
+.open-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 215px;
+
+  padding: 13px 30px 14px;
+
+  border: 1px solid rgba(126,151,140,0.65);
+
+  border-radius: 999px;
+
+  background: rgba(255,253,247,0.66);
+
+  color: #53665f;
+
+  box-shadow:
+    0 10px 35px rgba(70,88,81,0.10);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.open-button:hover {
+  transform: translateY(-3px);
+
+  background: rgba(255,253,247,0.9);
+
+  box-shadow:
+    0 15px 40px rgba(70,88,81,0.15);
+}
+
+.open-button span {
+  font-family:
+    "Noto Serif SC",
+    "Songti SC",
+    serif;
+
+  font-size: 14px;
+
+  letter-spacing: 0.28em;
+}
+
+.open-button small {
+  margin-top: 4px;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: 9px;
+
+  letter-spacing: 0.32em;
+
+  opacity: 0.62;
+}
+
+
+/* =====================================================
+   宾客姓名进入动画
+   ===================================================== */
+
+@keyframes guestFloatIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+
+/* =====================================================
+   手机端
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+  .hero-content {
+    width: 90%;
+
+    padding:
+      max(55px, env(safe-area-inset-top))
+      0
+      55px;
+  }
+
+  .hero-kicker {
+    font-size: 10px;
+
+    letter-spacing: 0.32em;
+
+    margin-bottom: 25px;
+  }
+
+
+  .guest-card {
+    min-width: 0;
+
+    max-width: 82vw;
+
+    padding: 15px 27px 17px;
+
+    margin-bottom: 32px;
+  }
+
+
+  .guest-name {
+    font-size: clamp(1.9rem, 9vw, 2.5rem);
+
+    letter-spacing: 0.12em;
+  }
+
+
+  .guest-invite {
+    font-size: 12px;
+
+    letter-spacing: 0.25em;
+  }
+
+
+  .couple-name {
+    font-size: clamp(2.55rem, 12vw, 3.7rem);
+
+    letter-spacing: 0.02em;
+  }
+
+
+  .couple-latin {
+    font-size: 10px;
+
+    letter-spacing: 0.34em;
+  }
+
+
+  .date-main {
+    font-size: 1.2rem;
+  }
+
+
+  .date-sub {
+    font-size: 9px;
+
+    letter-spacing: 0.14em;
+  }
+
+
+  .open-button {
+    min-width: 190px;
+
+    padding: 11px 24px 12px;
+  }
+
+}
+
+
+/* 没有宾客姓名时，不显示空卡片 */
+
+.guest-card:not(.has-guest) {
+  display: none;
+}
