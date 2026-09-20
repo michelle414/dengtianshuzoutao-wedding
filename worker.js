@@ -2,12 +2,14 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // =========================
-    // 管理后台密码验证
-    // =========================
+    // =====================================================
+    // 管理后台 API：统一进行密码验证
+    // =====================================================
+
     if (url.pathname.startsWith("/api/admin/")) {
       const auth = request.headers.get("Authorization");
 
+      // 没有登录凭证
       if (!auth || !auth.startsWith("Bearer ")) {
         return Response.json(
           {
@@ -18,8 +20,21 @@ export default {
         );
       }
 
+      // 取得浏览器提交的密码
       const password = auth.slice(7);
 
+      // 检查 Cloudflare Secret 是否存在
+      if (!env.ADMIN_PASSWORD) {
+        return Response.json(
+          {
+            success: false,
+            error: "ADMIN_PASSWORD 没有读取到"
+          },
+          { status: 500 }
+        );
+      }
+
+      // 检查密码
       if (password !== env.ADMIN_PASSWORD) {
         return Response.json(
           {
@@ -31,10 +46,16 @@ export default {
       }
     }
 
-    // =========================
+
+    // =====================================================
     // 获取宾客列表
-    // =========================
-    if (url.pathname === "/api/admin/guests" && request.method === "GET") {
+    // GET /api/admin/guests
+    // =====================================================
+
+    if (
+      url.pathname === "/api/admin/guests" &&
+      request.method === "GET"
+    ) {
       try {
         const result = await env.DB
           .prepare(`
@@ -48,6 +69,7 @@ export default {
           success: true,
           guests: result.results || []
         });
+
       } catch (error) {
         return Response.json(
           {
@@ -59,12 +81,19 @@ export default {
       }
     }
 
-    // =========================
+
+    // =====================================================
     // 添加宾客
-    // =========================
-    if (url.pathname === "/api/admin/guests" && request.method === "POST") {
+    // POST /api/admin/guests
+    // =====================================================
+
+    if (
+      url.pathname === "/api/admin/guests" &&
+      request.method === "POST"
+    ) {
       try {
         const body = await request.json();
+
         const name = String(body.name || "").trim();
 
         if (!name) {
@@ -77,10 +106,9 @@ export default {
           );
         }
 
-        const origin = url.origin;
-
+        // 生成专属请柬链接
         const link =
-          `${origin}/?guest=${encodeURIComponent(name)}`;
+          `${url.origin}/?guest=${encodeURIComponent(name)}`;
 
         const createdAt = new Date().toISOString();
 
@@ -90,7 +118,11 @@ export default {
               (name, link, sent, created_at)
             VALUES (?, ?, 0, ?)
           `)
-          .bind(name, link, createdAt)
+          .bind(
+            name,
+            link,
+            createdAt
+          )
           .run();
 
         return Response.json({
@@ -101,8 +133,14 @@ export default {
           sent: 0,
           created_at: createdAt
         });
+
       } catch (error) {
-        if (error.message.includes("UNIQUE")) {
+
+        // 姓名重复
+        if (
+          error.message &&
+          error.message.includes("UNIQUE")
+        ) {
           return Response.json(
             {
               success: false,
@@ -122,18 +160,24 @@ export default {
       }
     }
 
-    // =========================
+
+    // =====================================================
     // 修改发送状态
-    // =========================
+    // PATCH /api/admin/guests/:id
+    // =====================================================
+
     if (
       url.pathname.startsWith("/api/admin/guests/") &&
       request.method === "PATCH"
     ) {
       try {
-        const id = url.pathname.split("/").pop();
+        const id =
+          url.pathname.split("/").pop();
+
         const body = await request.json();
 
-        const sent = body.sent ? 1 : 0;
+        const sent =
+          body.sent ? 1 : 0;
 
         await env.DB
           .prepare(`
@@ -141,12 +185,16 @@ export default {
             SET sent = ?
             WHERE id = ?
           `)
-          .bind(sent, id)
+          .bind(
+            sent,
+            id
+          )
           .run();
 
         return Response.json({
           success: true
         });
+
       } catch (error) {
         return Response.json(
           {
@@ -158,15 +206,19 @@ export default {
       }
     }
 
-    // =========================
+
+    // =====================================================
     // 删除宾客
-    // =========================
+    // DELETE /api/admin/guests/:id
+    // =====================================================
+
     if (
       url.pathname.startsWith("/api/admin/guests/") &&
       request.method === "DELETE"
     ) {
       try {
-        const id = url.pathname.split("/").pop();
+        const id =
+          url.pathname.split("/").pop();
 
         await env.DB
           .prepare(`
@@ -179,6 +231,7 @@ export default {
         return Response.json({
           success: true
         });
+
       } catch (error) {
         return Response.json(
           {
@@ -190,9 +243,11 @@ export default {
       }
     }
 
-    // =========================
-    // 普通网站页面
-    // =========================
+
+    // =====================================================
+    // 普通网站
+    // =====================================================
+
     return env.ASSETS.fetch(request);
   }
 };
