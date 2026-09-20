@@ -1,36 +1,13 @@
-@font-face {
-  font-family: "WeddingEnglish";
-  src: url("./FZVDLGTMCJW-L.TTF") format("truetype");
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "WeddingChinese";
-  src: url("./FZZiLSJW-B.TTF") format("truetype");
-  font-display: swap;
-}
-
-
-/* =========================
-   基础
-========================= */
-
 :root {
   --paper: #eee9dc;
   --paper-light: #f5f1e7;
-
   --ink: #3e4941;
-  --ink-soft: #68746c;
-
+  --muted: #788078;
   --sage: #82978a;
-  --sage-dark: #657b6e;
-
   --blue: #91aab0;
   --lavender: #aaa7bb;
-
-  --line: rgba(74, 88, 78, 0.18);
-
-  --white-paper: rgba(255, 253, 246, 0.68);
+  --line: rgba(62, 73, 65, 0.18);
+  --white: rgba(255, 255, 255, 0.55);
 }
 
 * {
@@ -43,795 +20,494 @@ html {
 
 body {
   margin: 0;
-  padding: 0;
-
+  background: var(--paper);
   color: var(--ink);
-
-  background:
-    radial-gradient(
-      circle at 20% 10%,
-      rgba(143, 160, 148, 0.12),
-      transparent 32%
-    ),
-    radial-gradient(
-      circle at 85% 35%,
-      rgba(158, 166, 192, 0.10),
-      transparent 30%
-    ),
-    linear-gradient(
-      135deg,
-      #eee9dc 0%,
-      #f3eee3 48%,
-      #ebe7da 100%
-    );
-
   font-family:
-    "WeddingChinese",
+    "Times New Roman",
     "Songti SC",
     "STSong",
-    "SimSun",
     serif;
-
-  -webkit-font-smoothing: antialiased;
-
   overflow-x: hidden;
 }
 
-
-/* 纸张纤维感 */
-
+/* 很轻的纸张纤维感 */
 body::before {
   content: "";
-
   position: fixed;
-
   inset: 0;
-
   pointer-events: none;
-
-  opacity: 0.18;
-
+  opacity: 0.16;
+  z-index: 50;
   background-image:
     repeating-linear-gradient(
       0deg,
-      rgba(70, 80, 70, 0.025) 0px,
-      rgba(70, 80, 70, 0.025) 1px,
+      rgba(255,255,255,0.22) 0,
+      rgba(255,255,255,0.22) 1px,
       transparent 1px,
       transparent 4px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.035) 0px,
-      rgba(255, 255, 255, 0.035) 1px,
-      transparent 1px,
-      transparent 5px
     );
+}
 
-  z-index: 100;
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
 }
 
 
-/* =========================
-   通用
-========================= */
-
-main {
-  width: 100%;
-}
+/* ==================== COMMON ==================== */
 
 .section {
-  width: min(100%, 720px);
-
+  width: min(100%, 920px);
   margin: 0 auto;
-
-  padding:
-    100px 22px;
+  padding: 100px 22px;
 }
 
 .section-heading {
   text-align: center;
-
   margin-bottom: 48px;
 }
 
-.section-eyebrow {
+.eyebrow {
   display: block;
-
-  margin-bottom: 10px;
-
+  margin-bottom: 12px;
   color: var(--sage);
-
-  font-family:
-    WeddingEnglish,
-    Georgia,
-    serif;
-
+  font-family: Arial, sans-serif;
   font-size: 11px;
-
-  letter-spacing: 0.24em;
-
-  text-transform: uppercase;
+  letter-spacing: 0.28em;
 }
 
 .section-heading h2 {
   margin: 0;
-
-  color: var(--ink);
-
-  font-size: 29px;
-
-  font-weight: 500;
-
-  letter-spacing: 0.12em;
-}
-
-.section-description {
-  margin:
-    18px auto
-    0;
-
-  color: var(--ink-soft);
-
-  font-size: 13px;
-
-  line-height: 2;
-}
-
-
-/* =========================
-   音乐
-========================= */
-
-.music-control {
-  position: fixed;
-
-  top: 18px;
-  right: 18px;
-
-  width: 36px;
-  height: 36px;
-
-  border:
-    1px solid
-    rgba(67, 81, 71, 0.25);
-
-  border-radius: 50%;
-
-  background:
-    rgba(247, 243, 233, 0.72);
-
-  color: var(--ink);
-
-  font-family:
-    Georgia,
-    serif;
-
-  font-size: 17px;
-
-  cursor: pointer;
-
-  z-index: 200;
-
-  backdrop-filter: blur(8px);
-
-  transition:
-    transform 0.25s ease,
-    background 0.25s ease;
-}
-
-.music-control.playing {
-  transform: rotate(15deg);
-
-  background:
-    rgba(226, 232, 221, 0.85);
-}
-
-
-/* =========================
-   首页
-========================= */
-
-.hero {
-  position: relative;
-
-  min-height: 100svh;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  padding:
-    85px 22px
-    70px;
-}
-
-.hero-inner {
-  width: min(100%, 570px);
-
-  text-align: center;
-}
-
-
-/* =========================
-   宾客姓名
-========================= */
-
-.guest-name-wrap {
-  display: inline-flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  justify-content: center;
-
-  min-width: 145px;
-
-  padding:
-    13px 23px
-    12px;
-
-  border-top:
-    1px solid
-    rgba(91, 106, 96, 0.24);
-
-  border-bottom:
-    1px solid
-    rgba(91, 106, 96, 0.24);
-
-  position: relative;
-}
-
-
-/*
-  两边的小短线，让它有一点
-  “这封请柬是给你的”的感觉
-*/
-
-.guest-name-wrap::before,
-.guest-name-wrap::after {
-  content: "";
-
-  position: absolute;
-
-  top: 50%;
-
-  width: 18px;
-
-  height: 1px;
-
-  background:
-    rgba(91, 106, 96, 0.25);
-}
-
-.guest-name-wrap::before {
-  right: 100%;
-
-  margin-right: 9px;
-}
-
-.guest-name-wrap::after {
-  left: 100%;
-
-  margin-left: 9px;
-}
-
-
-.guest-name-label {
-  margin-bottom: 5px;
-
-  color: var(--sage);
-
-  font-family:
-    WeddingEnglish,
-    Georgia,
-    serif;
-
-  font-size: 8px;
-
-  letter-spacing: 0.28em;
-}
-
-
-.guest-name {
-  color: var(--ink);
-
-  /*
-    比之前小很多。
-    但依然明显大于普通说明文字。
-  */
-
-  font-size: clamp(32px, 8vw, 43px);
-
-  line-height: 1.2;
-
-  font-weight: 500;
-
-  letter-spacing: 0.13em;
-
-  margin-left: 0.13em;
-}
-
-
-/* =========================
-   邀请语
-========================= */
-
-.hero-subtitle {
-  margin-top: 30px;
-
-  color: var(--ink-soft);
-
-  font-size: 17px;
-
-  letter-spacing: 0.18em;
-}
-
-
-/* =========================
-   新人名字
-========================= */
-
-.couple-name {
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  gap: 11px;
-
-  margin-top: 28px;
-
-  color: var(--ink);
-
-  /*
-    这里明显放大。
-    新人是首页真正的主角。
-  */
-
-  font-size: clamp(31px, 8.2vw, 42px);
-
-  font-weight: 500;
-
-  line-height: 1.2;
-
-  letter-spacing: 0.12em;
-
-  margin-left: 0.12em;
-}
-
-.couple-amp {
-  color: var(--sage);
-
-  font-family:
-    Georgia,
-    serif;
-
-  font-size: 30px;
-
-  font-weight: normal;
-}
-
-.couple-en {
-  margin-top: 8px;
-
-  color: var(--sage-dark);
-
-  font-family:
-    WeddingEnglish,
-    Georgia,
-    serif;
-
-  /*
-    中文名字约 2/3
-  */
-
-  font-size: clamp(17px, 4.2vw, 23px);
-
-  letter-spacing: 0.16em;
-}
-
-
-/* =========================
-   日期
-========================= */
-
-.hero-date {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 7px;
-
-  margin-top: 27px;
-
-  color: var(--ink-soft);
-
-  font-size: 13px;
-
+  font-size: clamp(28px, 6vw, 42px);
+  font-weight: 400;
   letter-spacing: 0.08em;
 }
 
-.hero-date strong {
-  color: var(--ink);
-
-  font-size: 16px;
-
-  font-weight: 500;
+.section-english {
+  margin: 14px auto 0;
+  max-width: 480px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.9;
+  letter-spacing: 0.04em;
 }
 
 
-/* =========================
-   开启请柬
-========================= */
+/* ==================== MUSIC ==================== */
 
-.open-invitation {
-  display: inline-flex;
+.music-control {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 100;
 
-  align-items: center;
+  width: 38px;
+  height: 38px;
 
-  justify-content: center;
+  border: 1px solid rgba(62, 73, 65, 0.35);
+  border-radius: 50%;
 
-  margin-top: 43px;
-
-  padding:
-    10px 27px;
-
-  border:
-    1px solid
-    rgba(65, 79, 69, 0.42);
-
-  border-radius: 2px;
-
-  background:
-    rgba(250, 247, 238, 0.38);
-
-  color: var(--ink);
-
-  font-family:
-    inherit;
-
-  font-size: 13px;
-
-  letter-spacing: 0.15em;
+  background: rgba(245, 241, 231, 0.78);
 
   cursor: pointer;
 
-  transition:
-    background 0.25s ease,
-    transform 0.25s ease;
-}
-
-.open-invitation:active {
-  transform: scale(0.97);
-
-  background:
-    rgba(216, 225, 215, 0.55);
+  font-size: 18px;
 }
 
 
-/* =========================
-   日历
-========================= */
+/* ==================== HERO ==================== */
 
-.wedding-day {
-  padding-top: 110px;
-}
-
-.calendar-card {
+.section-full {
+  min-height: 100svh;
   width: 100%;
-
-  padding:
-    34px 20px
-    30px;
-
-  background:
-    rgba(255, 253, 246, 0.44);
-
-  border:
-    1px solid
-    rgba(76, 90, 80, 0.12);
-
-  box-shadow:
-    0 16px 40px
-    rgba(70, 82, 73, 0.06);
-}
-
-.calendar-title {
   display: flex;
-
+  align-items: center;
   justify-content: center;
-
-  align-items: baseline;
-
-  gap: 9px;
-
-  margin-bottom: 30px;
-
-  color: var(--ink);
 }
 
-.calendar-title span {
-  font-size: 15px;
-
-  letter-spacing: 0.12em;
+.hero {
+  position: relative;
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      rgba(170, 167, 187, 0.18),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 70% 65%,
+      rgba(145, 170, 176, 0.16),
+      transparent 32%
+    ),
+    var(--paper);
 }
 
-.calendar-title strong {
-  font-size: 27px;
+.hero-inner {
+  width: 100%;
+  text-align: center;
+  padding: 70px 24px;
+}
 
-  font-weight: 500;
+.guest-name-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-width: 135px;
+
+  padding: 11px 22px 12px;
+
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.guest-label {
+  margin-bottom: 7px;
+
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.35em;
+
+  color: var(--muted);
+}
+
+.guest-name {
+  font-size: clamp(30px, 7vw, 42px);
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+}
+
+.hero-subtitle {
+  margin: 28px 0 25px;
+
+  font-size: 17px;
+  letter-spacing: 0.18em;
+}
+
+.couple-name {
+  margin: 0;
+
+  font-size: clamp(34px, 8vw, 52px);
+  font-weight: 400;
 
   letter-spacing: 0.1em;
+}
+
+.couple-name span {
+  padding: 0 8px;
+  color: var(--sage);
+  font-family: Arial, sans-serif;
+  font-size: 0.65em;
+}
+
+.couple-en {
+  margin: 12px 0 27px;
+
+  font-family: Arial, sans-serif;
+  font-size: clamp(17px, 4vw, 22px);
+  letter-spacing: 0.25em;
+}
+
+.couple-en span {
+  padding: 0 5px;
+  color: var(--sage);
+}
+
+.hero-date {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.hero-date strong {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.hero-date span {
+  color: var(--muted);
+}
+
+.open-button {
+  margin-top: 40px;
+
+  padding: 11px 30px;
+
+  border: 1px solid rgba(62, 73, 65, 0.45);
+  background: transparent;
+
+  letter-spacing: 0.14em;
+  font-size: 13px;
+
+  cursor: pointer;
+}
+
+
+/* ==================== CALENDAR ==================== */
+
+.calendar-card {
+  max-width: 500px;
+  margin: 0 auto;
+
+  padding: 28px 20px;
+
+  background: rgba(255,255,255,0.22);
+  border: 1px solid var(--line);
+}
+
+.calendar-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+
+  font-family: Arial, sans-serif;
+}
+
+.calendar-top span {
+  font-size: 12px;
+  letter-spacing: 0.25em;
+}
+
+.calendar-top strong {
+  font-size: 18px;
+  font-weight: 400;
 }
 
 .calendar-week,
 .calendar-grid {
   display: grid;
-
-  grid-template-columns:
-    repeat(7, minmax(0, 1fr));
-
+  grid-template-columns: repeat(7, 1fr);
   text-align: center;
 }
 
 .calendar-week {
-  margin-bottom: 14px;
+  padding: 18px 0 12px;
 
-  color: var(--sage-dark);
-
-  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
 }
 
 .calendar-grid {
   row-gap: 13px;
-
-  color: var(--ink-soft);
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size: 14px;
+  font-size: 13px;
 }
 
-.calendar-grid span {
+.calendar-special {
   position: relative;
+  width: 28px;
+  height: 28px;
 
-  min-height: 28px;
+  margin: -7px auto 0;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-}
 
-.calendar-grid .empty {
-  visibility: hidden;
-}
-
-.calendar-grid .wedding-day-number {
-  width: 32px;
-  height: 32px;
-
-  min-height: 32px;
-
-  margin:
-    -2px auto
-    0;
-
+  border: 1px solid var(--sage);
   border-radius: 50%;
-
-  background:
-    var(--sage);
-
-  color: #fff;
-
-  box-shadow:
-    0 4px 14px
-    rgba(90, 110, 96, 0.22);
 }
 
 
-/* =========================
-   倒计时
-========================= */
+/* ==================== COUNTDOWN ==================== */
 
-.countdown-area {
-  margin-top: 52px;
-
+.countdown-block {
+  margin-top: 65px;
   text-align: center;
 }
 
-.countdown-title {
-  color: var(--ink-soft);
-
+.countdown-block > div {
+  margin: 12px 0;
   font-size: 14px;
-
-  letter-spacing: 0.18em;
+  color: var(--muted);
 }
 
-.countdown {
-  display: grid;
+#countdownNumber {
+  display: block;
 
-  grid-template-columns:
-    repeat(4, 1fr);
-
-  max-width: 410px;
-
-  margin:
-    25px auto
-    0;
-}
-
-.countdown-item {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 6px;
-
-  border-right:
-    1px solid
-    var(--line);
-}
-
-.countdown-item:last-child {
-  border-right: none;
-}
-
-.countdown-item strong {
-  color: var(--ink);
-
-  font-family:
-    Georgia,
-    serif;
-
-  font-size: 31px;
-
-  font-weight: 400;
-
+  font-family: Arial, sans-serif;
+  font-size: clamp(54px, 14vw, 90px);
+  font-weight: 300;
   line-height: 1;
+
+  color: var(--sage);
 }
 
-.countdown-item span {
-  color: var(--ink-soft);
+.countdown-unit {
+  display: block;
+  margin-top: 10px;
 
-  font-size: 11px;
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.35em;
 }
 
 
-/* =========================
-   婚礼照片
-========================= */
+/* ==================== MOMENTS ==================== */
 
-.photo-section {
+.moments-section {
+  width: 100%;
+  max-width: 1100px;
+  padding-left: 0;
+  padding-right: 0;
   overflow: hidden;
 }
 
+.moments-heading {
+  padding: 0 22px;
+}
+
+.moments-heading h2 {
+  font-family:
+    "Times New Roman",
+    serif;
+  font-style: italic;
+  letter-spacing: 0.05em;
+}
+
+
+/* 大图 */
+
 .main-photo-frame {
-  width: 100%;
-}
-
-.main-gallery-image {
-  aspect-ratio: 1 / 1.12;
-}
-
-.photo-placeholder {
   position: relative;
 
-  width: 100%;
+  width: min(88vw, 760px);
+  margin: 0 auto;
+
+  aspect-ratio: 4 / 5;
 
   overflow: hidden;
 
   background:
     linear-gradient(
-      145deg,
-      rgba(148, 169, 156, 0.18),
-      rgba(155, 170, 184, 0.18),
-      rgba(181, 173, 194, 0.16)
+      135deg,
+      rgba(145,170,176,0.22),
+      rgba(170,167,187,0.18)
     );
 
-  border:
-    1px solid
-    rgba(72, 87, 77, 0.13);
+  border: 1px solid rgba(62,73,65,0.15);
+}
 
-  box-shadow:
-    0 18px 50px
-    rgba(73, 83, 74, 0.10);
+.main-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-placeholder {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background:
+    radial-gradient(
+      circle at 40% 35%,
+      rgba(255,255,255,0.55),
+      transparent 35%
+    ),
+    rgba(238,233,220,0.5);
 }
 
 .photo-placeholder span {
-  position: absolute;
-
-  top: 50%;
-  left: 50%;
-
-  transform:
-    translate(-50%, -50%);
-
-  color:
-    rgba(62, 73, 65, 0.55);
-
-  font-size: 14px;
-
-  letter-spacing: 0.12em;
-
-  white-space: nowrap;
+  font-size: 24px;
+  letter-spacing: 0.25em;
 }
 
-.photo-caption {
+.photo-placeholder small {
+  margin-top: 12px;
+
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  color: var(--muted);
+}
+
+
+/* 图片之间的文字 */
+
+.moments-quote {
   display: flex;
-
-  align-items: baseline;
-
-  justify-content: space-between;
-
-  padding:
-    17px 3px
-    21px;
-
-  border-bottom:
-    1px solid
-    var(--line);
-}
-
-.photo-caption span {
-  color: var(--ink);
-
-  font-size: 17px;
-
-  letter-spacing: 0.12em;
-}
-
-.photo-caption small {
-  color: var(--sage-dark);
-
-  font-family:
-    WeddingEnglish,
-    Georgia,
-    serif;
-
-  font-size: 11px;
-
-  letter-spacing: 0.1em;
-}
-
-
-/* 横向滚动 */
-
-.photo-scroll-wrap {
-  position: relative;
-
-  display: flex;
-
+  flex-direction: column;
   align-items: center;
 
-  margin-top: 24px;
+  margin: 45px auto 38px;
+
+  text-align: center;
+}
+
+.quote-line {
+  width: 35px;
+  height: 1px;
+  background: var(--sage);
+  opacity: 0.6;
+}
+
+.moments-quote p {
+  margin: 18px 20px 10px;
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size: clamp(18px, 4vw, 24px);
+  line-height: 1.7;
+
+  font-style: italic;
+}
+
+.moments-quote small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+
+/* 缩略图 */
+
+.photo-slider-wrap {
+  position: relative;
+
+  width: 100%;
 }
 
 .photo-scroll {
-  width: 100%;
-
   display: flex;
-
-  gap: 12px;
+  gap: 13px;
 
   overflow-x: auto;
+  overflow-y: hidden;
 
+  padding:
+    0 7vw 15px;
+
+  scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
 
   scrollbar-width: none;
-
-  padding:
-    4px
-    4px
-    12px;
+  -webkit-overflow-scrolling: touch;
 }
 
 .photo-scroll::-webkit-scrollbar {
@@ -839,812 +515,489 @@ main {
 }
 
 .photo-thumb {
-  flex:
-    0 0
-    66%;
+  flex: 0 0 58vw;
 
-  aspect-ratio: 0.78 / 1;
-
-  border:
-    1px solid
-    rgba(70, 84, 74, 0.14);
-
-  overflow: hidden;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(146, 165, 153, 0.18),
-      rgba(164, 177, 189, 0.17),
-      rgba(181, 174, 195, 0.16)
-    );
-
-  cursor: pointer;
-
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
-}
-
-.photo-thumb.active {
-  transform:
-    translateY(-3px);
-
-  box-shadow:
-    0 8px 22px
-    rgba(70, 84, 74, 0.13);
-}
-
-.photo-thumb img {
-  width: 100%;
-  height: 100%;
+  aspect-ratio: 4 / 5;
 
   object-fit: cover;
 
-  display: block;
+  scroll-snap-align: center;
+
+  border: 1px solid rgba(62,73,65,0.12);
+
+  cursor: pointer;
+
+  opacity: 0.72;
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.photo-thumb.active {
+  opacity: 1;
+  transform: translateY(-3px);
 }
 
 .photo-arrow {
-  display: none;
+  position: absolute;
+
+  top: 50%;
+  z-index: 5;
+
+  width: 38px;
+  height: 38px;
+
+  border: 1px solid rgba(62,73,65,0.3);
+  border-radius: 50%;
+
+  background: rgba(245,241,231,0.8);
+
+  transform: translateY(-50%);
+
+  cursor: pointer;
+
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.photo-arrow-left {
+  left: 12px;
+}
+
+.photo-arrow-right {
+  right: 12px;
+}
+
+.photo-hint {
+  margin-top: 12px;
+  text-align: center;
+
+  font-family: Arial, sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.3em;
+
+  color: var(--muted);
 }
 
 
-/* =========================
-   婚礼流程
-========================= */
+/* ==================== SCHEDULE ==================== */
 
-.schedule-list {
-  width: 100%;
+.schedule-section {
+  text-align: center;
 }
 
-.schedule-item {
-  display: grid;
-
-  grid-template-columns:
-    75px
-    1px
-    1fr;
-
-  min-height: 82px;
-}
-
-.schedule-time {
-  padding-top: 3px;
-
-  color: var(--sage-dark);
-
-  font-family:
-    Georgia,
-    serif;
-
-  font-size: 18px;
-}
-
-.schedule-line {
+.schedule {
   position: relative;
 
-  width: 1px;
+  width: min(100%, 520px);
 
-  background:
-    rgba(104, 122, 109, 0.25);
+  margin: 0 auto;
+
+  padding: 10px 0;
 }
 
-.schedule-line::before {
+
+/* 中间竖线 */
+
+.schedule::before {
   content: "";
 
   position: absolute;
 
-  top: 5px;
+  top: 0;
+  bottom: 0;
   left: 50%;
 
-  width: 7px;
-  height: 7px;
+  width: 1px;
 
-  transform:
-    translateX(-50%);
+  background: var(--line);
 
-  border-radius: 50%;
-
-  background:
-    var(--sage);
+  transform: translateX(-50%);
 }
 
+
+.schedule-item {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    28px
+    1fr;
+
+  align-items: center;
+
+  min-height: 105px;
+}
+
+
+/* 时间全部在中线左侧但靠近中心 */
+
+.schedule-time {
+  justify-self: end;
+
+  padding-right: 24px;
+
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+
+  color: var(--sage);
+}
+
+
+/* 中间圆点 */
+
+.schedule-dot {
+  position: relative;
+  z-index: 2;
+
+  width: 9px;
+  height: 9px;
+
+  margin: 0 auto;
+
+  border: 1px solid var(--sage);
+  border-radius: 50%;
+
+  background: var(--paper);
+}
+
+
+/* 文字在中线右侧 */
+
 .schedule-content {
-  padding:
-    0 0 0
-    27px;
+  justify-self: start;
+
+  padding-left: 24px;
+
+  text-align: left;
 }
 
 .schedule-content strong {
-  color: var(--ink);
+  display: block;
 
   font-size: 17px;
-
-  font-weight: 500;
-
-  letter-spacing: 0.1em;
-}
-
-
-/* =========================
-   地点
-========================= */
-
-.location-info {
-  margin-bottom: 27px;
-
-  text-align: center;
-}
-
-.location-info h3 {
-  margin:
-    0 0 14px;
-
-  color: var(--ink);
-
-  font-size: 22px;
-
-  font-weight: 500;
-
-  letter-spacing: 0.1em;
-}
-
-.location-info p {
-  margin: 5px 0;
-
-  color: var(--ink-soft);
-
-  font-size: 13px;
+  font-weight: 400;
 
   letter-spacing: 0.08em;
 }
 
-.location-map-link {
+.schedule-content span {
   display: block;
 
-  color: inherit;
+  margin-top: 6px;
 
-  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.25em;
+
+  color: var(--muted);
+}
+
+
+/* ==================== LOCATION ==================== */
+
+.location-card {
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .location-map {
-  position: relative;
-
-  width: 100%;
-
-  aspect-ratio: 1.15 / 1;
+  display: block;
 
   overflow: hidden;
 
-  border:
-    1px solid
-    rgba(73, 87, 77, 0.15);
-
-  background:
-    #e4e1d6;
+  border: 1px solid var(--line);
 }
 
 .location-map img {
   width: 100%;
-  height: 100%;
-
-  display: block;
-
+  aspect-ratio: 16 / 9;
   object-fit: cover;
 }
 
-.map-empty-text {
-  position: absolute;
-
-  inset: 0;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  color:
-    rgba(62, 73, 65, 0.45);
-
-  font-size: 14px;
-
-  letter-spacing: 0.12em;
+.location-info {
+  padding: 28px 10px;
+  text-align: center;
 }
 
-.location-map:not(.map-empty)
-  .map-empty-text {
-  display: none;
+.location-info h3 {
+  margin: 0 0 10px;
+
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.location-info p {
+  margin: 0;
+
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
 }
 
 .map-button {
-  display: flex;
+  display: inline-block;
 
-  align-items: center;
+  margin-top: 22px;
 
-  justify-content: center;
+  padding: 11px 22px;
 
-  gap: 9px;
-
-  width: 100%;
-
-  margin-top: 17px;
-
-  padding:
-    14px;
-
-  border:
-    1px solid
-    rgba(68, 82, 72, 0.3);
+  border: 1px solid rgba(62,73,65,0.4);
 
   color: var(--ink);
-
   text-decoration: none;
 
-  font-size: 13px;
-
-  letter-spacing: 0.12em;
-
-  background:
-    rgba(249, 246, 237, 0.45);
+  font-size: 12px;
+  letter-spacing: 0.1em;
 }
 
-.map-button span {
-  font-family:
-    Georgia,
-    serif;
 
+/* ==================== REPLY ==================== */
+
+.reply-card {
+  width: min(100%, 560px);
+  margin: 0 auto;
+
+  padding: 30px 22px;
+
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.18);
+}
+
+.reply-question {
+  margin: 0 0 24px;
+  text-align: center;
   font-size: 16px;
 }
 
-
-/* =========================
-   宾客回复
-========================= */
-
-.reply-section {
-  padding-bottom: 110px;
+.attendance-options {
+  display: grid;
+  gap: 10px;
 }
 
-.attendance-choice {
-  display: flex;
+.attendance-button,
+.stay-button {
+  padding: 13px;
 
-  flex-direction: column;
+  border: 1px solid var(--line);
 
-  gap: 12px;
+  background: transparent;
+
+  cursor: pointer;
 }
 
-.attendance-option {
+.attendance-button.selected,
+.stay-button.selected {
+  background: rgba(130,151,138,0.14);
+  border-color: var(--sage);
+}
+
+.stay-fields {
+  margin-top: 28px;
+}
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 13px;
+}
+
+.small-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+input,
+textarea {
   width: 100%;
 
-  display: flex;
+  padding: 12px;
 
-  align-items: center;
+  border: 1px solid var(--line);
 
-  justify-content: space-between;
+  outline: none;
 
-  padding:
-    18px 20px;
-
-  border:
-    1px solid
-    rgba(72, 86, 76, 0.18);
-
-  background:
-    rgba(255, 253, 246, 0.38);
+  background: rgba(255,255,255,0.25);
 
   color: var(--ink);
+}
 
-  font-family: inherit;
+textarea {
+  resize: vertical;
+}
+
+.date-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.submit-button {
+  width: 100%;
+
+  padding: 13px;
+
+  border: 1px solid rgba(62,73,65,0.45);
+
+  background: transparent;
 
   cursor: pointer;
 
-  transition:
-    background 0.25s ease,
-    border 0.25s ease,
-    transform 0.25s ease;
+  letter-spacing: 0.15em;
 }
 
-.attendance-option:active {
-  transform:
-    scale(0.99);
+.reply-success {
+  margin: 20px 0 0;
+
+  text-align: center;
+
+  color: var(--sage);
+  font-size: 13px;
 }
 
-.attendance-option.selected {
-  border-color:
-    rgba(94, 117, 101, 0.58);
+.hidden {
+  display: none !important;
+}
+
+
+/* ==================== FINAL ==================== */
+
+.final-section {
+  min-height: 65svh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 80px 22px;
+
+  text-align: center;
 
   background:
-    rgba(210, 221, 210, 0.42);
+    radial-gradient(
+      circle at 50% 40%,
+      rgba(145,170,176,0.13),
+      transparent 45%
+    ),
+    var(--paper-light);
 }
 
-.option-title {
-  font-size: 14px;
-
-  letter-spacing: 0.08em;
-}
-
-.option-mark {
-  color: var(--sage);
-
+.final-inner > span {
   font-family:
-    Georgia,
+    "Times New Roman",
     serif;
 
-  font-size: 22px;
+  font-style: italic;
+  font-size: 18px;
+
+  color: var(--muted);
 }
 
-.attendance-option.selected
-  .option-mark {
-  font-size: 0;
-}
+.final-inner h2 {
+  margin: 20px 0 15px;
 
-.attendance-option.selected
-  .option-mark::after {
-  content: "●";
-
-  font-size: 12px;
-}
-
-
-/* 回复表单 */
-
-.reply-details {
-  display: none;
-
-  margin-top: 34px;
-}
-
-.reply-details.show {
-  display: block;
-}
-
-.form-block,
-.form-field {
-  margin-bottom: 25px;
-}
-
-.form-block > label,
-.form-field > label {
-  display: block;
-
-  margin-bottom: 11px;
-
-  color: var(--ink);
-
-  font-size: 13px;
+  font-size: clamp(28px, 7vw, 44px);
+  font-weight: 400;
 
   letter-spacing: 0.1em;
 }
 
-.small-choice-group {
-  display: grid;
+.final-inner p {
+  margin: 0;
 
-  grid-template-columns:
-    1fr
-    1fr;
-
-  gap: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.2em;
 }
 
-.small-choice {
-  padding:
-    13px;
-
-  border:
-    1px solid
-    rgba(72, 86, 76, 0.18);
-
-  background:
-    rgba(255, 253, 246, 0.35);
-
-  color: var(--ink-soft);
-
-  font-family: inherit;
-
-  cursor: pointer;
-}
-
-.small-choice.selected {
-  border-color:
-    rgba(94, 117, 101, 0.55);
-
-  background:
-    rgba(210, 221, 210, 0.42);
-
-  color: var(--ink);
-}
-
-.stay-fields {
-  display: none;
-}
-
-.stay-fields.show {
+.final-inner strong {
   display: block;
-}
 
-.form-field input,
-.form-field textarea {
-  width: 100%;
-
-  border:
-    1px solid
-    rgba(72, 86, 76, 0.17);
-
-  border-radius: 0;
-
-  outline: none;
-
-  background:
-    rgba(255, 253, 246, 0.45);
-
-  color: var(--ink);
-
-  font-family: inherit;
-
-  font-size: 14px;
-}
-
-.form-field input {
-  height: 47px;
-
-  padding:
-    0 13px;
-}
-
-.form-field textarea {
-  padding:
-    13px;
-
-  resize: vertical;
-
-  line-height: 1.8;
-}
-
-.form-field input:focus,
-.form-field textarea:focus {
-  border-color:
-    rgba(96, 118, 103, 0.55);
-}
-
-.number-control {
-  display: grid;
-
-  grid-template-columns:
-    47px
-    1fr
-    47px;
-
-  height: 47px;
-}
-
-.number-control button {
-  border:
-    1px solid
-    rgba(72, 86, 76, 0.17);
-
-  background:
-    rgba(255, 253, 246, 0.45);
-
-  color: var(--ink);
+  margin-top: 45px;
 
   font-size: 20px;
-
-  cursor: pointer;
-}
-
-.number-control input {
-  text-align: center;
-
-  border-left: none;
-  border-right: none;
-}
-
-.message-field {
-  margin-top: 32px;
-}
-
-.submit-reply {
-  width: 100%;
-
-  margin-top: 6px;
-
-  padding:
-    15px;
-
-  border:
-    1px solid
-    rgba(65, 80, 69, 0.4);
-
-  background:
-    rgba(222, 229, 218, 0.58);
-
-  color: var(--ink);
-
-  font-family: inherit;
-
-  font-size: 14px;
-
-  letter-spacing: 0.15em;
-
-  cursor: pointer;
-}
-
-.reply-success {
-  display: none;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  gap: 8px;
-
-  margin-top: 30px;
-
-  text-align: center;
-}
-
-.reply-success.show {
-  display: flex;
-}
-
-.reply-success strong {
-  font-size: 18px;
-
-  font-weight: 500;
-}
-
-.reply-success span {
-  color: var(--ink-soft);
-
-  font-size: 13px;
-}
-
-.absence-message {
-  display: none;
-
-  padding:
-    30px 10px;
-
-  text-align: center;
-}
-
-.absence-message.show {
-  display: block;
-}
-
-.absence-message p {
-  margin:
-    0 0 10px;
-
-  color: var(--ink-soft);
-
-  font-size: 14px;
-}
-
-.absence-message strong {
-  color: var(--ink);
-
-  font-size: 16px;
-
-  font-weight: 500;
-}
-
-
-/* =========================
-   结尾
-========================= */
-
-.final-section {
-  min-height: 72svh;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  padding:
-    70px 25px;
-
-  text-align: center;
-}
-
-.final-inner {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-}
-
-.final-love {
-  color: var(--sage-dark);
-
-  font-family:
-    WeddingEnglish,
-    Georgia,
-    serif;
-
-  font-size: 16px;
-
-  letter-spacing: 0.2em;
-
-  margin-bottom: 34px;
-}
-
-.final-couple {
-  color: var(--ink);
-
-  font-size: 27px;
-
-  letter-spacing: 0.14em;
-
-  margin-left: 0.14em;
-}
-
-.final-date {
-  margin-top: 18px;
-
-  color: var(--ink-soft);
-
-  font-family:
-    Georgia,
-    serif;
-
-  font-size: 14px;
-
-  letter-spacing: 0.16em;
-}
-
-.final-goodbye {
-  margin-top: 46px;
-
-  color: var(--ink);
-
-  font-size: 22px;
+  font-weight: 400;
 
   letter-spacing: 0.25em;
-
-  margin-left: 0.25em;
 }
 
 
-/* =========================
-   手机端
-========================= */
+/* ==================== MOBILE ==================== */
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
 
   .section {
-    padding:
-      86px 19px;
+    padding-top: 85px;
+    padding-bottom: 85px;
   }
 
-  .hero {
-    min-height: 100svh;
-
-    padding:
-      80px 19px
-      60px;
-  }
-
-  .guest-name-wrap {
-    min-width: 135px;
-
-    padding:
-      11px 20px
-      10px;
+  .hero-inner {
+    padding-top: 80px;
+    padding-bottom: 80px;
   }
 
   .guest-name {
-    font-size: 35px;
-  }
-
-  .hero-subtitle {
-    margin-top: 27px;
-
-    font-size: 16px;
+    font-size: 34px;
   }
 
   .couple-name {
-    margin-top: 27px;
-
-    font-size: 32px;
-
-    gap: 8px;
-  }
-
-  .couple-amp {
-    font-size: 25px;
-  }
-
-  .couple-en {
-    font-size: 18px;
-  }
-
-  .hero-date {
-    margin-top: 24px;
-  }
-
-  .open-invitation {
-    margin-top: 40px;
-  }
-
-  .section-heading {
-    margin-bottom: 37px;
-  }
-
-  .section-heading h2 {
-    font-size: 27px;
-  }
-
-  .calendar-card {
-    padding:
-      30px 13px
-      27px;
-  }
-
-  .calendar-grid {
-    row-gap: 12px;
-  }
-
-  .countdown-item strong {
-    font-size: 27px;
-  }
-
-  .photo-thumb {
-    flex-basis: 66%;
-  }
-
-  .photo-caption {
-    gap: 12px;
-  }
-
-  .photo-caption small {
-    font-size: 10px;
-  }
-
-  .schedule-item {
-    grid-template-columns:
-      66px
-      1px
-      1fr;
-  }
-
-  .schedule-content {
-    padding-left: 21px;
-  }
-
-  .final-section {
-    min-height: 65svh;
-  }
-
-  .final-couple {
-    font-size: 24px;
-  }
-}
-
-
-/* =========================
-   更小手机
-========================= */
-
-@media (max-width: 380px) {
-
-  .guest-name {
-    font-size: 32px;
-  }
-
-  .couple-name {
-    font-size: 29px;
+    font-size: 34px;
   }
 
   .couple-en {
     font-size: 17px;
   }
 
-  .final-couple {
-    font-size: 21px;
+  /* 照片缩略图明显变大 */
+  .photo-thumb {
+    flex-basis: 62vw;
+  }
+
+  .photo-scroll {
+    gap: 12px;
+    padding-left: 8vw;
+    padding-right: 8vw;
+  }
+
+  /* 流程继续保持中轴 */
+  .schedule {
+    width: 92%;
+  }
+
+  .schedule-item {
+    grid-template-columns: 1fr 26px 1fr;
+  }
+
+  .schedule-time {
+    padding-right: 18px;
+    font-size: 16px;
+  }
+
+  .schedule-content {
+    padding-left: 18px;
+  }
+
+  .schedule-content strong {
+    font-size: 16px;
+  }
+
+  .schedule-content span {
+    font-size: 7px;
+  }
+
+  .date-row {
+    grid-template-columns: 1fr;
   }
 }
