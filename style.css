@@ -1152,3 +1152,355 @@ textarea {
   }
 }
 ```
+/* =========================================================
+   GUEST PERSONALIZATION — 首页宾客姓名
+   ========================================================= */
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+
+  width: min(90%, 760px);
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  padding: 8vh 0 6vh;
+}
+
+/* 顶部英文 */
+.hero-kicker {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.38em;
+  font-weight: 500;
+
+  color: rgba(55, 70, 65, 0.78);
+
+  margin-bottom: 2.5rem;
+}
+
+/* =========================================================
+   宾客姓名卡片
+   ========================================================= */
+
+.guest-card {
+  position: relative;
+
+  min-width: 250px;
+  max-width: 80vw;
+
+  padding: 1.2rem 2.5rem 1.35rem;
+
+  margin-bottom: 2.5rem;
+
+  background: rgba(255, 253, 247, 0.68);
+
+  border: 1px solid rgba(255, 255, 255, 0.78);
+
+  box-shadow:
+    0 12px 40px rgba(72, 92, 84, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  border-radius: 2px;
+}
+
+/* 宾客姓名 */
+.guest-name {
+  font-family:
+    "Noto Serif SC",
+    "Songti SC",
+    "STSong",
+    serif;
+
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+
+  line-height: 1.25;
+
+  letter-spacing: 0.16em;
+
+  color: #43534e;
+
+  font-weight: 500;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* 姓名下面的细线 */
+.guest-line {
+  width: 52px;
+  height: 1px;
+
+  margin: 0.8rem auto 0.75rem;
+
+  background: rgba(145, 165, 141, 0.75);
+}
+
+/* 诚邀您出席 */
+.guest-invite {
+  font-family:
+    "Noto Serif SC",
+    "Songti SC",
+    "STSong",
+    serif;
+
+  font-size: 0.95rem;
+
+  letter-spacing: 0.28em;
+
+  color: rgba(67, 83, 78, 0.82);
+}
+
+/* =========================================================
+   新人名字
+   ========================================================= */
+
+.couple-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-bottom: 1.5rem;
+}
+
+.couple-name {
+  font-family:
+    "Cormorant Garamond",
+    "Noto Serif SC",
+    Georgia,
+    serif;
+
+  font-size: clamp(2.7rem, 8vw, 5.2rem);
+
+  line-height: 1.05;
+
+  letter-spacing: 0.06em;
+
+  color: #394943;
+
+  font-weight: 500;
+
+  text-shadow:
+    0 2px 18px rgba(255, 255, 255, 0.42);
+}
+
+.couple-name span {
+  font-family: Georgia, serif;
+
+  font-size: 0.72em;
+
+  margin: 0 0.12em;
+
+  color: #a89667;
+
+  font-style: italic;
+}
+
+.couple-latin {
+  margin-top: 0.75rem;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: 0.88rem;
+
+  letter-spacing: 0.45em;
+
+  color: rgba(57, 73, 67, 0.72);
+}
+
+/* =========================================================
+   日期
+   ========================================================= */
+
+.hero-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-bottom: 2.7rem;
+}
+
+.date-main {
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+
+  letter-spacing: 0.22em;
+
+  color: #53665f;
+}
+
+.date-sub {
+  margin-top: 0.35rem;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: 0.72rem;
+
+  letter-spacing: 0.24em;
+
+  color: rgba(70, 83, 77, 0.65);
+}
+
+/* =========================================================
+   开启请柬
+   ========================================================= */
+
+.open-button {
+  appearance: none;
+  -webkit-appearance: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 210px;
+
+  padding: 0.95rem 2.3rem 1rem;
+
+  border: 1px solid rgba(126, 151, 140, 0.65);
+
+  border-radius: 999px;
+
+  background: rgba(255, 253, 247, 0.64);
+
+  color: #53665f;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 30px rgba(71, 91, 83, 0.08);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.open-button span {
+  font-family:
+    "Noto Serif SC",
+    "Songti SC",
+    serif;
+
+  font-size: 0.95rem;
+
+  letter-spacing: 0.24em;
+}
+
+.open-button small {
+  margin-top: 0.3rem;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: 0.65rem;
+
+  letter-spacing: 0.28em;
+
+  opacity: 0.65;
+}
+
+.open-button:hover {
+  transform: translateY(-2px);
+
+  background: rgba(255, 253, 247, 0.86);
+
+  box-shadow:
+    0 12px 36px rgba(71, 91, 83, 0.14);
+}
+
+/* =========================================================
+   手机端
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .hero-content {
+    width: 88%;
+    padding-top: 7vh;
+    padding-bottom: 5vh;
+  }
+
+  .hero-kicker {
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+
+    margin-bottom: 1.8rem;
+  }
+
+  .guest-card {
+    min-width: 0;
+    width: auto;
+
+    max-width: 82vw;
+
+    padding: 1rem 1.8rem 1.15rem;
+
+    margin-bottom: 2rem;
+  }
+
+  .guest-name {
+    font-size: clamp(1.65rem, 8vw, 2.25rem);
+
+    letter-spacing: 0.12em;
+  }
+
+  .guest-invite {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+  }
+
+  .couple-name {
+    font-size: clamp(2.35rem, 10vw, 3.5rem);
+
+    letter-spacing: 0.03em;
+  }
+
+  .couple-latin {
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+  }
+
+  .hero-date {
+    margin-bottom: 2rem;
+  }
+
+  .date-main {
+    font-size: 1.15rem;
+  }
+
+  .date-sub {
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+  }
+
+  .open-button {
+    min-width: 185px;
+
+    padding: 0.82rem 1.8rem 0.88rem;
+  }
+
+}
