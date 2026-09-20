@@ -1,3 +1,8 @@
+```javascript
+/* =========================================================
+   WEDDING CONFIG
+========================================================= */
+
 const weddingConfig = {
   groom: "邓天澍",
   bride: "邹涛",
@@ -45,23 +50,15 @@ const weddingConfig = {
    DOM
 ========================================================= */
 
-const bgMusic =
-  document.getElementById("bgMusic");
+const bgMusic = document.getElementById("bgMusic");
+const musicButton = document.getElementById("musicButton");
 
-const musicToggle =
-  document.getElementById("musicToggle");
+const openInvitation = document.getElementById("openInvitation");
 
-const openInvitation =
-  document.getElementById("openInvitation");
+const guestNameElement = document.getElementById("guestName");
 
-const guestCard =
-  document.getElementById("guestCard");
-
-const guestNameElement =
-  document.getElementById("guestName");
-
-const mapButton =
-  document.getElementById("mapButton");
+const navigationButton =
+  document.getElementById("navigationButton");
 
 const mapImageLink =
   document.getElementById("mapImageLink");
@@ -69,381 +66,284 @@ const mapImageLink =
 const scheduleElement =
   document.getElementById("weddingSchedule");
 
+const countdownDays =
+  document.getElementById("days");
+
+const countdownHours =
+  document.getElementById("hours");
+
+const countdownMinutes =
+  document.getElementById("minutes");
+
+const countdownSeconds =
+  document.getElementById("seconds");
+
+const rsvpForm =
+  document.getElementById("rsvpForm");
+
+const rsvpResult =
+  document.getElementById("rsvpMessageResult");
+
 
 /* =========================================================
    GUEST NAME
 ========================================================= */
 
-const params =
-  new URLSearchParams(
-    window.location.search
-  );
+function getGuestName() {
+  const params = new URLSearchParams(window.location.search);
 
-const guestName =
-  (params.get("guest") || "").trim();
+  const guest = params.get("guest");
 
-
-if (guestName) {
-
-  if (guestNameElement) {
-    guestNameElement.textContent =
-      guestName;
+  if (!guest) {
+    return "亲爱的朋友";
   }
 
-} else {
-
-  if (guestNameElement) {
-    guestNameElement.textContent =
-      "亲爱的朋友";
-  }
-
+  return guest.trim() || "亲爱的朋友";
 }
+
+const guestName = getGuestName();
+
+guestNameElement.textContent = guestName;
 
 
 /* =========================================================
    MAP
 ========================================================= */
 
-if (mapButton) {
-  mapButton.href =
-    weddingConfig.mapUrl;
+if (mapImageLink) {
+  mapImageLink.href = weddingConfig.mapUrl;
 }
 
-if (mapImageLink) {
-  mapImageLink.href =
-    weddingConfig.mapUrl;
+if (navigationButton) {
+  navigationButton.href = weddingConfig.mapUrl;
 }
+
+
+/* =========================================================
+   SCHEDULE
+========================================================= */
+
+function renderSchedule() {
+
+  if (!scheduleElement) return;
+
+  scheduleElement.innerHTML = "";
+
+  weddingConfig.schedule.forEach((item) => {
+
+    const scheduleItem =
+      document.createElement("div");
+
+    scheduleItem.className = "schedule-item";
+
+    scheduleItem.innerHTML = `
+      <div class="schedule-time">
+        ${item.time}
+      </div>
+
+      <div class="schedule-dot"></div>
+
+      <div class="schedule-content">
+        <h3>${item.title}</h3>
+        <span>${item.english}</span>
+      </div>
+    `;
+
+    scheduleElement.appendChild(scheduleItem);
+  });
+}
+
+renderSchedule();
 
 
 /* =========================================================
    MUSIC
 ========================================================= */
 
-if (bgMusic) {
+let musicStarted = false;
+let fadeAnimation = null;
 
-  const source =
-    bgMusic.querySelector("source");
-
-  if (source) {
-    source.src =
-      weddingConfig.music;
-
-    bgMusic.load();
-  }
-
-  bgMusic.volume = 0.06;
-}
-
-
-let musicFadeFrame = null;
-
-
-function startMusic() {
+function fadeMusicIn() {
 
   if (!bgMusic) return;
 
-  if (musicFadeFrame) {
-    cancelAnimationFrame(
-      musicFadeFrame
-    );
+  if (fadeAnimation) {
+    cancelAnimationFrame(fadeAnimation);
   }
 
+  bgMusic.volume = 0.04;
 
-  bgMusic.volume = 0.06;
+  const startTime = performance.now();
 
+  const startVolume = 0.04;
+  const targetVolume = 0.22;
+  const duration = 2600;
 
-  bgMusic
-    .play()
-    .then(() => {
+  function animate(now) {
 
-      if (musicToggle) {
-        musicToggle.classList.add(
-          "playing"
-        );
-      }
+    const progress =
+      Math.min((now - startTime) / duration, 1);
 
+    const eased =
+      1 - Math.pow(1 - progress, 3);
 
-      const start =
-        performance.now();
+    bgMusic.volume =
+      startVolume +
+      (targetVolume - startVolume) * eased;
 
-      const duration =
-        2600;
-
-      function fade(current) {
-
-        const progress =
-          Math.min(
-            (current - start) /
-              duration,
-            1
-          );
-
-        const eased =
-          1 -
-          Math.pow(
-            1 - progress,
-            3
-          );
-
-        bgMusic.volume =
-          0.06 +
-          (0.22 - 0.06) *
-            eased;
-
-
-        if (progress < 1) {
-
-          musicFadeFrame =
-            requestAnimationFrame(
-              fade
-            );
-
-        }
-
-      }
-
-      musicFadeFrame =
-        requestAnimationFrame(
-          fade
-        );
-
-    })
-    .catch(() => {});
-
-}
-
-
-if (musicToggle) {
-
-  musicToggle.addEventListener(
-    "click",
-    () => {
-
-      if (!bgMusic) return;
-
-
-      if (bgMusic.paused) {
-
-        startMusic();
-
-      } else {
-
-        bgMusic.pause();
-
-        musicToggle.classList.remove(
-          "playing"
-        );
-
-      }
-
+    if (progress < 1) {
+      fadeAnimation =
+        requestAnimationFrame(animate);
     }
-  );
+  }
 
+  fadeAnimation =
+    requestAnimationFrame(animate);
 }
+
+
+async function startMusic() {
+
+  if (!bgMusic) return;
+
+  if (!bgMusic.src) {
+    bgMusic.src = weddingConfig.music;
+  }
+
+  try {
+
+    bgMusic.volume = 0.04;
+
+    await bgMusic.play();
+
+    musicStarted = true;
+
+    musicButton.classList.add("playing");
+
+    fadeMusicIn();
+
+  } catch (error) {
+
+    console.log(
+      "Music playback requires user interaction.",
+      error
+    );
+  }
+}
+
+
+function pauseMusic() {
+
+  if (!bgMusic) return;
+
+  bgMusic.pause();
+
+  musicStarted = false;
+
+  musicButton.classList.remove("playing");
+}
+
+
+musicButton?.addEventListener(
+  "click",
+  async () => {
+
+    if (musicStarted) {
+      pauseMusic();
+    } else {
+      await startMusic();
+    }
+
+  }
+);
 
 
 /* =========================================================
    OPEN INVITATION
 ========================================================= */
 
-if (openInvitation) {
+openInvitation?.addEventListener(
+  "click",
+  async () => {
 
-  openInvitation.addEventListener(
-    "click",
-    () => {
+    await startMusic();
 
-      startMusic();
-
-
-      const target =
-        document.getElementById(
-          "ourDay"
-        );
-
-
-      if (target) {
-
-        target.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-
-      }
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   CALENDAR
-========================================================= */
-
-function createCalendar() {
-
-  const calendar =
-    document.getElementById(
-      "calendarGrid"
-    );
-
-  if (!calendar) return;
-
-
-  calendar.innerHTML = "";
-
-
-  const year =
-    weddingConfig.year;
-
-  const monthIndex =
-    weddingConfig.month - 1;
-
-
-  const firstDay =
-    new Date(
-      year,
-      monthIndex,
-      1
-    ).getDay();
-
-
-  const daysInMonth =
-    new Date(
-      year,
-      monthIndex + 1,
-      0
-    ).getDate();
-
-
-  const mondayIndex =
-    firstDay === 0
-      ? 6
-      : firstDay - 1;
-
-
-  for (
-    let i = 0;
-    i < mondayIndex;
-    i++
-  ) {
-
-    const empty =
-      document.createElement(
-        "div"
-      );
-
-    empty.className =
-      "calendar-day empty";
-
-    calendar.appendChild(
-      empty
-    );
+    document
+      .getElementById("ourDay")
+      ?.scrollIntoView({
+        behavior: "smooth"
+      });
 
   }
-
-
-  for (
-    let day = 1;
-    day <= daysInMonth;
-    day++
-  ) {
-
-    const element =
-      document.createElement(
-        "div"
-      );
-
-
-    element.className =
-      "calendar-day";
-
-
-    if (
-      day === weddingConfig.day
-    ) {
-
-      element.classList.add(
-        "wedding-day"
-      );
-
-    }
-
-
-    element.textContent =
-      day;
-
-
-    calendar.appendChild(
-      element
-    );
-
-  }
-
-}
-
-
-createCalendar();
+);
 
 
 /* =========================================================
    COUNTDOWN
 ========================================================= */
 
-const countdown =
-  document.getElementById(
-    "countdownDays"
-  );
-
-
 function updateCountdown() {
 
-  if (!countdown) return;
-
+  const weddingDate =
+    new Date(weddingConfig.weddingDateTime);
 
   const now =
-    Date.now();
-
-
-  const wedding =
-    new Date(
-      weddingConfig.weddingDateTime
-    ).getTime();
-
+    new Date();
 
   const difference =
-    wedding - now;
-
+    weddingDate.getTime() -
+    now.getTime();
 
   if (difference <= 0) {
 
-    countdown.textContent = "0";
+    countdownDays.textContent = "00";
+    countdownHours.textContent = "00";
+    countdownMinutes.textContent = "00";
+    countdownSeconds.textContent = "00";
 
     return;
-
   }
-
 
   const days =
     Math.floor(
       difference /
-      (
-        1000 *
-        60 *
-        60 *
-        24
-      )
+      (1000 * 60 * 60 * 24)
     );
 
+  const hours =
+    Math.floor(
+      (difference /
+        (1000 * 60 * 60)) %
+      24
+    );
 
-  countdown.textContent =
-    days;
+  const minutes =
+    Math.floor(
+      (difference /
+        (1000 * 60)) %
+      60
+    );
 
+  const seconds =
+    Math.floor(
+      (difference / 1000) %
+      60
+    );
+
+  countdownDays.textContent =
+    String(days).padStart(2, "0");
+
+  countdownHours.textContent =
+    String(hours).padStart(2, "0");
+
+  countdownMinutes.textContent =
+    String(minutes).padStart(2, "0");
+
+  countdownSeconds.textContent =
+    String(seconds).padStart(2, "0");
 }
 
-
 updateCountdown();
-
 
 setInterval(
   updateCountdown,
@@ -452,321 +352,144 @@ setInterval(
 
 
 /* =========================================================
-   WEDDING SCHEDULE
-========================================================= */
-
-if (scheduleElement) {
-
-  scheduleElement.innerHTML =
-    weddingConfig.schedule
-      .map((item) => {
-
-        return `
-          <div class="schedule-item">
-
-            <div class="schedule-time">
-              ${item.time}
-            </div>
-
-            <div class="schedule-dot"></div>
-
-            <div class="schedule-content">
-
-              <strong>
-                ${item.title}
-              </strong>
-
-              <span>
-                ${item.english}
-              </span>
-
-            </div>
-
-          </div>
-        `;
-
-      })
-      .join("");
-
-}
-
-
-/* =========================================================
    RSVP
 ========================================================= */
 
-const rsvpForm =
-  document.getElementById(
-    "rsvpForm"
-  );
-
-const attendingFields =
-  document.getElementById(
-    "attendingFields"
-  );
-
-const stayDate =
-  document.getElementById(
-    "stayDate"
-  );
-
-const rsvpSuccess =
-  document.getElementById(
-    "rsvpSuccess"
-  );
+const RSVP_STORAGE_KEY =
+  "tianshu-tao-rsvp";
 
 
-let attendance = "";
-let accommodation = "";
+function saveRSVP(data) {
 
-
-/* 出席 */
-
-document
-  .querySelectorAll(
-    ".attendance-option"
-  )
-  .forEach((button) => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        document
-          .querySelectorAll(
-            ".attendance-option"
-          )
-          .forEach((item) => {
-
-            item.classList.remove(
-              "selected"
-            );
-
-          });
-
-
-        button.classList.add(
-          "selected"
-        );
-
-
-        attendance =
-          button.dataset.attendance;
-
-
-        if (rsvpForm) {
-          rsvpForm.classList.add(
-            "active"
-          );
-        }
-
-
-        if (attendingFields) {
-
-          if (
-            attendance === "yes"
-          ) {
-
-            attendingFields.style.display =
-              "block";
-
-          } else {
-
-            attendingFields.style.display =
-              "none";
-
-          }
-
-        }
-
-      }
+  const current =
+    JSON.parse(
+      localStorage.getItem(RSVP_STORAGE_KEY) || "[]"
     );
 
+  current.push({
+    ...data,
+    guestFromLink: guestName,
+    createdAt: new Date().toISOString()
   });
 
-
-/* 住宿 */
-
-document
-  .querySelectorAll(
-    ".stay-options button"
-  )
-  .forEach((button) => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        document
-          .querySelectorAll(
-            ".stay-options button"
-          )
-          .forEach((item) => {
-
-            item.classList.remove(
-              "selected"
-            );
-
-          });
-
-
-        button.classList.add(
-          "selected"
-        );
-
-
-        accommodation =
-          button.dataset.stay;
-
-
-        if (stayDate) {
-
-          stayDate.style.display =
-            accommodation === "yes"
-              ? "block"
-              : "none";
-
-        }
-
-      }
-    );
-
-  });
-
-
-/* 提交 */
-
-if (rsvpForm) {
-
-  rsvpForm.addEventListener(
-    "submit",
-    (event) => {
-
-      event.preventDefault();
-
-
-      const formData =
-        new FormData(
-          rsvpForm
-        );
-
-
-      const data = {
-
-        guest:
-          guestName,
-
-        name:
-          formData.get("name") || "",
-
-        attendance,
-
-        people:
-          formData.get("people") || "",
-
-        accommodation,
-
-        date:
-          formData.get("date") || "",
-
-        message:
-          formData.get("message") || "",
-
-        submittedAt:
-          new Date().toISOString()
-
-      };
-
-
-      localStorage.setItem(
-        "weddingRSVP",
-        JSON.stringify(data)
-      );
-
-
-      if (rsvpSuccess) {
-
-        rsvpSuccess.textContent =
-          "谢谢你，我们已经收到你的回复。";
-
-        rsvpSuccess.classList.add(
-          "show"
-        );
-
-      }
-
-    }
+  localStorage.setItem(
+    RSVP_STORAGE_KEY,
+    JSON.stringify(current)
   );
-
 }
+
+
+rsvpForm?.addEventListener(
+  "submit",
+  (event) => {
+
+    event.preventDefault();
+
+    const name =
+      document
+        .getElementById("rsvpName")
+        .value
+        .trim();
+
+    const attendance =
+      document
+        .getElementById("rsvpAttendance")
+        .value;
+
+    const guests =
+      document
+        .getElementById("rsvpGuests")
+        .value;
+
+    const message =
+      document
+        .getElementById("rsvpMessage")
+        .value
+        .trim();
+
+    if (!name || !attendance || !guests) {
+      rsvpResult.textContent =
+        "请把信息填写完整。";
+      return;
+    }
+
+    saveRSVP({
+      name,
+      attendance,
+      guests,
+      message
+    });
+
+    rsvpResult.textContent =
+      attendance === "yes"
+        ? "谢谢你的回复，我们婚礼见。"
+        : "收到你的回复，也谢谢你的祝福。";
+
+    rsvpForm.reset();
+  }
+);
 
 
 /* =========================================================
-   FADE REVEAL
+   SCROLL REVEAL
 ========================================================= */
 
-const revealElements =
-  document.querySelectorAll(
-    ".reveal"
-  );
+const revealTargets = document.querySelectorAll(
+  ".section-intro, .calendar, .countdown-wrap, " +
+  ".photo-editorial, .story-inner, .schedule, " +
+  ".location-card, .rsvp-inner, .final-inner"
+);
+
+revealTargets.forEach((element) => {
+  element.classList.add("reveal");
+});
 
 
-if (
-  "IntersectionObserver"
-  in window
-) {
+const revealObserver =
+  new IntersectionObserver(
+    (entries) => {
 
-  const observer =
-    new IntersectionObserver(
-      (entries) => {
+      entries.forEach((entry) => {
 
-        entries.forEach(
-          (entry) => {
+        if (entry.isIntersecting) {
 
-            if (
-              entry.isIntersecting
-            ) {
+          entry.target.classList.add("visible");
 
-              entry.target.classList.add(
-                "is-visible"
-              );
+          revealObserver.unobserve(
+            entry.target
+          );
+        }
 
-              observer.unobserve(
-                entry.target
-              );
+      });
 
-            }
-
-          }
-        );
-
-      },
-      {
-        threshold: 0.12
-      }
-    );
-
-
-  revealElements.forEach(
-    (element) => {
-
-      observer.observe(
-        element
-      );
-
+    },
+    {
+      threshold: 0.12
     }
   );
 
-} else {
 
-  revealElements.forEach(
-    (element) => {
+revealTargets.forEach((element) => {
+  revealObserver.observe(element);
+});
 
-      element.classList.add(
-        "is-visible"
-      );
 
-    }
-  );
+/* =========================================================
+   INITIAL PAGE STATE
+========================================================= */
 
-}
+window.addEventListener(
+  "load",
+  () => {
+
+    window.scrollTo(0, 0);
+
+    /*
+      不自动播放音乐。
+      必须由用户点击“开启请柬”后播放，
+      这样更符合微信 / 手机浏览器限制。
+    */
+
+  }
+);
+```
