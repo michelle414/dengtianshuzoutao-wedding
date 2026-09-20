@@ -1,3 +1,19 @@
+@font-face {
+  font-family: "WeddingSerif";
+  src: url("./FZVDLGTMCJW-L.TTF") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "WeddingSerif";
+  src: url("./FZZiLSJW-B.TTF") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --paper: #eee9dc;
   --paper-light: #f5f1e7;
@@ -7,7 +23,6 @@
   --blue: #91aab0;
   --lavender: #aaa7bb;
   --line: rgba(62, 73, 65, 0.18);
-  --white: rgba(255, 255, 255, 0.55);
 }
 
 * {
@@ -22,22 +37,24 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
+
   font-family:
-    "Times New Roman",
+    "WeddingSerif",
     "Songti SC",
     "STSong",
     serif;
+
   overflow-x: hidden;
 }
 
-/* 很轻的纸张纤维感 */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.16;
+  opacity: 0.14;
   z-index: 50;
+
   background-image:
     repeating-linear-gradient(
       0deg,
@@ -64,7 +81,9 @@ img {
 }
 
 
-/* ==================== COMMON ==================== */
+/* =====================================================
+   COMMON
+===================================================== */
 
 .section {
   width: min(100%, 920px);
@@ -80,14 +99,18 @@ img {
 .eyebrow {
   display: block;
   margin-bottom: 12px;
-  color: var(--sage);
+
   font-family: Arial, sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.28em;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+
+  color: var(--sage);
 }
 
 .section-heading h2 {
   margin: 0;
+
+  font-family: "WeddingSerif", "Songti SC", serif;
   font-size: clamp(28px, 6vw, 42px);
   font-weight: 400;
   letter-spacing: 0.08em;
@@ -95,7 +118,8 @@ img {
 
 .section-english {
   margin: 14px auto 0;
-  max-width: 480px;
+  max-width: 500px;
+
   color: var(--muted);
   font-size: 14px;
   line-height: 1.9;
@@ -103,7 +127,9 @@ img {
 }
 
 
-/* ==================== MUSIC ==================== */
+/* =====================================================
+   MUSIC
+===================================================== */
 
 .music-control {
   position: fixed;
@@ -117,19 +143,24 @@ img {
   border: 1px solid rgba(62, 73, 65, 0.35);
   border-radius: 50%;
 
-  background: rgba(245, 241, 231, 0.78);
+  background: rgba(245, 241, 231, 0.82);
 
   cursor: pointer;
 
+  font-family: Arial, sans-serif;
   font-size: 18px;
 }
 
 
-/* ==================== HERO ==================== */
+/* =====================================================
+   HERO
+===================================================== */
 
 .section-full {
   min-height: 100svh;
+
   width: 100%;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -137,6 +168,7 @@ img {
 
 .hero {
   position: relative;
+
   background:
     radial-gradient(
       circle at 30% 30%,
@@ -153,8 +185,9 @@ img {
 
 .hero-inner {
   width: 100%;
-  text-align: center;
   padding: 70px 24px;
+
+  text-align: center;
 }
 
 .guest-name-wrap {
@@ -181,6 +214,8 @@ img {
 }
 
 .guest-name {
+  font-family: "WeddingSerif", "Songti SC", serif;
+
   font-size: clamp(30px, 7vw, 42px);
   line-height: 1.2;
   letter-spacing: 0.08em;
@@ -196,6 +231,8 @@ img {
 .couple-name {
   margin: 0;
 
+  font-family: "WeddingSerif", "Songti SC", serif;
+
   font-size: clamp(34px, 8vw, 52px);
   font-weight: 400;
 
@@ -204,7 +241,9 @@ img {
 
 .couple-name span {
   padding: 0 8px;
+
   color: var(--sage);
+
   font-family: Arial, sans-serif;
   font-size: 0.65em;
 }
@@ -213,6 +252,7 @@ img {
   margin: 12px 0 27px;
 
   font-family: Arial, sans-serif;
+
   font-size: clamp(17px, 4vw, 22px);
   letter-spacing: 0.25em;
 }
@@ -256,7 +296,9 @@ img {
 }
 
 
-/* ==================== CALENDAR ==================== */
+/* =====================================================
+   CALENDAR
+===================================================== */
 
 .calendar-card {
   max-width: 500px;
@@ -265,6 +307,7 @@ img {
   padding: 28px 20px;
 
   background: rgba(255,255,255,0.22);
+
   border: 1px solid var(--line);
 }
 
@@ -274,6 +317,7 @@ img {
   justify-content: space-between;
 
   padding-bottom: 18px;
+
   border-bottom: 1px solid var(--line);
 
   font-family: Arial, sans-serif;
@@ -293,6 +337,7 @@ img {
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+
   text-align: center;
 }
 
@@ -302,16 +347,19 @@ img {
   font-family: Arial, sans-serif;
   font-size: 8px;
   letter-spacing: 0.08em;
+
   color: var(--muted);
 }
 
 .calendar-grid {
   row-gap: 13px;
+
   font-size: 13px;
 }
 
 .calendar-special {
   position: relative;
+
   width: 28px;
   height: 28px;
 
@@ -326,7 +374,9 @@ img {
 }
 
 
-/* ==================== COUNTDOWN ==================== */
+/* =====================================================
+   COUNTDOWN
+===================================================== */
 
 .countdown-block {
   margin-top: 65px;
@@ -335,6 +385,7 @@ img {
 
 .countdown-block > div {
   margin: 12px 0;
+
   font-size: 14px;
   color: var(--muted);
 }
@@ -352,6 +403,7 @@ img {
 
 .countdown-unit {
   display: block;
+
   margin-top: 10px;
 
   font-family: Arial, sans-serif;
@@ -360,13 +412,17 @@ img {
 }
 
 
-/* ==================== MOMENTS ==================== */
+/* =====================================================
+   MOMENTS
+===================================================== */
 
 .moments-section {
   width: 100%;
   max-width: 1100px;
+
   padding-left: 0;
   padding-right: 0;
+
   overflow: hidden;
 }
 
@@ -375,9 +431,8 @@ img {
 }
 
 .moments-heading h2 {
-  font-family:
-    "Times New Roman",
-    serif;
+  font-family: "Times New Roman", "WeddingSerif", serif;
+
   font-style: italic;
   letter-spacing: 0.05em;
 }
@@ -389,6 +444,7 @@ img {
   position: relative;
 
   width: min(88vw, 760px);
+
   margin: 0 auto;
 
   aspect-ratio: 4 / 5;
@@ -408,6 +464,7 @@ img {
 .main-photo-frame img {
   width: 100%;
   height: 100%;
+
   object-fit: cover;
 }
 
@@ -432,6 +489,8 @@ img {
 }
 
 .photo-placeholder span {
+  font-family: "WeddingSerif", serif;
+
   font-size: 24px;
   letter-spacing: 0.25em;
 }
@@ -442,11 +501,12 @@ img {
   font-family: Arial, sans-serif;
   font-size: 9px;
   letter-spacing: 0.35em;
+
   color: var(--muted);
 }
 
 
-/* 图片之间的文字 */
+/* 文字 */
 
 .moments-quote {
   display: flex;
@@ -461,16 +521,16 @@ img {
 .quote-line {
   width: 35px;
   height: 1px;
+
   background: var(--sage);
+
   opacity: 0.6;
 }
 
 .moments-quote p {
   margin: 18px 20px 10px;
 
-  font-family:
-    "Times New Roman",
-    serif;
+  font-family: "Times New Roman", "WeddingSerif", serif;
 
   font-size: clamp(18px, 4vw, 24px);
   line-height: 1.7;
@@ -480,6 +540,7 @@ img {
 
 .moments-quote small {
   color: var(--muted);
+
   font-size: 12px;
   line-height: 1.9;
 }
@@ -489,7 +550,6 @@ img {
 
 .photo-slider-wrap {
   position: relative;
-
   width: 100%;
 }
 
@@ -500,13 +560,13 @@ img {
   overflow-x: auto;
   overflow-y: hidden;
 
-  padding:
-    0 7vw 15px;
+  padding: 0 7vw 15px;
 
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
 
   scrollbar-width: none;
+
   -webkit-overflow-scrolling: touch;
 }
 
@@ -536,6 +596,7 @@ img {
 
 .photo-thumb.active {
   opacity: 1;
+
   transform: translateY(-3px);
 }
 
@@ -572,6 +633,7 @@ img {
 
 .photo-hint {
   margin-top: 12px;
+
   text-align: center;
 
   font-family: Arial, sans-serif;
@@ -582,7 +644,9 @@ img {
 }
 
 
-/* ==================== SCHEDULE ==================== */
+/* =====================================================
+   婚礼流程
+===================================================== */
 
 .schedule-section {
   text-align: center;
@@ -591,7 +655,7 @@ img {
 .schedule {
   position: relative;
 
-  width: min(100%, 520px);
+  width: min(100%, 560px);
 
   margin: 0 auto;
 
@@ -599,7 +663,7 @@ img {
 }
 
 
-/* 中间竖线 */
+/* 正中央竖线 */
 
 .schedule::before {
   content: "";
@@ -608,6 +672,7 @@ img {
 
   top: 0;
   bottom: 0;
+
   left: 50%;
 
   width: 1px;
@@ -617,7 +682,6 @@ img {
   transform: translateX(-50%);
 }
 
-
 .schedule-item {
   position: relative;
 
@@ -625,31 +689,34 @@ img {
 
   grid-template-columns:
     1fr
-    28px
+    32px
     1fr;
 
   align-items: center;
 
-  min-height: 105px;
+  min-height: 110px;
 }
 
 
-/* 时间全部在中线左侧但靠近中心 */
+/* 左边时间 */
 
 .schedule-time {
   justify-self: end;
 
-  padding-right: 24px;
+  padding-right: 25px;
 
   font-family: Arial, sans-serif;
   font-size: 18px;
+
   letter-spacing: 0.08em;
 
   color: var(--sage);
+
+  text-align: right;
 }
 
 
-/* 中间圆点 */
+/* 中间点 */
 
 .schedule-dot {
   position: relative;
@@ -667,12 +734,12 @@ img {
 }
 
 
-/* 文字在中线右侧 */
+/* 右边内容 */
 
 .schedule-content {
   justify-self: start;
 
-  padding-left: 24px;
+  padding-left: 25px;
 
   text-align: left;
 }
@@ -680,7 +747,9 @@ img {
 .schedule-content strong {
   display: block;
 
-  font-size: 17px;
+  font-family: "WeddingSerif", "Songti SC", serif;
+
+  font-size: 18px;
   font-weight: 400;
 
   letter-spacing: 0.08em;
@@ -692,6 +761,7 @@ img {
   margin-top: 6px;
 
   font-family: Arial, sans-serif;
+
   font-size: 8px;
   letter-spacing: 0.25em;
 
@@ -699,12 +769,21 @@ img {
 }
 
 
-/* ==================== LOCATION ==================== */
+/* =====================================================
+   LOCATION
+===================================================== */
 
 .location-card {
-  max-width: 700px;
+  max-width: 760px;
   margin: 0 auto;
 }
+
+
+/*
+ * 这里是关键修改：
+ * 不再强制裁切成 16:9。
+ * 地图完整显示。
+ */
 
 .location-map {
   display: block;
@@ -712,21 +791,33 @@ img {
   overflow: hidden;
 
   border: 1px solid var(--line);
+
+  background: rgba(255,255,255,0.25);
+
+  line-height: 0;
 }
 
 .location-map img {
   width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
+  height: auto;
+
+  /*
+   * 完整显示原图，不裁剪
+   */
+  object-fit: contain;
 }
+
 
 .location-info {
   padding: 28px 10px;
+
   text-align: center;
 }
 
 .location-info h3 {
   margin: 0 0 10px;
+
+  font-family: "WeddingSerif", "Songti SC", serif;
 
   font-size: 21px;
   font-weight: 400;
@@ -736,6 +827,7 @@ img {
   margin: 0;
 
   color: var(--muted);
+
   font-size: 13px;
   line-height: 1.8;
 }
@@ -757,21 +849,27 @@ img {
 }
 
 
-/* ==================== REPLY ==================== */
+/* =====================================================
+   REPLY
+===================================================== */
 
 .reply-card {
   width: min(100%, 560px);
+
   margin: 0 auto;
 
   padding: 30px 22px;
 
   border: 1px solid var(--line);
+
   background: rgba(255,255,255,0.18);
 }
 
 .reply-question {
   margin: 0 0 24px;
+
   text-align: center;
+
   font-size: 16px;
 }
 
@@ -794,6 +892,7 @@ img {
 .attendance-button.selected,
 .stay-button.selected {
   background: rgba(130,151,138,0.14);
+
   border-color: var(--sage);
 }
 
@@ -815,7 +914,9 @@ img {
 
 .small-options {
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 8px;
 }
 
@@ -840,7 +941,9 @@ textarea {
 
 .date-row {
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 10px;
 }
 
@@ -864,6 +967,7 @@ textarea {
   text-align: center;
 
   color: var(--sage);
+
   font-size: 13px;
 }
 
@@ -872,7 +976,9 @@ textarea {
 }
 
 
-/* ==================== FINAL ==================== */
+/* =====================================================
+   FINAL
+===================================================== */
 
 .final-section {
   min-height: 65svh;
@@ -897,9 +1003,11 @@ textarea {
 .final-inner > span {
   font-family:
     "Times New Roman",
+    "WeddingSerif",
     serif;
 
   font-style: italic;
+
   font-size: 18px;
 
   color: var(--muted);
@@ -907,6 +1015,8 @@ textarea {
 
 .final-inner h2 {
   margin: 20px 0 15px;
+
+  font-family: "WeddingSerif", "Songti SC", serif;
 
   font-size: clamp(28px, 7vw, 44px);
   font-weight: 400;
@@ -918,6 +1028,7 @@ textarea {
   margin: 0;
 
   font-family: Arial, sans-serif;
+
   font-size: 12px;
   letter-spacing: 0.2em;
 }
@@ -927,6 +1038,8 @@ textarea {
 
   margin-top: 45px;
 
+  font-family: "WeddingSerif", "Songti SC", serif;
+
   font-size: 20px;
   font-weight: 400;
 
@@ -934,7 +1047,9 @@ textarea {
 }
 
 
-/* ==================== MOBILE ==================== */
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media (max-width: 600px) {
 
@@ -960,33 +1075,39 @@ textarea {
     font-size: 17px;
   }
 
-  /* 照片缩略图明显变大 */
+
+  /* 缩略图 */
+
   .photo-thumb {
     flex-basis: 62vw;
   }
 
   .photo-scroll {
     gap: 12px;
+
     padding-left: 8vw;
     padding-right: 8vw;
   }
 
-  /* 流程继续保持中轴 */
+
+  /* 流程 */
+
   .schedule {
-    width: 92%;
+    width: 94%;
   }
 
   .schedule-item {
-    grid-template-columns: 1fr 26px 1fr;
+    grid-template-columns: 1fr 28px 1fr;
   }
 
   .schedule-time {
-    padding-right: 18px;
+    padding-right: 17px;
+
     font-size: 16px;
   }
 
   .schedule-content {
-    padding-left: 18px;
+    padding-left: 17px;
   }
 
   .schedule-content strong {
@@ -996,6 +1117,21 @@ textarea {
   .schedule-content span {
     font-size: 7px;
   }
+
+
+  /* 地图 */
+
+  .location-card {
+    width: 100%;
+  }
+
+  .location-map img {
+    width: 100%;
+    height: auto;
+
+    object-fit: contain;
+  }
+
 
   .date-row {
     grid-template-columns: 1fr;
