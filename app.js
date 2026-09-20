@@ -1,8 +1,3 @@
-/* ==================================================
-   婚礼基础资料
-   以后修改婚礼时间，只需要修改这里
-   ================================================== */
-
 const weddingConfig = {
 
   weddingDate:
@@ -29,18 +24,14 @@ const weddingConfig = {
 };
 
 
-/* ==================================================
-   页面加载
-   ================================================== */
-
 document.addEventListener(
   "DOMContentLoaded",
   () => {
 
 
-    /* ===============================================
-       1. 宾客姓名
-       =============================================== */
+    /* =================================================
+       GUEST NAME
+    ================================================= */
 
     const params =
       new URLSearchParams(
@@ -56,7 +47,7 @@ document.addEventListener(
         "guestCard"
       );
 
-    const guestNameElement =
+    const guestElement =
       document.getElementById(
         "guestName"
       );
@@ -64,14 +55,13 @@ document.addEventListener(
 
     if (
       guestName &&
-      guestName.trim() !== "" &&
-      guestNameElement
+      guestName.trim()
     ) {
 
-      guestNameElement.textContent =
+      guestElement.textContent =
         guestName.trim();
 
-    } else if (guestCard) {
+    } else {
 
       guestCard.style.display =
         "none";
@@ -79,48 +69,10 @@ document.addEventListener(
     }
 
 
-    /* ===============================================
-       2. 开启请柬
-       =============================================== */
 
-    const openButton =
-      document.getElementById(
-        "openInvitation"
-      );
-
-    const ourDay =
-      document.getElementById(
-        "ourDay"
-      );
-
-
-    if (openButton) {
-
-      openButton.addEventListener(
-        "click",
-        () => {
-
-          startMusic();
-
-
-          if (ourDay) {
-
-            ourDay.scrollIntoView({
-              behavior: "smooth",
-              block: "start"
-            });
-
-          }
-
-        }
-      );
-
-    }
-
-
-    /* ===============================================
-       3. 音乐
-       =============================================== */
+    /* =================================================
+       MUSIC
+    ================================================= */
 
     const music =
       document.getElementById(
@@ -137,26 +89,19 @@ document.addEventListener(
 
       if (!music) return;
 
-      music.volume = 0.45;
+      music.volume = 0.38;
 
-      music.play()
+
+      music
+        .play()
         .then(() => {
 
-          if (musicButton) {
-
-            musicButton.classList.add(
-              "playing"
-            );
-
-          }
+          musicButton
+            ?.classList
+            .add("playing");
 
         })
-        .catch(() => {
-
-          // 手机浏览器阻止自动播放时
-          // 不影响其他页面功能
-
-        });
+        .catch(() => {});
 
     }
 
@@ -167,9 +112,6 @@ document.addEventListener(
         "click",
         () => {
 
-          if (!music) return;
-
-
           if (music.paused) {
 
             startMusic();
@@ -178,9 +120,9 @@ document.addEventListener(
 
             music.pause();
 
-            musicButton.classList.remove(
-              "playing"
-            );
+            musicButton
+              .classList
+              .remove("playing");
 
           }
 
@@ -190,12 +132,43 @@ document.addEventListener(
     }
 
 
-    /* ===============================================
-       4. 生成 2026年10月日历
-       =============================================== */
 
-    createCalendar();
+    /* =================================================
+       OPEN INVITATION
+    ================================================= */
 
+    const openButton =
+      document.getElementById(
+        "openInvitation"
+      );
+
+
+    if (openButton) {
+
+      openButton.addEventListener(
+        "click",
+        () => {
+
+          startMusic();
+
+
+          document
+            .getElementById("ourDay")
+            ?.scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
+
+        }
+      );
+
+    }
+
+
+
+    /* =================================================
+       CALENDAR
+    ================================================= */
 
     function createCalendar() {
 
@@ -204,29 +177,25 @@ document.addEventListener(
           "calendarGrid"
         );
 
+
       if (!calendar) return;
 
 
       const year = 2026;
-      const month = 9;
+
       // JavaScript 月份从 0 开始
       // 9 = October
 
+      const month = 9;
 
-      const daysInMonth =
+
+      const days =
         new Date(
           year,
           month + 1,
           0
         ).getDate();
 
-
-      /*
-        2026年10月1日是星期四。
-
-        我们的日历从 MON 开始，
-        所以前面需要放 3 个空位。
-      */
 
       const firstDay =
         new Date(
@@ -235,6 +204,8 @@ document.addEventListener(
           1
         ).getDay();
 
+
+      // 转成 Monday = 0
 
       const mondayIndex =
         firstDay === 0
@@ -265,7 +236,7 @@ document.addEventListener(
 
       for (
         let day = 1;
-        day <= daysInMonth;
+        day <= days;
         day++
       ) {
 
@@ -273,6 +244,7 @@ document.addEventListener(
           document.createElement(
             "div"
           );
+
 
         element.className =
           "calendar-day";
@@ -300,11 +272,15 @@ document.addEventListener(
     }
 
 
-    /* ===============================================
-       5. 倒计时
-       =============================================== */
+    createCalendar();
 
-    const countdownDays =
+
+
+    /* =================================================
+       COUNTDOWN
+    ================================================= */
+
+    const countdown =
       document.getElementById(
         "countdownDays"
       );
@@ -312,7 +288,7 @@ document.addEventListener(
 
     function updateCountdown() {
 
-      if (!countdownDays) return;
+      if (!countdown) return;
 
 
       const now =
@@ -326,13 +302,14 @@ document.addEventListener(
 
 
       const difference =
-        wedding.getTime() -
+        wedding.getTime()
+        -
         now.getTime();
 
 
       if (difference <= 0) {
 
-        countdownDays.textContent =
+        countdown.textContent =
           "0";
 
         return;
@@ -343,11 +320,16 @@ document.addEventListener(
       const days =
         Math.floor(
           difference /
-          (1000 * 60 * 60 * 24)
+          (
+            1000 *
+            60 *
+            60 *
+            24
+          )
         );
 
 
-      countdownDays.textContent =
+      countdown.textContent =
         days;
 
     }
@@ -355,25 +337,25 @@ document.addEventListener(
 
     updateCountdown();
 
+
     setInterval(
       updateCountdown,
       1000
     );
 
 
-    /* ===============================================
-       6. 婚礼时间
-       =============================================== */
 
-    renderWeddingSchedule();
+    /* =================================================
+       WEDDING SCHEDULE
+    ================================================= */
 
-
-    function renderWeddingSchedule() {
+    function renderSchedule() {
 
       const container =
         document.getElementById(
           "weddingSchedule"
         );
+
 
       if (!container) return;
 
@@ -396,6 +378,7 @@ document.addEventListener(
             document.createElement(
               "div"
             );
+
 
           row.className =
             "schedule-item";
@@ -432,16 +415,21 @@ document.addEventListener(
     }
 
 
-    /* ===============================================
-       7. 住宿登记
-       =============================================== */
+    renderSchedule();
+
+
+
+    /* =================================================
+       ACCOMMODATION
+    ================================================= */
 
     const accommodationForm =
       document.getElementById(
         "accommodationForm"
       );
 
-    const accommodationSuccess =
+
+    const accommodationMessage =
       document.getElementById(
         "accommodationSuccess"
       );
@@ -456,57 +444,49 @@ document.addEventListener(
           event.preventDefault();
 
 
-          const formData =
+          const data =
             new FormData(
               accommodationForm
             );
 
 
-          const data = {
+          const accommodation = {
 
             guest:
               guestName || "",
 
             name:
-              formData.get(
-                "name"
-              ),
+              data.get("name"),
 
             people:
-              formData.get(
-                "people"
-              ),
+              data.get("people"),
 
             date:
-              formData.get(
-                "date"
-              ),
+              data.get("date"),
 
             note:
-              formData.get(
-                "note"
-              ),
+              data.get("note"),
 
             createdAt:
-              new Date().toISOString()
+              new Date()
+                .toISOString()
 
           };
 
 
           localStorage.setItem(
+
             "wedding-accommodation",
-            JSON.stringify(data)
+
+            JSON.stringify(
+              accommodation
+            )
+
           );
 
 
-          if (
-            accommodationSuccess
-          ) {
-
-            accommodationSuccess.textContent =
-              "已收到您的住宿登记，谢谢。";
-
-          }
+          accommodationMessage.textContent =
+            "已收到您的住宿登记，谢谢。";
 
 
           accommodationForm.reset();
@@ -517,19 +497,22 @@ document.addEventListener(
     }
 
 
-    /* ===============================================
-       8. 亲友祝福
-       =============================================== */
+
+    /* =================================================
+       BLESSINGS
+    ================================================= */
 
     const blessingForm =
       document.getElementById(
         "blessingForm"
       );
 
-    const blessingSuccess =
+
+    const blessingMessage =
       document.getElementById(
         "blessingSuccess"
       );
+
 
     const blessingWall =
       document.getElementById(
@@ -546,7 +529,7 @@ document.addEventListener(
           event.preventDefault();
 
 
-          const formData =
+          const data =
             new FormData(
               blessingForm
             );
@@ -555,50 +538,48 @@ document.addEventListener(
           const blessing = {
 
             name:
-              formData.get(
-                "name"
-              ),
+              data.get("name"),
 
             message:
-              formData.get(
-                "message"
-              ),
+              data.get("message"),
 
             createdAt:
-              new Date().toISOString()
+              new Date()
+                .toISOString()
 
           };
 
 
-          const oldBlessings =
+          const existing =
             JSON.parse(
+
               localStorage.getItem(
                 "wedding-blessings"
-              ) || "[]"
+              )
+
+              || "[]"
+
             );
 
 
-          oldBlessings.push(
+          existing.push(
             blessing
           );
 
 
           localStorage.setItem(
+
             "wedding-blessings",
+
             JSON.stringify(
-              oldBlessings
+              existing
             )
+
           );
 
 
-          if (
-            blessingSuccess
-          ) {
-
-            blessingSuccess.textContent =
-              "谢谢你的祝福 ♡";
-
-          }
+          blessingMessage.textContent =
+            "谢谢你的祝福 ♡";
 
 
           blessingForm.reset();
@@ -619,13 +600,18 @@ document.addEventListener(
 
       const blessings =
         JSON.parse(
+
           localStorage.getItem(
             "wedding-blessings"
-          ) || "[]"
+          )
+
+          || "[]"
+
         );
 
 
-      blessingWall.innerHTML = "";
+      blessingWall.innerHTML =
+        "";
 
 
       blessings.forEach(
@@ -636,6 +622,7 @@ document.addEventListener(
               "div"
             );
 
+
           element.className =
             "blessing-item";
 
@@ -645,8 +632,10 @@ document.addEventListener(
               "div"
             );
 
+
           name.className =
             "blessing-item-name";
+
 
           name.textContent =
             item.name;
@@ -657,8 +646,10 @@ document.addEventListener(
               "div"
             );
 
+
           message.className =
             "blessing-item-message";
+
 
           message.textContent =
             item.message;
@@ -667,6 +658,7 @@ document.addEventListener(
           element.appendChild(
             name
           );
+
 
           element.appendChild(
             message
