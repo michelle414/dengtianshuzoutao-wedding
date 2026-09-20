@@ -2,111 +2,58 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   />
 
-  <title>邓天澍 & 邹涛 · 结婚典礼</title>
-
+  <title>TIANSHU & TAO · Wedding</title>
   <meta
     name="description"
-    content="邓天澍 & 邹涛 · 2026年10月25日 · 吉安"
+    content="TIANSHU & TAO · 2026.10.25"
   />
-
-  <meta name="theme-color" content="#eee9dc" />
 
   <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
 
-  <!-- 音乐 -->
+  <!-- 背景音乐 -->
   <audio id="bgMusic" loop preload="auto"></audio>
 
-  <button
-    class="music-control"
-    id="musicControl"
-    type="button"
-    aria-label="音乐开关"
-  >
+  <!-- 音乐按钮 -->
+  <button id="musicControl" class="music-control" type="button" aria-label="音乐">
     ♪
   </button>
 
-
   <main>
 
-    <!-- =====================================================
-         首页
-    ====================================================== -->
-
-    <section class="hero">
+    <!-- ==================== HERO ==================== -->
+    <section class="hero section-full">
 
       <div class="hero-inner">
 
-        <!-- 宾客姓名 -->
         <div class="guest-name-wrap">
-
-          <div class="guest-name-label">
-            TO
-          </div>
-
-          <div
-            class="guest-name"
-            id="guestName"
-          >
-            邹 小 明
-          </div>
-
+          <span class="guest-label">TO</span>
+          <div id="guestName" class="guest-name">邹 小 明</div>
         </div>
 
+        <p class="hero-subtitle">诚邀您出席</p>
 
-        <!-- 邀请语 -->
-        <div class="hero-subtitle">
-          诚邀您出席
-        </div>
+        <h1 class="couple-name">
+          邓天澍 <span>&</span> 邹涛
+        </h1>
 
+        <p class="couple-en">
+          TIANSHU <span>&</span> TAO
+        </p>
 
-        <!-- 新人 -->
-        <div class="couple-name">
-
-          <span>邓天澍</span>
-
-          <span class="couple-amp">
-            &amp;
-          </span>
-
-          <span>邹涛</span>
-
-        </div>
-
-
-        <div class="couple-en">
-          TIANSHU &amp; TAO
-        </div>
-
-
-        <!-- 日期 -->
         <div class="hero-date">
-
-          <strong>
-            2026年10月25日
-          </strong>
-
-          <span>
-            丙午年九月十六 · 星期日
-          </span>
-
+          <strong>2026年10月25日</strong>
+          <span>丙午年九月十六 · 星期日</span>
         </div>
 
-
-        <!-- 开启 -->
-        <button
-          class="open-invitation"
-          id="openInvitation"
-          type="button"
-        >
+        <button id="openInvitation" class="open-button" type="button">
           开启请柬
         </button>
 
@@ -115,61 +62,35 @@
     </section>
 
 
-    <!-- =====================================================
-         我们的婚礼
-    ====================================================== -->
-
-    <section
-      class="section wedding-day"
-      id="weddingDay"
-    >
+    <!-- ==================== OUR DAY ==================== -->
+    <section class="section wedding-day">
 
       <div class="section-heading">
-
-        <span class="section-eyebrow">
-          OUR DAY
-        </span>
-
-        <h2>
-          我们的婚礼
-        </h2>
-
+        <span class="eyebrow">OUR DAY</span>
+        <h2>我们的婚礼</h2>
       </div>
-
 
       <div class="calendar-card">
 
-        <div class="calendar-title">
-
-          <span>
-            2026年
-          </span>
-
-          <strong>
-            10月
-          </strong>
-
+        <div class="calendar-top">
+          <span>OCTOBER</span>
+          <strong>2026</strong>
         </div>
-
 
         <div class="calendar-week">
-
-          <span>一</span>
-          <span>二</span>
-          <span>三</span>
-          <span>四</span>
-          <span>五</span>
-          <span>六</span>
-          <span>日</span>
-
+          <span>MON</span>
+          <span>TUE</span>
+          <span>WED</span>
+          <span>THU</span>
+          <span>FRI</span>
+          <span>SAT</span>
+          <span>SUN</span>
         </div>
 
-
         <div class="calendar-grid">
-
-          <span class="empty"></span>
-          <span class="empty"></span>
-          <span class="empty"></span>
+          <span></span>
+          <span></span>
+          <span></span>
 
           <span>1</span>
           <span>2</span>
@@ -199,9 +120,7 @@
           <span>23</span>
           <span>24</span>
 
-          <span class="wedding-day-number">
-            25
-          </span>
+          <span class="calendar-special">25</span>
 
           <span>26</span>
           <span>27</span>
@@ -209,241 +128,150 @@
           <span>29</span>
           <span>30</span>
           <span>31</span>
-
         </div>
 
       </div>
 
-
-      <div class="countdown-area">
-
-        <div class="countdown-title">
-          距离婚礼还有
-        </div>
-
-
-        <div
-          class="countdown"
-          id="countdown"
-        >
-
-          <div class="countdown-item">
-
-            <strong id="days">
-              --
-            </strong>
-
-            <span>
-              天
-            </span>
-
-          </div>
-
-
-          <div class="countdown-item">
-
-            <strong id="hours">
-              --
-            </strong>
-
-            <span>
-              时
-            </span>
-
-          </div>
-
-
-          <div class="countdown-item">
-
-            <strong id="minutes">
-              --
-            </strong>
-
-            <span>
-              分
-            </span>
-
-          </div>
-
-
-          <div class="countdown-item">
-
-            <strong id="seconds">
-              --
-            </strong>
-
-            <span>
-              秒
-            </span>
-
-          </div>
-
-        </div>
-
+      <div class="countdown-block">
+        <span class="eyebrow">COUNTDOWN</span>
+        <div id="countdown">距离我们的婚礼还有</div>
+        <strong id="countdownNumber">--</strong>
+        <span class="countdown-unit">DAYS</span>
       </div>
 
     </section>
 
 
-    <!-- =====================================================
-         婚礼照片
-    ====================================================== -->
+    <!-- ==================== MOMENTS ==================== -->
+    <section class="section moments-section">
 
-    <section
-      class="section photo-section"
-      id="photos"
-    >
-
-      <div class="section-heading">
-
-        <span class="section-eyebrow">
-          MOMENTS
-        </span>
-
-        <h2>
-          婚礼照片
-        </h2>
-
+      <div class="section-heading moments-heading">
+        <span class="eyebrow">MOMENTS</span>
+        <h2>Moments</h2>
+        <p class="section-english">
+          A little glimpse before our day.
+        </p>
       </div>
 
 
-      <!-- 主婚纱照 -->
-
+      <!-- 大图 -->
       <div class="main-photo-frame">
 
-        <div
-          class="main-gallery-image photo-placeholder"
+        <img
           id="mainGalleryImage"
-        >
+          src=""
+          alt="TIANSHU & TAO"
+        />
 
-          <span>
-            我们的瞬间
-          </span>
-
+        <div id="photoPlaceholder" class="photo-placeholder">
+          <span>TIANSHU & TAO</span>
+          <small>OUR MOMENTS</small>
         </div>
 
       </div>
 
 
-      <div class="photo-caption">
+      <!-- 大图下面的句子 -->
+      <div class="moments-quote">
+        <span class="quote-line"></span>
 
-        <span>
-          我们的瞬间
-        </span>
+        <p>
+          Before the vows,<br />
+          there are all these little moments.
+        </p>
 
         <small>
-          The moments we keep
+          在正式成为彼此的家人之前，<br />
+          我们还有许多值得收藏的片刻。
         </small>
 
+        <span class="quote-line"></span>
       </div>
 
 
-      <!-- 横向滚动缩略图 -->
-
-      <div class="photo-scroll-wrap">
+      <!-- 横向缩略图 -->
+      <div class="photo-slider-wrap">
 
         <button
-          class="photo-arrow photo-arrow-left"
           id="photoPrev"
+          class="photo-arrow photo-arrow-left"
           type="button"
           aria-label="上一张"
         >
-          ←
+          ‹
         </button>
 
+        <div id="photoScroll" class="photo-scroll">
 
-        <div
-          class="photo-scroll"
-          id="photoScroll"
-        ></div>
+          <!-- JS 会自动生成缩略图 -->
 
+        </div>
 
         <button
-          class="photo-arrow photo-arrow-right"
           id="photoNext"
+          class="photo-arrow photo-arrow-right"
           type="button"
           aria-label="下一张"
         >
-          →
+          ›
         </button>
 
       </div>
 
+
+      <div class="photo-hint">
+        <span>SWIPE TO EXPLORE</span>
+      </div>
+
     </section>
 
 
-    <!-- =====================================================
-         婚礼流程
-    ====================================================== -->
-
-    <section
-      class="section schedule-section"
-      id="schedule"
-    >
+    <!-- ==================== SCHEDULE ==================== -->
+    <section class="section schedule-section">
 
       <div class="section-heading">
-
-        <span class="section-eyebrow">
-          THE DAY
-        </span>
-
-        <h2>
-          婚礼流程
-        </h2>
-
+        <span class="eyebrow">THE DAY</span>
+        <h2>婚礼流程</h2>
+        <p class="section-english">
+          One day, three little moments.
+        </p>
       </div>
 
-
-      <div class="schedule-list">
+      <div class="schedule">
 
         <div class="schedule-item">
+          <div class="schedule-time">11:00</div>
 
-          <div class="schedule-time">
-            11:00
-          </div>
-
-          <div class="schedule-line"></div>
+          <div class="schedule-dot"></div>
 
           <div class="schedule-content">
-            <strong>
-              迎宾
-            </strong>
+            <strong>迎宾</strong>
+            <span>WELCOME</span>
           </div>
-
         </div>
 
 
         <div class="schedule-item">
+          <div class="schedule-time">12:08</div>
 
-          <div class="schedule-time">
-            12:08
-          </div>
-
-          <div class="schedule-line"></div>
+          <div class="schedule-dot"></div>
 
           <div class="schedule-content">
-            <strong>
-              婚礼仪式
-            </strong>
+            <strong>婚礼仪式</strong>
+            <span>THE CEREMONY</span>
           </div>
-
         </div>
 
 
         <div class="schedule-item">
+          <div class="schedule-time">12:18</div>
 
-          <div class="schedule-time">
-            12:18
-          </div>
-
-          <div class="schedule-line"></div>
+          <div class="schedule-dot"></div>
 
           <div class="schedule-content">
-            <strong>
-              喜宴
-            </strong>
+            <strong>喜宴</strong>
+            <span>THE RECEPTION</span>
           </div>
-
         </div>
 
       </div>
@@ -451,359 +279,215 @@
     </section>
 
 
-    <!-- =====================================================
-         婚礼地点
-    ====================================================== -->
-
-    <section
-      class="section location-section"
-      id="location"
-    >
+    <!-- ==================== LOCATION ==================== -->
+    <section class="section location-section">
 
       <div class="section-heading">
-
-        <span class="section-eyebrow">
-          THE PLACE
-        </span>
-
-        <h2>
-          婚礼地点
-        </h2>
-
+        <span class="eyebrow">LOCATION</span>
+        <h2>婚礼地点</h2>
       </div>
 
+      <div class="location-card">
 
-      <div class="location-info">
-
-        <h3>
-          吉安宾馆·礼堂
-        </h3>
-
-        <p>
-          中国·江西·吉安
-        </p>
-
-        <p>
-          吉州区沿江路99号
-        </p>
-
-      </div>
-
-
-      <a
-        id="mapImageLink"
-        class="location-map-link"
-        href="#"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-
-        <div class="location-map">
-
+        <a
+          id="mapImageLink"
+          class="location-map"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <img
-            id="locationMapImage"
             src="./location-map.jpg"
-            alt="吉安宾馆·礼堂地图"
-            onerror="this.style.display='none'; this.parentElement.classList.add('map-empty');"
+            alt="婚礼地点地图"
           />
+        </a>
 
-          <div class="map-empty-text">
-            婚礼地点
-          </div>
+        <div class="location-info">
+
+          <h3>吉安宾馆·礼堂</h3>
+
+          <p>
+            中国·江西·吉安·吉州区沿江路99号
+          </p>
+
+          <a
+            id="mapButton"
+            class="map-button"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            打开高德地图导航
+          </a>
 
         </div>
 
-      </a>
-
-
-      <a
-        class="map-button"
-        id="mapButton"
-        href="#"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-
-        打开高德地图导航
-
-        <span>
-          ↗
-        </span>
-
-      </a>
+      </div>
 
     </section>
 
 
-    <!-- =====================================================
-         宾客回复
-    ====================================================== -->
-
-    <section
-      class="section reply-section"
-      id="reply"
-    >
+    <!-- ==================== REPLY ==================== -->
+    <section class="section reply-section">
 
       <div class="section-heading">
+        <span class="eyebrow">WITH YOU</span>
+        <h2>宾客回复</h2>
+        <p class="section-english">
+          We would love to hear from you.
+        </p>
+      </div>
 
-        <span class="section-eyebrow">
-          WITH YOU
-        </span>
 
-        <h2>
-          宾客回复
-        </h2>
+      <div class="reply-card">
 
-        <p class="section-description">
-          告诉我们你的安排，让我们提前为你准备。
+        <p class="reply-question">
+          是否能够来到我们的婚礼？
         </p>
 
-      </div>
 
+        <div class="attendance-options">
 
-      <!-- 出席选择 -->
-
-      <div class="attendance-choice">
-
-        <button
-          class="attendance-option"
-          data-attendance="no"
-          type="button"
-        >
-
-          <span class="option-title">
+          <button
+            class="attendance-button"
+            data-attendance="no"
+            type="button"
+          >
             很遗憾无法出席
-          </span>
+          </button>
 
-          <span class="option-mark">
-            ○
-          </span>
-
-        </button>
-
-
-        <button
-          class="attendance-option"
-          data-attendance="yes"
-          type="button"
-        >
-
-          <span class="option-title">
+          <button
+            class="attendance-button"
+            data-attendance="yes"
+            type="button"
+          >
             我会出席，婚礼见
-          </span>
-
-          <span class="option-mark">
-            ○
-          </span>
-
-        </button>
-
-      </div>
-
-
-      <!-- 出席之后 -->
-
-      <div
-        class="reply-details"
-        id="replyDetails"
-      >
-
-        <div class="form-block">
-
-          <label>
-            是否需要住宿？
-          </label>
-
-
-          <div class="small-choice-group">
-
-            <button
-              type="button"
-              class="small-choice"
-              data-stay="yes"
-            >
-              需要
-            </button>
-
-            <button
-              type="button"
-              class="small-choice"
-              data-stay="no"
-            >
-              不需要
-            </button>
-
-          </div>
+          </button>
 
         </div>
 
 
-        <div
-          class="stay-fields"
-          id="stayFields"
-        >
+        <div id="stayFields" class="stay-fields hidden">
 
-          <div class="form-field">
+          <div class="form-group">
+            <label>是否需要住宿</label>
 
-            <label for="stayPeople">
-              入住人数
-            </label>
-
-
-            <div class="number-control">
+            <div class="small-options">
 
               <button
                 type="button"
-                id="minusPeople"
+                class="stay-button"
+                data-stay="yes"
               >
-                −
+                需要
               </button>
+
+              <button
+                type="button"
+                class="stay-button"
+                data-stay="no"
+              >
+                不需要
+              </button>
+
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="peopleCount">几个人入住</label>
+
+            <input
+              id="peopleCount"
+              type="number"
+              min="1"
+              max="20"
+              placeholder="请输入人数"
+            />
+          </div>
+
+
+          <div class="date-row">
+
+            <div class="form-group">
+              <label for="checkIn">入住日期</label>
 
               <input
-                id="stayPeople"
-                type="number"
-                min="1"
-                max="10"
-                value="1"
+                id="checkIn"
+                type="date"
               />
+            </div>
 
-              <button
-                type="button"
-                id="plusPeople"
-              >
-                +
-              </button>
+            <div class="form-group">
+              <label for="checkOut">退房日期</label>
 
+              <input
+                id="checkOut"
+                type="date"
+              />
             </div>
 
           </div>
 
-
-          <div class="form-field">
-
-            <label for="stayDate">
-              入住日期
-            </label>
-
-            <input
-              id="stayDate"
-              type="date"
-              value="2026-10-24"
-            />
-
-          </div>
-
-
-          <div class="form-field">
-
-            <label for="leaveDate">
-              退房日期
-            </label>
-
-            <input
-              id="leaveDate"
-              type="date"
-              value="2026-10-26"
-            />
-
-          </div>
-
         </div>
 
 
-        <div class="form-field message-field">
+        <div class="form-group message-group">
 
-          <label for="message">
+          <label for="guestMessage">
             想对我们说
           </label>
 
           <textarea
-            id="message"
-            rows="5"
-            maxlength="300"
-            placeholder="写下你想对我们说的话……"
+            id="guestMessage"
+            rows="4"
+            placeholder="写一句祝福吧……"
           ></textarea>
 
         </div>
 
 
         <button
-          class="submit-reply"
           id="submitReply"
+          class="submit-button"
           type="button"
         >
           送出祝福
         </button>
 
-
-        <div
-          class="reply-success"
-          id="replySuccess"
-        >
-
-          <strong>
-            谢谢你的回复
-          </strong>
-
-          <span>
-            我们婚礼见 ♡
-          </span>
-
-        </div>
+        <p id="replySuccess" class="reply-success hidden">
+          谢谢你的回复，我们婚礼见。
+        </p>
 
       </div>
 
+    </section>
 
-      <!-- 无法出席 -->
 
-      <div
-        class="absence-message"
-        id="absenceMessage"
-      >
+    <!-- ==================== FINAL ==================== -->
+    <section class="final-section">
+
+      <div class="final-inner">
+
+        <span>with love</span>
+
+        <h2>
+          邓天澍 &amp; 邹涛
+        </h2>
 
         <p>
-          收到你的回复了。
+          2026 · 10 · 25
         </p>
 
         <strong>
-          虽然这次不能见面，也谢谢你的祝福。
+          婚礼见
         </strong>
 
       </div>
 
     </section>
 
-
-    <!-- =====================================================
-         结尾
-    ====================================================== -->
-
-    <section class="final-section">
-
-      <div class="final-inner">
-
-        <div class="final-love">
-          with love
-        </div>
-
-        <div class="final-couple">
-          邓天澍 &amp; 邹涛
-        </div>
-
-        <div class="final-date">
-          2026 · 10 · 25
-        </div>
-
-        <div class="final-goodbye">
-          婚礼见
-        </div>
-
-      </div>
-
-    </section>
-
   </main>
-
 
   <script src="./app.js"></script>
 
