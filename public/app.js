@@ -10,38 +10,35 @@ const weddingConfig = {
   groomLatin: "TIANSHU",
   brideLatin: "TAO",
 
-  weddingDate: "2026-10-25T12:08:00+08:00",
+  weddingDate:
+    "2026-10-25T12:08:00+08:00",
 
-  weddingDateText: "2026年10月25日",
-  lunarDateText: "丙午年九月十六 · 星期日",
+  weddingDateText:
+    "2026年10月25日",
 
-  venue: "吉安宾馆·礼堂",
+  lunarDateText:
+    "丙午年九月十六 · 星期日",
 
-  address: "中国·江西·吉安·吉州区沿江路99号",
+  venue:
+    "吉安宾馆·礼堂",
 
-  mapUrl: "https://surl.amap.com/1qtd9gB5ti",
+  address:
+    "中国·江西·吉安·吉州区沿江路99号",
 
-  music: "Shortcut To Heaven.mp3",
+  mapUrl:
+    "https://surl.amap.com/1qtd9gB5ti",
+
+  music:
+    "Shortcut To Heaven.mp3",
 
 
   /*
-    ========================================================
     婚礼照片
 
-    以后你把照片放进 public 文件夹以后，
-    只需要把文件名写进这里。
+    第一张 = 婚礼照片区域的大图
+    后面的 = 横向滚动照片
 
-    例如：
-
-    photos: [
-      { src: "wedding-main.jpg" },
-      { src: "wedding-01.jpg" },
-      { src: "wedding-02.jpg" },
-      { src: "wedding-03.jpg" }
-    ]
-
-    第一张就是首页大婚纱照。
-    ========================================================
+    以后有照片以后直接填这里。
   */
 
   photos: [
@@ -72,11 +69,13 @@ const $$ = (selector) =>
 
 function getGuestName() {
 
-  const params = new URLSearchParams(
-    window.location.search
-  );
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
 
-  const guest = params.get("guest");
+  const guest =
+    params.get("guest");
 
   if (!guest) {
     return "邹 小 明";
@@ -89,22 +88,15 @@ function getGuestName() {
 function formatGuestName(name) {
 
   /*
-    不自动添加：
-    阿姨 / 叔叔 / 先生 / 女士
+    不自动添加任何称呼。
 
-    用户输入什么，就显示什么。
-
-    如果输入：
     邹小明
+    → 邹 小 明
 
-    就显示：
-    邹 小 明
-
-    如果输入：
     邹小明一家
+    → 邹小明一家
 
-    则保持：
-    邹小明一家
+    用户写什么，就显示什么。
   */
 
   if (
@@ -115,7 +107,8 @@ function formatGuestName(name) {
     return name;
   }
 
-  const characters = [...name];
+  const characters =
+    [...name];
 
   if (characters.length <= 2) {
     return name;
@@ -127,11 +120,13 @@ function formatGuestName(name) {
 
 function renderGuestName() {
 
-  const element = $("#guestName");
+  const element =
+    $("#guestName");
 
   if (!element) return;
 
-  const name = getGuestName();
+  const name =
+    getGuestName();
 
   element.textContent =
     formatGuestName(name);
@@ -176,12 +171,16 @@ const musicControl =
 const openInvitation =
   $("#openInvitation");
 
-let musicStarted = false;
+let musicStarted =
+  false;
 
 
 function setupMusic() {
 
-  if (!bgMusic || !musicControl) {
+  if (
+    !bgMusic ||
+    !musicControl
+  ) {
     return;
   }
 
@@ -203,7 +202,8 @@ function setupMusic() {
             "playing"
           );
 
-          musicStarted = true;
+          musicStarted =
+            true;
 
         } catch (error) {
 
@@ -234,11 +234,6 @@ function setupMusic() {
       "click",
       async () => {
 
-        /*
-          用户点击“开启请柬”
-          是移动端允许开始播放音乐的用户手势。
-        */
-
         if (!musicStarted) {
 
           try {
@@ -249,7 +244,8 @@ function setupMusic() {
               "playing"
             );
 
-            musicStarted = true;
+            musicStarted =
+              true;
 
           } catch (error) {
 
@@ -297,10 +293,17 @@ function updateCountdown() {
 
   if (difference <= 0) {
 
-    $("#days").textContent = "0";
-    $("#hours").textContent = "0";
-    $("#minutes").textContent = "0";
-    $("#seconds").textContent = "0";
+    $("#days").textContent =
+      "0";
+
+    $("#hours").textContent =
+      "0";
+
+    $("#minutes").textContent =
+      "0";
+
+    $("#seconds").textContent =
+      "0";
 
     return;
   }
@@ -347,13 +350,22 @@ function updateCountdown() {
     String(days);
 
   $("#hours").textContent =
-    String(hours).padStart(2, "0");
+    String(hours).padStart(
+      2,
+      "0"
+    );
 
   $("#minutes").textContent =
-    String(minutes).padStart(2, "0");
+    String(minutes).padStart(
+      2,
+      "0"
+    );
 
   $("#seconds").textContent =
-    String(seconds).padStart(2, "0");
+    String(seconds).padStart(
+      2,
+      "0"
+    );
 
 }
 
@@ -374,7 +386,8 @@ function startCountdown() {
    婚礼照片
 ========================================================= */
 
-let currentPhotoIndex = 0;
+let currentPhotoIndex =
+  0;
 
 
 function renderPhotos() {
@@ -385,16 +398,13 @@ function renderPhotos() {
   const mainImage =
     $("#mainGalleryImage");
 
-  const heroPhoto =
-    $("#heroPhoto");
-
   const photoScroll =
     $("#photoScroll");
 
 
   /*
-    还没有照片时，
-    保留漂亮的占位区域。
+    暂时没有照片时，
+    只保留婚礼照片区域。
   */
 
   if (!photos.length) {
@@ -406,25 +416,21 @@ function renderPhotos() {
 
     }
 
-    if (heroPhoto) {
-
-      heroPhoto.innerHTML =
-        "<span>我们的婚礼</span>";
-
-    }
-
     return;
   }
 
 
-  photoScroll.innerHTML = "";
+  photoScroll.innerHTML =
+    "";
 
 
   photos.forEach(
     (photo, index) => {
 
       const button =
-        document.createElement("button");
+        document.createElement(
+          "button"
+        );
 
       button.type =
         "button";
@@ -434,14 +440,18 @@ function renderPhotos() {
 
 
       if (index === 0) {
+
         button.classList.add(
           "active"
         );
+
       }
 
 
       const image =
-        document.createElement("img");
+        document.createElement(
+          "img"
+        );
 
       image.src =
         photo.src;
@@ -497,16 +507,16 @@ function setMainPhoto(index) {
   const mainImage =
     $("#mainGalleryImage");
 
-  const heroPhoto =
-    $("#heroPhoto");
-
 
   if (mainImage) {
 
-    mainImage.innerHTML = "";
+    mainImage.innerHTML =
+      "";
 
     const image =
-      document.createElement("img");
+      document.createElement(
+        "img"
+      );
 
     image.src =
       photo.src;
@@ -533,45 +543,6 @@ function setMainPhoto(index) {
   }
 
 
-  /*
-    第一张照片同时作为首页大照片。
-  */
-
-  if (
-    heroPhoto &&
-    index === 0
-  ) {
-
-    heroPhoto.innerHTML = "";
-
-    const image =
-      document.createElement("img");
-
-    image.src =
-      photo.src;
-
-    image.alt =
-      "邓天澍与邹涛";
-
-    image.style.width =
-      "100%";
-
-    image.style.height =
-      "100%";
-
-    image.style.objectFit =
-      "cover";
-
-    image.style.display =
-      "block";
-
-    heroPhoto.appendChild(
-      image
-    );
-
-  }
-
-
   $$(".photo-thumb").forEach(
     (item, itemIndex) => {
 
@@ -587,7 +558,7 @@ function setMainPhoto(index) {
 
 
 /* =========================================================
-   照片左右按钮
+   照片左右移动
 ========================================================= */
 
 function setupPhotoNavigation() {
@@ -608,7 +579,8 @@ function setupPhotoNavigation() {
 
 
   const scrollAmount =
-    () => photoScroll.clientWidth * 0.7;
+    () =>
+      photoScroll.clientWidth * 0.7;
 
 
   if (prev) {
@@ -652,7 +624,7 @@ function setupPhotoNavigation() {
 
 
 /* =========================================================
-   宾客回复
+   出席选择
 ========================================================= */
 
 let attendance =
@@ -735,7 +707,7 @@ function setupAttendance() {
 
 
 /* =========================================================
-   住宿选择
+   住宿
 ========================================================= */
 
 function setupStayChoice() {
@@ -888,25 +860,22 @@ function setupReplySubmit() {
       const guest =
         getGuestName();
 
-
       const message =
-        $("#message")?.value.trim()
-        || "";
-
+        $("#message")
+          ?.value
+          .trim() || "";
 
       const stayPeople =
-        $("#stayPeople")?.value
-        || "1";
-
+        $("#stayPeople")
+          ?.value || "1";
 
       const stayDate =
-        $("#stayDate")?.value
-        || "";
-
+        $("#stayDate")
+          ?.value || "";
 
       const leaveDate =
-        $("#leaveDate")?.value
-        || "";
+        $("#leaveDate")
+          ?.value || "";
 
 
       const replyData = {
@@ -932,12 +901,10 @@ function setupReplySubmit() {
 
 
       /*
-        目前先保存在当前设备。
+        当前阶段先保存到本机。
 
-        等后面接 Cloudflare / 数据库以后，
-        这里再改成真正的在线提交。
-
-        现在先把前端流程跑通。
+        后面接真正的在线数据库时，
+        再把这里替换成云端提交。
       */
 
       localStorage.setItem(
@@ -958,8 +925,11 @@ function setupReplySubmit() {
 
 
       success?.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
+        behavior:
+          "smooth",
+
+        block:
+          "center"
       });
 
     }
@@ -969,7 +939,7 @@ function setupReplySubmit() {
 
 
 /* =========================================================
-   页面初始化
+   初始化
 ========================================================= */
 
 function init() {
