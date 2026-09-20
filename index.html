@@ -1,296 +1,741 @@
-document.addEventListener("DOMContentLoaded", () => {
-  /* =========================================
-     1. 宾客姓名
-     ========================================= */
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
 
-  const params = new URLSearchParams(window.location.search);
-  const guestName = params.get("guest");
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
 
-  const guestCard = document.getElementById("guestCard");
-  const guestNameElement = document.getElementById("guestName");
+  <title>邓天澍 & 邹涛｜婚礼邀请｜2026年10月25日</title>
 
-  if (guestName && guestNameElement) {
-    guestNameElement.textContent = guestName;
+  <meta
+    name="description"
+    content="邓天澍 & 邹涛诚邀您出席婚礼。2026年10月25日，吉安宾馆·礼堂。"
+  />
 
-    if (guestCard) {
-      guestCard.style.display = "flex";
-    }
-  } else if (guestCard) {
-    guestCard.style.display = "none";
-  }
+  <meta
+    property="og:type"
+    content="website"
+  />
 
+  <meta
+    property="og:title"
+    content="邓天澍 & 邹涛｜婚礼邀请"
+  />
 
-  /* =========================================
-     2. 开启请柬
-     
-     点击后：
-     第一页 → 第二页
-     ========================================= */
+  <meta
+    property="og:description"
+    content="2026年10月25日 · 吉安宾馆·礼堂"
+  />
 
-  const openButton = document.getElementById("openInvitation");
+  <meta
+    property="og:site_name"
+    content="邓天澍 & 邹涛的婚礼"
+  />
 
-  if (openButton) {
-    openButton.addEventListener("click", () => {
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-      // 用户点击以后，允许播放背景音乐
-      startMusic();
+<body>
 
-      // 滑到第二个完整页面
-      window.scrollTo({
-        top: window.innerHeight,
-        behavior: "smooth"
-      });
-    });
-  }
+  <!-- =========================
+       背景音乐
+       ========================= -->
 
+  <audio
+    id="bgMusic"
+    loop
+    preload="auto"
+  >
+    <source src="assets/music.mp3" type="audio/mpeg" />
+  </audio>
 
-  /* =========================================
-     3. 背景音乐
-     ========================================= */
 
-  const music = document.getElementById("bgMusic");
+  <!-- =========================
+       音乐按钮
+       ========================= -->
 
-  const musicButton =
-    document.getElementById("musicToggle");
+  <button
+    class="music-toggle"
+    id="musicToggle"
+    type="button"
+    aria-label="播放或暂停音乐"
+  >
+    ♫
+  </button>
 
-  function startMusic() {
-    if (!music) return;
 
-    music.volume = 0.45;
+  <!-- =========================
+       首页 HERO
+       ========================= -->
 
-    music
-      .play()
-      .then(() => {
-        if (musicButton) {
-          musicButton.classList.add("playing");
-        }
-      })
-      .catch(() => {
-        // 手机浏览器禁止自动播放时，不做任何处理
-      });
-  }
+  <header class="hero">
 
-  if (musicButton) {
-    musicButton.addEventListener("click", () => {
+    <div class="hero-overlay"></div>
 
-      if (!music) return;
+    <div class="hero-inner">
 
-      if (music.paused) {
-        startMusic();
-      } else {
-        music.pause();
-        musicButton.classList.remove("playing");
-      }
+      <!-- 宾客信息：必须在最上面 -->
 
-    });
-  }
+      <div
+        class="guest-card reveal"
+        id="guestCard"
+      >
 
+        <div class="guest-label">
+          FOR YOU
+        </div>
 
-  /* =========================================
-     4. 婚礼倒计时
-     ========================================= */
+        <div
+          class="guest-name"
+          id="guestName"
+        >
+        </div>
 
-  const weddingDate =
-    new Date("2026-10-25T12:08:00+08:00");
+        <div class="guest-line"></div>
 
-  const daysElement =
-    document.getElementById("days");
+        <div class="guest-invite">
+          诚邀您出席
+        </div>
 
-  const hoursElement =
-    document.getElementById("hours");
+      </div>
 
-  const minutesElement =
-    document.getElementById("minutes");
 
-  const secondsElement =
-    document.getElementById("seconds");
+      <!-- 婚礼英文标题 -->
 
+      <div class="hero-kicker">
+        WEDDING INVITATION
+      </div>
 
-  function updateCountdown() {
 
-    const now = new Date();
+      <!-- 新郎新娘 -->
 
-    const difference =
-      weddingDate.getTime() - now.getTime();
+      <div class="couple-block reveal">
 
+        <div class="couple-name">
 
-    if (difference <= 0) {
+          <span class="name-cn">
+            邓天澍
+          </span>
 
-      if (daysElement)
-        daysElement.textContent = "0";
+          <span class="ampersand">
+            &
+          </span>
 
-      if (hoursElement)
-        hoursElement.textContent = "00";
+          <span class="name-cn">
+            邹涛
+          </span>
 
-      if (minutesElement)
-        minutesElement.textContent = "00";
+        </div>
 
-      if (secondsElement)
-        secondsElement.textContent = "00";
+        <div class="couple-latin">
+          TIANSHU &amp; TAO
+        </div>
 
-      return;
-    }
+      </div>
 
 
-    const days =
-      Math.floor(
-        difference / (1000 * 60 * 60 * 24)
-      );
+      <!-- 日期 -->
 
+      <div class="hero-date reveal">
 
-    const hours =
-      Math.floor(
-        (difference / (1000 * 60 * 60)) % 24
-      );
+        <div class="date-main">
+          2026 · 10 · 25
+        </div>
 
+        <div class="date-sub">
+          SUNDAY · 丙午年九月十六
+        </div>
 
-    const minutes =
-      Math.floor(
-        (difference / (1000 * 60)) % 60
-      );
+      </div>
 
 
-    const seconds =
-      Math.floor(
-        (difference / 1000) % 60
-      );
+      <!-- 开启 -->
 
+      <button
+        class="open-btn reveal"
+        id="openInvitation"
+        type="button"
+      >
 
-    if (daysElement)
-      daysElement.textContent = days;
+        <span>
+          开启请柬
+        </span>
 
-    if (hoursElement)
-      hoursElement.textContent =
-        String(hours).padStart(2, "0");
+        <small>
+          OPEN INVITATION
+        </small>
 
-    if (minutesElement)
-      minutesElement.textContent =
-        String(minutes).padStart(2, "0");
+        <b>
+          ↓
+        </b>
 
-    if (secondsElement)
-      secondsElement.textContent =
-        String(seconds).padStart(2, "0");
-  }
+      </button>
 
+    </div>
 
-  updateCountdown();
+  </header>
 
-  setInterval(updateCountdown, 1000);
 
+  <main>
 
-  /* =========================================
-     5. 滚动出现动画
-     ========================================= */
 
-  const revealElements =
-    document.querySelectorAll(".reveal");
+    <!-- =========================
+         婚礼信息
+         ========================= -->
 
+    <section
+      class="details-section reveal"
+      id="details"
+    >
 
-  if ("IntersectionObserver" in window) {
+      <div class="section-inner">
 
-    const observer =
-      new IntersectionObserver(
-        (entries) => {
+        <div class="section-eyebrow">
+          THE DAY
+        </div>
 
-          entries.forEach((entry) => {
+        <h2>
+          我们的婚礼
+        </h2>
 
-            if (entry.isIntersecting) {
+        <p class="section-intro">
+          在秋日的阳光里，
+          <br />
+          邀请你来见证我们的重要时刻。
+        </p>
 
-              entry.target.classList.add("visible");
 
-              observer.unobserve(entry.target);
-            }
+        <!-- 日期 -->
 
-          });
+        <div class="date-card">
 
-        },
-        {
-          threshold: 0.12
-        }
-      );
+          <div class="date-number">
+            25
+          </div>
 
+          <div class="date-info">
 
-    revealElements.forEach((element) => {
-      observer.observe(element);
-    });
+            <strong>
+              OCTOBER
+            </strong>
 
-  } else {
+            <span>
+              2026 · SUNDAY
+            </span>
 
-    revealElements.forEach((element) => {
-      element.classList.add("visible");
-    });
+            <span>
+              丙午年九月十六
+            </span>
 
-  }
+          </div>
 
+        </div>
 
-  /* =========================================
-     6. RSVP
-     ========================================= */
 
-  const rsvpForm =
-    document.getElementById("rsvpForm");
+        <!-- 地点 -->
 
+        <div class="location-card">
 
-  if (rsvpForm) {
+          <div class="location-eyebrow">
+            LOCATION
+          </div>
 
-    rsvpForm.addEventListener(
-      "submit",
-      (event) => {
+          <h3>
+            吉安宾馆·礼堂
+          </h3>
 
-        event.preventDefault();
+          <p>
+            中国·江西·吉安
+            <br />
+            吉州区沿江路99号
+          </p>
 
+          <a
+            class="map-button"
+            href="https://surl.amap.com/1qtd9gB5ti"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            查看地图 · 导航
+          </a>
 
-        const formData =
-          new FormData(rsvpForm);
+        </div>
 
+      </div>
 
-        const data = {
+    </section>
 
-          guest:
-            guestName || "",
 
-          name:
-            formData.get("name") || "",
+    <!-- =========================
+         婚礼流程
+         ========================= -->
 
-          attendance:
-            formData.get("attendance") || "",
+    <section
+      class="wedding-section reveal"
+      id="schedule"
+    >
 
-          guests:
-            formData.get("guests") || "",
+      <div class="section-inner">
 
-          message:
-            formData.get("message") || ""
+        <div class="section-eyebrow">
+          WEDDING DAY
+        </div>
 
-        };
+        <h2>
+          婚礼流程
+        </h2>
 
 
-        console.log(
-          "Wedding RSVP:",
-          data
-        );
+        <div class="schedule">
 
+          <div class="schedule-item">
 
-        const successMessage =
-          document.getElementById(
-            "rsvpSuccess"
-          );
+            <div class="schedule-time">
+              11:00
+            </div>
 
+            <div class="schedule-content">
 
-        if (successMessage) {
+              <strong>
+                迎宾
+              </strong>
 
-          successMessage.textContent =
-            "谢谢您的回复，我们婚礼见 ♡";
+              <span>
+                Welcome
+              </span>
 
-          successMessage.style.display =
-            "block";
-        }
+              <p>
+                我们在这里等你。
+              </p>
 
+            </div>
 
-        rsvpForm.reset();
+          </div>
 
-      }
-    );
 
-  }
+          <div class="schedule-item">
 
-});
+            <div class="schedule-time">
+              12:08
+            </div>
+
+            <div class="schedule-content">
+
+              <strong>
+                婚礼仪式
+              </strong>
+
+              <span>
+                Ceremony
+              </span>
+
+              <p>
+                一起见证我们的婚礼。
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="schedule-item">
+
+            <div class="schedule-time">
+              12:18
+            </div>
+
+            <div class="schedule-content">
+
+              <strong>
+                喜宴
+              </strong>
+
+              <span>
+                Wedding Banquet
+              </span>
+
+              <p>
+                欢聚一堂，共享喜悦。
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         我们的故事
+         ========================= -->
+
+    <section
+      class="story-section reveal"
+      id="story"
+    >
+
+      <div class="section-inner">
+
+        <div class="section-eyebrow">
+          OUR STORY
+        </div>
+
+        <h2>
+          关于我们
+        </h2>
+
+        <div class="story-text">
+
+          <p>
+            从相遇，到相知，
+            <br />
+            再到决定一起走向未来。
+          </p>
+
+          <p>
+            这一天，
+            <br />
+            我们想和重要的人一起度过。
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         照片区域
+         ========================= -->
+
+    <section
+      class="photo-section reveal"
+      id="photos"
+    >
+
+      <div class="section-inner">
+
+        <div class="section-eyebrow">
+          MOMENTS
+        </div>
+
+        <h2>
+          我们的照片
+        </h2>
+
+
+        <div class="photo-gallery">
+
+          <div class="photo-frame photo-main">
+
+            <div class="photo-placeholder">
+              <span>
+                OUR PHOTO
+              </span>
+
+              <small>
+                婚礼照片
+              </small>
+            </div>
+
+          </div>
+
+
+          <div class="photo-frame">
+
+            <div class="photo-placeholder">
+              <span>
+                TAO
+              </span>
+            </div>
+
+          </div>
+
+
+          <div class="photo-frame">
+
+            <div class="photo-placeholder">
+              <span>
+                TIANSHU
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         倒计时
+         ========================= -->
+
+    <section
+      class="countdown-section reveal"
+      id="countdown"
+    >
+
+      <div class="section-inner">
+
+        <div class="section-eyebrow">
+          COUNTDOWN
+        </div>
+
+        <h2>
+          等待与你相见
+        </h2>
+
+
+        <div class="countdown">
+
+          <div class="countdown-item">
+
+            <strong id="days">
+              0
+            </strong>
+
+            <span>
+              DAYS
+            </span>
+
+          </div>
+
+
+          <div class="countdown-item">
+
+            <strong id="hours">
+              00
+            </strong>
+
+            <span>
+              HOURS
+            </span>
+
+          </div>
+
+
+          <div class="countdown-item">
+
+            <strong id="minutes">
+              00
+            </strong>
+
+            <span>
+              MINUTES
+            </span>
+
+          </div>
+
+
+          <div class="countdown-item">
+
+            <strong id="seconds">
+              00
+            </strong>
+
+            <span>
+              SECONDS
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         RSVP
+         ========================= -->
+
+    <section
+      class="rsvp-section reveal"
+      id="rsvp"
+    >
+
+      <div class="section-inner">
+
+        <div class="section-eyebrow">
+          RSVP
+        </div>
+
+        <h2>
+          回复我们
+        </h2>
+
+        <p class="section-intro">
+          如果方便，请告诉我们是否能够到场。
+        </p>
+
+
+        <form
+          id="rsvpForm"
+          class="rsvp-form"
+        >
+
+          <div class="form-group">
+
+            <label for="rsvpName">
+              姓名
+            </label>
+
+            <input
+              id="rsvpName"
+              name="name"
+              type="text"
+              placeholder="请输入您的姓名"
+              required
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              是否出席
+            </label>
+
+            <div class="rsvp-options">
+
+              <label>
+                <input
+                  type="radio"
+                  name="attendance"
+                  value="出席"
+                  required
+                />
+                <span>
+                  出席
+                </span>
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  name="attendance"
+                  value="无法出席"
+                />
+                <span>
+                  无法出席
+                </span>
+              </label>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="rsvpGuests">
+              到场人数
+            </label>
+
+            <input
+              id="rsvpGuests"
+              name="guests"
+              type="number"
+              min="1"
+              max="20"
+              placeholder="例如：2"
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="rsvpMessage">
+              想对我们说
+            </label>
+
+            <textarea
+              id="rsvpMessage"
+              name="message"
+              rows="4"
+              placeholder="写一句祝福吧 ♡"
+            ></textarea>
+
+          </div>
+
+
+          <button
+            type="submit"
+            class="rsvp-submit"
+          >
+            提交回复
+          </button>
+
+
+          <div
+            id="rsvpSuccess"
+            class="rsvp-success"
+            style="display:none;"
+          ></div>
+
+        </form>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         最后的邀请
+         ========================= -->
+
+    <section
+      class="final-section reveal"
+    >
+
+      <div class="final-inner">
+
+        <div class="section-eyebrow">
+          SEE YOU
+        </div>
+
+        <h2 class="final-title">
+          婚礼见
+        </h2>
+
+        <p>
+          感谢你来到我们的生命里。
+        </p>
+
+        <div class="final-names">
+          邓天澍 &amp; 邹涛
+        </div>
+
+        <div class="final-date">
+          2026 · 10 · 25
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       JS
+       ========================= -->
+
+  <script src="app.js"></script>
+
+</body>
+</html>
