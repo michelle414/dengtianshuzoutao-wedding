@@ -919,14 +919,67 @@ img {
    LOCATION
 ===================================================== */
 
-.location-card {
-  max-width: 760px;
+/* =====================================================
+   LOCATION
+===================================================== */
 
-  margin: 0 auto;
+.location-section {
+  position: relative;
+  z-index: 2;
+  text-align: center;
 }
 
-.location-map {
+.section-kicker {
+  margin-bottom: 12px;
+
+  font-family: "WeddingEnglish", serif;
+
+  font-size: 10px;
+
+  letter-spacing: 0.3em;
+
+  color: var(--sage);
+}
+
+.section-title {
+  margin: 0;
+
+  font-family: "WeddingChinese", serif;
+
+  font-size: clamp(28px, 6vw, 42px);
+
+  font-weight: 400;
+
+  letter-spacing: 0.08em;
+}
+
+.section-subtitle {
+  margin: 14px 0 30px;
+
+  font-family: "WeddingChinese", serif;
+
+  font-size: 15px;
+
+  color: var(--muted);
+
+  letter-spacing: 0.08em;
+}
+
+
+/* =====================================================
+   地图
+===================================================== */
+
+.map-link {
+  position: relative;
+
+  z-index: 20;
+
   display: block;
+
+  width: min(100%, 760px);
+
+  margin: 0 auto;
 
   overflow: hidden;
 
@@ -935,34 +988,45 @@ img {
   background: rgba(255,255,255,0.25);
 
   line-height: 0;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  pointer-events: auto;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
-.location-map img {
+.map-link .location-map {
+  display: block;
+
   width: 100%;
 
   height: auto;
 
+  max-width: 100%;
+
   object-fit: contain;
+
+  pointer-events: none;
+
+  user-select: none;
+
+  -webkit-user-drag: none;
 }
 
-.location-info {
-  padding: 28px 10px;
-
-  text-align: center;
+.map-link:active {
+  opacity: 0.75;
 }
 
-.location-info h3 {
-  margin: 0 0 10px;
 
-  font-family: "WeddingChinese", serif;
+/* =====================================================
+   地址
+===================================================== */
 
-  font-size: 21px;
-
-  font-weight: 400;
-}
-
-.location-info p {
-  margin: 0;
+.location-address {
+  margin-top: 24px;
 
   font-family: "WeddingChinese", serif;
 
@@ -970,19 +1034,36 @@ img {
 
   font-size: 13px;
 
-  line-height: 1.8;
+  line-height: 1.9;
+
+  text-align: center;
 }
 
+
+/* =====================================================
+   高德按钮
+===================================================== */
+
 .map-button {
-  display: inline-block;
+  position: relative;
+
+  z-index: 20;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
 
   margin-top: 22px;
 
-  padding: 11px 22px;
+  padding: 12px 24px;
 
   border: 1px solid rgba(62,73,65,0.4);
 
   color: var(--ink);
+
+  background: transparent;
 
   text-decoration: none;
 
@@ -991,8 +1072,40 @@ img {
   font-size: 12px;
 
   letter-spacing: 0.1em;
+
+  cursor: pointer;
+
+  pointer-events: auto;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
+.map-button:active {
+  opacity: 0.7;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .location-section {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .map-link {
+    width: 100%;
+  }
+
+  .map-link .location-map {
+    width: 100%;
+    height: auto;
+  }
+
+}
 
 /* =====================================================
    REPLY
