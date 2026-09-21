@@ -13,11 +13,17 @@
     @font-face {
       font-family: "WeddingChinese";
       src: url("/FZZiLSJW-B.TTF") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
     }
 
     @font-face {
       font-family: "WeddingEnglish";
       src: url("/FZVDLGTMCJW-L.TTF") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
     }
 
     * {
@@ -32,8 +38,14 @@
     }
 
     button,
-    input {
+    input,
+    select,
+    textarea {
       font-family: inherit;
+    }
+
+    button {
+      -webkit-tap-highlight-color: transparent;
     }
 
     /* =========================
@@ -122,9 +134,9 @@
     }
 
     .page {
-      width: min(100%, 760px);
+      width: min(100%, 780px);
       margin: 0 auto;
-      padding: 26px 18px 50px;
+      padding: 26px 18px 60px;
     }
 
     .header {
@@ -208,6 +220,43 @@
       margin-top: 9px;
       font-size: 13px;
       color: #806f5e;
+      line-height: 1.5;
+    }
+
+    /* =========================
+       发送人
+    ========================= */
+
+    .sender-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(120, 100, 80, 0.12);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    .sender-title {
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .sender-desc {
+      font-size: 12px;
+      color: #8b7f74;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .sender-select {
+      width: 100%;
+      height: 46px;
+      border: 1px solid #d7cec4;
+      border-radius: 9px;
+      background: white;
+      padding: 0 12px;
+      color: #403831;
+      font-size: 14px;
+      outline: none;
     }
 
     /* =========================
@@ -215,13 +264,13 @@
     ========================= */
 
     .stats {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 9px;
       margin-bottom: 18px;
     }
 
     .stat {
-      flex: 1;
       background: rgba(255, 255, 255, 0.78);
       border: 1px solid rgba(120, 100, 80, 0.1);
       border-radius: 12px;
@@ -237,6 +286,28 @@
       margin-top: 3px;
       font-family: "WeddingEnglish", serif;
       font-size: 24px;
+    }
+
+    /* =========================
+       区域标题
+    ========================= */
+
+    .section-label {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin: 26px 2px 10px;
+    }
+
+    .section-label-title {
+      font-size: 16px;
+    }
+
+    .section-label-en {
+      font-family: "WeddingEnglish", serif;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      opacity: 0.45;
     }
 
     /* =========================
@@ -295,6 +366,57 @@
     }
 
     /* =========================
+       回复状态
+    ========================= */
+
+    .reply-box {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 12px;
+      background: #faf8f4;
+      border: 1px solid #eee8df;
+    }
+
+    .reply-status {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .reply-status.replied {
+      background: #e8eee7;
+      color: #5c7159;
+    }
+
+    .reply-status.waiting {
+      background: #f1ebe4;
+      color: #7d6d5e;
+    }
+
+    .reply-detail {
+      font-size: 13px;
+      line-height: 1.8;
+      color: #5c544d;
+    }
+
+    .reply-detail strong {
+      font-weight: normal;
+      color: #403831;
+    }
+
+    .reply-message {
+      margin-top: 9px;
+      padding-top: 9px;
+      border-top: 1px solid #e9e2d9;
+      color: #766b62;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* =========================
        操作按钮
     ========================= */
 
@@ -342,8 +464,68 @@
       font-size: 14px;
     }
 
-    @media (max-width: 520px) {
+    /* =========================
+       微信邀请预览
+    ========================= */
 
+    .invite-preview {
+      margin-top: 14px;
+      padding: 14px;
+      background: #faf8f4;
+      border: 1px solid #eee8df;
+      border-radius: 12px;
+    }
+
+    .invite-preview-title {
+      font-size: 12px;
+      color: #8a7d72;
+      margin-bottom: 8px;
+    }
+
+    .invite-preview-text {
+      width: 100%;
+      min-height: 170px;
+      resize: vertical;
+      border: 1px solid #ddd5cb;
+      border-radius: 9px;
+      background: white;
+      padding: 12px;
+      color: #51483f;
+      font-size: 13px;
+      line-height: 1.7;
+      outline: none;
+    }
+
+    .invite-preview-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .invite-preview-actions button {
+      flex: 1;
+      height: 40px;
+      border-radius: 8px;
+      border: 1px solid #d8d0c6;
+      background: white;
+      color: #5c544d;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .invite-preview-actions .main-copy {
+      background: #51483f;
+      border-color: #51483f;
+      color: white;
+    }
+
+    @media (max-width: 620px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 520px) {
       .page {
         padding: 22px 14px 40px;
       }
@@ -371,7 +553,6 @@
       .actions .delete {
         grid-column: 1 / -1;
       }
-
     }
   </style>
 </head>
@@ -452,7 +633,9 @@
       </header>
 
 
-      <!-- 添加宾客 -->
+      <!-- =========================
+           添加宾客
+      ========================= -->
 
       <div class="add-card">
 
@@ -486,7 +669,55 @@
       </div>
 
 
-      <!-- 数据 -->
+      <!-- =========================
+           发送人
+      ========================= -->
+
+      <div class="sender-card">
+
+        <div class="sender-title">
+          谁来发这份邀请？
+        </div>
+
+        <div class="sender-desc">
+          选择后，系统会自动生成适合这个身份的微信邀请文案。
+        </div>
+
+        <select
+          id="senderSelect"
+          class="sender-select"
+        >
+          <option value="groom">
+            新郎 · 邓天澍
+          </option>
+
+          <option value="bride">
+            新娘 · 邹涛
+          </option>
+
+          <option value="groomFather">
+            新郎爸爸
+          </option>
+
+          <option value="groomMother">
+            新郎妈妈
+          </option>
+
+          <option value="brideFather">
+            新娘爸爸
+          </option>
+
+          <option value="brideMother">
+            新娘妈妈
+          </option>
+        </select>
+
+      </div>
+
+
+      <!-- =========================
+           数据
+      ========================= -->
 
       <div class="stats">
 
@@ -518,11 +749,24 @@
 
         <div class="stat">
           <div class="stat-label">
-            未发送
+            已回复
           </div>
 
           <div
-            id="unsentCount"
+            id="repliedCount"
+            class="stat-number"
+          >
+            0
+          </div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">
+            需要住宿
+          </div>
+
+          <div
+            id="stayCount"
             class="stat-number"
           >
             0
@@ -532,7 +776,22 @@
       </div>
 
 
-      <!-- 宾客列表 -->
+      <div class="section-label">
+
+        <div class="section-label-title">
+          宾客列表
+        </div>
+
+        <div class="section-label-en">
+          GUESTS
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           宾客列表
+      ========================= -->
 
       <div
         id="guestList"
@@ -586,13 +845,20 @@
     const sentCount =
       document.getElementById("sentCount");
 
-    const unsentCount =
-      document.getElementById("unsentCount");
+    const repliedCount =
+      document.getElementById("repliedCount");
+
+    const stayCount =
+      document.getElementById("stayCount");
 
     const logoutButton =
       document.getElementById("logoutButton");
 
+    const senderSelect =
+      document.getElementById("senderSelect");
+
     let currentGuests = [];
+    let currentReplies = [];
 
 
     /* =========================
@@ -600,20 +866,15 @@
     ========================= */
 
     function showLogin() {
-
       loginPage.style.display = "flex";
       adminPage.style.display = "none";
-
       passwordInput.focus();
-
     }
 
 
     function showAdmin() {
-
       loginPage.style.display = "none";
       adminPage.style.display = "block";
-
     }
 
 
@@ -636,10 +897,8 @@
       };
 
       if (options.body) {
-
         headers["Content-Type"] =
           "application/json";
-
       }
 
       let response;
@@ -666,37 +925,28 @@
       let data;
 
       try {
-
         data = await response.json();
-
       } catch {
-
         throw new Error(
           `服务器返回异常（HTTP ${response.status}）`
         );
-
       }
 
       if (!response.ok) {
-
         throw new Error(
           data.error ||
           `请求失败（HTTP ${response.status}）`
         );
-
       }
 
       if (data.success === false) {
-
         throw new Error(
           data.error ||
           "服务器操作失败"
         );
-
       }
 
       return data;
-
     }
 
 
@@ -710,12 +960,9 @@
         passwordInput.value.trim();
 
       if (!password) {
-
         loginError.textContent =
           "请输入密码";
-
         return;
-
       }
 
       loginButton.disabled = true;
@@ -732,7 +979,7 @@
 
       try {
 
-        await loadGuests();
+        await loadAll();
 
         showAdmin();
 
@@ -754,9 +1001,24 @@
 
         loginButton.textContent =
           "进入管理页面";
-
       }
+    }
 
+
+    /* =========================
+       加载全部数据
+    ========================= */
+
+    async function loadAll() {
+
+      await Promise.all([
+        loadGuests(),
+        loadReplies()
+      ]);
+
+      renderGuests(
+        currentGuests
+      );
     }
 
 
@@ -776,11 +1038,200 @@
 
       currentGuests =
         data.guests || [];
+    }
 
-      renderGuests(
-        currentGuests
+
+    /* =========================
+       获取回复
+    ========================= */
+
+    async function loadReplies() {
+
+      const data =
+        await api(
+          "/api/admin/replies",
+          {
+            method: "GET"
+          }
+        );
+
+      currentReplies =
+        data.replies || [];
+    }
+
+
+    /* =========================
+       查找回复
+    ========================= */
+
+    function findReply(
+      guestId
+    ) {
+
+      return currentReplies.find(
+        reply =>
+          Number(reply.guest_id) ===
+          Number(guestId)
       );
+    }
 
+
+    /* =========================
+       统计
+    ========================= */
+
+    function updateStats(
+      guests
+    ) {
+
+      const sent =
+        guests.filter(
+          guest =>
+            Number(guest.sent) === 1
+        ).length;
+
+      const replied =
+        currentReplies.filter(
+          reply =>
+            reply.attendance === "yes" ||
+            reply.attendance === "no"
+        ).length;
+
+      const staying =
+        currentReplies.filter(
+          reply =>
+            reply.attendance === "yes" &&
+            reply.stay === "yes"
+        ).length;
+
+      totalCount.textContent =
+        guests.length;
+
+      sentCount.textContent =
+        sent;
+
+      repliedCount.textContent =
+        replied;
+
+      stayCount.textContent =
+        staying;
+    }
+
+
+    /* =========================
+       回复显示
+    ========================= */
+
+    function renderReply(
+      reply
+    ) {
+
+      if (!reply) {
+
+        return `
+          <div class="reply-box">
+
+            <div class="reply-status waiting">
+              尚未回复
+            </div>
+
+            <div class="reply-detail">
+              等待宾客填写宾客回复。
+            </div>
+
+          </div>
+        `;
+      }
+
+
+      if (reply.attendance === "no") {
+
+        return `
+          <div class="reply-box">
+
+            <div class="reply-status replied">
+              已回复 · 无法出席
+            </div>
+
+            <div class="reply-detail">
+              <strong>出席：</strong>
+              很遗憾无法出席
+            </div>
+
+            ${
+              reply.message
+                ? `
+                  <div class="reply-message">
+                    ${escapeHtml(reply.message)}
+                  </div>
+                `
+                : ""
+            }
+
+          </div>
+        `;
+      }
+
+
+      const stayText =
+        reply.stay === "yes"
+          ? "需要住宿"
+          : "不需要住宿";
+
+      const count =
+        Number(reply.count) || 1;
+
+      const dateText =
+        reply.stay === "yes"
+          ? `
+            <br>
+            <strong>入住：</strong>
+            ${escapeHtml(reply.check_in || "未填写")}
+            <br>
+            <strong>退房：</strong>
+            ${escapeHtml(reply.check_out || "未填写")}
+          `
+          : "";
+
+      return `
+        <div class="reply-box">
+
+          <div class="reply-status replied">
+            已回复 · 会出席
+          </div>
+
+          <div class="reply-detail">
+
+            <strong>人数：</strong>
+            ${count} 人
+
+            <br>
+
+            <strong>住宿：</strong>
+            ${stayText}
+
+            ${
+              reply.stay === "yes"
+                ? `
+                  ${dateText}
+                `
+                : ""
+            }
+
+          </div>
+
+          ${
+            reply.message
+              ? `
+                <div class="reply-message">
+                  ${escapeHtml(reply.message)}
+                </div>
+              `
+              : ""
+          }
+
+        </div>
+      `;
     }
 
 
@@ -792,23 +1243,7 @@
       guests
     ) {
 
-      const sent =
-        guests.filter(
-          guest =>
-            Number(guest.sent) === 1
-        ).length;
-
-      const unsent =
-        guests.length - sent;
-
-      totalCount.textContent =
-        guests.length;
-
-      sentCount.textContent =
-        sent;
-
-      unsentCount.textContent =
-        unsent;
+      updateStats(guests);
 
       if (!guests.length) {
 
@@ -819,8 +1254,8 @@
         `;
 
         return;
-
       }
+
 
       guestList.innerHTML =
         guests.map(
@@ -828,6 +1263,9 @@
 
             const isSent =
               Number(guest.sent) === 1;
+
+            const reply =
+              findReply(guest.id);
 
             return `
               <div class="guest-card">
@@ -862,13 +1300,15 @@
                   )}
                 </div>
 
+                ${renderReply(reply)}
+
                 <div class="actions">
 
                   <button
                     class="primary"
-                    onclick="copyWechat(${guest.id})"
+                    onclick="openInvite(${guest.id})"
                   >
-                    复制微信邀请
+                    生成微信邀请
                   </button>
 
                   <button
@@ -925,27 +1365,11 @@
     ) {
 
       return String(value)
-        .replaceAll(
-          "&",
-          "&amp;"
-        )
-        .replaceAll(
-          "<",
-          "&lt;"
-        )
-        .replaceAll(
-          ">",
-          "&gt;"
-        )
-        .replaceAll(
-          '"',
-          "&quot;"
-        )
-        .replaceAll(
-          "'",
-          "&#039;"
-        );
-
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
     }
 
 
@@ -964,7 +1388,6 @@
           "请输入宾客姓名";
 
         return;
-
       }
 
       addGuestButton.disabled =
@@ -988,9 +1411,9 @@
         guestNameInput.value = "";
 
         message.textContent =
-          `${name} 已添加，可以直接发送微信邀请`;
+          `${name} 已添加，可以生成专属微信邀请`;
 
-        await loadGuests();
+        await loadAll();
 
       } catch (error) {
 
@@ -1005,9 +1428,7 @@
 
         addGuestButton.textContent =
           "添加宾客";
-
       }
-
     }
 
 
@@ -1022,27 +1443,146 @@
           Number(guest.id) ===
           Number(id)
       );
-
     }
 
 
     /* =========================
-       生成微信邀请
+       生成微信邀请文案
     ========================= */
 
     function getWechatMessage(
       guest
     ) {
 
+      const sender =
+        senderSelect.value;
+
+      let sentence = "";
+
+      if (sender === "groom") {
+
+        sentence =
+          `${guest.name}，诚邀您参加我们的婚礼。`;
+
+      } else if (sender === "bride") {
+
+        sentence =
+          `${guest.name}，诚邀您参加我们的婚礼。`;
+
+      } else if (
+        sender === "groomFather" ||
+        sender === "groomMother"
+      ) {
+
+        sentence =
+          `${guest.name}，诚邀您参加我儿子邓天澍和儿媳妇邹涛的婚礼。`;
+
+      } else if (
+        sender === "brideFather" ||
+        sender === "brideMother"
+      ) {
+
+        sentence =
+          `${guest.name}，诚邀您参加我女儿邹涛和女婿邓天澍的婚礼。`;
+
+      }
+
       return `邓天澍 & 邹涛｜婚礼邀请
 
-${guest.name}，诚邀您参加我们的婚礼。
+${sentence}
 
 2026年10月25日，吉安见。
 
 👉 点击打开专属请柬：
 ${guest.link}`;
+    }
 
+
+    /* =========================
+       打开微信邀请
+    ========================= */
+
+    function openInvite(id) {
+
+      const guest =
+        findGuest(id);
+
+      if (!guest) return;
+
+      const existing =
+        document.getElementById(
+          `invite-${guest.id}`
+        );
+
+      if (existing) {
+        existing.remove();
+        return;
+      }
+
+      const card =
+        document.querySelector(
+          `.guest-card button[onclick="openInvite(${guest.id})"]`
+        )?.closest(".guest-card");
+
+      if (!card) return;
+
+      const preview =
+        document.createElement("div");
+
+      preview.id =
+        `invite-${guest.id}`;
+
+      preview.className =
+        "invite-preview";
+
+      preview.innerHTML = `
+        <div class="invite-preview-title">
+          当前发送人：${escapeHtml(
+            senderSelect.options[
+              senderSelect.selectedIndex
+            ].text
+          )}
+        </div>
+
+        <textarea
+          class="invite-preview-text"
+          readonly
+        >${escapeHtml(
+          getWechatMessage(guest)
+        )}</textarea>
+
+        <div class="invite-preview-actions">
+
+          <button
+            class="main-copy"
+            onclick="copyWechat(${guest.id})"
+          >
+            复制邀请
+          </button>
+
+          <button
+            onclick="closeInvite(${guest.id})"
+          >
+            收起
+          </button>
+
+        </div>
+      `;
+
+      card.appendChild(preview);
+    }
+
+
+    function closeInvite(id) {
+
+      const preview =
+        document.getElementById(
+          `invite-${id}`
+        );
+
+      if (preview) {
+        preview.remove();
+      }
     }
 
 
@@ -1050,7 +1590,9 @@ ${guest.link}`;
        复制微信邀请
     ========================= */
 
-    async function copyWechat(id) {
+    async function copyWechat(
+      id
+    ) {
 
       const guest =
         findGuest(id);
@@ -1077,18 +1619,16 @@ ${guest.link}`;
         );
 
         message.textContent =
-          `${guest.name} 的微信邀请已复制，可以直接去微信粘贴`;
+          `${guest.name} 的邀请已复制，请到微信粘贴发送。`;
 
-        await loadGuests();
+        await loadAll();
 
       } catch (error) {
 
         message.textContent =
           "复制失败：" +
           error.message;
-
       }
-
     }
 
 
@@ -1096,7 +1636,9 @@ ${guest.link}`;
        系统分享
     ========================= */
 
-    async function shareWechat(id) {
+    async function shareWechat(
+      id
+    ) {
 
       const guest =
         findGuest(id);
@@ -1107,15 +1649,11 @@ ${guest.link}`;
         "邓天澍 & 邹涛｜婚礼邀请";
 
       const text =
-        `${guest.name}，诚邀您参加我们的婚礼。
-
-2026年10月25日，吉安见。`;
+        getWechatMessage(guest);
 
       try {
 
-        if (
-          navigator.share
-        ) {
+        if (navigator.share) {
 
           await navigator.share({
             title,
@@ -1124,17 +1662,16 @@ ${guest.link}`;
           });
 
           message.textContent =
-            `${guest.name} 的邀请已打开分享`;
+            `${guest.name} 的邀请已打开分享。`;
 
         } else {
 
           await navigator.clipboard.writeText(
-            getWechatMessage(guest)
+            text
           );
 
           message.textContent =
-            "当前浏览器不支持直接分享，邀请内容已复制";
-
+            "当前浏览器不支持系统分享，邀请内容已复制。";
         }
 
       } catch (error) {
@@ -1147,10 +1684,8 @@ ${guest.link}`;
         }
 
         message.textContent =
-          "分享失败，可以使用「复制微信邀请」";
-
+          "分享失败，可以使用「生成微信邀请」。";
       }
-
     }
 
 
@@ -1158,7 +1693,9 @@ ${guest.link}`;
        复制链接
     ========================= */
 
-    async function copyLink(id) {
+    async function copyLink(
+      id
+    ) {
 
       const guest =
         findGuest(id);
@@ -1178,9 +1715,7 @@ ${guest.link}`;
 
         message.textContent =
           "复制失败，请手动复制链接";
-
       }
-
     }
 
 
@@ -1205,16 +1740,14 @@ ${guest.link}`;
           }
         );
 
-        await loadGuests();
+        await loadAll();
 
       } catch (error) {
 
         message.textContent =
           "错误：" +
           error.message;
-
       }
-
     }
 
 
@@ -1233,7 +1766,7 @@ ${guest.link}`;
 
       if (
         !confirm(
-          `确定要删除「${guest.name}」吗？`
+          `确定要删除「${guest.name}」吗？\n\n这个宾客的回复和住宿信息也会一起删除。`
         )
       ) {
         return;
@@ -1251,17 +1784,77 @@ ${guest.link}`;
         message.textContent =
           `${guest.name} 已删除`;
 
-        await loadGuests();
+        await loadAll();
 
       } catch (error) {
 
         message.textContent =
           "错误：" +
           error.message;
-
       }
-
     }
+
+
+    /* =========================
+       发送人改变
+    ========================= */
+
+    senderSelect.addEventListener(
+      "change",
+      () => {
+
+        /*
+         * 如果当前已经打开了某个邀请预览，
+         * 自动更新里面的文案。
+         */
+        const previews =
+          document.querySelectorAll(
+            ".invite-preview"
+          );
+
+        previews.forEach(
+          preview => {
+
+            const id =
+              Number(
+                preview.id.replace(
+                  "invite-",
+                  ""
+                )
+              );
+
+            const guest =
+              findGuest(id);
+
+            if (!guest) return;
+
+            const textarea =
+              preview.querySelector(
+                ".invite-preview-text"
+              );
+
+            const title =
+              preview.querySelector(
+                ".invite-preview-title"
+              );
+
+            if (textarea) {
+              textarea.value =
+                getWechatMessage(guest);
+            }
+
+            if (title) {
+              title.textContent =
+                `当前发送人：${
+                  senderSelect.options[
+                    senderSelect.selectedIndex
+                  ].text
+                }`;
+            }
+          }
+        );
+      }
+    );
 
 
     /* =========================
@@ -1277,7 +1870,6 @@ ${guest.link}`;
       showLogin();
 
       loginError.textContent = "";
-
     }
 
 
@@ -1297,9 +1889,7 @@ ${guest.link}`;
         if (
           event.key === "Enter"
         ) {
-
           login();
-
         }
 
       }
@@ -1317,9 +1907,7 @@ ${guest.link}`;
         if (
           event.key === "Enter"
         ) {
-
           addGuest();
-
         }
 
       }
@@ -1342,7 +1930,7 @@ ${guest.link}`;
 
     if (savedPassword) {
 
-      loadGuests()
+      loadAll()
         .then(() => {
 
           showAdmin();
