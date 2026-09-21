@@ -23,7 +23,6 @@ async function handleWeddingPage(request, env) {
 
   const guest = (url.searchParams.get("guest") || "").trim();
 
-  // 没有 guest 参数时，直接返回正常首页
   if (!guest) {
     return assetResponse;
   }
@@ -322,6 +321,15 @@ export default {
         const id =
           url.pathname.split("/").pop();
 
+        // 先删除该宾客的回复
+        await env.DB.prepare(`
+          DELETE FROM replies
+          WHERE guest_id = ?
+        `)
+          .bind(id)
+          .run();
+
+        // 再删除宾客
         await env.DB.prepare(`
           DELETE FROM guests
           WHERE id = ?
@@ -331,6 +339,181 @@ export default {
 
         return json({
           success: true,
+        });
+      } catch (error) {
+        return json(
+          {
+            success: false,
+            error: error.message,
+          },
+          500
+        );
+      }
+    }
+
+    /*
+     * ========================================
+     * 宾客提交回复
+     * ========================================
+     */
+
+    if (
+      url.pathname === "/api/reply" &&
+      request.method === "POST"
+    ) {
+      try {
+        const body = await request.json();
+
+        const guestName = String(body.guest || "").trim();
+        const attendance = String(body.attendance || "").trim();
+        const stay = String(body.stay || "").trim();
+
+        const count = Math.max(
+          1,
+          parseInt(body.count, 10) || 1
+        );
+
+        const checkIn = String(body.checkIn || "").trim();
+        const checkOut = String(body.checkOut || "").trim();
+        const message = String(body.message || "").trim();
+
+        if (!guestName) {
+          return json(
+            {
+              success: false,
+              error: "没有识别到宾客姓名",
+            },
+            400
+          );
+        }
+
+        if (
+          attendance !== "yes" &&
+          attendance !== "no"
+        ) {
+          return json(
+            {
+              success: false,
+              error: "请选择是否出席",
+            },
+            400
+          );
+        }
+
+        /*
+         * 根据请柬中的 guest 参数
+         * 找到 D1 里的对应宾客
+         */
+        const guestResult = await env.DB.prepare(`
+          SELECT
+            id,
+            name
+          FROM guests
+          WHERE name = ?
+          LIMIT 1
+        `)
+          .bind(guestName)
+          .first();
+
+        if (!guestResult) {
+          return json(
+            {
+              success: false,
+              error: "没有找到对应的宾客，请确认请柬链接是否正确",
+            },
+            404
+          );
+        }
+
+        const submittedAt = new Date().toISOString();
+
+        /*
+         * 一个宾客只能保留一份最新回复
+         */
+        await env.DB.prepare(`
+          INSERT INTO replies (
+            guest_id,
+            guest_name,
+            attendance,
+            stay,
+            count,
+            check_in,
+            check_out,
+            message,
+            submitted_at
+          )
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+          ON CONFLICT(guest_id)
+          DO UPDATE SET
+            guest_name = excluded.guest_name,
+            attendance = excluded.attendance,
+            stay = excluded.stay,
+            count = excluded.count,
+            check_in = excluded.check_in,
+            check_out = excluded.check_out,
+            message = excluded.message,
+            submitted_at = excluded.submitted_at
+        `)
+          .bind(
+            guestResult.id,
+            guestResult.name,
+            attendance,
+            stay,
+            count,
+            checkIn,
+            checkOut,
+            message,
+            submittedAt
+          )
+          .run();
+
+        return json({
+          success: true,
+          message: "回复已保存",
+        });
+      } catch (error) {
+        return json(
+          {
+            success: false,
+            error: error.message,
+          },
+          500
+        );
+      }
+    }
+
+    /*
+     * ========================================
+     * 管理员查看宾客回复
+     * ========================================
+     */
+
+    if (
+      url.pathname === "/api/admin/replies" &&
+      request.method === "GET"
+    ) {
+      try {
+        const result = await env.DB.prepare(`
+          SELECT
+            g.id AS guest_id,
+            g.name AS guest_name,
+            g.sent,
+            r.attendance,
+            r.stay,
+            r.count,
+            r.check_in,
+            r.check_out,
+            r.message,
+            r.submitted_at
+          FROM guests g
+          LEFT JOIN replies r
+            ON g.id = r.guest_id
+          ORDER BY g.id DESC
+        `).all();
+
+        return json({
+          success: true,
+          replies: result.results || [],
         });
       } catch (error) {
         return json(
