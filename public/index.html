@@ -2,1373 +2,725 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   />
 
-  <title>邓天澍 & 邹涛｜宾客管理</title>
+  <title>TIANSHU & TAO · Wedding</title>
 
-  <style>
-    @font-face {
-      font-family: "WeddingChinese";
-      src: url("/FZZiLSJW-B.TTF") format("truetype");
-    }
+  <meta
+    name="description"
+    content="邓天澍 & 邹涛 · 2026年10月25日"
+  />
 
-    @font-face {
-      font-family: "WeddingEnglish";
-      src: url("/FZVDLGTMCJW-L.TTF") format("truetype");
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background: #f8f5ef;
-      color: #403831;
-      font-family: "WeddingChinese", serif;
-    }
-
-    button,
-    input {
-      font-family: inherit;
-    }
-
-    /* =========================
-       登录
-    ========================= */
-
-    .login-page {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-
-    .login-card {
-      width: min(100%, 420px);
-      background: rgba(255, 255, 255, 0.94);
-      border: 1px solid rgba(120, 100, 80, 0.14);
-      border-radius: 18px;
-      padding: 38px 28px;
-      text-align: center;
-      box-shadow: 0 12px 40px rgba(70, 50, 30, 0.08);
-    }
-
-    .login-en {
-      font-family: "WeddingEnglish", serif;
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      opacity: 0.55;
-      margin-bottom: 10px;
-    }
-
-    .login-title {
-      font-size: 25px;
-      font-weight: normal;
-      margin: 0 0 28px;
-    }
-
-    .login-input {
-      width: 100%;
-      height: 48px;
-      border: 1px solid #d7cec4;
-      border-radius: 10px;
-      background: #fff;
-      padding: 0 14px;
-      text-align: center;
-      font-size: 15px;
-      outline: none;
-    }
-
-    .login-input:focus {
-      border-color: #9e9082;
-    }
-
-    .login-button {
-      width: 100%;
-      height: 48px;
-      margin-top: 14px;
-      border: 0;
-      border-radius: 10px;
-      background: #51483f;
-      color: white;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
-    .login-button:disabled {
-      opacity: 0.6;
-    }
-
-    .login-error {
-      margin-top: 14px;
-      min-height: 40px;
-      color: #a05252;
-      font-size: 13px;
-      line-height: 1.6;
-      word-break: break-word;
-    }
-
-    /* =========================
-       后台
-    ========================= */
-
-    .admin-page {
-      display: none;
-    }
-
-    .page {
-      width: min(100%, 760px);
-      margin: 0 auto;
-      padding: 26px 18px 50px;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-      gap: 15px;
-    }
-
-    .header-en {
-      font-family: "WeddingEnglish", serif;
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      opacity: 0.55;
-      margin-bottom: 7px;
-    }
-
-    .header-title {
-      font-size: 26px;
-      font-weight: normal;
-      margin: 0;
-    }
-
-    .logout {
-      border: 1px solid #d4cbc1;
-      background: transparent;
-      color: #625950;
-      border-radius: 8px;
-      padding: 8px 12px;
-      cursor: pointer;
-    }
-
-    /* =========================
-       添加宾客
-    ========================= */
-
-    .add-card {
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(120, 100, 80, 0.12);
-      border-radius: 16px;
-      padding: 18px;
-      margin-bottom: 18px;
-    }
-
-    .add-title {
-      font-size: 15px;
-      margin-bottom: 12px;
-    }
-
-    .add-row {
-      display: flex;
-      gap: 10px;
-    }
-
-    .guest-input {
-      flex: 1;
-      min-width: 0;
-      height: 46px;
-      border: 1px solid #d7cec4;
-      border-radius: 9px;
-      background: white;
-      padding: 0 13px;
-      outline: none;
-      font-size: 15px;
-    }
-
-    .add-button {
-      height: 46px;
-      padding: 0 18px;
-      border: 0;
-      border-radius: 9px;
-      background: #51483f;
-      color: white;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .message {
-      min-height: 20px;
-      margin-top: 9px;
-      font-size: 13px;
-      color: #806f5e;
-    }
-
-    /* =========================
-       数据
-    ========================= */
-
-    .stats {
-      display: flex;
-      gap: 9px;
-      margin-bottom: 18px;
-    }
-
-    .stat {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.78);
-      border: 1px solid rgba(120, 100, 80, 0.1);
-      border-radius: 12px;
-      padding: 12px;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      opacity: 0.6;
-    }
-
-    .stat-number {
-      margin-top: 3px;
-      font-family: "WeddingEnglish", serif;
-      font-size: 24px;
-    }
-
-    /* =========================
-       宾客卡片
-    ========================= */
-
-    .guest-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .guest-card {
-      background: rgba(255, 255, 255, 0.94);
-      border: 1px solid rgba(120, 100, 80, 0.12);
-      border-radius: 15px;
-      padding: 17px;
-    }
-
-    .guest-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .guest-name {
-      font-size: 20px;
-    }
-
-    .status {
-      padding: 5px 9px;
-      border-radius: 20px;
-      font-size: 12px;
-      white-space: nowrap;
-    }
-
-    .status.sent {
-      background: #e8eee7;
-      color: #5c7159;
-    }
-
-    .status.unsent {
-      background: #f1ebe4;
-      color: #7d6d5e;
-    }
-
-    .guest-link {
-      margin-top: 9px;
-      font-family: "WeddingEnglish", serif;
-      font-size: 11px;
-      color: #81766d;
-      word-break: break-all;
-      line-height: 1.5;
-      opacity: 0.8;
-    }
-
-    /* =========================
-       操作按钮
-    ========================= */
-
-    .actions {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr;
-      gap: 8px;
-      margin-top: 15px;
-    }
-
-    .actions button {
-      min-height: 42px;
-      border: 1px solid #d8d0c6;
-      background: white;
-      color: #5c544d;
-      border-radius: 9px;
-      cursor: pointer;
-      font-size: 13px;
-      padding: 8px 10px;
-    }
-
-    .actions .primary {
-      background: #51483f;
-      color: white;
-      border-color: #51483f;
-    }
-
-    .actions .danger {
-      color: #a05252;
-    }
-
-    .actions .delete {
-      grid-column: 1 / -1;
-      background: transparent;
-      border-color: transparent;
-      color: #a05252;
-      min-height: 34px;
-    }
-
-    .empty,
-    .loading {
-      text-align: center;
-      padding: 45px 20px;
-      color: #8c8177;
-      font-size: 14px;
-    }
-
-    @media (max-width: 520px) {
-
-      .page {
-        padding: 22px 14px 40px;
-      }
-
-      .add-row {
-        flex-direction: column;
-      }
-
-      .add-button {
-        width: 100%;
-      }
-
-      .header-title {
-        font-size: 23px;
-      }
-
-      .actions {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .actions .primary {
-        grid-column: 1 / -1;
-      }
-
-      .actions .delete {
-        grid-column: 1 / -1;
-      }
-
-    }
-  </style>
+  <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
 
   <!-- =========================
-       登录
-  ========================= -->
+       音乐
+  ========================== -->
 
-  <section class="login-page" id="loginPage">
+  <audio
+    id="bgMusic"
+    loop
+    preload="auto"
+  ></audio>
 
-    <div class="login-card">
-
-      <div class="login-en">
-        WEDDING ADMIN
-      </div>
-
-      <h1 class="login-title">
-        宾客管理
-      </h1>
-
-      <input
-        id="passwordInput"
-        class="login-input"
-        type="password"
-        placeholder="请输入管理员密码"
-        autocomplete="current-password"
-      />
-
-      <button
-        id="loginButton"
-        class="login-button"
-      >
-        进入管理页面
-      </button>
-
-      <div
-        id="loginError"
-        class="login-error"
-      ></div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       管理后台
-  ========================= -->
-
-  <section
-    id="adminPage"
-    class="admin-page"
+  <button
+    id="musicControl"
+    class="music-control"
+    type="button"
+    aria-label="音乐控制"
   >
+    ♪
+  </button>
 
-    <div class="page">
 
-      <header class="header">
+  <main class="page">
 
-        <div>
-          <div class="header-en">
-            TIANSHU & TAO
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="section-full hero">
+
+      <div class="hero-inner">
+
+        <div class="guest-name-wrap">
+
+          <div class="guest-label">
+            FOR YOU
           </div>
 
-          <h1 class="header-title">
-            宾客管理
-          </h1>
+          <div
+            id="guestName"
+            class="guest-name"
+          >
+            邹 小 明
+          </div>
+
         </div>
+
+
+        <div class="hero-subtitle">
+          诚邀您出席
+        </div>
+
+
+        <h1 class="couple-name">
+          邓天澍
+          <span>&amp;</span>
+          邹涛
+        </h1>
+
+
+        <div class="couple-en">
+          TIANSHU
+          <span>&amp;</span>
+          TAO
+        </div>
+
+
+        <div class="hero-date">
+
+          <strong>
+            2026年10月25日
+          </strong>
+
+          <span>
+            丙午年九月十六 · 星期日
+          </span>
+
+        </div>
+
 
         <button
-          id="logoutButton"
-          class="logout"
+          id="openInvitation"
+          class="open-button"
+          type="button"
         >
-          退出
+          开启请柬
         </button>
 
-      </header>
+      </div>
+
+    </section>
 
 
-      <!-- 添加宾客 -->
 
-      <div class="add-card">
+    <!-- =========================
+         OUR DAY
+    ========================== -->
 
-        <div class="add-title">
-          添加宾客
+    <section
+      id="ourDay"
+      class="section our-day"
+    >
+
+      <div class="section-heading">
+
+        <span class="eyebrow">
+          OUR DAY
+        </span>
+
+        <h2>
+          我们的婚礼
+        </h2>
+
+      </div>
+
+
+      <div class="calendar-card">
+
+        <div class="calendar-top">
+
+          <span>
+            OCTOBER
+          </span>
+
+          <strong>
+            2026
+          </strong>
+
         </div>
 
-        <div class="add-row">
 
-          <input
-            id="guestNameInput"
-            class="guest-input"
-            type="text"
-            placeholder="输入宾客姓名，例如：邹小明"
-          />
+        <!-- 星期一开始 -->
+        <div class="calendar-week">
 
-          <button
-            id="addGuestButton"
-            class="add-button"
-          >
-            添加宾客
-          </button>
+          <span>MON</span>
+          <span>TUE</span>
+          <span>WED</span>
+          <span>THU</span>
+          <span>FRI</span>
+          <span>SAT</span>
+          <span>SUN</span>
 
         </div>
+
 
         <div
-          id="message"
-          class="message"
+          id="calendarGrid"
+          class="calendar-grid"
         ></div>
 
       </div>
 
 
-      <!-- 数据 -->
+      <!-- 倒计时 -->
 
-      <div class="stats">
+      <div class="countdown-block">
 
-        <div class="stat">
-          <div class="stat-label">
-            宾客
-          </div>
-
-          <div
-            id="totalCount"
-            class="stat-number"
-          >
-            0
-          </div>
+        <div>
+          距离婚礼还有
         </div>
 
-        <div class="stat">
-          <div class="stat-label">
-            已发送
-          </div>
+        <span id="countdownNumber">
+          --
+        </span>
 
-          <div
-            id="sentCount"
-            class="stat-number"
-          >
-            0
-          </div>
-        </div>
+        <span class="countdown-unit">
+          DAYS
+        </span>
 
-        <div class="stat">
-          <div class="stat-label">
-            未发送
-          </div>
+      </div>
 
-          <div
-            id="unsentCount"
-            class="stat-number"
-          >
-            0
-          </div>
-        </div>
+    </section>
+
+
+
+    <!-- =========================
+         MOMENTS
+    ========================== -->
+
+    <section
+      id="moments"
+      class="section moments-section"
+    >
+
+      <div class="section-heading moments-heading">
+
+        <span class="eyebrow">
+          MOMENTS
+        </span>
+
+        <h2>
+          MOMENTS
+        </h2>
+
+        <p class="section-english">
+          A little glimpse before our day.
+        </p>
 
       </div>
 
 
-      <!-- 宾客列表 -->
+      <!-- 主图：01 -->
 
-      <div
-        id="guestList"
-        class="guest-list"
-      >
-        <div class="loading">
-          正在加载……
-        </div>
+      <div class="main-photo-frame">
+
+        <img
+          id="mainGalleryImage"
+          src="./photos/photo-01.jpg"
+          alt="Moments"
+        />
+
       </div>
 
-    </div>
 
-  </section>
+      <!-- 穿插文字 -->
 
+      <div class="moments-quote">
 
-  <script>
+        <span class="quote-line"></span>
 
-    const TOKEN_KEY =
-      "wedding_admin_password";
+        <p>
+          Before the vows,<br />
+          there are all these little moments.
+        </p>
 
-    const loginPage =
-      document.getElementById("loginPage");
+        <small>
+          在正式成为彼此的家人之前，<br />
+          我们还有许多值得收藏的片刻。
+        </small>
 
-    const adminPage =
-      document.getElementById("adminPage");
+      </div>
 
-    const passwordInput =
-      document.getElementById("passwordInput");
 
-    const loginButton =
-      document.getElementById("loginButton");
+      <!-- 缩略图 02-10 -->
 
-    const loginError =
-      document.getElementById("loginError");
+      <div class="photo-slider-wrap">
 
-    const guestNameInput =
-      document.getElementById("guestNameInput");
+        <button
+          id="photoPrev"
+          class="photo-arrow photo-arrow-left"
+          type="button"
+          aria-label="上一张"
+        >
+          ‹
+        </button>
 
-    const addGuestButton =
-      document.getElementById("addGuestButton");
 
-    const message =
-      document.getElementById("message");
+        <div
+          id="photoScroll"
+          class="photo-scroll"
+        ></div>
 
-    const guestList =
-      document.getElementById("guestList");
 
-    const totalCount =
-      document.getElementById("totalCount");
+        <button
+          id="photoNext"
+          class="photo-arrow photo-arrow-right"
+          type="button"
+          aria-label="下一张"
+        >
+          ›
+        </button>
 
-    const sentCount =
-      document.getElementById("sentCount");
+      </div>
 
-    const unsentCount =
-      document.getElementById("unsentCount");
 
-    const logoutButton =
-      document.getElementById("logoutButton");
+      <div class="photo-hint">
+        SWIPE TO EXPLORE
+      </div>
 
-    let currentGuests = [];
+    </section>
 
 
-    /* =========================
-       页面显示
-    ========================= */
 
-    function showLogin() {
+    <!-- =========================
+         婚礼流程
+    ========================== -->
 
-      loginPage.style.display = "flex";
-      adminPage.style.display = "none";
+    <section
+      id="schedule"
+      class="section schedule-section"
+    >
 
-      passwordInput.focus();
+      <div class="section-heading">
 
-    }
+        <span class="eyebrow">
+          THE DAY
+        </span>
 
+        <h2>
+          婚礼流程
+        </h2>
 
-    function showAdmin() {
+      </div>
 
-      loginPage.style.display = "none";
-      adminPage.style.display = "block";
 
-    }
+      <div class="schedule">
 
+        <div class="schedule-item">
 
-    /* =========================
-       API
-    ========================= */
-
-    async function api(
-      endpoint,
-      options = {}
-    ) {
-
-      const password =
-        sessionStorage.getItem(TOKEN_KEY);
-
-      const headers = {
-        ...(options.headers || {}),
-        Authorization:
-          `Bearer ${password || ""}`
-      };
-
-      if (options.body) {
-
-        headers["Content-Type"] =
-          "application/json";
-
-      }
-
-      let response;
-
-      try {
-
-        response = await fetch(
-          endpoint,
-          {
-            ...options,
-            headers
-          }
-        );
-
-      } catch (error) {
-
-        throw new Error(
-          "网络连接失败：" +
-          error.message
-        );
-
-      }
-
-      let data;
-
-      try {
-
-        data = await response.json();
-
-      } catch {
-
-        throw new Error(
-          `服务器返回异常（HTTP ${response.status}）`
-        );
-
-      }
-
-      if (!response.ok) {
-
-        throw new Error(
-          data.error ||
-          `请求失败（HTTP ${response.status}）`
-        );
-
-      }
-
-      if (data.success === false) {
-
-        throw new Error(
-          data.error ||
-          "服务器操作失败"
-        );
-
-      }
-
-      return data;
-
-    }
-
-
-    /* =========================
-       登录
-    ========================= */
-
-    async function login() {
-
-      const password =
-        passwordInput.value.trim();
-
-      if (!password) {
-
-        loginError.textContent =
-          "请输入密码";
-
-        return;
-
-      }
-
-      loginButton.disabled = true;
-
-      loginButton.textContent =
-        "验证中……";
-
-      loginError.textContent = "";
-
-      sessionStorage.setItem(
-        TOKEN_KEY,
-        password
-      );
-
-      try {
-
-        await loadGuests();
-
-        showAdmin();
-
-        passwordInput.value = "";
-
-      } catch (error) {
-
-        sessionStorage.removeItem(
-          TOKEN_KEY
-        );
-
-        loginError.textContent =
-          "错误：" +
-          error.message;
-
-      } finally {
-
-        loginButton.disabled = false;
-
-        loginButton.textContent =
-          "进入管理页面";
-
-      }
-
-    }
-
-
-    /* =========================
-       获取宾客
-    ========================= */
-
-    async function loadGuests() {
-
-      const data =
-        await api(
-          "/api/admin/guests",
-          {
-            method: "GET"
-          }
-        );
-
-      currentGuests =
-        data.guests || [];
-
-      renderGuests(
-        currentGuests
-      );
-
-    }
-
-
-    /* =========================
-       渲染宾客
-    ========================= */
-
-    function renderGuests(
-      guests
-    ) {
-
-      const sent =
-        guests.filter(
-          guest =>
-            Number(guest.sent) === 1
-        ).length;
-
-      const unsent =
-        guests.length - sent;
-
-      totalCount.textContent =
-        guests.length;
-
-      sentCount.textContent =
-        sent;
-
-      unsentCount.textContent =
-        unsent;
-
-      if (!guests.length) {
-
-        guestList.innerHTML = `
-          <div class="empty">
-            还没有添加宾客
+          <div class="schedule-time">
+            11:00
           </div>
-        `;
-
-        return;
-
-      }
-
-      guestList.innerHTML =
-        guests.map(
-          guest => {
-
-            const isSent =
-              Number(guest.sent) === 1;
-
-            return `
-              <div class="guest-card">
-
-                <div class="guest-top">
-
-                  <div class="guest-name">
-                    ${escapeHtml(
-                      guest.name
-                    )}
-                  </div>
-
-                  <div
-                    class="status ${
-                      isSent
-                        ? "sent"
-                        : "unsent"
-                    }"
-                  >
-                    ${
-                      isSent
-                        ? "已发送"
-                        : "未发送"
-                    }
-                  </div>
-
-                </div>
-
-                <div class="guest-link">
-                  ${escapeHtml(
-                    guest.link
-                  )}
-                </div>
-
-                <div class="actions">
-
-                  <button
-                    class="primary"
-                    onclick="copyWechat(${guest.id})"
-                  >
-                    复制微信邀请
-                  </button>
-
-                  <button
-                    onclick="shareWechat(${guest.id})"
-                  >
-                    分享
-                  </button>
-
-                  <button
-                    onclick="copyLink(${guest.id})"
-                  >
-                    复制链接
-                  </button>
-
-                  <button
-                    onclick="toggleSent(
-                      ${guest.id},
-                      ${isSent}
-                    )"
-                  >
-                    ${
-                      isSent
-                        ? "标记未发送"
-                        : "标记已发送"
-                    }
-                  </button>
-
-                  <button
-                    class="delete"
-                    onclick="deleteGuest(
-                      ${guest.id}
-                    )"
-                  >
-                    删除这位宾客
-                  </button>
-
-                </div>
-
-              </div>
-            `;
-
-          }
-        ).join("");
 
-    }
-
+          <div class="schedule-dot"></div>
 
-    /* =========================
-       安全处理
-    ========================= */
+          <div class="schedule-content">
 
-    function escapeHtml(
-      value
-    ) {
+            <strong>
+              迎宾
+            </strong>
 
-      return String(value)
-        .replaceAll(
-          "&",
-          "&amp;"
-        )
-        .replaceAll(
-          "<",
-          "&lt;"
-        )
-        .replaceAll(
-          ">",
-          "&gt;"
-        )
-        .replaceAll(
-          '"',
-          "&quot;"
-        )
-        .replaceAll(
-          "'",
-          "&#039;"
-        );
+            <span>
+              WELCOME
+            </span>
 
-    }
+          </div>
 
+        </div>
 
-    /* =========================
-       添加宾客
-    ========================= */
 
-    async function addGuest() {
+        <div class="schedule-item">
 
-      const name =
-        guestNameInput.value.trim();
+          <div class="schedule-time">
+            12:08
+          </div>
 
-      if (!name) {
+          <div class="schedule-dot"></div>
 
-        message.textContent =
-          "请输入宾客姓名";
+          <div class="schedule-content">
 
-        return;
+            <strong>
+              婚礼仪式
+            </strong>
 
-      }
+            <span>
+              THE CEREMONY
+            </span>
 
-      addGuestButton.disabled =
-        true;
+          </div>
 
-      addGuestButton.textContent =
-        "添加中……";
+        </div>
 
-      try {
 
-        await api(
-          "/api/admin/guests",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              name
-            })
-          }
-        );
+        <div class="schedule-item">
 
-        guestNameInput.value = "";
+          <div class="schedule-time">
+            12:18
+          </div>
 
-        message.textContent =
-          `${name} 已添加，可以直接发送微信邀请`;
+          <div class="schedule-dot"></div>
 
-        await loadGuests();
+          <div class="schedule-content">
 
-      } catch (error) {
+            <strong>
+              喜宴
+            </strong>
 
-        message.textContent =
-          "错误：" +
-          error.message;
+            <span>
+              THE RECEPTION
+            </span>
 
-      } finally {
+          </div>
 
-        addGuestButton.disabled =
-          false;
+        </div>
 
-        addGuestButton.textContent =
-          "添加宾客";
+      </div>
 
-      }
+    </section>
 
-    }
 
 
-    /* =========================
-       查找宾客
-    ========================= */
+    <!-- =========================
+         婚礼地点
+    ========================== -->
 
-    function findGuest(id) {
+    <section
+      id="location"
+      class="section location-section"
+    >
 
-      return currentGuests.find(
-        guest =>
-          Number(guest.id) ===
-          Number(id)
-      );
+      <div class="section-heading">
 
-    }
+        <span class="eyebrow">
+          LOCATION
+        </span>
 
+        <h2>
+          婚礼地点
+        </h2>
 
-    /* =========================
-       生成微信邀请
-    ========================= */
+      </div>
 
-    function getWechatMessage(
-      guest
-    ) {
 
-      return `邓天澍 & 邹涛｜婚礼邀请
+      <div class="location-card">
 
-${guest.name}，诚邀您参加我们的婚礼。
+        <div class="location-map">
 
-2026年10月25日，吉安见。
+          <img
+            src="./location-map.jpg"
+            alt="吉安宾馆婚礼地点地图"
+          />
 
-👉 点击打开专属请柬：
-${guest.link}`;
+        </div>
 
-    }
 
+        <div class="location-info">
 
-    /* =========================
-       复制微信邀请
-    ========================= */
+          <h3>
+            吉安宾馆·礼堂
+          </h3>
 
-    async function copyWechat(id) {
+          <p>
+            中国·江西·吉安·吉州区沿江路99号
+          </p>
 
-      const guest =
-        findGuest(id);
 
-      if (!guest) return;
+          <a
+            class="map-button"
+            href="https://surl.amap.com/1qtd9gB5ti"
+            target="_blank"
+            rel="noopener"
+          >
+            打开高德地图导航
+          </a>
 
-      const text =
-        getWechatMessage(guest);
+        </div>
 
-      try {
+      </div>
 
-        await navigator.clipboard.writeText(
-          text
-        );
+    </section>
 
-        await api(
-          `/api/admin/guests/${id}`,
-          {
-            method: "PATCH",
-            body: JSON.stringify({
-              sent: true
-            })
-          }
-        );
 
-        message.textContent =
-          `${guest.name} 的微信邀请已复制，可以直接去微信粘贴`;
 
-        await loadGuests();
+    <!-- =========================
+         宾客回复
+    ========================== -->
 
-      } catch (error) {
+    <section
+      id="reply"
+      class="section reply-section"
+    >
 
-        message.textContent =
-          "复制失败：" +
-          error.message;
+      <div class="section-heading">
 
-      }
+        <span class="eyebrow">
+          WITH YOU
+        </span>
 
-    }
+        <h2>
+          宾客回复
+        </h2>
 
+        <p class="section-english">
+          We would love to hear from you.
+        </p>
 
-    /* =========================
-       系统分享
-    ========================= */
+      </div>
 
-    async function shareWechat(id) {
 
-      const guest =
-        findGuest(id);
+      <div class="reply-card">
 
-      if (!guest) return;
 
-      const title =
-        "邓天澍 & 邹涛｜婚礼邀请";
+        <p class="reply-question">
+          期待与您在婚礼当天见面
+        </p>
 
-      const text =
-        `${guest.name}，诚邀您参加我们的婚礼。
 
-2026年10月25日，吉安见。`;
+        <!-- 出席选择 -->
 
-      try {
+        <div class="attendance-options">
 
-        if (
-          navigator.share
-        ) {
+          <button
+            type="button"
+            class="attendance-button"
+            data-attendance="no"
+          >
+            很遗憾无法出席
+          </button>
 
-          await navigator.share({
-            title,
-            text,
-            url: guest.link
-          });
+          <button
+            type="button"
+            class="attendance-button"
+            data-attendance="yes"
+          >
+            我会出席，婚礼见
+          </button>
 
-          message.textContent =
-            `${guest.name} 的邀请已打开分享`;
+        </div>
 
-        } else {
 
-          await navigator.clipboard.writeText(
-            getWechatMessage(guest)
-          );
+        <!-- 出席后才出现 -->
 
-          message.textContent =
-            "当前浏览器不支持直接分享，邀请内容已复制";
+        <div
+          id="stayFields"
+          class="stay-fields hidden"
+        >
 
-        }
 
-      } catch (error) {
+          <!-- 住宿 -->
 
-        if (
-          error.name ===
-          "AbortError"
-        ) {
-          return;
-        }
+          <div class="form-group">
 
-        message.textContent =
-          "分享失败，可以使用「复制微信邀请」";
+            <label>
+              是否需要住宿
+            </label>
 
-      }
+            <div class="small-options">
 
-    }
+              <button
+                type="button"
+                class="stay-button"
+                data-stay="yes"
+              >
+                需要
+              </button>
 
+              <button
+                type="button"
+                class="stay-button"
+                data-stay="no"
+              >
+                不需要
+              </button>
 
-    /* =========================
-       复制链接
-    ========================= */
+            </div>
 
-    async function copyLink(id) {
+          </div>
 
-      const guest =
-        findGuest(id);
 
-      if (!guest) return;
+          <!-- 人数 -->
 
-      try {
+          <div class="form-group">
 
-        await navigator.clipboard.writeText(
-          guest.link
-        );
+            <label for="guestCount">
+              几个人参加
+            </label>
 
-        message.textContent =
-          `${guest.name} 的专属请柬链接已复制`;
+            <select id="guestCount">
 
-      } catch {
+              <option value="1">
+                1人
+              </option>
 
-        message.textContent =
-          "复制失败，请手动复制链接";
+              <option value="2">
+                2人
+              </option>
 
-      }
+              <option value="3">
+                3人
+              </option>
 
-    }
+              <option value="4">
+                4人
+              </option>
 
+              <option value="5">
+                5人
+              </option>
 
-    /* =========================
-       修改发送状态
-    ========================= */
+            </select>
 
-    async function toggleSent(
-      id,
-      current
-    ) {
+          </div>
 
-      try {
 
-        await api(
-          `/api/admin/guests/${id}`,
-          {
-            method: "PATCH",
-            body: JSON.stringify({
-              sent: !current
-            })
-          }
-        );
+          <!-- 日期 -->
 
-        await loadGuests();
+          <div class="form-group">
 
-      } catch (error) {
+            <label>
+              入住日期
+            </label>
 
-        message.textContent =
-          "错误：" +
-          error.message;
+            <input
+              id="checkIn"
+              type="date"
+            />
 
-      }
+          </div>
 
-    }
 
+          <div class="form-group">
 
-    /* =========================
-       删除
-    ========================= */
+            <label>
+              退房日期
+            </label>
 
-    async function deleteGuest(
-      id
-    ) {
+            <input
+              id="checkOut"
+              type="date"
+            />
 
-      const guest =
-        findGuest(id);
+          </div>
 
-      if (!guest) return;
 
-      if (
-        !confirm(
-          `确定要删除「${guest.name}」吗？`
-        )
-      ) {
-        return;
-      }
+          <!-- 想说的话 -->
 
-      try {
+          <div class="form-group">
 
-        await api(
-          `/api/admin/guests/${id}`,
-          {
-            method: "DELETE"
-          }
-        );
+            <label for="message">
+              想对我们说的话
+            </label>
 
-        message.textContent =
-          `${guest.name} 已删除`;
+            <textarea
+              id="message"
+              rows="4"
+              placeholder="写下你想对我们说的话……"
+            ></textarea>
 
-        await loadGuests();
+          </div>
 
-      } catch (error) {
 
-        message.textContent =
-          "错误：" +
-          error.message;
+          <button
+            id="replySubmit"
+            class="submit-button"
+            type="button"
+          >
+            送出祝福
+          </button>
 
-      }
+        </div>
 
-    }
 
+        <!-- 不出席也可以留言 -->
 
-    /* =========================
-       退出
-    ========================= */
+        <div
+          id="absenceMessage"
+          class="hidden"
+        >
 
-    function logout() {
+          <div class="form-group">
 
-      sessionStorage.removeItem(
-        TOKEN_KEY
-      );
+            <label for="absenceText">
+              想对我们说的话
+            </label>
 
-      showLogin();
+            <textarea
+              id="absenceText"
+              rows="4"
+              placeholder="虽然不能到场，也把祝福留下吧……"
+            ></textarea>
 
-      loginError.textContent = "";
+          </div>
 
-    }
 
+          <button
+            id="absenceSubmit"
+            class="submit-button"
+            type="button"
+          >
+            送出祝福
+          </button>
 
-    /* =========================
-       事件
-    ========================= */
+        </div>
 
-    loginButton.addEventListener(
-      "click",
-      login
-    );
 
-    passwordInput.addEventListener(
-      "keydown",
-      event => {
+        <p
+          id="replySuccess"
+          class="reply-success hidden"
+        >
+          收到你的回复了。<br />
+          婚礼见。
+        </p>
 
-        if (
-          event.key === "Enter"
-        ) {
+      </div>
 
-          login();
+    </section>
 
-        }
 
-      }
-    );
 
-    addGuestButton.addEventListener(
-      "click",
-      addGuest
-    );
+    <!-- =========================
+         FINAL
+    ========================== -->
 
-    guestNameInput.addEventListener(
-      "keydown",
-      event => {
+    <section class="final-section">
 
-        if (
-          event.key === "Enter"
-        ) {
+      <div class="final-inner">
 
-          addGuest();
+        <span>
+          with love
+        </span>
 
-        }
+        <h2>
+          邓天澍 &amp; 邹涛
+        </h2>
 
-      }
-    );
+        <p>
+          2026 · 10 · 25
+        </p>
 
-    logoutButton.addEventListener(
-      "click",
-      logout
-    );
+        <strong>
+          婚礼见
+        </strong>
 
+      </div>
 
-    /* =========================
-       自动登录
-    ========================= */
+    </section>
 
-    const savedPassword =
-      sessionStorage.getItem(
-        TOKEN_KEY
-      );
 
-    if (savedPassword) {
+  </main>
 
-      loadGuests()
-        .then(() => {
 
-          showAdmin();
-
-        })
-        .catch(error => {
-
-          sessionStorage.removeItem(
-            TOKEN_KEY
-          );
-
-          showLogin();
-
-          loginError.textContent =
-            "错误：" +
-            error.message;
-
-        });
-
-    } else {
-
-      showLogin();
-
-    }
-
-  </script>
+  <script src="./app.js"></script>
 
 </body>
 </html>
