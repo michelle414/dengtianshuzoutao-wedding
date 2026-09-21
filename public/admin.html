@@ -7,7 +7,7 @@
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   />
 
-  <title>婚礼宾客管理</title>
+  <title>邓天澍 & 邹涛｜宾客管理</title>
 
   <style>
     @font-face {
@@ -37,7 +37,7 @@
     }
 
     /* =========================
-       登录页面
+       登录
     ========================= */
 
     .login-page {
@@ -50,7 +50,7 @@
 
     .login-card {
       width: min(100%, 420px);
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       border: 1px solid rgba(120, 100, 80, 0.14);
       border-radius: 18px;
       padding: 38px 28px;
@@ -114,7 +114,7 @@
     }
 
     /* =========================
-       后台页面
+       后台
     ========================= */
 
     .admin-page {
@@ -158,12 +158,21 @@
       cursor: pointer;
     }
 
+    /* =========================
+       添加宾客
+    ========================= */
+
     .add-card {
       background: rgba(255, 255, 255, 0.9);
       border: 1px solid rgba(120, 100, 80, 0.12);
       border-radius: 16px;
       padding: 18px;
       margin-bottom: 18px;
+    }
+
+    .add-title {
+      font-size: 15px;
+      margin-bottom: 12px;
     }
 
     .add-row {
@@ -201,6 +210,10 @@
       color: #806f5e;
     }
 
+    /* =========================
+       数据
+    ========================= */
+
     .stats {
       display: flex;
       gap: 9px;
@@ -226,6 +239,10 @@
       font-size: 24px;
     }
 
+    /* =========================
+       宾客卡片
+    ========================= */
+
     .guest-list {
       display: flex;
       flex-direction: column;
@@ -233,10 +250,10 @@
     }
 
     .guest-card {
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       border: 1px solid rgba(120, 100, 80, 0.12);
       border-radius: 15px;
-      padding: 16px;
+      padding: 17px;
     }
 
     .guest-top {
@@ -247,7 +264,7 @@
     }
 
     .guest-name {
-      font-size: 19px;
+      font-size: 20px;
     }
 
     .status {
@@ -274,23 +291,29 @@
       color: #81766d;
       word-break: break-all;
       line-height: 1.5;
+      opacity: 0.8;
     }
 
+    /* =========================
+       操作按钮
+    ========================= */
+
     .actions {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
       gap: 8px;
-      margin-top: 14px;
+      margin-top: 15px;
     }
 
     .actions button {
+      min-height: 42px;
       border: 1px solid #d8d0c6;
       background: white;
       color: #5c544d;
-      border-radius: 8px;
-      padding: 8px 11px;
+      border-radius: 9px;
       cursor: pointer;
       font-size: 13px;
+      padding: 8px 10px;
     }
 
     .actions .primary {
@@ -303,6 +326,14 @@
       color: #a05252;
     }
 
+    .actions .delete {
+      grid-column: 1 / -1;
+      background: transparent;
+      border-color: transparent;
+      color: #a05252;
+      min-height: 34px;
+    }
+
     .empty,
     .loading {
       text-align: center;
@@ -312,6 +343,7 @@
     }
 
     @media (max-width: 520px) {
+
       .page {
         padding: 22px 14px 40px;
       }
@@ -327,6 +359,19 @@
       .header-title {
         font-size: 23px;
       }
+
+      .actions {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .actions .primary {
+        grid-column: 1 / -1;
+      }
+
+      .actions .delete {
+        grid-column: 1 / -1;
+      }
+
     }
   </style>
 </head>
@@ -411,13 +456,17 @@
 
       <div class="add-card">
 
+        <div class="add-title">
+          添加宾客
+        </div>
+
         <div class="add-row">
 
           <input
             id="guestNameInput"
             class="guest-input"
             type="text"
-            placeholder="输入宾客姓名"
+            placeholder="输入宾客姓名，例如：邹小明"
           />
 
           <button
@@ -501,15 +550,8 @@
 
   <script>
 
-    /*
-     * =====================================================
-     * 基本设置
-     * =====================================================
-     */
-
     const TOKEN_KEY =
       "wedding_admin_password";
-
 
     const loginPage =
       document.getElementById("loginPage");
@@ -550,20 +592,16 @@
     const logoutButton =
       document.getElementById("logoutButton");
 
-
     let currentGuests = [];
 
 
-    /*
-     * =====================================================
-     * 显示 / 隐藏
-     * =====================================================
-     */
+    /* =========================
+       页面显示
+    ========================= */
 
     function showLogin() {
 
       loginPage.style.display = "flex";
-
       adminPage.style.display = "none";
 
       passwordInput.focus();
@@ -574,17 +612,14 @@
     function showAdmin() {
 
       loginPage.style.display = "none";
-
       adminPage.style.display = "block";
 
     }
 
 
-    /*
-     * =====================================================
-     * API
-     * =====================================================
-     */
+    /* =========================
+       API
+    ========================= */
 
     async function api(
       endpoint,
@@ -600,7 +635,6 @@
           `Bearer ${password || ""}`
       };
 
-
       if (options.body) {
 
         headers["Content-Type"] =
@@ -608,9 +642,7 @@
 
       }
 
-
       let response;
-
 
       try {
 
@@ -631,9 +663,7 @@
 
       }
 
-
       let data;
-
 
       try {
 
@@ -647,7 +677,6 @@
 
       }
 
-
       if (!response.ok) {
 
         throw new Error(
@@ -656,7 +685,6 @@
         );
 
       }
-
 
       if (data.success === false) {
 
@@ -667,23 +695,19 @@
 
       }
 
-
       return data;
 
     }
 
 
-    /*
-     * =====================================================
-     * 登录
-     * =====================================================
-     */
+    /* =========================
+       登录
+    ========================= */
 
     async function login() {
 
       const password =
         passwordInput.value.trim();
-
 
       if (!password) {
 
@@ -694,7 +718,6 @@
 
       }
 
-
       loginButton.disabled = true;
 
       loginButton.textContent =
@@ -702,25 +725,18 @@
 
       loginError.textContent = "";
 
-
       sessionStorage.setItem(
         TOKEN_KEY,
         password
       );
 
-
       try {
 
-        /*
-         * 用真正的 API 请求验证密码
-         */
         await loadGuests();
-
 
         showAdmin();
 
         passwordInput.value = "";
-
 
       } catch (error) {
 
@@ -728,16 +744,9 @@
           TOKEN_KEY
         );
 
-
-        /*
-         * 这里故意显示真实错误，
-         * 方便我们定位 Cloudflare 问题。
-         */
-
         loginError.textContent =
           "错误：" +
           error.message;
-
 
       } finally {
 
@@ -751,11 +760,9 @@
     }
 
 
-    /*
-     * =====================================================
-     * 获取宾客
-     * =====================================================
-     */
+    /* =========================
+       获取宾客
+    ========================= */
 
     async function loadGuests() {
 
@@ -767,10 +774,8 @@
           }
         );
 
-
       currentGuests =
         data.guests || [];
-
 
       renderGuests(
         currentGuests
@@ -779,11 +784,9 @@
     }
 
 
-    /*
-     * =====================================================
-     * 显示宾客
-     * =====================================================
-     */
+    /* =========================
+       渲染宾客
+    ========================= */
 
     function renderGuests(
       guests
@@ -795,10 +798,8 @@
             Number(guest.sent) === 1
         ).length;
 
-
       const unsent =
         guests.length - sent;
-
 
       totalCount.textContent =
         guests.length;
@@ -808,7 +809,6 @@
 
       unsentCount.textContent =
         unsent;
-
 
       if (!guests.length) {
 
@@ -822,14 +822,12 @@
 
       }
 
-
       guestList.innerHTML =
         guests.map(
           guest => {
 
             const isSent =
               Number(guest.sent) === 1;
-
 
             return `
               <div class="guest-card">
@@ -868,15 +866,21 @@
 
                   <button
                     class="primary"
-                    onclick="copyLink(${guest.id})"
+                    onclick="copyWechat(${guest.id})"
                   >
-                    复制请柬链接
+                    复制微信邀请
                   </button>
 
                   <button
-                    onclick="copyWechat(${guest.id})"
+                    onclick="shareWechat(${guest.id})"
                   >
-                    复制微信话术
+                    分享
+                  </button>
+
+                  <button
+                    onclick="copyLink(${guest.id})"
+                  >
+                    复制链接
                   </button>
 
                   <button
@@ -893,12 +897,12 @@
                   </button>
 
                   <button
-                    class="danger"
+                    class="delete"
                     onclick="deleteGuest(
                       ${guest.id}
                     )"
                   >
-                    删除
+                    删除这位宾客
                   </button>
 
                 </div>
@@ -912,11 +916,9 @@
     }
 
 
-    /*
-     * =====================================================
-     * 防止姓名里的特殊字符破坏页面
-     * =====================================================
-     */
+    /* =========================
+       安全处理
+    ========================= */
 
     function escapeHtml(
       value
@@ -947,17 +949,14 @@
     }
 
 
-    /*
-     * =====================================================
-     * 添加宾客
-     * =====================================================
-     */
+    /* =========================
+       添加宾客
+    ========================= */
 
     async function addGuest() {
 
       const name =
         guestNameInput.value.trim();
-
 
       if (!name) {
 
@@ -968,13 +967,11 @@
 
       }
 
-
       addGuestButton.disabled =
         true;
 
       addGuestButton.textContent =
         "添加中……";
-
 
       try {
 
@@ -988,22 +985,18 @@
           }
         );
 
-
         guestNameInput.value = "";
 
         message.textContent =
-          "添加成功";
-
+          `${name} 已添加，可以直接发送微信邀请`;
 
         await loadGuests();
-
 
       } catch (error) {
 
         message.textContent =
           "错误：" +
           error.message;
-
 
       } finally {
 
@@ -1018,11 +1011,9 @@
     }
 
 
-    /*
-     * =====================================================
-     * 找宾客
-     * =====================================================
-     */
+    /* =========================
+       查找宾客
+    ========================= */
 
     function findGuest(id) {
 
@@ -1035,20 +1026,144 @@
     }
 
 
-    /*
-     * =====================================================
-     * 复制请柬链接
-     * =====================================================
-     */
+    /* =========================
+       生成微信邀请
+    ========================= */
+
+    function getWechatMessage(
+      guest
+    ) {
+
+      return `邓天澍 & 邹涛｜婚礼邀请
+
+${guest.name}，诚邀您参加我们的婚礼。
+
+2026年10月25日，吉安见。
+
+👉 点击打开专属请柬：
+${guest.link}`;
+
+    }
+
+
+    /* =========================
+       复制微信邀请
+    ========================= */
+
+    async function copyWechat(id) {
+
+      const guest =
+        findGuest(id);
+
+      if (!guest) return;
+
+      const text =
+        getWechatMessage(guest);
+
+      try {
+
+        await navigator.clipboard.writeText(
+          text
+        );
+
+        await api(
+          `/api/admin/guests/${id}`,
+          {
+            method: "PATCH",
+            body: JSON.stringify({
+              sent: true
+            })
+          }
+        );
+
+        message.textContent =
+          `${guest.name} 的微信邀请已复制，可以直接去微信粘贴`;
+
+        await loadGuests();
+
+      } catch (error) {
+
+        message.textContent =
+          "复制失败：" +
+          error.message;
+
+      }
+
+    }
+
+
+    /* =========================
+       系统分享
+    ========================= */
+
+    async function shareWechat(id) {
+
+      const guest =
+        findGuest(id);
+
+      if (!guest) return;
+
+      const title =
+        "邓天澍 & 邹涛｜婚礼邀请";
+
+      const text =
+        `${guest.name}，诚邀您参加我们的婚礼。
+
+2026年10月25日，吉安见。`;
+
+      try {
+
+        if (
+          navigator.share
+        ) {
+
+          await navigator.share({
+            title,
+            text,
+            url: guest.link
+          });
+
+          message.textContent =
+            `${guest.name} 的邀请已打开分享`;
+
+        } else {
+
+          await navigator.clipboard.writeText(
+            getWechatMessage(guest)
+          );
+
+          message.textContent =
+            "当前浏览器不支持直接分享，邀请内容已复制";
+
+        }
+
+      } catch (error) {
+
+        if (
+          error.name ===
+          "AbortError"
+        ) {
+          return;
+        }
+
+        message.textContent =
+          "分享失败，可以使用「复制微信邀请」";
+
+      }
+
+    }
+
+
+    /* =========================
+       复制链接
+    ========================= */
 
     async function copyLink(id) {
 
       const guest =
         findGuest(id);
 
-
       if (!guest) return;
-
 
       try {
 
@@ -1056,10 +1171,8 @@
           guest.link
         );
 
-
         message.textContent =
-          `${guest.name} 的请柬链接已复制`;
-
+          `${guest.name} 的专属请柬链接已复制`;
 
       } catch {
 
@@ -1071,75 +1184,9 @@
     }
 
 
-    /*
-     * =====================================================
-     * 复制微信话术
-     * =====================================================
-     */
-
-    async function copyWechat(id) {
-
-      const guest =
-        findGuest(id);
-
-
-      if (!guest) return;
-
-
-      const text =
-`诚邀您出席邓天澍 & 邹涛的结婚典礼。
-
-时间：2026年10月25日 周日
-地点：吉安宾馆·礼堂
-
-这是专属于您的电子请柬：
-${guest.link}`;
-
-
-      try {
-
-        await navigator.clipboard.writeText(
-          text
-        );
-
-
-        /*
-         * 复制成功后标记已发送
-         */
-        await api(
-          `/api/admin/guests/${id}`,
-          {
-            method: "PATCH",
-            body: JSON.stringify({
-              sent: true
-            })
-          }
-        );
-
-
-        message.textContent =
-          `${guest.name} 的微信话术已复制，并已标记为已发送`;
-
-
-        await loadGuests();
-
-
-      } catch (error) {
-
-        message.textContent =
-          "错误：" +
-          error.message;
-
-      }
-
-    }
-
-
-    /*
-     * =====================================================
-     * 修改发送状态
-     * =====================================================
-     */
+    /* =========================
+       修改发送状态
+    ========================= */
 
     async function toggleSent(
       id,
@@ -1158,9 +1205,7 @@ ${guest.link}`;
           }
         );
 
-
         await loadGuests();
-
 
       } catch (error) {
 
@@ -1173,11 +1218,9 @@ ${guest.link}`;
     }
 
 
-    /*
-     * =====================================================
-     * 删除宾客
-     * =====================================================
-     */
+    /* =========================
+       删除
+    ========================= */
 
     async function deleteGuest(
       id
@@ -1186,9 +1229,7 @@ ${guest.link}`;
       const guest =
         findGuest(id);
 
-
       if (!guest) return;
-
 
       if (
         !confirm(
@@ -1197,7 +1238,6 @@ ${guest.link}`;
       ) {
         return;
       }
-
 
       try {
 
@@ -1208,13 +1248,10 @@ ${guest.link}`;
           }
         );
 
-
         message.textContent =
           `${guest.name} 已删除`;
 
-
         await loadGuests();
-
 
       } catch (error) {
 
@@ -1227,18 +1264,15 @@ ${guest.link}`;
     }
 
 
-    /*
-     * =====================================================
-     * 退出
-     * =====================================================
-     */
+    /* =========================
+       退出
+    ========================= */
 
     function logout() {
 
       sessionStorage.removeItem(
         TOKEN_KEY
       );
-
 
       showLogin();
 
@@ -1247,17 +1281,14 @@ ${guest.link}`;
     }
 
 
-    /*
-     * =====================================================
-     * 事件
-     * =====================================================
-     */
+    /* =========================
+       事件
+    ========================= */
 
     loginButton.addEventListener(
       "click",
       login
     );
-
 
     passwordInput.addEventListener(
       "keydown",
@@ -1274,12 +1305,10 @@ ${guest.link}`;
       }
     );
 
-
     addGuestButton.addEventListener(
       "click",
       addGuest
     );
-
 
     guestNameInput.addEventListener(
       "keydown",
@@ -1296,24 +1325,20 @@ ${guest.link}`;
       }
     );
 
-
     logoutButton.addEventListener(
       "click",
       logout
     );
 
 
-    /*
-     * =====================================================
-     * 自动检查登录状态
-     * =====================================================
-     */
+    /* =========================
+       自动登录
+    ========================= */
 
     const savedPassword =
       sessionStorage.getItem(
         TOKEN_KEY
       );
-
 
     if (savedPassword) {
 
