@@ -557,262 +557,202 @@ function initGallery() {
    宾客回复
 ===================================================== */
 
-function initReply() {
 
+/* 宾客回复 */
+function initReply() {
   const attendanceButtons =
-    document.querySelectorAll(
-      ".attendance-button"
-    );
+    document.querySelectorAll(".attendance-button");
 
   const stayFields =
-    document.getElementById(
-      "stayFields"
-    );
+    document.getElementById("stayFields");
 
   const absenceMessage =
-    document.getElementById(
-      "absenceMessage"
-    );
+    document.getElementById("absenceMessage");
 
   const replySuccess =
-    document.getElementById(
-      "replySuccess"
-    );
+    document.getElementById("replySuccess");
 
+  const submit =
+    document.getElementById("replySubmit");
+
+  const absenceSubmit =
+    document.getElementById("absenceSubmit");
 
   let attendance = "";
 
+  /*
+   * 出席 / 无法出席
+   */
+  attendanceButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      attendance = button.dataset.attendance;
 
-  attendanceButtons.forEach(
-    button => {
+      attendanceButtons.forEach(item => {
+        item.classList.remove("selected");
+      });
 
-      button.addEventListener(
-        "click",
-        () => {
+      button.classList.add("selected");
 
-          attendance =
-            button.dataset.attendance;
-
-
-          attendanceButtons.forEach(
-            item => {
-              item.classList.remove(
-                "selected"
-              );
-            }
-          );
-
-
-          button.classList.add(
-            "selected"
-          );
-
-
-          if (
-            attendance === "yes"
-          ) {
-
-            stayFields.classList.remove(
-              "hidden"
-            );
-
-            absenceMessage.classList.add(
-              "hidden"
-            );
-
-          } else {
-
-            stayFields.classList.add(
-              "hidden"
-            );
-
-            absenceMessage.classList.remove(
-              "hidden"
-            );
-
-          }
-
+      if (attendance === "yes") {
+        if (stayFields) {
+          stayFields.classList.remove("hidden");
         }
-      );
 
-    }
-  );
+        if (absenceMessage) {
+          absenceMessage.classList.add("hidden");
+        }
+      } else {
+        if (stayFields) {
+          stayFields.classList.add("hidden");
+        }
 
+        if (absenceMessage) {
+          absenceMessage.classList.remove("hidden");
+        }
+      }
+    });
+  });
 
   /*
-    住宿选择
-  */
-
+   * 是否需要住宿
+   */
   const stayButtons =
-    document.querySelectorAll(
-      ".stay-button"
-    );
+    document.querySelectorAll(".stay-button");
 
+  stayButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      stayButtons.forEach(item => {
+        item.classList.remove("selected");
+      });
 
-  stayButtons.forEach(
-    button => {
+      button.classList.add("selected");
+    });
+  });
 
-      button.addEventListener(
-        "click",
-        () => {
+  /*
+   * 出席 → 提交
+   */
+  if (submit) {
+    submit.addEventListener("click", async () => {
+      if (attendance !== "yes") {
+        alert("请先选择是否出席。");
+        return;
+      }
 
-          stayButtons.forEach(
-            item => {
-              item.classList.remove(
-                "selected"
-              );
-            }
-          );
+      const stay =
+        document.querySelector(
+          ".stay-button.selected"
+        )?.dataset.stay || "";
 
-          button.classList.add(
-            "selected"
-          );
+      if (!stay) {
+        alert("请选择是否需要住宿。");
+        return;
+      }
 
+      const data = {
+        guest: getGuestName(),
+        attendance: "yes",
+        stay,
+        count:
+          document.getElementById("guestCount")?.value || "1",
+        checkIn:
+          document.getElementById("checkIn")?.value || "",
+        checkOut:
+          document.getElementById("checkOut")?.value || "",
+        message:
+          document.getElementById("message")?.value || ""
+      };
+
+      await submitReply(data, submit);
+    });
+  }
+
+  /*
+   * 无法出席 → 提交
+   */
+  if (absenceSubmit) {
+    absenceSubmit.addEventListener("click", async () => {
+      const data = {
+        guest: getGuestName(),
+        attendance: "no",
+        stay: "",
+        count: 0,
+        checkIn: "",
+        checkOut: "",
+        message:
+          document.getElementById("absenceText")?.value || ""
+      };
+
+      await submitReply(data, absenceSubmit);
+    });
+  }
+
+  /*
+   * 真正提交到 Cloudflare D1
+   */
+  async function submitReply(data, button) {
+    const originalText = button.textContent;
+
+    button.disabled = true;
+    button.textContent = "正在送出…";
+
+    try {
+      const response = await fetch(
+        "/api/reply",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
         }
       );
 
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.error || "提交失败"
+        );
+      }
+
+      showReplySuccess();
+
+    } catch (error) {
+      console.error(error);
+
+      alert(
+        error.message ||
+        "回复没有送出，请稍后再试。"
+      );
+
+      button.disabled = false;
+      button.textContent = originalText;
     }
-  );
-
-
-  /*
-    出席提交
-  */
-
-  const submit =
-    document.getElementById(
-      "replySubmit"
-    );
-
-
-  if (submit) {
-
-    submit.addEventListener(
-      "click",
-      () => {
-
-        saveReply({
-          attendance: "yes",
-
-          stay:
-            document.querySelector(
-              ".stay-button.selected"
-            )?.dataset.stay || "",
-
-          count:
-            document.getElementById(
-              "guestCount"
-            )?.value || "1",
-
-          checkIn:
-            document.getElementById(
-              "checkIn"
-            )?.value || "",
-
-          checkOut:
-            document.getElementById(
-              "checkOut"
-            )?.value || "",
-
-          message:
-            document.getElementById(
-              "message"
-            )?.value || ""
-        });
-
-
-        showReplySuccess();
-
-      }
-    );
-
   }
 
-
   /*
-    无法出席提交
-  */
-
-  const absenceSubmit =
-    document.getElementById(
-      "absenceSubmit"
-    );
-
-
-  if (absenceSubmit) {
-
-    absenceSubmit.addEventListener(
-      "click",
-      () => {
-
-        saveReply({
-
-          attendance: "no",
-
-          message:
-            document.getElementById(
-              "absenceText"
-            )?.value || ""
-
-        });
-
-
-        showReplySuccess();
-
-      }
-    );
-
-  }
-
-
+   * 提交成功后的画面
+   */
   function showReplySuccess() {
-
-    if (!replySuccess) {
-      return;
+    if (stayFields) {
+      stayFields.classList.add("hidden");
     }
 
-    stayFields.classList.add(
-      "hidden"
-    );
+    if (absenceMessage) {
+      absenceMessage.classList.add("hidden");
+    }
 
-    absenceMessage.classList.add(
-      "hidden"
-    );
+    if (replySuccess) {
+      replySuccess.classList.remove("hidden");
 
-    replySuccess.classList.remove(
-      "hidden"
-    );
-
+      replySuccess.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }
   }
-
-
-  function saveReply(data) {
-
-    const guest =
-      getGuestName();
-
-
-    const reply = {
-
-      guest,
-
-      ...data,
-
-      submittedAt:
-        new Date().toISOString()
-
-    };
-
-
-    localStorage.setItem(
-      `wedding-reply-${guest}`,
-      JSON.stringify(reply)
-    );
-
-  }
-
 }
-
 
 /* =====================================================
    简单出现动画
