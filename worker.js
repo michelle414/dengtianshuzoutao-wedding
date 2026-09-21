@@ -91,7 +91,7 @@ async function handleWeddingPage(request, env) {
     })
 
     .transform(assetResponse);
-}
+  }
 
 export default {
   async fetch(request, env) {
@@ -217,23 +217,25 @@ export default {
         const link =
           `${url.origin}/?guest=${encodeURIComponent(name)}`;
 
-        const createdAt = new Date().toISOString();
+        const createdAt =
+          new Date().toISOString();
 
-        const result = await env.DB.prepare(`
-          INSERT INTO guests (
-            name,
-            link,
-            sent,
-            created_at
-          )
-          VALUES (?, ?, 0, ?)
-        `)
-          .bind(
-            name,
-            link,
-            createdAt
-          )
-          .run();
+        const result =
+          await env.DB.prepare(`
+            INSERT INTO guests (
+              name,
+              link,
+              sent,
+              created_at
+            )
+            VALUES (?, ?, 0, ?)
+          `)
+            .bind(
+              name,
+              link,
+              createdAt
+            )
+            .run();
 
         return json({
           success: true,
@@ -243,7 +245,9 @@ export default {
           sent: 0,
           created_at: createdAt,
         });
+
       } catch (error) {
+
         if (
           error.message &&
           error.message.includes("UNIQUE")
@@ -269,7 +273,7 @@ export default {
 
     /*
      * ========================================
-     * 修改“已发送”状态
+     * 修改已发送状态
      * ========================================
      */
 
@@ -281,9 +285,11 @@ export default {
         const id =
           url.pathname.split("/").pop();
 
-        const body = await request.json();
+        const body =
+          await request.json();
 
-        const sent = body.sent ? 1 : 0;
+        const sent =
+          body.sent ? 1 : 0;
 
         await env.DB.prepare(`
           UPDATE guests
@@ -296,7 +302,9 @@ export default {
         return json({
           success: true,
         });
+
       } catch (error) {
+
         return json(
           {
             success: false,
@@ -321,7 +329,9 @@ export default {
         const id =
           url.pathname.split("/").pop();
 
-        // 先删除该宾客的回复
+        /*
+         * 删除旧版回复
+         */
         await env.DB.prepare(`
           DELETE FROM replies
           WHERE guest_id = ?
@@ -329,7 +339,19 @@ export default {
           .bind(id)
           .run();
 
-        // 再删除宾客
+        /*
+         * 删除新版多回复
+         */
+        await env.DB.prepare(`
+          DELETE FROM reply_entries
+          WHERE guest_id = ?
+        `)
+          .bind(id)
+          .run();
+
+        /*
+         * 删除宾客
+         */
         await env.DB.prepare(`
           DELETE FROM guests
           WHERE id = ?
@@ -340,7 +362,9 @@ export default {
         return json({
           success: true,
         });
+
       } catch (error) {
+
         return json(
           {
             success: false,
@@ -354,6 +378,10 @@ export default {
     /*
      * ========================================
      * 宾客提交回复
+     *
+     * 新版：
+     * 不要求 guest 必须存在于 guests
+     * 同一个请柬可以提交多条回复
      * ========================================
      */
 
@@ -362,20 +390,32 @@ export default {
       request.method === "POST"
     ) {
       try {
-        const body = await request.json();
+        const body =
+          await request.json();
 
-        const guestName = String(body.guest || "").trim();
-        const attendance = String(body.attendance || "").trim();
-        const stay = String(body.stay || "").trim();
+        const guestName =
+          String(body.guest || "").trim();
 
-        const count = Math.max(
-          1,
-          parseInt(body.count, 10) || 1
-        );
+        const attendance =
+          String(body.attendance || "").trim();
 
-        const checkIn = String(body.checkIn || "").trim();
-        const checkOut = String(body.checkOut || "").trim();
-        const message = String(body.message || "").trim();
+        const stay =
+          String(body.stay || "").trim();
+
+        const count =
+          Math.max(
+            1,
+            parseInt(body.count, 10) || 1
+          );
+
+        const checkIn =
+          String(body.checkIn || "").trim();
+
+        const checkOut =
+          String(body.checkOut || "").trim();
+
+        const message =
+          String(body.message || "").trim();
 
         if (!guestName) {
           return json(
@@ -401,37 +441,52 @@ export default {
         }
 
         /*
-         * 根据请柬中的 guest 参数
-         * 找到 D1 里的对应宾客
+         * 如果是正式宾客，
+         * 就绑定到 guests.id。
+         *
+         * 如果不是正式宾客，
+         * guestId 就保持 null。
+         *
+         * 所以朋友转发以后，
+         * 也不会被挡住。
          */
-        const guestResult = await env.DB.prepare(`
-          SELECT
-            id,
-            name
-          FROM guests
-          WHERE name = ?
-          LIMIT 1
-        `)
-          .bind(guestName)
-          .first();
+        const guestResult =
+          await env.DB.prepare(`
+            SELECT
+              id,
+              name
+            FROM guests
+            WHERE name = ?
+            LIMIT 1
+          `)
+            .bind(guestName)
+            .first();
 
-        if (!guestResult) {
-          return json(
-            {
-              success: false,
-              error: "没有找到对应的宾客，请确认请柬链接是否正确",
-            },
-            404
-          );
-        }
+        const guestId =
+          guestResult
+            ? guestResult.id
+            : null;
 
-        const submittedAt = new Date().toISOString();
+        const savedGuestName =
+          guestResult
+            ? guestResult.name
+            : guestName;
+
+        const submittedAt =
+          new Date().toISOString();
 
         /*
-         * 一个宾客只能保留一份最新回复
+         * 每一次提交都是一条独立回复。
+         *
+         * 因此：
+         * A 把链接转给 B
+         * B 也可以提交
+         *
+         * 不会因为 A 已经回复，
+         * 就把 B 拦住。
          */
         await env.DB.prepare(`
-          INSERT INTO replies (
+          INSERT INTO reply_entries (
             guest_id,
             guest_name,
             attendance,
@@ -443,20 +498,10 @@ export default {
             submitted_at
           )
           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-          ON CONFLICT(guest_id)
-          DO UPDATE SET
-            guest_name = excluded.guest_name,
-            attendance = excluded.attendance,
-            stay = excluded.stay,
-            count = excluded.count,
-            check_in = excluded.check_in,
-            check_out = excluded.check_out,
-            message = excluded.message,
-            submitted_at = excluded.submitted_at
         `)
           .bind(
-            guestResult.id,
-            guestResult.name,
+            guestId,
+            savedGuestName,
             attendance,
             stay,
             count,
@@ -471,7 +516,9 @@ export default {
           success: true,
           message: "回复已保存",
         });
+
       } catch (error) {
+
         return json(
           {
             success: false,
@@ -484,7 +531,7 @@ export default {
 
     /*
      * ========================================
-     * 管理员查看宾客回复
+     * 管理员查看全部回复
      * ========================================
      */
 
@@ -493,29 +540,91 @@ export default {
       request.method === "GET"
     ) {
       try {
-        const result = await env.DB.prepare(`
-          SELECT
-            g.id AS guest_id,
-            g.name AS guest_name,
-            g.sent,
-            r.attendance,
-            r.stay,
-            r.count,
-            r.check_in,
-            r.check_out,
-            r.message,
-            r.submitted_at
-          FROM guests g
-          LEFT JOIN replies r
-            ON g.id = r.guest_id
-          ORDER BY g.id DESC
-        `).all();
+
+        /*
+         * 旧版 replies
+         *
+         * 保留你之前测试成功的数据。
+         */
+        const oldResult =
+          await env.DB.prepare(`
+            SELECT
+              r.id AS reply_id,
+              g.id AS guest_id,
+              g.name AS guest_name,
+              g.sent,
+              r.attendance,
+              r.stay,
+              r.count,
+              r.check_in,
+              r.check_out,
+              r.message,
+              r.submitted_at
+            FROM replies r
+            LEFT JOIN guests g
+              ON g.id = r.guest_id
+            ORDER BY r.id DESC
+          `).all();
+
+        /*
+         * 新版 reply_entries
+         */
+        const newResult =
+          await env.DB.prepare(`
+            SELECT
+              r.id AS reply_id,
+              r.guest_id,
+              r.guest_name,
+              COALESCE(g.sent, 0) AS sent,
+              r.attendance,
+              r.stay,
+              r.count,
+              r.check_in,
+              r.check_out,
+              r.message,
+              r.submitted_at
+            FROM reply_entries r
+            LEFT JOIN guests g
+              ON g.id = r.guest_id
+            ORDER BY r.id DESC
+          `).all();
+
+        const oldReplies =
+          (oldResult.results || []).map(
+            reply => ({
+              ...reply,
+              source: "legacy",
+            })
+          );
+
+        const newReplies =
+          (newResult.results || []).map(
+            reply => ({
+              ...reply,
+              source: "entry",
+            })
+          );
+
+        const replies = [
+          ...oldReplies,
+          ...newReplies,
+        ].sort(
+          (a, b) =>
+            new Date(
+              b.submitted_at || 0
+            ).getTime() -
+            new Date(
+              a.submitted_at || 0
+            ).getTime()
+        );
 
         return json({
           success: true,
-          replies: result.results || [],
+          replies,
         });
+
       } catch (error) {
+
         return json(
           {
             success: false,
