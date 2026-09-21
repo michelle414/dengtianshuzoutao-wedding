@@ -1,6 +1,16 @@
 function json(data, status = 200) {
-  return Response.json(data, { status });
+  return Response.json(data, {
+    status,
+    headers: {
+      "Cache-Control": "no-store",
+    },
+  });
 }
+
+
+/* =========================================================
+   婚礼页面：根据 ?guest=宾客姓名 动态修改分享信息
+========================================================= */
 
 function buildGuestMeta(guest) {
   const safeGuest = guest || "宾客";
@@ -11,6 +21,7 @@ function buildGuestMeta(guest) {
     image: `/photos/photo-01.jpg`,
   };
 }
+
 
 async function handleWeddingPage(request, env) {
   const url = new URL(request.url);
@@ -30,6 +41,7 @@ async function handleWeddingPage(request, env) {
   const meta = buildGuestMeta(guest);
 
   return new HTMLRewriter()
+
     .on("title", {
       element(element) {
         element.setInnerContent(meta.title);
@@ -38,19 +50,28 @@ async function handleWeddingPage(request, env) {
 
     .on('meta[name="description"]', {
       element(element) {
-        element.setAttribute("content", meta.description);
+        element.setAttribute(
+          "content",
+          meta.description
+        );
       },
     })
 
     .on('meta[property="og:title"]', {
       element(element) {
-        element.setAttribute("content", meta.title);
+        element.setAttribute(
+          "content",
+          meta.title
+        );
       },
     })
 
     .on('meta[property="og:description"]', {
       element(element) {
-        element.setAttribute("content", meta.description);
+        element.setAttribute(
+          "content",
+          meta.description
+        );
       },
     })
 
@@ -65,19 +86,28 @@ async function handleWeddingPage(request, env) {
 
     .on('meta[property="og:url"]', {
       element(element) {
-        element.setAttribute("content", url.href);
+        element.setAttribute(
+          "content",
+          url.href
+        );
       },
     })
 
     .on('meta[name="twitter:title"]', {
       element(element) {
-        element.setAttribute("content", meta.title);
+        element.setAttribute(
+          "content",
+          meta.title
+        );
       },
     })
 
     .on('meta[name="twitter:description"]', {
       element(element) {
-        element.setAttribute("content", meta.description);
+        element.setAttribute(
+          "content",
+          meta.description
+        );
       },
     })
 
@@ -91,93 +121,150 @@ async function handleWeddingPage(request, env) {
     })
 
     .transform(assetResponse);
+}
+
+
+/* =========================================================
+   管理员鉴权
+========================================================= */
+
+function checkAdmin(request, env) {
+  const auth = request.headers.get("Authorization");
+
+  if (!auth || !auth.startsWith("Bearer ")) {
+    return false;
   }
+
+  const password = auth.slice(7);
+
+  if (!env.ADMIN_PASSWORD) {
+    return false;
+  }
+
+  return password === env.ADMIN_PASSWORD;
+}
+
+
+/* =========================================================
+   生成婚礼邀请文字
+========================================================= */
+
+function buildWechatMessage(guest, sender) {
+  const name = guest.name;
+
+  let sentence = "";
+
+  if (sender === "groom") {
+    sentence =
+      `${name}，诚邀您参加我们的婚礼。`;
+  }
+
+  if (sender === "bride") {
+    sentence =
+      `${name}，诚邀您参加我们的婚礼。`;
+  }
+
+  if (
+    sender === "groomFather" ||
+    sender === "groomMother"
+  ) {
+    sentence =
+      `${name}，诚邀您参加我儿子邓天澍和儿媳妇邹涛的婚礼。`;
+  }
+
+  if (
+    sender === "brideFather" ||
+    sender === "brideMother"
+  ) {
+    sentence =
+      `${name}，诚邀您参加我女儿邹涛和女婿邓天澍的婚礼。`;
+  }
+
+  if (!sentence) {
+    sentence =
+      `${name}，诚邀您参加我们的婚礼。`;
+  }
+
+  return [
+    "邓天澍 & 邹涛｜婚礼邀请",
+    "",
+    sentence,
+    "",
+    "2026年10月25日，吉安见。",
+    "",
+    "👉 点击打开专属请柬：",
+    guest.link,
+  ].join("\n");
+}
+
+
+/* =========================================================
+   Worker
+========================================================= */
 
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    /*
-     * ========================================
-     * 婚礼首页
-     * ========================================
-     */
+
+    /* =====================================================
+       婚礼首页
+    ===================================================== */
 
     if (
       url.pathname === "/" &&
       request.method === "GET"
     ) {
-      return handleWeddingPage(request, env);
+      return handleWeddingPage(
+        request,
+        env
+      );
     }
 
-    /*
-     * ========================================
-     * 管理员 API 鉴权
-     * ========================================
-     */
+
+    /* =====================================================
+       所有后台 API：统一鉴权
+    ===================================================== */
 
     if (url.pathname.startsWith("/api/admin/")) {
-      const auth = request.headers.get("Authorization");
-
-      if (!auth || !auth.startsWith("Bearer ")) {
+      if (!checkAdmin(request, env)) {
         return json(
           {
             success: false,
-            error: "未授权",
-          },
-          401
-        );
-      }
-
-      const password = auth.slice(7);
-
-      if (!env.ADMIN_PASSWORD) {
-        return json(
-          {
-            success: false,
-            error: "ADMIN_PASSWORD 没有读取到",
-          },
-          500
-        );
-      }
-
-      if (password !== env.ADMIN_PASSWORD) {
-        return json(
-          {
-            success: false,
-            error: "密码错误",
+            error: "未授权或密码错误",
           },
           401
         );
       }
     }
 
-    /*
-     * ========================================
-     * 获取宾客列表
-     * ========================================
-     */
+
+    /* =====================================================
+       获取宾客
+    ===================================================== */
 
     if (
       url.pathname === "/api/admin/guests" &&
       request.method === "GET"
     ) {
       try {
-        const result = await env.DB.prepare(`
-          SELECT
-            id,
-            name,
-            link,
-            sent,
-            created_at
-          FROM guests
-          ORDER BY id DESC
-        `).all();
+        const result =
+          await env.DB.prepare(`
+            SELECT
+              id,
+              name,
+              link,
+              sent,
+              created_at
+            FROM guests
+            ORDER BY id DESC
+          `).all();
 
         return json({
           success: true,
           guests: result.results || [],
         });
+
       } catch (error) {
         return json(
           {
@@ -189,20 +276,21 @@ export default {
       }
     }
 
-    /*
-     * ========================================
-     * 添加宾客
-     * ========================================
-     */
+
+    /* =====================================================
+       添加宾客
+    ===================================================== */
 
     if (
       url.pathname === "/api/admin/guests" &&
       request.method === "POST"
     ) {
       try {
-        const body = await request.json();
+        const body =
+          await request.json();
 
-        const name = String(body.name || "").trim();
+        const name =
+          String(body.name || "").trim();
 
         if (!name) {
           return json(
@@ -271,11 +359,10 @@ export default {
       }
     }
 
-    /*
-     * ========================================
-     * 修改已发送状态
-     * ========================================
-     */
+
+    /* =====================================================
+       修改发送状态
+    ===================================================== */
 
     if (
       url.pathname.startsWith("/api/admin/guests/") &&
@@ -296,7 +383,10 @@ export default {
           SET sent = ?
           WHERE id = ?
         `)
-          .bind(sent, id)
+          .bind(
+            sent,
+            id
+          )
           .run();
 
         return json({
@@ -304,7 +394,6 @@ export default {
         });
 
       } catch (error) {
-
         return json(
           {
             success: false,
@@ -315,11 +404,10 @@ export default {
       }
     }
 
-    /*
-     * ========================================
-     * 删除宾客
-     * ========================================
-     */
+
+    /* =====================================================
+       删除宾客
+    ===================================================== */
 
     if (
       url.pathname.startsWith("/api/admin/guests/") &&
@@ -329,9 +417,6 @@ export default {
         const id =
           url.pathname.split("/").pop();
 
-        /*
-         * 删除旧版回复
-         */
         await env.DB.prepare(`
           DELETE FROM replies
           WHERE guest_id = ?
@@ -339,19 +424,6 @@ export default {
           .bind(id)
           .run();
 
-        /*
-         * 删除新版多回复
-         */
-        await env.DB.prepare(`
-          DELETE FROM reply_entries
-          WHERE guest_id = ?
-        `)
-          .bind(id)
-          .run();
-
-        /*
-         * 删除宾客
-         */
         await env.DB.prepare(`
           DELETE FROM guests
           WHERE id = ?
@@ -364,7 +436,6 @@ export default {
         });
 
       } catch (error) {
-
         return json(
           {
             success: false,
@@ -375,15 +446,21 @@ export default {
       }
     }
 
-    /*
-     * ========================================
-     * 宾客提交回复
-     *
-     * 新版：
-     * 不要求 guest 必须存在于 guests
-     * 同一个请柬可以提交多条回复
-     * ========================================
-     */
+
+    /* =====================================================
+       公开留言 / RSVP
+       
+       重点：
+       不要求宾客必须存在于 guests 表。
+       
+       如果找到：
+         guest_id = 对应宾客 ID
+       
+       如果没找到：
+         guest_id = NULL
+       
+       这样任何人都可以留言。
+    ===================================================== */
 
     if (
       url.pathname === "/api/reply" &&
@@ -397,10 +474,14 @@ export default {
           String(body.guest || "").trim();
 
         const attendance =
-          String(body.attendance || "").trim();
+          String(
+            body.attendance || ""
+          ).trim();
 
         const stay =
-          String(body.stay || "").trim();
+          String(
+            body.stay || ""
+          ).trim();
 
         const count =
           Math.max(
@@ -409,13 +490,20 @@ export default {
           );
 
         const checkIn =
-          String(body.checkIn || "").trim();
+          String(
+            body.checkIn || ""
+          ).trim();
 
         const checkOut =
-          String(body.checkOut || "").trim();
+          String(
+            body.checkOut || ""
+          ).trim();
 
         const message =
-          String(body.message || "").trim();
+          String(
+            body.message || ""
+          ).trim();
+
 
         if (!guestName) {
           return json(
@@ -426,6 +514,7 @@ export default {
             400
           );
         }
+
 
         if (
           attendance !== "yes" &&
@@ -440,16 +529,11 @@ export default {
           );
         }
 
-        /*
-         * 如果是正式宾客，
-         * 就绑定到 guests.id。
-         *
-         * 如果不是正式宾客，
-         * guestId 就保持 null。
-         *
-         * 所以朋友转发以后，
-         * 也不会被挡住。
-         */
+
+        /* -----------------------------------------------
+           尝试寻找已有宾客
+        ------------------------------------------------ */
+
         const guestResult =
           await env.DB.prepare(`
             SELECT
@@ -462,31 +546,76 @@ export default {
             .bind(guestName)
             .first();
 
-        const guestId =
-          guestResult
-            ? guestResult.id
-            : null;
-
-        const savedGuestName =
-          guestResult
-            ? guestResult.name
-            : guestName;
 
         const submittedAt =
           new Date().toISOString();
 
-        /*
-         * 每一次提交都是一条独立回复。
-         *
-         * 因此：
-         * A 把链接转给 B
-         * B 也可以提交
-         *
-         * 不会因为 A 已经回复，
-         * 就把 B 拦住。
-         */
+
+        /* -----------------------------------------------
+           已存在的宾客
+           
+           guest_id 有值
+           ON CONFLICT 可以更新原来的回复
+        ------------------------------------------------ */
+
+        if (guestResult) {
+
+          await env.DB.prepare(`
+            INSERT INTO replies (
+              guest_id,
+              guest_name,
+              attendance,
+              stay,
+              count,
+              check_in,
+              check_out,
+              message,
+              submitted_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+            ON CONFLICT(guest_id)
+            DO UPDATE SET
+              guest_name = excluded.guest_name,
+              attendance = excluded.attendance,
+              stay = excluded.stay,
+              count = excluded.count,
+              check_in = excluded.check_in,
+              check_out = excluded.check_out,
+              message = excluded.message,
+              submitted_at = excluded.submitted_at
+          `)
+            .bind(
+              guestResult.id,
+              guestResult.name,
+              attendance,
+              stay,
+              count,
+              checkIn,
+              checkOut,
+              message,
+              submittedAt
+            )
+            .run();
+
+
+          return json({
+            success: true,
+            message: "回复已保存",
+          });
+        }
+
+
+        /* -----------------------------------------------
+           不存在于宾客名单的人
+           
+           guest_id = NULL
+           
+           这种留言不会被强制添加到宾客名单。
+        ------------------------------------------------ */
+
         await env.DB.prepare(`
-          INSERT INTO reply_entries (
+          INSERT INTO replies (
             guest_id,
             guest_name,
             attendance,
@@ -500,8 +629,8 @@ export default {
           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         `)
           .bind(
-            guestId,
-            savedGuestName,
+            null,
+            guestName,
             attendance,
             stay,
             count,
@@ -512,13 +641,13 @@ export default {
           )
           .run();
 
+
         return json({
           success: true,
           message: "回复已保存",
         });
 
       } catch (error) {
-
         return json(
           {
             success: false,
@@ -529,11 +658,20 @@ export default {
       }
     }
 
-    /*
-     * ========================================
-     * 管理员查看全部回复
-     * ========================================
-     */
+
+    /* =====================================================
+       后台获取所有回复
+       
+       这里不能再：
+         FROM guests LEFT JOIN replies
+       
+       因为那样会漏掉“未提前添加的访客”。
+       
+       改成：
+         FROM replies LEFT JOIN guests
+       
+       所有公开留言都能显示。
+    ===================================================== */
 
     if (
       url.pathname === "/api/admin/replies" &&
@@ -541,90 +679,53 @@ export default {
     ) {
       try {
 
-        /*
-         * 旧版 replies
-         *
-         * 保留你之前测试成功的数据。
-         */
-        const oldResult =
+        const result =
           await env.DB.prepare(`
             SELECT
               r.id AS reply_id,
-              g.id AS guest_id,
-              g.name AS guest_name,
-              g.sent,
+              r.guest_id AS guest_id,
+
+              COALESCE(
+                g.name,
+                r.guest_name
+              ) AS guest_name,
+
+              COALESCE(
+                g.sent,
+                0
+              ) AS sent,
+
               r.attendance,
               r.stay,
               r.count,
               r.check_in,
               r.check_out,
               r.message,
-              r.submitted_at
+              r.submitted_at,
+
+              CASE
+                WHEN g.id IS NULL
+                THEN 1
+                ELSE 0
+              END AS is_public
+
             FROM replies r
+
             LEFT JOIN guests g
               ON g.id = r.guest_id
-            ORDER BY r.id DESC
+
+            ORDER BY
+              r.id DESC
           `).all();
 
-        /*
-         * 新版 reply_entries
-         */
-        const newResult =
-          await env.DB.prepare(`
-            SELECT
-              r.id AS reply_id,
-              r.guest_id,
-              r.guest_name,
-              COALESCE(g.sent, 0) AS sent,
-              r.attendance,
-              r.stay,
-              r.count,
-              r.check_in,
-              r.check_out,
-              r.message,
-              r.submitted_at
-            FROM reply_entries r
-            LEFT JOIN guests g
-              ON g.id = r.guest_id
-            ORDER BY r.id DESC
-          `).all();
-
-        const oldReplies =
-          (oldResult.results || []).map(
-            reply => ({
-              ...reply,
-              source: "legacy",
-            })
-          );
-
-        const newReplies =
-          (newResult.results || []).map(
-            reply => ({
-              ...reply,
-              source: "entry",
-            })
-          );
-
-        const replies = [
-          ...oldReplies,
-          ...newReplies,
-        ].sort(
-          (a, b) =>
-            new Date(
-              b.submitted_at || 0
-            ).getTime() -
-            new Date(
-              a.submitted_at || 0
-            ).getTime()
-        );
 
         return json({
           success: true,
-          replies,
+          replies:
+            result.results || [],
         });
 
       } catch (error) {
-
         return json(
           {
             success: false,
@@ -635,11 +736,10 @@ export default {
       }
     }
 
-    /*
-     * ========================================
-     * 其他静态文件
-     * ========================================
-     */
+
+    /* =====================================================
+       其他请求交给静态资源
+    ===================================================== */
 
     return env.ASSETS.fetch(request);
   },
